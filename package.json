@@ -1,0 +1,20 @@
+{
+  "name": "ts-p5-playground",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run bundle-dts && tsc && vite build",
+    "preview": "vite preview",
+    "bundle-dts": "node ./utils/generateTypeDefBundle.cjs ./node_modules/@types/p5 ./src/p5-dts.ts"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.50.0",
+    "typescript": "^5.5.3"
+  },
+  "devDependencies": {
+    "@types/p5": "^1.7.6",
+    "vite": "^5.4.0"
+  }
+}
