@@ -1,7 +1,7 @@
 import "./style.css";
 import tsTypeDefs from "./ts-dts";
 import p5TypeDefs from "./p5-dts";
-import ts, { getConfigFileParsingDiagnostics } from "typescript";
+import ts from "typescript";
 import * as monaco from "monaco-editor";
 import "./editor";
 import { exercise1 } from "./exercise";
@@ -15,8 +15,9 @@ monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
 
 const editor = document.getElementById("editor")! as HTMLDivElement;
 const run = document.getElementById("run")! as HTMLButtonElement;
-const iframe = document.getElementById("resultFrame")! as HTMLIFrameElement;
+const iframe = document.getElementById("result-frame")! as HTMLIFrameElement;
 const fileNames = document.getElementById("fileNames")! as HTMLSelectElement;
+const output = document.getElementById("output-content")! as HTMLPreElement;
 
 run.addEventListener("click", runCode);
 
@@ -45,7 +46,8 @@ fileNames.addEventListener("change", function () {
 });
 
 function runCode() {
-  let jsCode: string = "";
+  let fileContents = new Map<string, string>();
+
   const compilerHost = {
     getSourceFile: (fileName: any, languageVersion: any) => {
       console.log(`getSourceFile: ${fileName}`);
@@ -86,9 +88,9 @@ function runCode() {
         console.log(`${line}`);
       }
 
-      jsCode = data;
+      fileContents.set(fileName, data);
     },
-    getDefaultLibFileName: (options: any) => `lib.esnext.d.ts`,
+    getDefaultLibFileName: (_options: any) => `lib.esnext.d.ts`,
     useCaseSensitiveFileNames: () => true,
     getCanonicalFileName: (fileName: any) => fileName,
     getCurrentDirectory: () => "",
@@ -100,15 +102,16 @@ function runCode() {
     },
   };
 
-  const ppfr = ts.preProcessFile(files.getFile("index.ts")!.model.getValue(), true, true);
+  //const _ = ts.preProcessFile(files.getFile("index.ts")!.model.getValue(), true, true);
 
   const program = ts.createProgram(
     [...files.getFileNames(), './p5/global.d.ts'],
     {
-      module: ts.ModuleKind.ESNext,
+      module: ts.ModuleKind.None,
       target: ts.ScriptTarget.ESNext,
       sourceMap: false,
       skipLibCheck: true,
+      lib: ["lib.esnext.d.ts", "lib.dom.d.ts"],
     },
     compilerHost
   );
@@ -117,6 +120,7 @@ function runCode() {
     .getPreEmitDiagnostics(program)
     .concat(emitResult.diagnostics);
 
+  output.innerText = "";
   allDiagnostics.forEach((diagnostic) => {
     if (diagnostic.file) {
       let { line, character } = ts.getLineAndCharacterOfPosition(
@@ -127,20 +131,36 @@ function runCode() {
         diagnostic.messageText,
         "\n"
       );
-      console.log(
-        `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`
-      );
+      output.innerText += `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}\n`;
     } else {
-      console.log(
-        ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n")
-      );
+      output.innerText += ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n");
     }
   });
 
   // const jsCode = ts.transpile(editor.innerText);
 
-  const jsBlob = new Blob([jsCode], { type: "application/javascript" });
-  const jsUrl = URL.createObjectURL(jsBlob);
+  let topScripts = ``;
+  for (const [fileName, content] of fileContents) {
+    if (fileName !== "index.js") {
+      topScripts += `<script>${content}</script>`;
+    }
+  }
+  const bodyScripts = `<script>${fileContents.get("index.js")}</script>`;
+
+  // let indexCode = fileContents.get("index.js")!;
+
+  // // With regex, find all occurences of " from "./<something>.js"
+  // const imports = indexCode.match(/ from "\.\/\w+\.js"/g);
+  // if (imports) {
+  //   for (const imp of imports) {
+  //     const fileName = imp.substring(9, imp.length - 1);
+  //     const fileContent = fileContents.get(fileName)!;
+  //     indexCode = indexCode.replace(imp, ` from "data:text/javascript;base64,${btoa(fileContent)}"`);
+  //   }
+  // }
+
+  // const jsBlob = new Blob([indexCode], { type: "application/javascript" });
+  // const jsUrl = URL.createObjectURL(jsBlob);
 
   const blob = new Blob(
     [
@@ -151,13 +171,14 @@ function runCode() {
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
+    ${topScripts}
     </head>
   <body>
-    <script src="mycode.js"></script>
+    ${bodyScripts}
   </body>
 </html>
-`.replace("mycode.js", jsUrl),
+`,
     ],
     { type: "text/html" }
   );
@@ -167,8 +188,9 @@ function runCode() {
 
 document.addEventListener("DOMContentLoaded", function () {
   Split(["#editor", "#result-area"], { direction: "horizontal" });
-  Split(["#result-frame", "#output"], {
+  Split(["#result", "#output"], {
     direction: "vertical",
     minSize: [10, 10],
+    sizes: [80, 20],
   })
 });

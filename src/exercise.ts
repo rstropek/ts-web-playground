@@ -13,26 +13,26 @@ export type Exercise = {
 export const exercise1: Exercise = {
   files: {
     "index.ts": {
-      content: `/// <reference types="p5/global.d.ts" />
-import { getColor } from "./color.js";
-
-function setup() {
-  createCanvas(400, 401);
+      content: `function setup() {
+  createCanvas(200, 200);
+  console.log('Setup is done');
 }
 
 function draw() {
   background(getColor());
-}`,
+}
+`,
       isEditable: true,
     },
     "color.ts": {
-      content: `export function getColor() { return 220; }`,
+      content: `function getColor() { return 'red'; }`,
       isEditable: false,
     },
   },
   compilerOptions: {
     target: monaco.languages.typescript.ScriptTarget.ESNext,
     allowSyntheticDefaultImports: true,
-    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+    //moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+    module: monaco.languages.typescript.ModuleKind.None,
   },
 };
