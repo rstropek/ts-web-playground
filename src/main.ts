@@ -6,6 +6,7 @@ import * as monaco from "monaco-editor";
 import "./editor";
 import { exercise1 } from "./exercise";
 import { Files } from "./files";
+import Split from "split.js";
 
 const files = new Files(exercise1);
 monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
@@ -165,34 +166,9 @@ function runCode() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const divider = document.getElementById("divider")!;
-  const leftPane = document.getElementById("editor")!;
-  const rightPane = document.getElementById("resultFrame")!;
-
-  let isDragging = false;
-
-  divider.addEventListener("mousedown", function () {
-    isDragging = true;
-    document.body.style.cursor = "col-resize";
-    rightPane.hidden = true;
-  });
-
-  document.addEventListener("mousemove", function (e) {
-    if (!isDragging) return;
-
-    const containerOffsetLeft = leftPane.parentElement!.offsetLeft;
-    const pointerRelativeXpos = e.clientX - containerOffsetLeft;
-    const parentWidth = leftPane.parentElement!.offsetWidth;
-    const leftPaneWidth = pointerRelativeXpos;
-    const rightPaneWidth = parentWidth - leftPaneWidth;
-
-    leftPane.style.width = `${leftPaneWidth}px`;
-    rightPane.style.width = `${rightPaneWidth}px`;
-  });
-
-  document.addEventListener("mouseup", function () {
-    isDragging = false;
-    document.body.style.cursor = "default";
-    rightPane.hidden = false;
-  });
+  Split(["#editor", "#result-area"], { direction: "horizontal" });
+  Split(["#result-frame", "#output"], {
+    direction: "vertical",
+    minSize: [10, 10],
+  })
 });

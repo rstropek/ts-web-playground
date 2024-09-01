@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "monaco-editor": "^0.50.0",
+    "split.js": "^1.6.5",
     "typescript": "^5.5.3"
   },
   "devDependencies": {
