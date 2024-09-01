@@ -1,115 +1,149 @@
-import './style.css'
-import ts from 'typescript';
-import * as monaco from 'monaco-editor';
-import p5TypeDefs from './p5-dts';
+import "./style.css";
+import tsTypeDefs from "./ts-dts";
+import p5TypeDefs from "./p5-dts";
+import ts, { getConfigFileParsingDiagnostics } from "typescript";
+import * as monaco from "monaco-editor";
+import "./editor";
+import { exercise1 } from "./exercise";
+import { Files } from "./files";
 
-// @ts-ignore
-import monacoJsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
-// @ts-ignore
-import monacoCssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
-// @ts-ignore
-import monacoHtmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
-// @ts-ignore
-import monacoTsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
-// @ts-ignore
-import monacoEditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
+const files = new Files(exercise1);
+monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
+  exercise1.compilerOptions
+);
 
-self.MonacoEnvironment = {
-  getWorker: function (workerId, label) {
-    console.debug(`* lazy imported Monaco Editor worker id '${workerId}', label '${label}'`)
-    switch (label) {
-      case 'json':
-        return new monacoJsonWorker()
-      case 'css':
-      case 'scss':
-      case 'less':
-        return new monacoCssWorker()
-      case 'html':
-      case 'handlebars':
-      case 'razor':
-        return new monacoHtmlWorker()
-      case 'typescript':
-      case 'javascript':
-        return new monacoTsWorker()
-      default:
-        return new monacoEditorWorker()
-    }
-  }
+const editor = document.getElementById("editor")! as HTMLDivElement;
+const run = document.getElementById("run")! as HTMLButtonElement;
+const iframe = document.getElementById("resultFrame")! as HTMLIFrameElement;
+const fileNames = document.getElementById("fileNames")! as HTMLSelectElement;
+
+run.addEventListener("click", runCode);
+
+for (const fileName of files.getFileNames()) {
+  const option = document.createElement("option");
+  option.value = fileName;
+  option.text = fileName;
+  fileNames.appendChild(option);
 }
 
-const editor = document.getElementById('editor')! as HTMLDivElement;
-const run = document.getElementById('run')! as HTMLButtonElement;
-const iframe = document.getElementById('resultFrame')! as HTMLIFrameElement;
-
-run.addEventListener('click', runCode);
-
-const uri = monaco.Uri.parse('file:///index.ts');
-monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-  target: monaco.languages.typescript.ScriptTarget.ESNext,
-  allowSyntheticDefaultImports: true,
-  moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+const initialFile = files.getFile("index.ts");
+const monacoEditor = monaco.editor.create(editor, {
+  model: initialFile!.model,
+  language: "typescript",
+  automaticLayout: true,
+  readOnly: !initialFile?.isEditable,
 });
-for (const dts in p5TypeDefs) {
-  console.log(`file:///node_modules/@types/p5/${dts}`);
-  
-  monaco.languages.typescript.typescriptDefaults.addExtraLib(p5TypeDefs[dts], `file:///node_modules/@types/p5/${dts}`);
-}
-const model = monaco.editor.createModel(`
-  /// <reference types="p5/global" />
-  // import p5 from 'p5'; 
 
-  // let p: p5;
-  // new p5((p5: p5) => {
-  //   p = p5;
-  //   p.setup = setup;
-  // });
-
-function setup() {
-  createCanvas(400, 401);
-}
-
-function draw() {
-  background(220);
-}
-  `, "typescript", uri);
-monaco.editor.create(editor, {
-  model,
-  language: 'typescript',
+fileNames.addEventListener("change", function () {
+  const fileName = fileNames.value;
+  const model = files.getFile(fileName)!.model;
+  monacoEditor.setModel(model);
+  monacoEditor.updateOptions({
+    readOnly: !files.getFile(fileName)!.isEditable,
   });
+});
 
 function runCode() {
-  const files: { [key: string]: string } = {
-    'index.ts': editor.innerText,
-  };
-
-  let jsCode: string = '';
+  let jsCode: string = "";
   const compilerHost = {
     getSourceFile: (fileName: any, languageVersion: any) => {
-        console.log(`getSourceFile: ${fileName}`);
-        const sourceText = files[fileName];
-        return sourceText !== undefined ? ts.createSourceFile(fileName, sourceText, languageVersion) : undefined;
+      console.log(`getSourceFile: ${fileName}`);
+      const sourceText = files.getFile(fileName)?.model.getValue();
+      //console.log(`getSourceFile: ${sourceText}`);
+      if (!sourceText) {
+        if (fileName.startsWith("p5/")) {
+          console.log(`Found p5TypeDefs: ${fileName}`);
+          return ts.createSourceFile(
+            fileName,
+            p5TypeDefs[fileName.substring(3)],
+            languageVersion
+          );
+        } else if (fileName.startsWith("node_modules/@types/p5/")) {
+          console.log(`Found p5TypeDefs: ${fileName}`);
+          return ts.createSourceFile(
+            fileName,
+            p5TypeDefs[fileName.substring(23)],
+            languageVersion
+          );
+        } else if (tsTypeDefs.hasOwnProperty(fileName)) {
+          console.log(`Found tsTypeDefs: ${fileName}`);
+          return ts.createSourceFile(
+            fileName,
+            tsTypeDefs[fileName],
+            languageVersion
+          );
+        }
+      }
+
+      return sourceText !== undefined
+        ? ts.createSourceFile(fileName, sourceText, languageVersion)
+        : undefined;
     },
-    writeFile: (fileName: any, data: any ) => {
-        jsCode = data;
+    writeFile: (fileName: any, data: any) => {
+      console.log(`writeFile: ${fileName}`);
+      for (const line of data.split("\n")) {
+        console.log(`${line}`);
+      }
+
+      jsCode = data;
     },
-    getDefaultLibFileName: (options: any) => `https://cdnjs.cloudflare.com/ajax/libs/typescript/4.9.5/lib/lib.d.ts`,
+    getDefaultLibFileName: (options: any) => `lib.esnext.d.ts`,
     useCaseSensitiveFileNames: () => true,
     getCanonicalFileName: (fileName: any) => fileName,
-    getCurrentDirectory: () => '',
-    getNewLine: () => '\n',
-    fileExists: (fileName: any) => files[fileName] !== undefined,
-    readFile: (fileName: any) => files[fileName]
-};
+    getCurrentDirectory: () => "",
+    getNewLine: () => "\n",
+    fileExists: (fileName: any) => files.getFile(fileName) !== undefined,
+    readFile: (fileName: any) => {
+      console.log(`readFile: ${fileName}`);
+      return files.getFile(fileName)?.model.getValue();
+    },
+  };
 
-const program = ts.createProgram(['index.ts'], { module: ts.ModuleKind.CommonJS, moduleResolution: ts.ModuleResolutionKind.NodeNext }, compilerHost);
-program.emit();
+  const ppfr = ts.preProcessFile(files.getFile("index.ts")!.model.getValue(), true, true);
+
+  const program = ts.createProgram(
+    [...files.getFileNames(), './p5/global.d.ts'],
+    {
+      module: ts.ModuleKind.ESNext,
+      target: ts.ScriptTarget.ESNext,
+      sourceMap: false,
+      skipLibCheck: true,
+    },
+    compilerHost
+  );
+  const emitResult = program.emit();
+  let allDiagnostics = ts
+    .getPreEmitDiagnostics(program)
+    .concat(emitResult.diagnostics);
+
+  allDiagnostics.forEach((diagnostic) => {
+    if (diagnostic.file) {
+      let { line, character } = ts.getLineAndCharacterOfPosition(
+        diagnostic.file,
+        diagnostic.start!
+      );
+      let message = ts.flattenDiagnosticMessageText(
+        diagnostic.messageText,
+        "\n"
+      );
+      console.log(
+        `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`
+      );
+    } else {
+      console.log(
+        ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n")
+      );
+    }
+  });
 
   // const jsCode = ts.transpile(editor.innerText);
 
-  const jsBlob = new Blob([jsCode], { type: 'application/javascript' });
+  const jsBlob = new Blob([jsCode], { type: "application/javascript" });
   const jsUrl = URL.createObjectURL(jsBlob);
 
-  const blob = new Blob([`
+  const blob = new Blob(
+    [
+      `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -122,7 +156,43 @@ program.emit();
     <script src="mycode.js"></script>
   </body>
 </html>
-`.replace('mycode.js', jsUrl)], { type: 'text/html' });
+`.replace("mycode.js", jsUrl),
+    ],
+    { type: "text/html" }
+  );
   const url = URL.createObjectURL(blob);
-    iframe.src = url;
+  iframe.src = url;
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const divider = document.getElementById("divider")!;
+  const leftPane = document.getElementById("editor")!;
+  const rightPane = document.getElementById("resultFrame")!;
+
+  let isDragging = false;
+
+  divider.addEventListener("mousedown", function () {
+    isDragging = true;
+    document.body.style.cursor = "col-resize";
+    rightPane.hidden = true;
+  });
+
+  document.addEventListener("mousemove", function (e) {
+    if (!isDragging) return;
+
+    const containerOffsetLeft = leftPane.parentElement!.offsetLeft;
+    const pointerRelativeXpos = e.clientX - containerOffsetLeft;
+    const parentWidth = leftPane.parentElement!.offsetWidth;
+    const leftPaneWidth = pointerRelativeXpos;
+    const rightPaneWidth = parentWidth - leftPaneWidth;
+
+    leftPane.style.width = `${leftPaneWidth}px`;
+    rightPane.style.width = `${rightPaneWidth}px`;
+  });
+
+  document.addEventListener("mouseup", function () {
+    isDragging = false;
+    document.body.style.cursor = "default";
+    rightPane.hidden = false;
+  });
+});

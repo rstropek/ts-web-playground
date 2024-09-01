@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run bundle-dts && tsc && vite build",
+    "build": "npm run bundle-p5-dts && npm run bundle-ts-dts && tsc && vite build",
     "preview": "vite preview",
-    "bundle-dts": "node ./utils/generateTypeDefBundle.cjs ./node_modules/@types/p5 ./src/p5-dts.ts"
+    "bundle-p5-dts": "node ./utils/generateTypeDefBundle.cjs ./node_modules/@types/p5 ./src/p5-dts.ts",
+    "bundle-ts-dts": "node ./utils/generateTypeDefBundle.cjs ./node_modules/typescript/lib ./src/ts-dts.ts"
   },
   "dependencies": {
     "monaco-editor": "^0.50.0",
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "@types/p5": "^1.7.6",
+    "minimatch": "^10.0.1",
     "vite": "^5.4.0"
   }
 }

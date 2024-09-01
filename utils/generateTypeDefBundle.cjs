@@ -1,8 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+const { minimatch } = require('minimatch');
 
 const inputFolder = process.argv[2];
 const outputFileName = process.argv[3] || 'output.ts';
+const fileNameExpressions = process.argv[4] ? process.argv[4].split(',') : ['*.d.ts'];
 
 if (!inputFolder) {
   console.error('Please provide a folder name as an argument.');
@@ -18,7 +20,7 @@ function findFiles(dir) {
     const stat = fs.statSync(fullPath);
     if (stat.isDirectory()) {
       findFiles(fullPath);
-    } else if (file.endsWith('.d.ts')) {
+    } else if (fileNameExpressions.some(expr => minimatch(file, expr))) {
       const relativePath = path.relative(inputFolder, fullPath);
       const content = fs.readFileSync(fullPath, 'utf-8');
       result[relativePath] = content;
