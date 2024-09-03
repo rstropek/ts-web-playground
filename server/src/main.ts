@@ -1,16 +1,18 @@
 import express from "express";
 import cors from "cors";
-import pino from "pino";
 import pinoHTTP from "pino-http";
 import dotenv from "dotenv";
 import * as msal from "@azure/msal-node";
-import graph from "@microsoft/microsoft-graph-client";
 import identity from "@azure/identity";
 import kv from "@azure/keyvault-secrets";
-import { getConfidentialClientApplication } from "./helpers/authHelper.js";
-import { getSessionMiddleware } from "./helpers/sessionHelper.js";
+import hbs from "hbs";
+import path from "path";
+import { fileURLToPath } from 'url';
 
-const logger = pino.default();
+import { ensureAuthenticated, getConfidentialClientApplication } from "./helpers/authHelper.js";
+import { getSessionMiddleware } from "./helpers/sessionHelper.js";
+import logger from "./helpers/logging.js";
+import { getUserDetails } from "./helpers/graphHelper.js";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 if (isDevelopment) {
@@ -30,18 +32,27 @@ if (!process.env.KEY_VAULT_URL) {
 const credential = new identity.DefaultAzureCredential();
 const kvClient = new kv.SecretClient(process.env.KEY_VAULT_URL, credential);
 
-const pca = await getConfidentialClientApplication(kvClient, logger);
+const pca = await getConfidentialClientApplication(kvClient);
 if (!pca) {
   logger.error("Failed to get MSAL ConfidentialClientApplication");
   process.exit(1);
 }
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "hbs");
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 app.use(cors());
-app.use(pinoHTTP.default({ logger }));
+app.use(pinoHTTP.default);
 
-const sessionMiddleware = await getSessionMiddleware(credential, kvClient, logger);
+if (process.env.LOG_REQUESTS) {
+  app.use(pinoHTTP.default({ logger }));
+}
+
+const sessionMiddleware = await getSessionMiddleware(credential, kvClient);
 if (!sessionMiddleware) {
   logger.error("Failed to get session middleware");
   process.exit(1);
@@ -59,18 +70,6 @@ app.get("/login", async (req, res) => {
   const response = await pca.getAuthCodeUrl(authCodeUrlParameters);
   res.redirect(response);
 });
-
-type User = {
-  user: string;
-  token: string;
-};
-
-declare module "express-session" {
-  interface SessionData {
-    user: msal.AccountInfo;
-    token: string;
-  }
-}
 
 // Auth callback route
 app.get("/auth/callback", async (req, res) => {
@@ -92,16 +91,27 @@ app.get("/auth/callback", async (req, res) => {
     }
   });
 
-  res.redirect("/dashboard");
+  const redirectUrl = req.session.returnTo || "/";
+  delete req.session.returnTo; // Clear the returnTo value in the session
+  res.redirect(redirectUrl);
 });
 
 // Dashboard Route (Protected)
-app.get("/dashboard", (req, res) => {
+app.get("/dashboard", ensureAuthenticated, (req, res) => {
   if (!req.session.user) {
     return res.redirect("/login");
   }
 
   res.send(`<h1>Welcome, ${req.session.user.username}</h1><a href="/logout">Logout</a>`);
+});
+
+// Dashboard Route (Protected)
+app.get("/dummy", ensureAuthenticated, (req, res) => {
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+
+  res.send(`<h1>Dummy</h1>`);
 });
 
 // Logout Route
@@ -113,55 +123,10 @@ app.get("/logout", (req, res) => {
 
 // Home Route
 app.get("/", (req, res) => {
-  res.send('<h1>Home</h1><a href="/login">Login with Azure AD</a>');
+  res.render("index");
+  //res.send('<h1>Home</h1><a href="/login">Login with Azure AD</a>');
 });
 const PORT = process.env["PORT"] || 8080;
 app.listen(PORT, () => {
   logger.info({ PORT }, "Listening");
 });
-
-function getAuthenticatedClient(msalClient: msal.ConfidentialClientApplication, userId: string) {
-  if (!msalClient || !userId) {
-    throw new Error(`Invalid MSAL state. Client: ${msalClient ? "present" : "missing"}, User ID: ${userId ? "present" : "missing"}`);
-  }
-
-  // Initialize Graph client
-  const client = graph.Client.init({
-    // Implement an auth provider that gets a token
-    // from the app's MSAL instance
-    authProvider: async (done) => {
-      try {
-        // Get the user's account
-        const account = await msalClient.getTokenCache().getAccountByHomeId(userId);
-
-        if (account) {
-          // Attempt to get the token silently
-          // This method uses the token cache and
-          // refreshes expired tokens as needed
-          const scopes = ["user.read"];
-          const response = await msalClient.acquireTokenSilent({
-            scopes: scopes,
-            redirectUri: process.env.OAUTH_REDIRECT_URI,
-            account: account,
-          });
-
-          // First param to callback is the error,
-          // Set to null in success case
-          done(null, response.accessToken);
-        }
-      } catch (err) {
-        console.log(JSON.stringify(err, Object.getOwnPropertyNames(err)));
-        done(err, null);
-      }
-    },
-  });
-
-  return client;
-}
-
-async function getUserDetails(msalClient: msal.ConfidentialClientApplication, userId: string) {
-  const client = getAuthenticatedClient(msalClient, userId);
-
-  const user = await client.api("/me").select("givenName,surname,displayName,mail,userPrincipalName,otherMails").get();
-  return user;
-}

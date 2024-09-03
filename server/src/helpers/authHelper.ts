@@ -1,13 +1,23 @@
 import kv from "@azure/keyvault-secrets";
-import pino from "pino";
 import * as msal from "@azure/msal-node";
+import logger from "./logging.js";
+import express from "express";
+import { SessionData } from "express-session";
 
-export async function getConfidentialClientApplication(kvClient: kv.SecretClient, logger: pino.Logger): Promise<msal.ConfidentialClientApplication | undefined> {
-  const entraClientId = await kvClient.getSecret("ENTRY-CLIENT-ID");
+declare module "express-session" {
+  interface SessionData {
+    user: msal.AccountInfo | undefined;
+    token: string | undefined;
+    returnTo: string | undefined
+  }
+}
+
+export async function getConfidentialClientApplication(kvClient: kv.SecretClient): Promise<msal.ConfidentialClientApplication | undefined> {
+  const entraClientId = await kvClient.getSecret("ENTRA-CLIENT-ID");
   const entraClientSecret = await kvClient.getSecret("ENTRA-CLIENT-SECRET");
   const entraTenantId = await kvClient.getSecret("ENTRA-TENANT-ID");
   if (!entraClientId || !entraClientSecret || !entraTenantId || !entraClientId.value || !entraClientSecret.value || !entraTenantId.value) {
-    logger.error("Secrets ENTRY-CLIENT-ID, ENTRA-CLIENT-SECRET, or ENTRA-TENANT-ID not found in Key Vault");
+    logger.error("Secrets ENTRA-CLIENT-ID, ENTRA-CLIENT-SECRET, or ENTRA-TENANT-ID not found in Key Vault");
     return;
   }
   const msalConfig: msal.Configuration = {
@@ -42,4 +52,18 @@ export async function getConfidentialClientApplication(kvClient: kv.SecretClient
 
   const pca = new msal.ConfidentialClientApplication(msalConfig);
   return pca;
+}
+
+export function ensureAuthenticated(req: express.Request, res: express.Response, next: express.NextFunction) {
+  if (req.session.user) {
+    return next(); // User is authenticated, proceed to the next middleware
+  } else {
+    // Store the original URL the user requested
+    req.session.returnTo = req.originalUrl;
+    res.redirect('/login'); // Redirect to login
+  }
+}
+
+export function isAuthenticated(session: SessionData): boolean {
+  return session.user !== undefined;
 }
