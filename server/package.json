@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@azure/cosmos": "^4.1.1",
     "@azure/identity": "^4.4.1",
     "@azure/keyvault-secrets": "^4.8.0",
     "@microsoft/microsoft-graph-client": "^3.0.7",

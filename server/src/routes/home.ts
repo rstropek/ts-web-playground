@@ -1,5 +1,4 @@
 import express from "express";
-import logger from '../helpers/logging.js';
 import { ensureAuthenticated } from "../helpers/authHelper.js";
 
 const router = express.Router();

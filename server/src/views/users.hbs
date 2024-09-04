@@ -1,0 +1,24 @@
+<h2>Users</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Account Name</th>
+            <th>First Login</th>
+            <th>Last Login</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each users}}
+        <tr>
+            <td>{{firstName}}</td>
+            <td>{{lastName}}</td>
+            <td>{{accountName}}</td>
+            <td>{{firstLogin}}</td>
+            <td>{{lastLogin}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

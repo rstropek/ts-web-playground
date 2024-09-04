@@ -56,7 +56,7 @@ export async function getConfidentialClientApplication(kvClient: kv.SecretClient
   return pca;
 }
 
-export function ensureAuthenticated(req: express.Request, res: express.Response, next: express.NextFunction) {
+export async function ensureAuthenticated(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
   if (isAuthenticated(req.session)) {
     return next(); // User is authenticated, proceed to the next middleware
   } else {
