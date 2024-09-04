@@ -5,19 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "name": "Launch",
             "request": "launch",
-            "name": "Launch Program",
+            "runtimeArgs": [
+                "start"
+            ],
+            "runtimeExecutable": "npm",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${file}",
+            "type": "node",
             "preLaunchTask": "build",
-            "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
-            ],
             "env": {
-                "NODE_ENV": "development"
+                "NODE_ENV": "development",
+                "LOG_REQUESTS": "true"
             },
             "console": "integratedTerminal"
         }

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc && cp -r src/views dist/",
-    "start": "npm run build && node ./dist/main.js"
+    "start": "npm run build && node ./dist/main.js | pino-pretty"
   },
   "keywords": [],
   "author": "",
@@ -15,11 +15,12 @@
     "@azure/identity": "^4.4.1",
     "@azure/keyvault-secrets": "^4.8.0",
     "@microsoft/microsoft-graph-client": "^3.0.7",
+    "@types/express-handlebars": "^5.3.1",
     "connect-redis": "^7.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "hbs": "^4.2.0",
+    "express-handlebars": "^8.0.1",
     "ioredis": "^5.4.1",
     "openai": "^4.57.0",
     "pino": "^9.3.2",
@@ -29,7 +30,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/express-session": "^1.18.0",
-    "@types/hbs": "^4.0.4",
+    "pino-pretty": "^11.2.2",
     "typescript": "^5.5.4"
   }
 }

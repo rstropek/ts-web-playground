@@ -5,19 +5,18 @@ import dotenv from "dotenv";
 import * as msal from "@azure/msal-node";
 import identity from "@azure/identity";
 import kv from "@azure/keyvault-secrets";
-import hbs from "hbs";
+import { engine } from "express-handlebars";
 import path from "path";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 
 import { ensureAuthenticated, getConfidentialClientApplication } from "./helpers/authHelper.js";
 import { getSessionMiddleware } from "./helpers/sessionHelper.js";
 import logger from "./helpers/logging.js";
 import { getUserDetails } from "./helpers/graphHelper.js";
+import home from "./routes/home.js";
 
 const isDevelopment = process.env.NODE_ENV === "development";
-if (isDevelopment) {
-  logger.info("Starting with {configuration} configuration", isDevelopment ? "development" : "production");
-}
+logger.info({ configuration: isDevelopment ? "development" : "production" }, "Start configuration");
 
 dotenv.config({
   path: ".env",
@@ -41,12 +40,16 @@ if (!pca) {
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
-hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
+app.engine("hbs", engine({
+  extname: "hbs",
+  defaultLayout: "layout",
+  layoutsDir: path.join(__dirname, "views", "layouts"),
+  partialsDir: path.join(__dirname, "views", "partials"),
+}));
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(cors());
-app.use(pinoHTTP.default);
 
 if (process.env.LOG_REQUESTS) {
   app.use(pinoHTTP.default({ logger }));
@@ -121,11 +124,13 @@ app.get("/logout", (req, res) => {
   });
 });
 
-// Home Route
-app.get("/", (req, res) => {
-  res.render("index");
-  //res.send('<h1>Home</h1><a href="/login">Login with Azure AD</a>');
+app.use("/", home);
+
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  logger.error(err);
+  res.status(500).send();
 });
+
 const PORT = process.env["PORT"] || 8080;
 app.listen(PORT, () => {
   logger.info({ PORT }, "Listening");
