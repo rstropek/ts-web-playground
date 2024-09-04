@@ -6,9 +6,11 @@ import { SessionData } from "express-session";
 
 declare module "express-session" {
   interface SessionData {
-    user: msal.AccountInfo | undefined;
-    token: string | undefined;
-    returnTo: string | undefined
+    userId?: string;
+    firstName?: string;
+    lastName?: string;
+    accountName?: string;
+    returnTo?: string;
   }
 }
 
@@ -55,7 +57,7 @@ export async function getConfidentialClientApplication(kvClient: kv.SecretClient
 }
 
 export function ensureAuthenticated(req: express.Request, res: express.Response, next: express.NextFunction) {
-  if (req.session.user) {
+  if (isAuthenticated(req.session)) {
     return next(); // User is authenticated, proceed to the next middleware
   } else {
     // Store the original URL the user requested
@@ -65,5 +67,5 @@ export function ensureAuthenticated(req: express.Request, res: express.Response,
 }
 
 export function isAuthenticated(session: SessionData): boolean {
-  return session.user !== undefined;
+  return session.userId !== undefined;
 }

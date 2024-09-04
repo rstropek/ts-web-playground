@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc && cp -r src/views dist/",
+    "build": "tsc && cp -r src/views dist/ && cp -r src/public dist/ && mkdir -p dist/public/libs && cp ./node_modules/p5js/p5.js/*.js dist/public/libs/",
     "start": "npm run build && node ./dist/main.js | pino-pretty"
   },
   "keywords": [],
@@ -30,6 +30,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/express-session": "^1.18.0",
+    "p5js": "^1.2.18",
     "pino-pretty": "^11.2.2",
     "typescript": "^5.5.4"
   }

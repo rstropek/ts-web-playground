@@ -1,10 +1,15 @@
 import express from "express";
 import logger from '../helpers/logging.js';
+import { ensureAuthenticated } from "../helpers/authHelper.js";
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.render("index");
+  res.render("home");
+});
+
+router.get("/main", ensureAuthenticated, (req, res) => {
+  res.render("main", { firstName: req.session.firstName });
 });
 
 export default router;

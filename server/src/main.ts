@@ -86,34 +86,28 @@ app.get("/auth/callback", async (req, res) => {
 
   const user = await getUserDetails(pca, response.account?.homeAccountId!);
 
-  req.session.user = response.account!;
-  req.session.token = response.accessToken;
+  req.session.userId = response.account?.homeAccountId;
+  req.session.accountName = response.account?.username;
+  req.session.firstName = user.givenName;
+  req.session.lastName = user.surname;
   req.session.save((err) => {
     if (err) {
       logger.error(err);
     }
   });
 
-  const redirectUrl = req.session.returnTo || "/";
+  const redirectUrl = req.session.returnTo || "/main";
   delete req.session.returnTo; // Clear the returnTo value in the session
   res.redirect(redirectUrl);
 });
 
 // Dashboard Route (Protected)
 app.get("/dashboard", ensureAuthenticated, (req, res) => {
-  if (!req.session.user) {
-    return res.redirect("/login");
-  }
-
-  res.send(`<h1>Welcome, ${req.session.user.username}</h1><a href="/logout">Logout</a>`);
+  res.send(`<h1>Welcome, ${req.session.accountName}</h1><a href="/logout">Logout</a>`);
 });
 
 // Dashboard Route (Protected)
 app.get("/dummy", ensureAuthenticated, (req, res) => {
-  if (!req.session.user) {
-    return res.redirect("/login");
-  }
-
   res.send(`<h1>Dummy</h1>`);
 });
 
@@ -125,6 +119,8 @@ app.get("/logout", (req, res) => {
 });
 
 app.use("/", home);
+
+app.use("/playground", ensureAuthenticated, express.static(path.join(__dirname, 'public', 'p5playground')));
 
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   logger.error(err);

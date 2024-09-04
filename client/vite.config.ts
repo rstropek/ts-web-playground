@@ -1,6 +1,7 @@
 const prefix = `monaco-editor/esm/vs`
 
 const optimizeDeps = {
+    base: '',
     include: [
       `${prefix}/language/json/json.worker`,
       `${prefix}/language/css/css.worker`,
