@@ -2,6 +2,23 @@ html {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-td {
+table {
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+td, th {
     padding: 10px;
+    border: 1px solid black;
+}
+
+form.edit {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: min-content minmax(0, 500px);;
+
+}
+
+form.edit label {
+    padding-right: 5px;
 }

@@ -5,6 +5,8 @@ export type UserMasterData = {
   accountName: string;
   firstName: string;
   lastName: string;
+  repository?: string;
+  class?: string;
 };
 
 export type User = UserMasterData & {

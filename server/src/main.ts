@@ -7,6 +7,7 @@ import kv from "@azure/keyvault-secrets";
 import { engine } from "express-handlebars";
 import path from "path";
 import { fileURLToPath } from "url";
+import bodyParser from "body-parser";
 
 import { ensureAuthenticated, getConfidentialClientApplication } from "./helpers/authHelper.js";
 import { getSessionMiddleware } from "./helpers/sessionHelper.js";
@@ -53,6 +54,19 @@ app.engine("hbs", engine({
   defaultLayout: "layout",
   layoutsDir: path.join(__dirname, "views", "layouts"),
   partialsDir: path.join(__dirname, "views", "partials"),
+  helpers: {
+    dateFormat(dateStr: string) {
+      const options: Intl.DateTimeFormatOptions = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      };
+      return new Date(dateStr).toLocaleString('de-AT', options).replace(',', '');
+    },
+  }
 }));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
@@ -70,7 +84,10 @@ if (!sessionMiddleware) {
 }
 app.use(sessionMiddleware);
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use("/", home);
+app.use("/", express.static(path.join(__dirname, 'public')));
 app.use("/", auth(pca, cosmosDb));
 app.use("/users", ensureAuthenticated, users(cosmosDb));
 app.use("/playground", ensureAuthenticated, express.static(path.join(__dirname, 'public', 'p5playground')));

@@ -14,7 +14,7 @@ export async function storeLogin(cosmosDb: Database, userData: UserMasterData): 
   return user;
 }
 
-async function getUserById(cosmosDb: Database, userId: string): Promise<UserWithId | undefined> {
+export async function getUserById(cosmosDb: Database, userId: string): Promise<UserWithId | undefined> {
   const container = await getContainer(cosmosDb, Collections.Users);
 
   const querySpec: SqlQuerySpec = {
@@ -34,12 +34,25 @@ async function getUserById(cosmosDb: Database, userId: string): Promise<UserWith
   return items.resources[0];
 }
 
-export async function getAllUsers(cosmosDb: Database): Promise<UserWithId[]> {
+export async function getAllUsers(cosmosDb: Database, filter?: string): Promise<UserWithId[]> {
   const container = await getContainer(cosmosDb, Collections.Users);
 
+  let query = `SELECT * FROM ${Collections.Users} u`;
+  if (filter) {
+    query += ` WHERE u.accountName = @filter OR u.firstName = @filter OR u.lastName = @filter`;
+  }
+
   const querySpec: SqlQuerySpec = {
-    query: `SELECT * FROM ${Collections.Users} u`,
+    query: query,
   };
+  if (filter) {
+    querySpec.parameters = [
+      {
+        name: "@filter",
+        value: filter,
+      },
+    ];
+  }
   const items = await container.items.query<UserWithId>(querySpec).fetchAll();
 
   return items.resources;
@@ -75,4 +88,10 @@ async function update(cosmosDb: Database, userData: UserMasterData): Promise<voi
   user.lastLogin = new Date().toISOString();
 
   await container.items.upsert(user);
+}
+
+export async function updateUser(cosmosDb: Database, userData: UserWithId): Promise<void> {
+  const container = await getContainer(cosmosDb, Collections.Users);
+
+  await container.items.upsert(userData);
 }

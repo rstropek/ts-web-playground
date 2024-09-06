@@ -1,13 +1,20 @@
 <h2>Users</h2>
 
+<form method="GET" action="/users">
+    <input type="text" name="search" placeholder="Enter filter text..." value="{{searchQuery}}">
+    <button type="submit">Search</button>
+</form>
+
 <table>
     <thead>
         <tr>
             <th>Firstname</th>
             <th>Lastname</th>
             <th>Account Name</th>
+            <th>Class</th>
             <th>First Login</th>
             <th>Last Login</th>
+            <th>&nbsp;</th>
         </tr>
     </thead>
     <tbody>
@@ -16,8 +23,10 @@
             <td>{{firstName}}</td>
             <td>{{lastName}}</td>
             <td>{{accountName}}</td>
-            <td>{{firstLogin}}</td>
-            <td>{{lastLogin}}</td>
+            <td>{{class}}</td>
+            <td>{{dateFormat firstLogin}}</td>
+            <td>{{dateFormat lastLogin}}</td>
+            <td><a href="/users/{{userId}}">✏️</a></td>
         </tr>
         {{/each}}
     </tbody>
