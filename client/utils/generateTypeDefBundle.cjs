@@ -16,6 +16,10 @@ const result = {};
 function findFiles(dir) {
   const files = fs.readdirSync(dir);
   files.forEach(file => {
+    if (file === 'typescript.d.ts' || file.indexOf('.webworker.') !== -1 || file.endsWith('.full.d.ts')) {
+      return;
+    }
+
     const fullPath = path.join(dir, file);
     const stat = fs.statSync(fullPath);
     if (stat.isDirectory()) {

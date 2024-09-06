@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run bundle-p5-dts && npm run bundle-ts-dts && tsc && vite build && mkdir -p ../server/dist/public/p5playground/ && cp -r ./dist/ ../server/dist/public/p5playground/",
+    "build": "npm run bundle-p5-dts && npm run bundle-ts-dts && tsc && vite build && mkdir -p ../server/dist/public/p5playground/ && cp -r ./dist/* ../server/dist/public/p5playground/",
     "preview": "vite preview",
     "bundle-p5-dts": "node ./utils/generateTypeDefBundle.cjs ./node_modules/@types/p5 ./src/p5-dts.ts",
     "bundle-ts-dts": "node ./utils/generateTypeDefBundle.cjs ./node_modules/typescript/lib ./src/ts-dts.ts"
