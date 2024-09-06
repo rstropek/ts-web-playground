@@ -15,3 +15,15 @@ export type User = UserMasterData & {
 };
 
 export type UserWithId = User & { id: string };
+
+export type ExerciseMasterData = {
+  title: string;
+  descriptionMd: string;
+}
+
+export type Exercise = ExerciseMasterData & {
+  created: string; // Date/time in ISO 8601 UTC format
+  lastChanged: string; // Date/time in ISO 8601 UTC format
+};
+
+export type ExerciseWithId = Exercise & { id: string };

@@ -25,6 +25,7 @@ export async function getDatabase(client: CosmosClient, databaseId: string): Pro
 
 export enum Collections {
   Users = "Users",
+  Exercises = "Exercises",
 }
 
 export async function getContainer(database: Database, containerId: string) {
