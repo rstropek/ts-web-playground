@@ -11,6 +11,7 @@ declare module "express-session" {
     lastName?: string;
     accountName?: string;
     returnTo?: string;
+    isAdmin?: boolean;
   }
 }
 

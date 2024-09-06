@@ -46,3 +46,15 @@ export async function getUserDetails(msalClient: msal.ConfidentialClientApplicat
   const user = await client.api("/me").select("givenName,surname,displayName,mail,userPrincipalName,otherMails").get();
   return user;
 }
+
+export async function isUserInGroup(msalClient: msal.ConfidentialClientApplication, userId: string, groupId: string) {
+  const client = getAuthenticatedClient(msalClient, userId);
+
+  try {
+    const response = await client.api(`/me/memberOf?$filter=id eq '${groupId}'`).get();
+    return response.value.length > 0;
+  }
+  catch (error) {
+    return false;
+  }
+}

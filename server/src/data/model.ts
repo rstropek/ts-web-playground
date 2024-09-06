@@ -7,6 +7,7 @@ export type UserMasterData = {
   lastName: string;
   repository?: string;
   class?: string;
+  isAdmin?: boolean
 };
 
 export type User = UserMasterData & {
@@ -19,6 +20,8 @@ export type UserWithId = User & { id: string };
 export type ExerciseMasterData = {
   title: string;
   descriptionMd: string;
+  icon?: string;
+  yamlUrl?: string;
 }
 
 export type Exercise = ExerciseMasterData & {

@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/main", ensureAuthenticated, (req, res) => {
-  res.render("main", { firstName: req.session.firstName });
+  res.render("main", { firstName: req.session.firstName, isAdmin: req.session.isAdmin });
 });
 
 export default router;

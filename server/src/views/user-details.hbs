@@ -1,7 +1,8 @@
 <h2>User</h2>
 
 <form id="editUserForm" method="POST" action="/users/edit" class="edit">
-    <input type="hidden" name="userId" id="editUserId" value="{{user.userId}}">
+    <label for="editUserId">User&nbsp;ID:</label>
+    <input type="text" readonly name="userId" id="editUserId" value="{{user.userId}}">
     <label for="editFirstName">First&nbsp;Name:</label>
     <input type="text" name="firstName" id="editFirstName" value="{{user.firstName}}">
     <label for="editLastName">Last&nbsp;Name:</label>
@@ -12,6 +13,8 @@
     <input type="text" name="class" id="editClass" value="{{user.class}}">
     <label for="editRepository">Repository:</label>
     <input type="text" name="repository" id="editRepository" value="{{user.repository}}">
+    <label for="editIsAdmin">Is&nbsp;Admin:</label>
+    <input type="checkbox" name="isAdmin" id="editIsAdmin" {{#if user.isAdmin}}checked{{/if}}>
     <div></div>
     <button type="submit">Save</button>
 </form>

@@ -1,12 +1,19 @@
 import express from "express";
 import * as msal from "@azure/msal-node";
-import { getUserDetails } from "../helpers/graphHelper.js";
+import { getUserDetails, isUserInGroup } from "../helpers/graphHelper.js";
 import logger from "../helpers/logging.js";
 import { Database } from "@azure/cosmos";
 import { storeLogin } from "../data/users.js";
+import kv from "@azure/keyvault-secrets";
 
-function create(pca: msal.ConfidentialClientApplication, cosmosDb: Database): express.Router {
+async function create(pca: msal.ConfidentialClientApplication, cosmosDb: Database, kv: kv.SecretClient): Promise<express.Router | undefined> {
   const router = express.Router();
+
+  const entraAdminGroupId = await kv.getSecret("ENTRA-ADMIN-GROUP-ID");
+  if (!entraAdminGroupId || !entraAdminGroupId.value) {
+    logger.error("Secret ENTRA-ADMIN-GROUP-ID not found in Key Vault");
+    return;
+  }
 
   router.get("/login", async (req, res) => {
     const authCodeUrlParameters = {
@@ -35,6 +42,7 @@ function create(pca: msal.ConfidentialClientApplication, cosmosDb: Database): ex
     req.session.accountName = response.account?.username;
     req.session.firstName = user.givenName;
     req.session.lastName = user.surname;
+    req.session.isAdmin = await isUserInGroup(pca, response.account?.homeAccountId!, entraAdminGroupId.value!);
     req.session.save((err) => {
       if (err) {
         logger.error(err);
@@ -45,7 +53,7 @@ function create(pca: msal.ConfidentialClientApplication, cosmosDb: Database): ex
       userId: req.session.userId!,
       accountName: req.session.accountName!,
       firstName: req.session.firstName!,
-      lastName: req.session.lastName!,
+      lastName: req.session.lastName!
     });
 
     const redirectUrl = req.session.returnTo || "/main";

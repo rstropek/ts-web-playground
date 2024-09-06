@@ -1,0 +1,54 @@
+<h2>Exercises</h2>
+
+<form method="GET" action="/exercises">
+    <input type="text" name="search" placeholder="Enter filter text..." value="{{searchQuery}}">
+    <button type="submit">Search</button>
+</form>
+
+<form method="GET" action="/exercises/new">
+    <button type="submit">Create new exercise</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Created</th>
+            <th>Last Changed</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each exercises}}
+        <tr>
+            <td>{{title}}</td>
+            <td>{{dateFormat created}}</td>
+            <td>{{dateFormat lastChanged}}</td>
+            <td>
+                <a href="/exercises/{{id}}">✏️</a>
+                <span class="link" onclick="confirm('{{id}}', '{{title}}')">❌</span>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<dialog>
+    <p></p>
+    <button id="yes">Yes</button>
+    <button id="cancel">Cancel</button>
+</dialog>
+
+<script>
+    function confirm(id, title) {
+        const dialog = document.querySelector('dialog');
+        dialog.querySelector('p').innerText = `Are you sure you want to delete exercise "${title}"?`;
+        dialog.querySelector('#yes').addEventListener('click', () => {
+            window.location.href = `/exercises/${id}/delete`;
+        });
+        dialog.querySelector('#cancel').addEventListener('click', () => {
+            dialog.close();
+        });
+        dialog.showModal();
+    }
+</script>

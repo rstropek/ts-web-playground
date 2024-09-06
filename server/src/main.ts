@@ -16,6 +16,7 @@ import home from "./routes/home.js";
 import auth from "./routes/auth.js";
 import { createCosmosClient, getDatabase } from "./helpers/cosmosHelper.js";
 import users from "./routes/users.js";
+import exercises from "./routes/exercises.js";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 logger.info({ configuration: isDevelopment ? "development" : "production" }, "Start configuration");
@@ -86,15 +87,30 @@ app.use(sessionMiddleware);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const authMiddleware = await auth(pca, cosmosDb, kvClient);
+if (!authMiddleware) {
+  logger.error("Failed to get auth middleware");
+  process.exit(1);
+}
+
 app.use("/", home);
 app.use("/", express.static(path.join(__dirname, 'public')));
-app.use("/", auth(pca, cosmosDb));
+app.use("/", authMiddleware);
 app.use("/users", ensureAuthenticated, users(cosmosDb));
+app.use("/exercises", ensureAuthenticated, exercises(cosmosDb));
 app.use("/playground", ensureAuthenticated, express.static(path.join(__dirname, 'public', 'p5playground')));
 
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   logger.error(err);
   res.status(500).send();
+});
+
+process.on('uncaughtException', (err) => {
+  logger.error('Uncaught Exception:', err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
 
 const PORT = process.env["PORT"] || 8080;

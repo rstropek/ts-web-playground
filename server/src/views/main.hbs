@@ -1,5 +1,8 @@
 <h1>Welcome, {{ firstName }}</h1>
 
-<a href="users">Users</a>
+{{#if isAdmin}}
+    <a href="users">Users</a>
+    <a href="exercises">Exercises</a>
+{{/if}}
 <a href="playground">Start coding</a>
 <a href="logout">Logout</a>

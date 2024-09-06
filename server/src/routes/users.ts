@@ -1,7 +1,6 @@
 import express from "express";
 import { Database } from "@azure/cosmos";
 import { getAllUsers, getUserById, updateUser } from "../data/users.js";
-import logger from "../helpers/logging.js";
 
 function create(cosmosDb: Database): express.Router {
   const router = express.Router();

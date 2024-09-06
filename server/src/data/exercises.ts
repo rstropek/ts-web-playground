@@ -73,3 +73,8 @@ export async function updateExercise(cosmosDb: Database, exercise: ExerciseWithI
 
   await container.items.upsert(updatedExercise);
 }
+
+export async function deleteExercise(cosmosDb: Database, exerciseId: string): Promise<void> {
+  const container = await getContainer(cosmosDb, Collections.Exercises);
+  await container.item(exerciseId).delete();
+}

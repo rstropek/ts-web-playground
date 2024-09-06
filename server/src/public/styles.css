@@ -22,3 +22,11 @@ form.edit {
 form.edit label {
     padding-right: 5px;
 }
+
+form.edit input[type="checkbox"] {
+    justify-self: left;
+}
+
+span.link {
+    cursor: pointer;
+}
