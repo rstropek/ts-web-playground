@@ -1,9 +1,13 @@
 import express from "express";
-import { ensureAuthenticated } from "../helpers/authHelper.js";
+import { ensureAuthenticated, isAuthenticated } from "../helpers/authHelper.js";
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
+  if (isAuthenticated(req.session)) {
+    return res.redirect("/main");
+  }
+
   res.render("home");
 });
 

@@ -23,8 +23,10 @@ export async function getAllExercises(cosmosDb: Database, filter?: string): Prom
 
   let query = `SELECT * FROM ${Collections.Exercises} e`;
   if (filter) {
-    query += ` WHERE e.title = @filter`;
+    query += ` WHERE CONTAINS(e.title, @filter) OR CONTAINS(e.category, @filter)`;
   }
+
+  query += " ORDER BY e.category ASC, e.title ASC";
 
   const querySpec: SqlQuerySpec = {
     query: query,

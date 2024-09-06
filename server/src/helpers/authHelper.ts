@@ -67,6 +67,14 @@ export async function ensureAuthenticated(req: express.Request, res: express.Res
   }
 }
 
+export function ensureAdmin(req: express.Request, res: express.Response, next: express.NextFunction): void {
+  if (req.session.isAdmin) {
+    return next(); // User is an admin, proceed to the next middleware
+  } else {
+    res.status(403).send("Forbidden");
+  }
+}
+
 export function isAuthenticated(session: SessionData): boolean {
   return session.userId !== undefined;
 }

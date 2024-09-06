@@ -12,6 +12,7 @@
 <table>
     <thead>
         <tr>
+            <th>Category</th>
             <th>Title</th>
             <th>Created</th>
             <th>Last Changed</th>
@@ -21,6 +22,7 @@
     <tbody>
         {{#each exercises}}
         <tr>
+            <td>{{category}}</td>
             <td>{{title}}</td>
             <td>{{dateFormat created}}</td>
             <td>{{dateFormat lastChanged}}</td>

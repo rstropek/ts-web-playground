@@ -19,7 +19,8 @@ function create(cosmosDb: Database): express.Router {
     if (exerciseId === "new") {
       const exercise: ExerciseMasterData = {
         title: "",
-        descriptionMd: ""
+        descriptionMd: "",
+        category: "",
       };
 
       res.render("exercise-details", { exercise });
@@ -40,7 +41,8 @@ function create(cosmosDb: Database): express.Router {
       title, 
       descriptionMd, 
       icon,
-      yamlUrl
+      yamlUrl,
+      category
     } = req.body;
 
     if (id) {
@@ -54,13 +56,15 @@ function create(cosmosDb: Database): express.Router {
       exercise.descriptionMd = descriptionMd;
       exercise.icon = icon;
       exercise.yamlUrl = yamlUrl;
+      exercise.category = category;
       await updateExercise(cosmosDb, exercise);
     } else {
       const newExercise: ExerciseMasterData = {
         title,
         descriptionMd,
         icon,
-        yamlUrl
+        yamlUrl,
+        category
       };
       await createExercise(cosmosDb, newExercise);
     }

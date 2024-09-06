@@ -20,6 +20,7 @@ export type UserWithId = User & { id: string };
 export type ExerciseMasterData = {
   title: string;
   descriptionMd: string;
+  category?: string;
   icon?: string;
   yamlUrl?: string;
 }

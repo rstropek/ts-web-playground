@@ -9,7 +9,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
 
-import { ensureAuthenticated, getConfidentialClientApplication } from "./helpers/authHelper.js";
+import { ensureAdmin, ensureAuthenticated, getConfidentialClientApplication } from "./helpers/authHelper.js";
 import { getSessionMiddleware } from "./helpers/sessionHelper.js";
 import logger from "./helpers/logging.js";
 import home from "./routes/home.js";
@@ -96,8 +96,8 @@ if (!authMiddleware) {
 app.use("/", home);
 app.use("/", express.static(path.join(__dirname, 'public')));
 app.use("/", authMiddleware);
-app.use("/users", ensureAuthenticated, users(cosmosDb));
-app.use("/exercises", ensureAuthenticated, exercises(cosmosDb));
+app.use("/users", ensureAuthenticated, ensureAdmin, users(cosmosDb));
+app.use("/exercises", ensureAuthenticated, ensureAdmin, exercises(cosmosDb));
 app.use("/playground", ensureAuthenticated, express.static(path.join(__dirname, 'public', 'p5playground')));
 
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -106,11 +106,11 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 });
 
 process.on('uncaughtException', (err) => {
-  logger.error('Uncaught Exception:', err);
+  logger.error({ err }, 'Uncaught Exception');
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-  logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  logger.error({ reason, promise }, 'Unhandled Rejection');
 });
 
 const PORT = process.env["PORT"] || 8080;
