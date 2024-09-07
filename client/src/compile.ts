@@ -12,52 +12,55 @@ let lastBlobUrl: string | undefined;
 let lastErrorOutput: string | undefined;
 let lastHash: Uint8Array | undefined;
 
-export async function compile(files: Files): Promise<CompileResult> {
-  const newHash = await files.getHash();
-  if (lastHash) {
-    let equal = true;
-    if (newHash.length !== lastHash.length) {
-      equal = false;
-    } else {
-      for (let i = 0; i < newHash.length; i++) {
-        if (newHash[i] !== lastHash[i]) {
-          equal = false;
-          break;
-        }
-      }
-    }
+function areEqual(a1: Uint8Array, a2: Uint8Array): boolean {
+  if (a1.length !== a2.length) {
+    return false;
+  }
 
-    if (equal) {
-      return { blobUrl: lastBlobUrl!, errorOutput: lastErrorOutput! };
+  for (let i = 0; i < a1.length; i++) {
+    if (a1[i] !== a2[i]) {
+      return false;
     }
   }
 
+  return true;
+}
+
+export async function compile(files: Files): Promise<CompileResult> {
+  // If the content of the files has not changed, return the last result.
+  // this is important to enable debugging. Only if the blob url remains
+  // unchanged, breakpoints will be hit.
+  const newHash = await files.getHash();
+  if (lastHash && areEqual(lastHash, newHash)) {
+    return { blobUrl: lastBlobUrl!, errorOutput: lastErrorOutput! };
+  }
+
   lastHash = newHash;
+
+  if (lastBlobUrl) {
+    // Destroy the last blob url to make sure it can be garbage collected.
+    URL.revokeObjectURL(lastBlobUrl);
+  }
 
   let fileContents = new Map<string, string>();
 
   const compilerHost: ts.CompilerHost = {
     getSourceFile: (fileName: any, languageVersion: any) => {
-      console.log(`getSourceFile: ${fileName}`);
       const sourceText = files.getFile(fileName)?.model.getValue();
-      //console.log(`getSourceFile: ${sourceText}`);
       if (!sourceText) {
         if (fileName.startsWith("p5/")) {
-          console.log(`Found p5TypeDefs: ${fileName}`);
           return ts.createSourceFile(
             fileName,
             p5TypeDefs[fileName.substring(3)],
             languageVersion
           );
         } else if (fileName.startsWith("node_modules/@types/p5/")) {
-          console.log(`Found p5TypeDefs: ${fileName}`);
           return ts.createSourceFile(
             fileName,
             p5TypeDefs[fileName.substring(23)],
             languageVersion
           );
         } else if (tsTypeDefs.hasOwnProperty(fileName)) {
-          console.log(`Found tsTypeDefs: ${fileName}`);
           return ts.createSourceFile(
             fileName,
             tsTypeDefs[fileName],
@@ -71,7 +74,6 @@ export async function compile(files: Files): Promise<CompileResult> {
         : undefined;
     },
     writeFile: (fileName: any, data: any) => {
-      console.log(`writeFile: ${fileName}`);
       for (const line of data.split("\n")) {
         console.log(`${line}`);
       }
@@ -85,12 +87,9 @@ export async function compile(files: Files): Promise<CompileResult> {
     getNewLine: () => "\n",
     fileExists: (fileName: any) => files.getFile(fileName) !== undefined,
     readFile: (fileName: any) => {
-      console.log(`readFile: ${fileName}`);
       return files.getFile(fileName)?.model.getValue();
     },
   };
-
-  //const _ = ts.preProcessFile(files.getFile("index.ts")!.model.getValue(), true, true);
 
   const program = ts.createProgram(
     [
@@ -132,8 +131,6 @@ export async function compile(files: Files): Promise<CompileResult> {
       );
     }
   });
-
-  // const jsCode = ts.transpile(editor.innerText);
 
   let topScripts = ``;
   for (const [fileName, content] of fileContents) {
