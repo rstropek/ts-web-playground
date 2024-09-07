@@ -107,12 +107,12 @@ if (isDevelopment) {
   });
   app.use('/playground', proxyMiddleware);
 } else {
-  app.use("/playground", ensureAuthenticated, express.static(path.join(__dirname, 'public', 'p5playground')));
+  app.use("/playground", express.static(path.join(__dirname, 'public', 'p5playground')));
 }
 
 app.get("/me", (req, res) => {
   if (!isAuthenticated(req.session)) {
-    res.send(403 /* Forbidden */);
+    res.sendStatus(403 /* Forbidden */);
     return;
   }
 
