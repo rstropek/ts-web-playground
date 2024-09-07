@@ -18,6 +18,18 @@ const run = document.getElementById("run")! as HTMLButtonElement;
 const iframe = document.getElementById("result-frame")! as HTMLIFrameElement;
 const fileNames = document.getElementById("fileNames")! as HTMLSelectElement;
 const output = document.getElementById("output-content")! as HTMLPreElement;
+const userName = document.getElementById("userName")! as HTMLPreElement;
+
+fetch("http://localhost:8080/me").then(async (response) => {
+  if (response.status === /* forbidden */ 403) {
+    userName.innerText = `Not signed in`;
+  } else if (response.ok) {
+    const data = await response.json();
+    if (data.firstName) {
+      userName.innerText = data.firstName;
+    }
+  }
+});
 
 run.addEventListener("click", runCode);
 
