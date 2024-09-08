@@ -1,16 +1,25 @@
-import * as monaco from "monaco-editor";
-
 export type File = {
   content: string;
   isEditable: boolean;
 };
 
 export type Exercise = {
+  title: string;
+  descriptionMd: string;
   files: { [key: string]: File };
-  compilerOptions: monaco.languages.typescript.CompilerOptions;
 };
 
 export const exercise1: Exercise = {
+  title: "Exercise 1",
+  descriptionMd: `# Exercise 1
+
+In this exercise, you will create a simple **p5js** sketch that displays a red background.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
   files: {
     "index.ts": {
       content: `function setup() {
@@ -44,11 +53,5 @@ function draw() {
 </html>`,
       isEditable: false,
     },
-  },
-  compilerOptions: {
-    target: monaco.languages.typescript.ScriptTarget.ESNext,
-    allowSyntheticDefaultImports: true,
-    //moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-    module: monaco.languages.typescript.ModuleKind.None,
   },
 };

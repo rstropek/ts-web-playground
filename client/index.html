@@ -8,15 +8,24 @@
   <body>
     <div id="app-container">
       <div id="top-bar">
-        <select id="fileNames"></select>
-        <button id="run">Run</button>
-        <div>User:&nbsp;<span id="userName"></span></div>
+        <div class="left">
+          <select id="fileNames"></select>
+          <button id="run">Run</button>
+        </div>
+        <div class="centered">
+          <div id="title">asdf</div>
+        </div>
+        <div class="right">
+          <div id="result-selector" class="select-left selected">Result</div><div id="spec-selector" class="select-right">Spec</div>
+          <div id="userName"></div>
+        </div>
       </div>
       <div id="content">
           <div id="editor"></div>
           <div id="result-area">
             <div id="result">
               <iframe id="result-frame"></iframe>
+              <div id="spec">asdfasdfsdaf</div>
             </div>  
             <div id="output">
               <pre id="output-content"></pre>

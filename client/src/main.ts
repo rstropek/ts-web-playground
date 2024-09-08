@@ -5,11 +5,8 @@ import { exercise1 } from "./exercise";
 import { Files } from "./files";
 import Split from "split.js";
 import { compile } from "./compile";
-
-const files = new Files(exercise1);
-monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
-  exercise1.compilerOptions
-);
+import purify from "dompurify";
+import { marked } from "marked";
 
 const editor = document.getElementById("editor")! as HTMLDivElement;
 const run = document.getElementById("run")! as HTMLButtonElement;
@@ -17,6 +14,35 @@ const iframe = document.getElementById("result-frame")! as HTMLIFrameElement;
 const fileNames = document.getElementById("fileNames")! as HTMLSelectElement;
 const output = document.getElementById("output-content")! as HTMLPreElement;
 const userName = document.getElementById("userName")! as HTMLPreElement;
+const resultSelector = document.getElementById("result-selector")! as HTMLDivElement;
+const specSelector = document.getElementById("spec-selector")! as HTMLDivElement;
+const spec = document.getElementById("spec")! as HTMLDivElement;
+const title = document.getElementById("title")! as HTMLDivElement;
+
+spec.style.display = "none";
+resultSelector.addEventListener("click", () => {
+  resultSelector.classList.add("selected");
+  specSelector.classList.remove("selected");
+  spec.style.display = "none";
+  iframe.style.display = "";
+});
+specSelector.addEventListener("click", () => {
+  resultSelector.classList.remove("selected");
+  specSelector.classList.add("selected");
+  spec.style.display = "";
+  iframe.style.display = "none";
+});
+
+const files = new Files(exercise1);
+title.innerText = purify.sanitize(exercise1.title);
+spec.innerHTML = purify.sanitize(marked.parse(exercise1.descriptionMd) as string);
+
+monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+  target: monaco.languages.typescript.ScriptTarget.ESNext,
+  allowSyntheticDefaultImports: true,
+  //moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+  module: monaco.languages.typescript.ModuleKind.None,
+});
 
 fetch("http://localhost:8080/me").then(async (response) => {
   if (response.status === /* forbidden */ 403) {
@@ -67,5 +93,5 @@ document.addEventListener("DOMContentLoaded", function () {
     direction: "vertical",
     minSize: [10, 10],
     sizes: [80, 20],
-  })
+  });
 });
