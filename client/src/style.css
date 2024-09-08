@@ -4,10 +4,19 @@
   --top-bar-border-color: rgb(140, 131, 240);
   --top-bar-selected-bg-color: rgb(171, 165, 235); */
 
-  --top-bar-color: white;
-  --top-bar-bg-color: rgb(46, 57, 99);
+  /* --top-bar-bg-color: rgb(46, 57, 99);
   --top-bar-border-color: rgb(63, 78, 135);
-  --top-bar-selected-bg-color: rgb(85, 105, 181);
+  --top-bar-selected-bg-color: rgb(85, 105, 181); */
+
+  --top-bar-color: white;
+  --top-bar-bg-color: #3a6e86;
+  --top-bar-border-color: #4d90ae;
+  --top-bar-selected-bg-color: #5190ad;
+
+  --button-padding: 5px 10px;
+  --border-radius: 5px;
+
+  --button-font-size: 13px;
 }
 
 html,
@@ -15,6 +24,12 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+}
+
+html,
+body,
+button,
+select {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -46,6 +61,10 @@ body {
   grid-template-rows: 50px 1fr;
   height: 100vh;
   width: 100vw;
+  box-sizing: border-box;
+  border-bottom: 10px solid var(--top-bar-bg-color);
+  border-right: 5px solid var(--top-bar-bg-color);
+  border-left: 5px solid var(--top-bar-bg-color);
 }
 
 #top-bar {
@@ -55,7 +74,23 @@ body {
   height: var(--top-bar-height);
   align-items: center;
   padding-left: 10px;
+  padding-right: 10px;
   background-color: var(--top-bar-bg-color);
+}
+
+#top-bar button {
+  background-color: var(--top-bar-selected-bg-color);
+  color: var(--top-bar-color);
+  border: 1px solid var(--top-bar-border-color);
+  padding: var(--button-padding);
+  border-radius: var(--border-radius);
+  font-size: var(--button-font-size);
+  cursor: pointer;
+}
+
+#top-bar select {
+  padding: var(--button-padding);
+  border-radius: var(--border-radius);
 }
 
 #content {
@@ -112,19 +147,22 @@ body {
 
 .select-left {
   border: 1px solid var(--top-bar-border-color);
-  border-radius: 5px 0 0 5px;
-  padding: 5px;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+  padding: var(--button-padding);
   margin-right: 0;
   cursor: pointer;
+  font-size: var(--button-font-size);
 }
 
 .select-right {
   border: 1px solid var(--top-bar-border-color);
   border-left: none;
-  border-radius: 0 5px 5px 0;
-  padding: 5px;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  padding: var(--button-padding);
+  ;
   margin-left: 0;
   cursor: pointer;
+  font-size: var(--button-font-size);
 }
 
 .selected {
@@ -137,7 +175,7 @@ body {
 }
 
 #userName {
-  margin-left: 15px;
+  margin-left: 30px;
 }
 
 #spec {
