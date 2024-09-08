@@ -1,5 +1,13 @@
 :root {
   --top-bar-height: 50px;
+  /* --top-bar-bg-color: rgb(233, 231, 255);
+  --top-bar-border-color: rgb(140, 131, 240);
+  --top-bar-selected-bg-color: rgb(171, 165, 235); */
+
+  --top-bar-color: white;
+  --top-bar-bg-color: rgb(46, 57, 99);
+  --top-bar-border-color: rgb(63, 78, 135);
+  --top-bar-selected-bg-color: rgb(85, 105, 181);
 }
 
 html,
@@ -17,7 +25,7 @@ body {
 }
 
 .gutter {
-  background-color: rgb(233, 231, 255);
+  background-color: var(--top-bar-bg-color);
   background-repeat: no-repeat;
   background-position: 50%;
 }
@@ -34,24 +42,32 @@ body {
 }
 
 #app-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 50px 1fr;
   height: 100vh;
   width: 100vw;
 }
 
 #top-bar {
+  color: var(--top-bar-color);
   display: flex;
   flex-direction: row;
   height: var(--top-bar-height);
   align-items: center;
   padding-left: 10px;
-  background-color: rgb(233, 231, 255);
+  background-color: var(--top-bar-bg-color);
 }
 
 #content {
   display: flex;
   flex-direction: row;
+  height: 100%;
+  overflow: hidden;
+}
+
+#editor {
+  height: 100%;
+  width: 100%;
 }
 
 #result-frame {
@@ -95,7 +111,7 @@ body {
 }
 
 .select-left {
-  border: 1px solid rgb(140, 131, 240);
+  border: 1px solid var(--top-bar-border-color);
   border-radius: 5px 0 0 5px;
   padding: 5px;
   margin-right: 0;
@@ -103,7 +119,7 @@ body {
 }
 
 .select-right {
-  border: 1px solid rgb(140, 131, 240);
+  border: 1px solid var(--top-bar-border-color);
   border-left: none;
   border-radius: 0 5px 5px 0;
   padding: 5px;
@@ -112,7 +128,7 @@ body {
 }
 
 .selected {
-  background-color: rgb(171, 165, 235);
+  background-color: var(--top-bar-selected-bg-color);
   color: white;
 }
 
@@ -121,10 +137,13 @@ body {
 }
 
 #userName {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 #spec {
   padding: 10px;
+  margin-bottom: 5px;
   overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
 }

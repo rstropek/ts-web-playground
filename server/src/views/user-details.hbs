@@ -1,6 +1,8 @@
 <h2>User</h2>
 
 <form id="editUserForm" method="POST" action="/users/edit" class="edit">
+    <input type="hidden" id="operation" name="operation" value="save" />
+
     <label for="editUserId">User&nbsp;ID:</label>
     <input type="text" readonly name="userId" id="editUserId" value="{{user.userId}}">
     <label for="editFirstName">First&nbsp;Name:</label>
@@ -16,5 +18,30 @@
     <label for="editIsAdmin">Is&nbsp;Admin:</label>
     <input type="checkbox" name="isAdmin" id="editIsAdmin" {{#if user.isAdmin}}checked{{/if}}>
     <div></div>
-    <button type="submit">Save</button>
+    <div>
+        <button id="generate" type="button">Generate Repository</button>
+        <button id="save" type="button">Save</button>
+    </div>
 </form>
+
+<script>
+    // When generate is clicked, set operation to generate and submit the form
+    document.getElementById('generate').addEventListener('click', function() {
+        // generate can only be clicked if the repository is empty
+        if (document.getElementById('editRepository').value !== '') {
+            alert('Repository must be empty to generate');
+            return;
+        }
+        
+        document.getElementById('operation').value = 'generate';
+        //document.getElementById('editUserForm').submit();
+        HTMLFormElement.prototype.submit.call(document.getElementById('editUserForm'));
+    });
+
+    // When submit is clicked, set operation to save and submit the form
+    document.getElementById('save').addEventListener('click', function() {
+        document.getElementById('operation').value = 'save';
+        //document.getElementById('editUserForm').submit();
+        HTMLFormElement.prototype.submit.call(document.getElementById('editUserForm'));
+    });
+</script>

@@ -16,6 +16,7 @@
     "@azure/identity": "^4.4.1",
     "@azure/keyvault-secrets": "^4.8.0",
     "@microsoft/microsoft-graph-client": "^3.0.7",
+    "@octokit/rest": "^21.0.2",
     "@types/express-handlebars": "^5.3.1",
     "body-parser": "^1.20.2",
     "connect-redis": "^7.1.1",

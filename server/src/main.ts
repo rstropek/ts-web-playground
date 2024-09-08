@@ -94,10 +94,16 @@ if (!authMiddleware) {
   process.exit(1);
 }
 
+const ghPat = await kvClient.getSecret("GH-PAT");
+if (!ghPat || !ghPat.value) {
+  logger.error("Failed to get GitHub PAT");
+  process.exit(1);
+}
+
 app.use("/", home);
 app.use("/", express.static(path.join(__dirname, 'public')));
 app.use("/", authMiddleware);
-app.use("/users", ensureAuthenticated, ensureAdmin, users(cosmosDb));
+app.use("/users", ensureAuthenticated, ensureAdmin, users(cosmosDb, ghPat.value));
 app.use("/exercises", ensureAuthenticated, ensureAdmin, exercises(cosmosDb));
 if (isDevelopment) {
   const proxyMiddleware = createProxyMiddleware<express.Request, express.Response>({
