@@ -74,10 +74,6 @@ export async function compile(files: Files): Promise<CompileResult> {
         : undefined;
     },
     writeFile: (fileName: any, data: any) => {
-      for (const line of data.split("\n")) {
-        console.log(`${line}`);
-      }
-
       fileContents.set(fileName, data);
     },
     getDefaultLibFileName: (_options: any) => `lib.esnext.d.ts`,
