@@ -37,6 +37,6 @@ jobs:
     - name: Generate artifact attestation
       uses: actions/attest-build-provenance@v1
       with:
-        subject-name: rstropek/ts-web-playground-client
+        subject-name: ghcr.io/rstropek/ts-web-playground-client
         subject-digest: ${{ steps.push.outputs.digest }}
         push-to-registry: true
