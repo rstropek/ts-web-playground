@@ -15,11 +15,13 @@
     "marked": "^14.1.1",
     "monaco-editor": "^0.50.0",
     "split.js": "^1.6.5",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "yaml": "^2.5.1"
   },
   "devDependencies": {
     "@types/dompurify": "^3.0.5",
     "@types/p5": "^1.7.6",
+    "@types/yaml": "^1.9.6",
     "minimatch": "^10.0.1",
     "vite": "^5.4.0"
   }

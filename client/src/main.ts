@@ -1,7 +1,7 @@
 import "./style.css";
 import * as monaco from "monaco-editor";
 import "./editor";
-import { exercise1 } from "./exercise";
+import { getExerciseUrlFromQueryString, loadExercise } from "./exercise";
 import { Files } from "./files";
 import Split from "split.js";
 import { compile } from "./compile";
@@ -33,9 +33,16 @@ specSelector.addEventListener("click", () => {
   iframe.style.display = "none";
 });
 
-const files = new Files(exercise1);
-title.innerText = purify.sanitize(exercise1.title);
-spec.innerHTML = purify.sanitize(marked.parse(exercise1.descriptionMd) as string);
+const exerciseUrl = getExerciseUrlFromQueryString();
+
+if (!exerciseUrl) {
+  throw new Error("No exercise URL found in query string");
+}
+
+const ex1 = await loadExercise(exerciseUrl);
+const files = new Files(ex1);
+title.innerText = purify.sanitize(ex1.title);
+spec.innerHTML = purify.sanitize(marked.parse(ex1.descriptionMd) as string);
 
 monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   target: monaco.languages.typescript.ScriptTarget.ESNext,
