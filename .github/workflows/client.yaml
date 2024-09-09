@@ -13,6 +13,7 @@ jobs:
       packages: write
       contents: read
       id-token: write
+      attestations: write
 
     steps:
     - name: Check out the repo
@@ -32,3 +33,10 @@ jobs:
         file: ./client/Dockerfile
         push: true
         tags: rstropek/ts-web-playground-client:latest
+
+    - name: Generate artifact attestation
+      uses: actions/attest-build-provenance@v1
+      with:
+        subject-name: rstropek/ts-web-playground-client
+        subject-digest: ${{ steps.push.outputs.digest }}
+        push-to-registry: true
