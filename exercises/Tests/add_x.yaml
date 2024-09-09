@@ -1,0 +1,44 @@
+title: "Add an X"
+descriptionMd: |
+  # Add an X
+
+  The starter code creates a red canvas. Your task is to draw a white X on the canvas.
+
+  The first line of the X has to start at the top left corner of the canvas and end at the bottom right corner. The second line has to start at the top right corner and end at the bottom left corner.
+
+  Tips:
+  * Use the _line_ function to draw lines.
+  * Use the _stroke_ function to set the color of the lines.
+  * Optionally, you can use the _strokeWeight_ function to set the thickness of the lines.
+files:
+  - "index.ts":
+      content: |
+        function setup() {
+          createCanvas(200, 200);
+          console.log('Setup is done');
+        }
+
+        function draw() {
+          background(getColor());
+        }
+      isEditable: true
+  - "color.ts":
+      content: |
+        function getColor() { return 'red'; }
+      isEditable: false
+  - "index.html":
+      content: |
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <script src="http://localhost:8080/libs/p5.js"></script>
+            {{topScripts}}
+            </head>
+          <body>
+            {{bodyScripts}}
+          </body>
+        </html>
+      isEditable: false
