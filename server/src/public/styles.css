@@ -30,3 +30,13 @@ form.edit input[type="checkbox"] {
 span.link {
     cursor: pointer;
 }
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+.content > div {
+    max-width: 1280px;
+    width: 100%;
+}

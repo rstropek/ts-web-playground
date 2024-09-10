@@ -1,18 +1,25 @@
 import express from "express";
 import { ensureAuthenticated, isAuthenticated } from "../helpers/authHelper.js";
+import { Database } from "@azure/cosmos";
+import { getAllExercises } from "../data/exercises.js";
 
-const router = express.Router();
+function create(cosmosDb: Database): express.Router {
+  const router = express.Router();
 
-router.get("/", (req, res) => {
-  if (isAuthenticated(req.session)) {
-    return res.redirect("/main");
-  }
+  router.get("/", (req, res) => {
+    if (isAuthenticated(req.session)) {
+      return res.redirect("/main");
+    }
 
-  res.render("home");
-});
+    res.render("home", {layout: 'homeLayout.hbs'});
+  });
 
-router.get("/main", ensureAuthenticated, (req, res) => {
-  res.render("main", { firstName: req.session.firstName, isAdmin: req.session.isAdmin });
-});
+  router.get("/main", ensureAuthenticated, async (req, res) => {
+    const exercises = await getAllExercises(cosmosDb);
+    res.render("main", { firstName: req.session.firstName, isAdmin: req.session.isAdmin, exercises });
+  });
 
-export default router;
+  return router;
+}
+
+export default create;

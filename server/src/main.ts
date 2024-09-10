@@ -101,7 +101,7 @@ if (!ghPat || !ghPat.value) {
   process.exit(1);
 }
 
-app.use("/", home);
+app.use("/", home(cosmosDb));
 app.use("/", express.static(path.join(__dirname, 'public')));
 app.use("/", authMiddleware);
 app.use("/users", ensureAuthenticated, ensureAdmin, users(cosmosDb, ghPat.value));
