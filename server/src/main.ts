@@ -105,7 +105,7 @@ app.use("/", express.static(path.join(__dirname, 'public')));
 app.use("/", authMiddleware);
 app.use("/users", ensureAuthenticated, ensureAdmin, users(cosmosDb, ghPat.value));
 app.use("/exercises", ensureAuthenticated, ensureAdmin, exercises(cosmosDb));
-if (isDevelopment) {
+if (true || isDevelopment) {
   const proxyMiddleware = createProxyMiddleware<express.Request, express.Response>({
     target: `${process.env.PROXY_TARGET ?? "http://localhost:5173"}/playground`,
     changeOrigin: true,
