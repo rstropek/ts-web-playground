@@ -55,7 +55,7 @@ loadExercise(exerciseUrl).then((ex1) => {
     module: monaco.languages.typescript.ModuleKind.None,
   });
 
-  fetch("http://localhost:8080/me").then(async (response) => {
+  fetch("/me").then(async (response) => {
     if (response.status === /* forbidden */ 403) {
       userName.innerText = `Anonymous`;
     } else if (response.ok) {
