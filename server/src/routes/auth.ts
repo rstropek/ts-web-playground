@@ -31,7 +31,7 @@ async function create(pca: msal.ConfidentialClientApplication, cosmosDb: Databas
     const tokenRequest: msal.AuthorizationCodeRequest = {
       code: req.query.code as string,
       scopes: ["user.read"],
-      redirectUri: "http://localhost:8080/auth/callback",
+      redirectUri: `${process.env.CALLBACK_HOST ?? "http://localhost:8080"}/auth/callback`,
     };
 
     const response = await pca.acquireTokenByCode(tokenRequest);
