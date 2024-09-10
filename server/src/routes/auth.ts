@@ -18,7 +18,7 @@ async function create(pca: msal.ConfidentialClientApplication, cosmosDb: Databas
   router.get("/login", async (req, res) => {
     const authCodeUrlParameters = {
       scopes: ["user.read"],
-      redirectUri: "http://localhost:8080/auth/callback",
+      redirectUri: `${process.env.CALLBACK_HOST ?? "http://localhost:8080"}/auth/callback`,
     };
 
     // Redirects to login page
