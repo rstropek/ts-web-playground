@@ -178,6 +178,13 @@ select {
   margin-left: 30px;
 }
 
+#userName a,
+#userName a:visited,
+#userName a:hover,
+#userName a:active {
+  color: white;
+}
+
 #spec {
   padding: 10px;
   margin-bottom: 5px;

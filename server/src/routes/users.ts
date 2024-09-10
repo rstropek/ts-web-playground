@@ -3,6 +3,7 @@ import { Database } from "@azure/cosmos";
 import { getAllUsers, getUserById, updateUser } from "../data/users.js";
 import { Octokit } from "@octokit/rest";
 import { createRepository } from "../helpers/github.js";
+import { isAuthenticated } from "../helpers/authHelper.js";
 
 function create(cosmosDb: Database, ghPat: string): express.Router {
   const router = express.Router();
@@ -12,6 +13,24 @@ function create(cosmosDb: Database, ghPat: string): express.Router {
     const users = await getAllUsers(cosmosDb, searchQuery);
 
     res.render("users", { users, searchQuery });
+  });
+  
+  router.get("/me", async (req, res) => {
+    if (!isAuthenticated(req.session)) {
+      res.sendStatus(403 /* Forbidden */);
+      return;
+    }
+
+    const user = await getUserById(cosmosDb, req.session.userId!);
+    if (!user) {
+      res.sendStatus(404 /* Not Found */);
+      return;
+    }
+
+    res.send({
+      firstName: req.session.firstName,
+      repository: user.repository,
+    });
   });
 
   router.get("/:userId", async (req, res) => {

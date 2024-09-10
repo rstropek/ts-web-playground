@@ -8,12 +8,14 @@ import { compile } from "./compile";
 import purify from "dompurify";
 import { marked } from "marked";
 
+let isAuthenticated = false;
 const editor = document.getElementById("editor")! as HTMLDivElement;
 const run = document.getElementById("run")! as HTMLButtonElement;
+const save = document.getElementById("save")! as HTMLButtonElement;
 const iframe = document.getElementById("result-frame")! as HTMLIFrameElement;
 const fileNames = document.getElementById("fileNames")! as HTMLSelectElement;
 const output = document.getElementById("output-content")! as HTMLPreElement;
-const userName = document.getElementById("userName")! as HTMLPreElement;
+const userName = document.getElementById("userName")! as HTMLDivElement;
 const resultSelector = document.getElementById(
   "result-selector"
 )! as HTMLDivElement;
@@ -22,6 +24,7 @@ const specSelector = document.getElementById(
 )! as HTMLDivElement;
 const spec = document.getElementById("spec")! as HTMLDivElement;
 const title = document.getElementById("title")! as HTMLDivElement;
+const message = document.getElementById("message")! as HTMLDialogElement;
 
 spec.style.display = "none";
 resultSelector.addEventListener("click", () => {
@@ -40,6 +43,9 @@ specSelector.addEventListener("click", () => {
 const exerciseUrl = getExerciseUrlFromQueryString();
 
 if (!exerciseUrl) {
+  message.querySelector('p')!.innerText = `Exercise URL missing in query string`;
+  (message.querySelector('#ok')! as HTMLButtonElement).style.display = "none";
+  message.showModal();
   throw new Error("No exercise URL found in query string");
 }
 
@@ -55,18 +61,58 @@ loadExercise(exerciseUrl).then((ex1) => {
     module: monaco.languages.typescript.ModuleKind.None,
   });
 
-  fetch("/me").then(async (response) => {
+  fetch("/users/me").then(async (response) => {
     if (response.status === /* forbidden */ 403) {
       userName.innerText = `Anonymous`;
+      save.style.display = "none";
     } else if (response.ok) {
-      const data = await response.json();
+      save.style.display = "";
+      isAuthenticated = true;
+      const data: { firstName: string, repository: string } = await response.json();
       if (data.firstName) {
-        userName.innerText = data.firstName;
+        if (data.repository) {
+          userName.innerHTML = `<a target="_blank" href="https://github.com/Teaching-HTL-Leonding/${data.repository}">${data.firstName}</a>`;
+        } else {
+          userName.innerText = data.firstName;
+        }
       }
     }
   });
 
   run.addEventListener("click", runCode);
+
+  save.addEventListener("click", async () => {
+    let success = true;
+    for (const fileName of files.getFileNames()) {
+      const file = files.getFile(fileName);
+      if (!file?.isEditable) {
+        continue;
+      }
+
+      const result = await fetch("/exercises/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: ex1.title,
+          fileName,
+          content: file.model.getValue(),
+        }),
+      });
+      if (!result.ok) {
+        success = false; 
+        break;
+      }
+    }
+    if (!success) {
+      message.querySelector('p')!.innerText = `Error saving files`;
+    } else {
+      message.querySelector('p')!.innerText = `Files saved successfully`;
+    }
+    (message.querySelector('#ok')! as HTMLButtonElement).addEventListener("click", () => message.close());
+    message.showModal();
+  });
 
   for (const fileName of files.getFileNames()) {
     const option = document.createElement("option");

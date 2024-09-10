@@ -10,7 +10,7 @@ import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
-import { ensureAdmin, ensureAuthenticated, getConfidentialClientApplication, isAuthenticated } from "./helpers/authHelper.js";
+import { ensureAdmin, ensureAuthenticated, getConfidentialClientApplication } from "./helpers/authHelper.js";
 import { getSessionMiddleware } from "./helpers/sessionHelper.js";
 import logger from "./helpers/logging.js";
 import home from "./routes/home.js";
@@ -87,6 +87,7 @@ if (!sessionMiddleware) {
 app.use(sessionMiddleware);
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 const authMiddleware = await auth(pca, cosmosDb, kvClient);
 if (!authMiddleware) {
@@ -104,28 +105,13 @@ app.use("/", home);
 app.use("/", express.static(path.join(__dirname, 'public')));
 app.use("/", authMiddleware);
 app.use("/users", ensureAuthenticated, ensureAdmin, users(cosmosDb, ghPat.value));
-app.use("/exercises", ensureAuthenticated, ensureAdmin, exercises(cosmosDb));
-if (true || isDevelopment) {
-  const proxyMiddleware = createProxyMiddleware<express.Request, express.Response>({
-    target: `${process.env.PROXY_TARGET ?? "http://localhost:5173"}/playground`,
-    changeOrigin: true,
-    ws: true,
-  });
-  app.use('/playground', proxyMiddleware);
-} else {
-  app.use("/playground", express.static(path.join(__dirname, 'public', 'p5playground')));
-}
-
-app.get("/me", (req, res) => {
-  if (!isAuthenticated(req.session)) {
-    res.sendStatus(403 /* Forbidden */);
-    return;
-  }
-
-  res.send({
-    firstName: req.session.firstName,
-  });
+app.use("/exercises", ensureAuthenticated, ensureAdmin, await exercises(cosmosDb, kvClient));
+const proxyMiddleware = createProxyMiddleware<express.Request, express.Response>({
+  target: `${process.env.PROXY_TARGET ?? "http://localhost:5173"}/playground`,
+  changeOrigin: true,
+  ws: true,
 });
+app.use('/playground', proxyMiddleware);
 
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   logger.error(err);

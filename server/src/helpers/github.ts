@@ -21,12 +21,12 @@ export async function createRepository(ghPat: string, org: string): Promise<stri
   return;
 }
 
-export async function saveFile(ghPat: string, org: string, repo: string, owner: string, path: string, content: string | null): Promise<void> {
+export async function saveFile(ghPat: string, org: string, repo: string, path: string, content: string | null): Promise<void> {
   const octokit = new Octokit({ auth: ghPat });
 
   const createFile = createOrUpdateTextFile(octokit);
   await createFile.createOrUpdateTextFile({
-    owner,
+    owner: org,
     repo,
     path,
     content,

@@ -2,8 +2,12 @@ import express from "express";
 import { Database } from "@azure/cosmos";
 import { createExercise, deleteExercise, getAllExercises, getExerciseById, updateExercise } from "../data/exercises.js";
 import { ExerciseMasterData, ExerciseWithId } from "../data/model.js";
+import { saveFile } from "../helpers/github.js";
+import kv from "@azure/keyvault-secrets";
+import logger from "../helpers/logging.js";
+import { getUserById } from "../data/users.js";
 
-function create(cosmosDb: Database): express.Router {
+async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.Router> {
   const router = express.Router();
 
   router.get("/", async (req, res) => {
@@ -86,6 +90,33 @@ function create(cosmosDb: Database): express.Router {
     await deleteExercise(cosmosDb, exerciseId);
 
     res.redirect("/exercises");
+  });
+
+  const ghPat = await kv.getSecret("GH-PAT");
+  if (!ghPat || !ghPat.value) {
+    logger.error("Failed to get GitHub PAT");
+    process.exit(1);
+  }
+  router.post("/save", async (req, res) => {
+    const { 
+      title, 
+      fileName,
+      content,
+    } = req.body;
+
+    const user = await getUserById(cosmosDb, req.session.userId!);
+    if (!user) {
+      res.status(404 /* Not found */).send();
+      return;
+    }
+
+    if (!user.repository) {
+      res.status(400 /* Bad Request */ ).send("No repository found for user");
+      return;
+    }
+
+    await saveFile(ghPat.value!, process.env.GH_ORG!, user.repository, `${title}/${fileName}`, content);
+    res.sendStatus(200);
   });
 
   return router;
