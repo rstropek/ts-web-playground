@@ -8,7 +8,6 @@ import { compile } from "./compile";
 import purify from "dompurify";
 import { marked } from "marked";
 
-let isAuthenticated = false;
 const editor = document.getElementById("editor")! as HTMLDivElement;
 const run = document.getElementById("run")! as HTMLButtonElement;
 const save = document.getElementById("save")! as HTMLButtonElement;
@@ -67,7 +66,6 @@ loadExercise(exerciseUrl).then((ex1) => {
       save.style.display = "none";
     } else if (response.ok) {
       save.style.display = "";
-      isAuthenticated = true;
       const data: { firstName: string, repository: string } = await response.json();
       if (data.firstName) {
         if (data.repository) {
