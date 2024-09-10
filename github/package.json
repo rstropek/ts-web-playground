@@ -17,6 +17,7 @@
   "dependencies": {
     "@octokit/auth-token": "^5.1.1",
     "@octokit/core": "^6.1.2",
+    "@octokit/plugin-create-or-update-text-file": "^5.1.0",
     "@octokit/rest": "^21.0.2",
     "dotenv": "^16.4.5"
   }

@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc && cp -r src/views dist/ && cp -r src/public dist/ && mkdir -p dist/public/libs && cp ./node_modules/p5/lib/*.js dist/public/libs/",
+    "build": "tsc && cp -r src/views dist/ && cp -r src/public dist/ && mkdir -p dist/public/libs && cp ./node_modules/p5/lib/*.js dist/public/libs/ && cp ./.env dist/",
     "start": "npm run build && node ./dist/main.js | pino-pretty"
   },
   "keywords": [],

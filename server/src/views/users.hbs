@@ -26,7 +26,10 @@
             <td>{{class}}</td>
             <td>{{dateFormat firstLogin}}</td>
             <td>{{dateFormat lastLogin}}</td>
-            <td><a href="/users/{{userId}}">✏️</a></td>
+            <td>
+                <a href="/users/{{userId}}">✏️</a>
+                <a target="_blank" href="https://github.com/Teaching-HTL-Leonding/{{repository}}">GH</a>
+            </td>
         </tr>
         {{/each}}
     </tbody>

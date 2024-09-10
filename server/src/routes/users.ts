@@ -2,6 +2,7 @@ import express from "express";
 import { Database } from "@azure/cosmos";
 import { getAllUsers, getUserById, updateUser } from "../data/users.js";
 import { Octokit } from "@octokit/rest";
+import { createRepository } from "../helpers/github.js";
 
 function create(cosmosDb: Database, ghPat: string): express.Router {
   const router = express.Router();
@@ -43,19 +44,8 @@ function create(cosmosDb: Database, ghPat: string): express.Router {
 
     user.repository = repository;
     if (operation === "generate") {
-      const octokit = new Octokit({ auth: ghPat });
-      
-      const repoName = `typescript-playground-${crypto.randomUUID()}`;
-      const result = await octokit.rest.repos.createInOrg({
-        "name": repoName,
-        "org": "Teaching-HTL-Leonding",
-        "private": false,
-        "has_issues": true,
-        "has_projects": false,
-        "has_wiki": false,
-      });
-      
-      if (result.status === 201) {
+      const repoName = await createRepository(ghPat, process.env.GH_ORG!);
+      if (repoName) {
         user.repository = repoName;
       }
     }
