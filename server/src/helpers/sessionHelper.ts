@@ -32,7 +32,7 @@ export async function getSessionMiddleware(kvClient: kv.SecretClient): Promise<e
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: process.env.NODE_ENV !== "development",
+      secure: false, //process.env.NODE_ENV !== "development",
       maxAge: 48 * 60 * 60 * 1000, // 48 hours
       httpOnly: true,
     },
