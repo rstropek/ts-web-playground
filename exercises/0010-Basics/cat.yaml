@@ -1,14 +1,14 @@
-title: "House"
+title: "Cat"
 descriptionMd: |
-  # House
+  # Cat
 
-  Write code that draws a simple house with a tree beside it. Use basic shapes like rectangles, circles, and triangles.
+  Write code that draws a simple cat. Use basic shapes like rectangles, circles, and triangles.
 
-  Here is an example of how the house could look like. You do not need to follow this example exactly. Feel free to be creative (e.g. adding a sun, or a fence).
+  Here is an example of how the cat could look like. You do not need to follow this example exactly. Feel free to be creative.
 
-  ![House](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/house.png?raw=true)
+  ![Cat](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/cat.png?raw=true)
 
-  Are you looking for nice colors? Check out _https://htmlcolorcodes.com/color-names/_ for a list of color names that you can use in your code.
+  Is it hard for you to find the correct coordinates? Here is a tip: Take a pice of checkered paper and draw the cat on it. Each square of the paper could be e.g. 10 pixel. This way, you can easily find the correct coordinates.
 files:
   "index.ts":
     content: |

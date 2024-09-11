@@ -5,6 +5,11 @@ descriptionMd: |
   Write the necessary code to draw the _Olympic symbol_ (five rings) on a canvas. Use the correct color for each ring.
 
   ![Olympic symbol](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/200px-Olympic_rings_without_rims.svg.png)
+
+  Here are some tips for you that might be useful:
+
+  * The larger an x coordinate is, the more to the right it is on the canvas.
+  * The larger a y coordinate is, the more to the bottom it is on the canvas.
 files:
   "index.ts":
     content: |
