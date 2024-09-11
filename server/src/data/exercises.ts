@@ -26,7 +26,7 @@ export async function getAllExercises(cosmosDb: Database, filter?: string): Prom
     query += ` WHERE CONTAINS(e.title, @filter) OR CONTAINS(e.category, @filter)`;
   }
 
-  query += " ORDER BY e.category ASC, e.title ASC";
+  query += " ORDER BY e.category ASC, e.sortOrder ASC, e.title ASC";
 
   const querySpec: SqlQuerySpec = {
     query: query,

@@ -42,8 +42,7 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
     const { 
       id, 
       title, 
-      descriptionMd, 
-      icon,
+      sortOrder,
       yamlUrl,
       category
     } = req.body;
@@ -56,6 +55,7 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
       }
 
       exercise.title = title;
+      exercise.sortOrder = sortOrder;
       exercise.yamlUrl = yamlUrl;
       exercise.category = category;
       await updateExercise(cosmosDb, exercise);
@@ -63,7 +63,8 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
       const newExercise: ExerciseMasterData = {
         title,
         yamlUrl,
-        category
+        category,
+        sortOrder,
       };
       await createExercise(cosmosDb, newExercise);
     }

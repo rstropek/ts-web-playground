@@ -18,8 +18,9 @@ export type User = UserMasterData & {
 export type UserWithId = User & { id: string };
 
 export type ExerciseMasterData = {
-  title: string;
   category?: string;
+  sortOrder?: string;
+  title: string;
   yamlUrl?: string;
 }
 
