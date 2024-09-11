@@ -6,7 +6,7 @@ descriptionMd: |
 
   Here is an example of what the house should look like:
 
-  ![House]()
+  ![House](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/house.png?raw=true)
 files:
   "index.ts":
     content: |
