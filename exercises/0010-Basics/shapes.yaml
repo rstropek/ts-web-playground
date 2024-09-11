@@ -42,6 +42,9 @@ descriptionMd: |
     // Draw a rectangle
     rect(20, 40, width - 20 - 20, 20);
 
+    // Do not fill the following shapes
+    noFill();
+
     // Draw a circle
     circle(width / 2, 60 + width / 2, width - 40);
   }

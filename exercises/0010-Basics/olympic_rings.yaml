@@ -1,0 +1,29 @@
+title: "Olympic Rings"
+descriptionMd: |
+  # Olympic Rings
+
+  Write the necessary code to draw the _Olympic symbol_ (five rings) on a canvas. Use the correct color for each ring.
+
+  ![Olympic symbol](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/200px-Olympic_rings_without_rims.svg.png)
+files:
+  "index.ts":
+    content: |
+      function setup() {
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          <h1>Olympic Rings</h1>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
