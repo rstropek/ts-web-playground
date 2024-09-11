@@ -23,7 +23,6 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
     if (exerciseId === "new") {
       const exercise: ExerciseMasterData = {
         title: "",
-        descriptionMd: "",
         category: "",
       };
 
@@ -57,16 +56,12 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
       }
 
       exercise.title = title;
-      exercise.descriptionMd = descriptionMd;
-      exercise.icon = icon;
       exercise.yamlUrl = yamlUrl;
       exercise.category = category;
       await updateExercise(cosmosDb, exercise);
     } else {
       const newExercise: ExerciseMasterData = {
         title,
-        descriptionMd,
-        icon,
         yamlUrl,
         category
       };
@@ -115,11 +110,16 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
       return;
     }
 
-    await saveFile(ghPat.value!, process.env.GH_ORG!, user.repository, `${title}/${fileName}`, content);
+    const folder = titleToFolder(title);
+    await saveFile(ghPat.value!, process.env.GH_ORG!, user.repository, `${folder}/${fileName}`, content);
     res.sendStatus(200);
   });
 
   return router;
+}
+
+export function titleToFolder(title: string): string {
+  return title.replace(/ /g, "_").replace(/\W/g, "").toLowerCase();
 }
 
 export default create;

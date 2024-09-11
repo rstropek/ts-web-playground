@@ -1,42 +1,70 @@
-html {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+:root {
+  --top-bar-height: 50px;
+  /* --top-bar-bg-color: rgb(233, 231, 255);
+    --top-bar-border-color: rgb(140, 131, 240);
+    --top-bar-selected-bg-color: rgb(171, 165, 235); */
+
+  /* --top-bar-bg-color: rgb(46, 57, 99);
+    --top-bar-border-color: rgb(63, 78, 135);
+    --top-bar-selected-bg-color: rgb(85, 105, 181); */
+
+  --top-bar-color: white;
+  --top-bar-bg-color: #3a6e86;
+  --top-bar-border-color: #4d90ae;
+  --top-bar-selected-bg-color: #5190ad;
+
+  --button-padding: 5px 10px;
+  --border-radius: 5px;
+
+  --button-font-size: 13px;
 }
+
+html, body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1.hero {
+  padding: 40px 10px 10px 10px;
+  background-color: var(--top-bar-bg-color);
+  color: var(--top-bar-color);
+}
+
 
 table {
-    margin-top: 20px;
-    border-collapse: collapse;
+  margin-top: 20px;
+  border-collapse: collapse;
 }
 
-td, th {
-    padding: 10px;
-    border: 1px solid black;
+td,
+th {
+  padding: 10px;
+  border: 1px solid black;
 }
 
 form.edit {
-    display: grid;
-    gap: 5px;
-    grid-template-columns: min-content minmax(0, 500px);;
-
+  display: grid;
+  gap: 5px;
+  grid-template-columns: min-content minmax(0, 500px);
 }
 
 form.edit label {
-    padding-right: 5px;
+  padding-right: 5px;
 }
 
 form.edit input[type="checkbox"] {
-    justify-self: left;
+  justify-self: left;
 }
 
 span.link {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .content {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .content > div {
-    max-width: 1280px;
-    width: 100%;
+  max-width: 1280px;
+  width: 100%;
 }
