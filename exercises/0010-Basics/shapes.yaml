@@ -1,0 +1,76 @@
+title: "Shapes"
+descriptionMd: |
+  # Shapes
+
+  In this exercise, we learn about how to call _methods_ by drawing
+  shapes on a canvas with the _p5js_ library. This exercise is also
+  a typing exercise.
+
+  ## Task 1 - Typing
+
+  Type in the following code. Type it **exactly** as it is shown here.
+  Every character matters, casing matters, every special character
+  and every space is important.
+
+  Note that lines starting with `//` are comments and are not part of
+  the code. They are there to help you understand the code. Type them
+  in, too. However, if you make a mistake in a comment, it's not a big
+  deal.
+
+  ```typescript
+  function setup() {
+    // Create the canvas (German: "Leinwand")
+    createCanvas(400, 500);
+
+    // Set the background color
+    background("red");
+
+    // Set line color and thickness (=weight)
+    stroke("white");
+    strokeWeight(5);
+
+    // Fill color
+    fill("orange");
+
+    // The following functions draw different shapes.
+    // Play with the parameters and/or read the docs
+    // to figure out what they do.
+
+    // Draw a line
+    line(20, 20, width - 20, 20);
+
+    // Draw a rectangle
+    rect(20, 40, width - 20 - 20, 20);
+
+    // Draw a circle
+    circle(width / 2, 60 + width / 2, width - 40);
+  }
+  ```
+
+  ## Task 2 - Understanding the code
+
+  Experiment with the code. Change the parameters of the functions
+  and see what happens. When you hover the mouse over a function
+  name, you will see a tooltip with the function's documentation.
+files:
+  "index.ts":
+    content: |
+      function setup() {
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          <h1>Welcome to TypeScript and p5js!</h1>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
