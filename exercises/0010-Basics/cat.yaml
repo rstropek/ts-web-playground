@@ -26,7 +26,6 @@ files:
           {{topScripts}}
           </head>
         <body>
-          <h1>Olympic Rings</h1>
           {{bodyScripts}}
         </body>
       </html>
