@@ -9,6 +9,13 @@ descriptionMd: |
   ![Cat](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/cat.png?raw=true)
 
   Is it hard for you to find the correct coordinates? Here is a tip: Take a pice of checkered paper and draw the cat on it. Each square of the paper could be e.g. 10 pixel. This way, you can easily find the correct coordinates.
+
+  Tips for faster typing:
+
+  * Use _Ctrl + c_ (in German _Strg + c_) to copy code. Note that you can copy an entire line by pressing _Ctrl + c_ anywhere in the line. You do not need to mark the text first.
+  * Use _Ctrl + v_ to paste code.
+  * Did you know that you can move lines up and down with _Alt + Arrow Up_ and _Alt + Arrow Down_?
+  * _Ctrl + z_ is also very useful. It undoes the last change you made.
 files:
   "index.ts":
     content: |

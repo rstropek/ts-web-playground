@@ -2,28 +2,19 @@ title: "Shapes"
 descriptionMd: |
   # Shapes
 
-  In this exercise, we learn about how to call _methods_ by drawing
-  shapes on a canvas with the _p5js_ library. This exercise is also
-  a typing exercise.
+  In this exercise, you will learn how to use _methods_ to draw shapes on a canvas using the _p5.js_ library. This exercise also helps you practice your typing skills.
 
   ## Task 1 - Typing
 
-  Type in the following code. Type it **exactly** as it is shown here.
-  Every character matters, casing matters, every special character
-  and every space is important.
+  Type the code exactly as shown below. Make sure every character is correct, including uppercase and lowercase letters, special characters, and spaces.
 
-  Note that lines starting with `//` are comments and are not part of
-  the code. They are there to help you understand the code. Type them
-  in, too. However, if you make a mistake in a comment, it's not a big
-  deal.
+  Note: Lines that start with `//` are comments. These lines are not part of the actual code but are there to help you understand it. You should type them in too. If you make a mistake in a comment, don't worry; it's not a big problem.
 
   ![Shapes Code](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/shapes.png?raw=true)
 
   ## Task 2 - Understanding the code
 
-  Experiment with the code. Change the parameters of the functions
-  and see what happens. When you hover the mouse over a function
-  name, you will see a tooltip with the function's documentation.
+  Play around with the code by changing the function parameters and see what happens. If you hover your mouse over a function name, you will see a tooltip with its documentation.
 files:
   "index.ts":
     content: |
@@ -39,7 +30,12 @@ files:
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
           {{topScripts}}
-          </head>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+            }
+          </style>
+        </head>
         <body>
           <h1>Welcome to TypeScript and p5js!</h1>
           {{bodyScripts}}

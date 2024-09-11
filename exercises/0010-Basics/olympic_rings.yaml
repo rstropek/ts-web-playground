@@ -2,18 +2,22 @@ title: "Olympic Rings"
 descriptionMd: |
   # Olympic Rings
 
-  Write the necessary code to draw the _Olympic symbol_ (five rings) on a canvas. Use the correct color for each ring.
+  Write the code to draw the _Olympic symbol_ (five rings) on a canvas. Make sure to use the correct colors for each ring.
 
   ![Olympic symbol](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/200px-Olympic_rings_without_rims.svg.png)
 
   Here are some tips for you that might be useful:
 
-  * The larger an x coordinate is, the more to the right it is on the canvas.
-  * The larger a y coordinate is, the more to the bottom it is on the canvas.
+  * The x-coordinate determines the position of a shape from left to right on the canvas. A larger x value moves the shape further to the right.
+  * The y-coordinate determines the position of a shape from top to bottom on the canvas. A larger y value moves the shape further down.
+
+  Use these tips to place each ring in the right position and make sure they overlap as shown in the image.
 files:
   "index.ts":
     content: |
       function setup() {
+        // <<< Add your code here.
+        //     Only add code between the curly braces (`{}`).
       }
     isEditable: true
   "index.html":
@@ -27,7 +31,6 @@ files:
           {{topScripts}}
           </head>
         <body>
-          <h1>Olympic Rings</h1>
           {{bodyScripts}}
         </body>
       </html>
