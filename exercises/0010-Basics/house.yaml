@@ -1,0 +1,31 @@
+title: "House"
+descriptionMd: |
+  # House
+
+  Write code that draws a simple house with a tree beside it. Use basic shapes like rectangles, circles, and triangles.
+
+  Here is an example of what the house should look like:
+
+  ![House]()
+files:
+  "index.ts":
+    content: |
+      function setup() {
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          <h1>Olympic Rings</h1>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false

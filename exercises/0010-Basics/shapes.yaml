@@ -47,6 +47,12 @@ descriptionMd: |
 
     // Draw a circle
     circle(width / 2, 60 + width / 2, width - 40);
+
+    // Draw a triangle
+    triangle(
+        100, 60 + width / 2 + 50, 
+        width / 2, 60 + width / 2 - 50, 
+        width - 100, 60 + width / 2 + 50)
   }
   ```
 
