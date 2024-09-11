@@ -7,6 +7,8 @@ descriptionMd: |
   Here is an example of what the house should look like:
 
   ![House](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/house.png?raw=true)
+
+  Are you looking for nice colors? Check out _https://htmlcolorcodes.com/color-names/_ for a list of color names that you can use in your code.
 files:
   "index.ts":
     content: |

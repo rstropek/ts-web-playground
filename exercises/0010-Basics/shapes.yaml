@@ -17,44 +17,7 @@ descriptionMd: |
   in, too. However, if you make a mistake in a comment, it's not a big
   deal.
 
-  ```typescript
-  function setup() {
-    // Create the canvas (German: "Leinwand")
-    createCanvas(400, 500);
-
-    // Set the background color
-    background("red");
-
-    // Set line color and thickness (=weight)
-    stroke("white");
-    strokeWeight(5);
-
-    // Fill color
-    fill("orange");
-
-    // The following functions draw different shapes.
-    // Play with the parameters and/or read the docs
-    // to figure out what they do.
-
-    // Draw a line
-    line(20, 20, width - 20, 20);
-
-    // Draw a rectangle
-    rect(20, 40, width - 20 - 20, 20);
-
-    // Do not fill the following shapes
-    noFill();
-
-    // Draw a circle
-    circle(width / 2, 60 + width / 2, width - 40);
-
-    // Draw a triangle
-    triangle(
-        100, 60 + width / 2 + 50, 
-        width / 2, 60 + width / 2 - 50, 
-        width - 100, 60 + width / 2 + 50)
-  }
-  ```
+  ![Shapes Code](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/shapes.png?raw=true)
 
   ## Task 2 - Understanding the code
 
