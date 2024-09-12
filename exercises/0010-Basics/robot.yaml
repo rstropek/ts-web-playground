@@ -1,16 +1,16 @@
-title: "House"
+title: "Robot"
 descriptionMd: |
-  # House
+  # Robot
 
-  Write code that draws a simple house with a tree beside it. Use basic shapes like rectangles, circles, and triangles.
+  Write code that draws a simple robot. Use basic shapes like rectangles, circles, and lines.
 
-  Here is an example of how the house could look like. You do not need to follow this example exactly. Feel free to be creative (e.g. adding a sun, or a fence).
+  Here is how the robot must look like. Regarding shapes, you must follow this example exactly. You are free to choose other colors.
 
-  ![House](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/house.png?raw=true)
+  ![Robot](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/robot.png?raw=true)
 
   ## Tips
 
-  Are you looking for **nice colors**? Check out _https://htmlcolorcodes.com/color-names/_ for a list of color names that you can use in your code.
+  Don't forget to draw the robot on checkered paper first. Also write down a list of all shapes that you need to draw. You should have a plan before you start coding!
 files:
   "index.ts":
     content: |

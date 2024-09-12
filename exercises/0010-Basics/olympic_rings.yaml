@@ -6,6 +6,8 @@ descriptionMd: |
 
   ![Olympic symbol](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/200px-Olympic_rings_without_rims.svg.png)
 
+  ## Tips
+
   Here are some tips for you that might be useful:
 
   * The x-coordinate determines the position of a shape from left to right on the canvas. A larger x value moves the shape further to the right.

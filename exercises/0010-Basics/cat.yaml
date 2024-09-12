@@ -8,6 +8,8 @@ descriptionMd: |
 
   ![Cat](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/cat.png?raw=true)
 
+  ## Tips
+
   Is it hard for you to find the correct coordinates? Here is a tip: Take a pice of checkered paper and draw the cat on it. Each square of the paper could be e.g. 10 pixel. This way, you can easily find the correct coordinates.
 
   Tips for faster typing:
