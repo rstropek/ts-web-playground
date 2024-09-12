@@ -2,15 +2,17 @@ title: "Robot"
 descriptionMd: |
   # Robot
 
-  Write code that draws a simple robot. Use basic shapes like rectangles, circles, and lines.
+  Your task is to write code that draws a simple robot using basic shapes like rectangles, circles, and lines. This exercise is the first step, and we'll build on this code in future exercises to learn about concepts such as _variables_ and _constants_.
 
-  Here is how the robot must look like. Regarding shapes, you must follow this example exactly. You are free to choose other colors.
+  Below is the example of how your robot should look. You need to match the shapes exactly, but feel free to choose your own colors.
 
   ![Robot](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/robot.png?raw=true)
 
   ## Tips
 
-  Don't forget to draw the robot on checkered paper first. Also write down a list of all shapes that you need to draw. You should have a plan before you start coding!
+  1. Start by sketching your robot on checkered paper to get a clear idea of the layout.
+  2. Make a list of all the shapes you will need to draw for your robot.
+  3. **Having a plan will make your coding much smoother!**
 files:
   "index.ts":
     content: |
