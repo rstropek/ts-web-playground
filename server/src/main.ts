@@ -16,7 +16,7 @@ import logger from "./helpers/logging.js";
 import home from "./routes/home.js";
 import auth from "./routes/auth.js";
 import { createCosmosClient, getDatabase } from "./helpers/cosmosHelper.js";
-import users from "./routes/users.js";
+import { createUserRoutes, createMeRoute } from "./routes/users.js";
 import exercises from "./routes/exercises.js";
 
 const isDevelopment = process.env.NODE_ENV === "development";
@@ -76,7 +76,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(cors());
 
 if (process.env.LOG_REQUESTS) {
-  app.use(pinoHTTP.default({ logger }));
+  //app.use(pinoHTTP.default({ logger }));
 }
 
 const sessionMiddleware = await getSessionMiddleware(kvClient);
@@ -104,7 +104,8 @@ if (!ghPat || !ghPat.value) {
 app.use("/", home(cosmosDb));
 app.use("/", express.static(path.join(__dirname, 'public')));
 app.use("/", authMiddleware);
-app.use("/users", ensureAuthenticated, ensureAdmin, users(cosmosDb, ghPat.value));
+app.use("/me", createMeRoute(cosmosDb));
+app.use("/users", ensureAuthenticated, ensureAdmin, createUserRoutes(cosmosDb, ghPat.value));
 app.use("/exercises", ensureAuthenticated, ensureAdmin, await exercises(cosmosDb, kvClient));
 const proxyMiddleware = createProxyMiddleware<express.Request, express.Response>({
   target: `${process.env.PROXY_TARGET ?? "http://localhost:5173"}/playground`,

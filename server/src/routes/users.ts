@@ -4,8 +4,9 @@ import { getAllUsers, getUserById, updateUser } from "../data/users.js";
 import { Octokit } from "@octokit/rest";
 import { createRepository } from "../helpers/github.js";
 import { isAuthenticated } from "../helpers/authHelper.js";
+import logger from "../helpers/logging.js";
 
-function create(cosmosDb: Database, ghPat: string): express.Router {
+export function createUserRoutes(cosmosDb: Database, ghPat: string): express.Router {
   const router = express.Router();
 
   router.get("/", async (req, res) => {
@@ -13,24 +14,6 @@ function create(cosmosDb: Database, ghPat: string): express.Router {
     const users = await getAllUsers(cosmosDb, searchQuery);
 
     res.render("users", { users, searchQuery });
-  });
-  
-  router.get("/me", async (req, res) => {
-    if (!isAuthenticated(req.session)) {
-      res.sendStatus(403 /* Forbidden */);
-      return;
-    }
-
-    const user = await getUserById(cosmosDb, req.session.userId!);
-    if (!user) {
-      res.sendStatus(404 /* Not Found */);
-      return;
-    }
-
-    res.send({
-      firstName: req.session.firstName,
-      repository: user.repository,
-    });
   });
 
   router.get("/:userId", async (req, res) => {
@@ -85,4 +68,30 @@ function create(cosmosDb: Database, ghPat: string): express.Router {
   return router;
 }
 
-export default create;
+export function createMeRoute(cosmosDb: Database): express.RequestHandler {
+  return async(req: express.Request, res: express.Response) => {
+    logger.info(req.session.firstName);
+    if (!isAuthenticated(req.session)) {
+      res.status(403 /* Forbidden */)
+        .send({
+          userId: req.session.userId,
+          firstName: req.session.firstName,
+          lastName: req.session.lastName,
+          accountName: req.session.accountName,
+          isAdmin: req.session.isAdmin,
+        });
+      return;
+    }
+
+    const user = await getUserById(cosmosDb, req.session.userId!);
+    if (!user) {
+      res.sendStatus(404 /* Not Found */);
+      return;
+    }
+
+    res.send({
+      firstName: req.session.firstName,
+      repository: user.repository,
+    });
+  }
+}
