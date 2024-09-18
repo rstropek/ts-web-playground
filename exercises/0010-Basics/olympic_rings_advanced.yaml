@@ -9,24 +9,6 @@ descriptionMd: |
   Maybe you have already noticed that the rings overlap in a specific way. Take a close look at the image and try to figure out how the rings are overlapping. The starter code is a solution that partly solves the challenge. Run it and compare the result with the image above. Do you spot the difference?
 
   Notice the _arc(...)_ method. Play around with the parameters to see how they affect the resulting shape. Your task is to **fix the red ring** as it doesn't overlap with the other rings correctly.
-
-  ## Tips
-
-  To get a better understanding of the _arc(...)_ method and its parameters, comment out all the code except a single _arc(...)_ call. You do that by inserting _/*_ after the first _arc(...)_ call and _*/_ before the closing curly bracket. This is how your code should look like (note that _..._ is a placeholder for the missing, unmodified code):
-  
-  ```ts
-  function setup() {
-    ...
-    arc(100, 100, 80, 80, 45, 315);
-    /* <<<<< THIS /* starts the comment!
-    // Parts of black ring
-    stroke("black");
-    ...
-    THIS ends the comment >>>>> */
-  }
-  ```
-
-  When you are left with a single arc, change the parameters to see how the shape changes. Once you have a good understanding of the parameters, you can start fixing the red ring of the Olympic symbol.
 files:
   "index.ts":
     content: |
@@ -84,12 +66,6 @@ files:
           <meta charset="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-          <style>
-            pre {
-              background-color: lightgray;
-              padding: 10px;
-            }
-          </style>
           {{topScripts}}
           </head>
         <body>

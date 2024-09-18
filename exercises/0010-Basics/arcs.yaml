@@ -1,0 +1,33 @@
+title: "Arcs"
+descriptionMd: |
+  # Arcs
+
+  Arcs are a way to draw a part of a circle. Let's practice drawing arcs by drawing a smilie face. Type in the following code and run it. Do you see the smilie face?
+
+  ![Smilie Face](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/arcs.png?raw=true)
+
+  ## Tips
+
+  Understanding the parameters of the _arc_ function is not so easy. Take the time to play around with the parameters and understand their effect.
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        createCanvas(400, 400);
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
