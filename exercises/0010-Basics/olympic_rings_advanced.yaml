@@ -16,21 +16,15 @@ descriptionMd: |
   
   ```ts
   function setup() {
-    createCanvas(400, 200);
-    
     ...
-    
     arc(100, 100, 80, 80, 45, 315);
-    /*
+    /* <<<<< THIS /* starts the comment!
     // Parts of black ring
     stroke("black");
-    arc(200, 100, 80, 80, 135, 315);
-    
     ...
-    
-    arc(200, 100, 80, 80, 315, 45);
-    */
+    THIS ends the comment >>>>> */
   }
+  ```
 
   When you are left with a single arc, change the parameters to see how the shape changes. Once you have a good understanding of the parameters, you can start fixing the red ring of the Olympic symbol.
 files:
@@ -90,6 +84,12 @@ files:
           <meta charset="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          <style>
+            pre {
+              background-color: lightgray;
+              padding: 10px;
+            }
+          </style>
           {{topScripts}}
           </head>
         <body>
