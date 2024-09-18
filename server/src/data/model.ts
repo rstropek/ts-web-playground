@@ -7,7 +7,6 @@ export type UserMasterData = {
   lastName: string;
   repository?: string;
   class?: string;
-  isAdmin?: boolean
 };
 
 export type User = UserMasterData & {

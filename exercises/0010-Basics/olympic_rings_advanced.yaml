@@ -6,63 +6,33 @@ descriptionMd: |
 
   ![Olympic symbol](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/200px-Olympic_rings_without_rims.svg.png)
 
-  Maybe you have already noticed that the rings overlap in a specific way. Take a close look at the image and try to figure out how the rings are overlapping. Here is a solution that partly solves the challenge:
+  Maybe you have already noticed that the rings overlap in a specific way. Take a close look at the image and try to figure out how the rings are overlapping. The starter code is a solution that partly solves the challenge. Run it and compare the result with the image above. Do you spot the difference?
 
-  ```ts
-  function setup() {
-    createCanvas(400, 200);
-    noFill(); // We only need the outlines
-    strokeWeight(10); // Set the thickness of the ring outlines
-
-    // We want to use degrees, not rad. Want to learn more?
-    // https://brilliant.org/wiki/degrees-radian/
-    angleMode(DEGREES);
-
-    // Part of blue ring
-    stroke("blue");
-    //                    +-------- start angle
-    //                    |   +---- end angle
-    //                    v   v
-    arc(100, 100, 80, 80, 45, 315);
-
-    // Parts of black ring
-    stroke("black");
-    arc(200, 100, 80, 80, 135, 315);
-    arc(200, 100, 80, 80, 45, 90);
-
-    // Part of red ring
-    stroke("red");
-    circle(300, 100, 80);
-
-    // Gold ring
-    stroke("gold");
-    circle(150, 140, 80);
-
-    // Another part of black ring
-    stroke("black");
-    arc(200, 100, 80, 80, 90, 135);
-
-    // Blue ring
-    stroke("blue");
-    arc(100, 100, 80, 80, 315, 45);
-
-    // Green ring
-    stroke("green");
-    circle(250, 140, 80);
-
-    // Last part of black ring
-    stroke("black");
-    arc(200, 100, 80, 80, 315, 45);
-  }
-  ```
-
-  Copy this code into your playground and run it. Notice the _arc(...)_ method and its parameters. Play around with the parameters to see how they affect the shape.
-
-  Your task is to fix the red ring as it doesn't overlap with the other rings correctly.
+  Notice the _arc(...)_ method. Play around with the parameters to see how they affect the resulting shape. Your task is to **fix the red ring** as it doesn't overlap with the other rings correctly.
 
   ## Tips
 
-  To get a better understanding of the _arc(...)_ method and its parameters, delete all the code except a single _arc(...)_ call. Change the parameters to see how the shape changes. Once you have a good understanding of the parameters, you can start fixing the red ring of the Olympic symbol.
+  To get a better understanding of the _arc(...)_ method and its parameters, comment out all the code except a single _arc(...)_ call. You do that by inserting _/*_ after the first _arc(...)_ call and _*/_ before the closing curly bracket. This is how your code should look like (note that _..._ is a placeholder for the missing, unmodified code):
+  
+  ```ts
+  function setup() {
+    createCanvas(400, 200);
+    
+    ...
+    
+    arc(100, 100, 80, 80, 45, 315);
+    /*
+    // Parts of black ring
+    stroke("black");
+    arc(200, 100, 80, 80, 135, 315);
+    
+    ...
+    
+    arc(200, 100, 80, 80, 315, 45);
+    */
+  }
+
+  When you are left with a single arc, change the parameters to see how the shape changes. Once you have a good understanding of the parameters, you can start fixing the red ring of the Olympic symbol.
 files:
   "index.ts":
     content: |

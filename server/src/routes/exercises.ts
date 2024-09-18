@@ -20,35 +20,43 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
   router.get("/:exerciseId", async (req, res) => {
     const exerciseId = req.params.exerciseId;
 
+    let exercise: ExerciseMasterData | undefined;
     if (exerciseId === "new") {
-      const exercise: ExerciseMasterData = {
+      exercise = {
         title: "",
         category: "",
       };
 
-      res.render("exercise-details", { exercise });
     } else {
-      const exercise = await getExerciseById(cosmosDb, exerciseId);
+      exercise = await getExerciseById(cosmosDb, exerciseId);
       if (!exercise) {
         res.status(404).send();
         return;
       }
-
-      res.render("exercise-details", { exercise });
     }
+
+    res.render("exercise-details", { exercise });
   });
 
-  router.post("/:exerciseId/edit", async (req, res) => {
-    const exerciseId = req.params.exerciseId;
-    const { 
-      title, 
+  router.post("/", async (req, res) => {
+    const {
+      id,
+      title,
       sortOrder,
       yamlUrl,
       category
     } = req.body;
 
-    if (exerciseId) {
-      const exercise = await getExerciseById(cosmosDb, exerciseId);
+    if (!id) {
+      const newExercise: ExerciseMasterData = {
+        title,
+        yamlUrl,
+        category,
+        sortOrder,
+      };
+      await createExercise(cosmosDb, newExercise);
+    } else {
+      const exercise = await getExerciseById(cosmosDb, id);
       if (!exercise) {
         res.status(404).send();
         return;
@@ -59,16 +67,7 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
       exercise.yamlUrl = yamlUrl;
       exercise.category = category;
       await updateExercise(cosmosDb, exercise);
-    } else {
-      const newExercise: ExerciseMasterData = {
-        title,
-        yamlUrl,
-        category,
-        sortOrder,
-      };
-      await createExercise(cosmosDb, newExercise);
     }
-
     res.redirect("/exercises");
   });
 

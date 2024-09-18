@@ -27,10 +27,10 @@ export function createUserRoutes(cosmosDb: Database, ghPat: string): express.Rou
     res.render("user-details", { user });
   });
 
-  router.post("/edit", async (req, res) => {
+  router.post("/:userId", async (req, res) => {
+    const userId = req.params.userId;
     const { 
       operation,
-      userId, 
       firstName, 
       lastName, 
       accountName, 
