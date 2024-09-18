@@ -18,6 +18,7 @@ import auth from "./routes/auth.js";
 import { createCosmosClient, getDatabase } from "./helpers/cosmosHelper.js";
 import { createUserRoutes, createMeRoute } from "./routes/users.js";
 import exercises from "./routes/exercises.js";
+import github from "./routes/github.js";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 logger.info({ configuration: isDevelopment ? "development" : "production" }, "Start configuration");
@@ -107,6 +108,7 @@ app.use("/", authMiddleware);
 app.use("/me", createMeRoute(cosmosDb));
 app.use("/users", ensureAuthenticated, ensureAdmin, createUserRoutes(cosmosDb, ghPat.value));
 app.use("/exercises", ensureAuthenticated, ensureAdmin, await exercises(cosmosDb, kvClient));
+app.use("/github", ensureAuthenticated, ensureAdmin, await github(cosmosDb, kvClient));
 const proxyMiddleware = createProxyMiddleware<express.Request, express.Response>({
   target: `${process.env.PROXY_TARGET ?? "http://localhost:5173"}/playground`,
   changeOrigin: true,

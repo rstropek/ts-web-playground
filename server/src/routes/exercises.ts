@@ -38,17 +38,17 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
     }
   });
 
-  router.post("/edit", async (req, res) => {
+  router.post("/:exerciseId/edit", async (req, res) => {
+    const exerciseId = req.params.exerciseId;
     const { 
-      id, 
       title, 
       sortOrder,
       yamlUrl,
       category
     } = req.body;
 
-    if (id) {
-      const exercise = await getExerciseById(cosmosDb, id);
+    if (exerciseId) {
+      const exercise = await getExerciseById(cosmosDb, exerciseId);
       if (!exercise) {
         res.status(404).send();
         return;
@@ -88,39 +88,7 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
     res.redirect("/exercises");
   });
 
-  const ghPat = await kv.getSecret("GH-PAT");
-  if (!ghPat || !ghPat.value) {
-    logger.error("Failed to get GitHub PAT");
-    process.exit(1);
-  }
-  router.post("/save", async (req, res) => {
-    const { 
-      title, 
-      fileName,
-      content,
-    } = req.body;
-
-    const user = await getUserById(cosmosDb, req.session.userId!);
-    if (!user) {
-      res.status(404 /* Not found */).send();
-      return;
-    }
-
-    if (!user.repository) {
-      res.status(400 /* Bad Request */ ).send("No repository found for user");
-      return;
-    }
-
-    const folder = titleToFolder(title);
-    await saveFile(ghPat.value!, process.env.GH_ORG!, user.repository, `${folder}/${fileName}`, content);
-    res.sendStatus(200);
-  });
-
   return router;
-}
-
-export function titleToFolder(title: string): string {
-  return title.replace(/ /g, "_").replace(/\W/g, "").toLowerCase();
 }
 
 export default create;

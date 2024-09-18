@@ -1,12 +1,5 @@
 :root {
   --top-bar-height: 50px;
-  /* --top-bar-bg-color: rgb(233, 231, 255);
-    --top-bar-border-color: rgb(140, 131, 240);
-    --top-bar-selected-bg-color: rgb(171, 165, 235); */
-
-  /* --top-bar-bg-color: rgb(46, 57, 99);
-    --top-bar-border-color: rgb(63, 78, 135);
-    --top-bar-selected-bg-color: rgb(85, 105, 181); */
 
   --top-bar-color: white;
   --top-bar-bg-color: #3a6e86;
@@ -61,10 +54,36 @@ span.link {
 
 .content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
-.content > div {
-  max-width: 1280px;
+footer {
+  border-top: 1px solid black;
+  padding-top: 10px;
+  margin-top: 20px;
+}
+
+.content {
+  max-width: 1024px;
   width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px; /* Optional: Adjust the gap between tiles */
+  padding: 0;
+  list-style: none;
+}
+
+ul li {
+  width: 15%;
+  min-width: 200px;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
 }

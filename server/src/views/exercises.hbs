@@ -13,6 +13,7 @@
     <thead>
         <tr>
             <th>Category</th>
+            <th>Order</th>
             <th>Title</th>
             <th>Created</th>
             <th>Last Changed</th>
@@ -23,6 +24,7 @@
         {{#each exercises}}
         <tr>
             <td>{{category}}</td>
+            <td>{{sortOrder}}</td>
             <td>{{title}}</td>
             <td>{{dateFormat created}}</td>
             <td>{{dateFormat lastChanged}}</td>

@@ -87,7 +87,7 @@ loadExercise(exerciseUrl).then((ex1) => {
         continue;
       }
 
-      const result = await fetch("/exercises/save", {
+      const result = await fetch("/github/exercise/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -39,7 +39,7 @@ export async function getAllUsers(cosmosDb: Database, filter?: string): Promise<
 
   let query = `SELECT * FROM ${Collections.Users} u`;
   if (filter) {
-    query += ` WHERE CONTAINS(u.accountName, @filter) OR CONTAINS(u.firstName, @filter) OR CONTAINS(u.lastName, @filter)`;
+    query += ` WHERE CONTAINS(u.accountName, @filter) OR CONTAINS(u.firstName, @filter) OR CONTAINS(u.lastName, @filter) OR CONTAINS(u.class, @filter)`;
   }
 
   query += " ORDER BY u.lastName ASC, u.firstName ASC";

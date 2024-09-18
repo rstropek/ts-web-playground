@@ -1,21 +1,18 @@
-<div class="content">
-  <div>
-    <h1 class="hero">Welcome, {{firstName}}</h1>
+<div>
+  <h1 class="hero">Welcome, {{firstName}}</h1>
 
-    {{#if isAdmin}}
-      <h2>Administration</h2>
-      <ul>
-        <li><a href="users">Users</a></li>
-        <li><a href="exercises">Exercises</a></li>
-      </ul>
-    {{/if}}
+  {{#if isAdmin}}
+  <h2>Administration</h2>
+  <ul>
+    <li><a href="users">Users</a></li>
+    <li><a href="exercises">Exercises</a></li>
+  </ul>
+  {{/if}}
 
-    <h2>Exercises</h2>
-    <ul>
+  <h2>Exercises</h2>
+  <ul>
     {{#each exercises}}
-        <li><a href="/playground?exerciseUrl={{yamlUrl}}">{{title}}</a></li>
+    <li><a href="/playground?exerciseUrl={{yamlUrl}}">{{title}}</a></li>
     {{/each}}
-    </ul>
-    
-  </div>
+  </ul>
 </div>

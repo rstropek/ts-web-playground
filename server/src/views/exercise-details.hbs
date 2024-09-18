@@ -1,6 +1,6 @@
 <h2>Exercise</h2>
 
-<form id="editExerciseForm" method="POST" action="/exercises/edit" class="edit">
+<form id="editExerciseForm" method="POST" action="/exercises/{{exercise.id}}/edit" class="edit">
     <input type="hidden" name="id" id="editExerciseId" value="{{exercise.id}}">
     <label for="editCategory">Category:</label>
     <input type="text" name="category" id="editCategory" value="{{exercise.category}}">
