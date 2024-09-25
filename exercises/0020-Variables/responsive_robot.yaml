@@ -1,4 +1,4 @@
-title: "Crosshairs"
+title: "Responsive Robot"
 descriptionMd: |
   # Responsive Robot
 
@@ -16,7 +16,7 @@ descriptionMd: |
 
   The robot's eyes are 20% of the smaller side of the head. To get the minimum of two values, use the method _Math.min(...)_. For example, _Math.min(100, 200)_ returns 100. _Math.min(x, y)_ returns the smaller of the two values _x_ and _y_.
 
-  The starter code contains several variables (e.g. _headWidth_). They are declared with _const_. Therefore, their values cannot be changed (i.e. is constant). If you have a variable that you want to change, use _let_ instead of _const_.
+  The starter code contains several variables (e.g. _headWidth_). They are declared with _const_. Therefore, their values cannot be changed (i.e. are constant). If you have a variable that you want to change, use _let_ instead of _const_.
 files:
   "index.ts":
     content: |

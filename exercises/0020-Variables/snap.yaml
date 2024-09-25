@@ -1,0 +1,49 @@
+title: "Snapping"
+descriptionMd: |
+  # Snapping
+
+  In this exercise, we will create a program where a marker (crosshairs) moves to follow the mouse cursor. However, instead of following the mouse exactly, the marker will jump to fixed positions on a grid. This concept is called _snapping_.
+
+  Imagine your screen as a grid, where each square is 40 pixels wide and tall. Instead of the marker being able to move smoothly between all the pixels, it will always "snap" or jump to the nearest corner of a grid square. This helps the marker stay aligned to the grid, giving it a more structured movement. The following image shows the intended behavior:
+
+  ![Snapping](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/snap.gif?raw=true)
+
+  ## Tips
+
+  To find the nearest corner to snap to, you must divide the current mouse position by the grid size (40 pixels) and then round the result to the nearest integer. Rounding is done with _Math.round(...)_. Here are some examples:
+  
+  * _Math.round(3.6)_ returns 4
+  * _Math.round(3.4)_ returns 3
+  * _Math.round(x)_ returns 2 assuming that _x_ is 2.3.
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        createCanvas(200, 200);
+        background("lightblue");
+      }
+
+      function mouseMoved() {
+        const snap = 40; // marker must snap every 40 pixels
+        const markerSize = 10; // size of marker
+
+        background("lightblue");
+
+        // Add your code here
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
