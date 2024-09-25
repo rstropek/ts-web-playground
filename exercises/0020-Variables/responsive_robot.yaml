@@ -1,0 +1,52 @@
+title: "Crosshairs"
+descriptionMd: |
+  # Responsive Robot
+
+  If you build a user interface, you often have to deal with different screen sizes and orientations (landscape vs. portrait). In this exercise, you have to draw the robot that you already know from a previous homework. However, this time, the size of the shapes must be relative to the canvas size. Here you see two variants of the robot for different canvas sizes:
+
+  ![Scaled robot](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/responsive_robot_scaled.png?raw=true)
+
+  Here is a detailed description of how to draw the robot's shapes:
+
+  ![Robot specification](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/responsive_robot.png?raw=true)
+
+  ## Tips
+
+  The robot's eyes are 20% of the smaller side of the head. To get the minimum of two values, use the method _Math.min(...)_. For example, _Math.min(100, 200)_ returns 100. _Math.min(x, y)_ returns the smaller of the two values _x_ and _y_.
+
+  The starter code contains several variables (e.g. _headWidth_). They are declared with _const_. Therefore, their values cannot be changed (i.e. is constant). If you have a variable that you want to change, use _let_ instead of _const_.
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        createCanvas(400, 400);
+        background("lightgray");
+
+        // Define relative sizes and positions based on canvas width and height
+        const headWidth = width * 0.50; // Head size as 50% of the canvas width
+        const headHeight = height * 0.50; // Head size as 50% of the canvas width
+        const headX = width / 2 - headWidth / 2; // Center the head horizontally
+        const headY = height / 2 - headHeight / 2; // Center the head vertically
+
+        // Draw the robot's head
+        fill("gray");
+        rect(headX, headY, headWidth, headHeight);
+
+        // Add your code here
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
