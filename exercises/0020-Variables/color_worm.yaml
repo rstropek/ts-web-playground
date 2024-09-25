@@ -1,0 +1,37 @@
+title: "Color Worm"
+descriptionMd: |
+  # Color Worm
+
+  Let's use what we learned about colors. Type in the following code and move your mouse around the canvas:
+
+  ![Color Worm](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/color_worm.png?raw=true)
+
+  ## Important Things to learn
+
+  _color_hue_ is a **global** variable because it it declared **outside** of any function. This means that it can be accessed by any function in your code. Additionally, it keeps its value between function calls (e.g. between mouse movements). Generally, **avoid** global variables and use them only if you have to. **Prefer** local variables (i.e. variables declared inside a function).
+
+  The code contains the _%_ operator (_modulo_). This operator calculates the remainder of a division. For example, _5 % 2_ is _1_ because _5_ divided by _2_ is _2_ with a remainder of _1_. In our case, we use it to limit the value of _color_hue_ to a maximum of _360_. When the value rises to e.g. _361_, the _%_ operator will return _1_. Therefore, the color will start again at the beginning (red).
+files:
+  "index.ts":
+    content: |
+      function setup() {
+      }
+
+      function mouseMoved() {
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: true
