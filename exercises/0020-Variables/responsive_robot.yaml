@@ -2,7 +2,7 @@ title: "Crosshairs"
 descriptionMd: |
   # Responsive Robot
 
-  If you build a user interface, you often have to deal with different screen sizes and orientations (landscape vs. portrait). In this exercise, you have to draw the robot that you already know from a previous homework. However, this time, the size of the shapes must be relative to the canvas size. Here you see two variants of the robot for different canvas sizes:
+  If you build a user interface, you often have to deal with different screen sizes and orientations (landscape vs. portrait). In this exercise, you have to draw the robot that you already know from a previous exercise. However, this time, the size of the shapes must be relative to the canvas size. Here you see two variants of the robot for different canvas sizes:
 
   ![Scaled robot](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/responsive_robot_scaled.png?raw=true)
 
@@ -11,6 +11,8 @@ descriptionMd: |
   ![Robot specification](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/responsive_robot.png?raw=true)
 
   ## Tips
+
+  A UI that adapts nicely to different screen sizes is called a **responsive UI**.
 
   The robot's eyes are 20% of the smaller side of the head. To get the minimum of two values, use the method _Math.min(...)_. For example, _Math.min(100, 200)_ returns 100. _Math.min(x, y)_ returns the smaller of the two values _x_ and _y_.
 
