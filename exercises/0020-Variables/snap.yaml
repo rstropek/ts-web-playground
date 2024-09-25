@@ -8,6 +8,8 @@ descriptionMd: |
 
   ![Snapping](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/snap.gif?raw=true)
 
+  In addition to the snapping behavior, you also have to write the current x/y position of the marker in the left lower corner of the canvas.
+
   ## Tips
 
   To find the nearest corner to snap to, you must divide the current mouse position by the grid size (40 pixels) and then round the result to the nearest integer. Rounding is done with _Math.round(...)_. Here are some examples:
