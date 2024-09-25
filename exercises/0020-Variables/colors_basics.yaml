@@ -52,7 +52,7 @@ descriptionMd: |
     colorMode(HSB);
 
     // Try different HSB values:
-    //         +------------ hue (0..360)
+    //         +------------ hue (0..360; see also image above)
     //         |    +------- saturation (0..100)
     //         |    |  +---- brightness (0..100)
     //         v    v  v
