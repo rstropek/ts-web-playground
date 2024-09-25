@@ -1,0 +1,85 @@
+title: "Colors (Basics)"
+descriptionMd: |
+  # Some Basics About Colors
+
+  Colors are an important aspect of user interface design. As programmers, we need to understand how to work with colors in our code. In this exercise, you will learn some basics about colors in p5.js.
+
+  ## Color Names
+
+  Your computer, particularly your browser understands a lot of color names. For example, you can use "red", "green", "blue", "yellow", "black", "white", "lightblue", and many more. You can find a list of color names that your browser understands [here](https://www.w3schools.com/colors/colors_names.asp) and [here](https://htmlcolorcodes.com/color-names/). Type in the following code and try different color names:
+
+  ```ts
+  function setup() {
+    createCanvas(200, 200);
+    background("lightblue");
+  }
+  ```
+
+  ## RBG Colors
+
+  You can mix each color that your computer screen can display by combining red, green, and blue light. Each of these colors can have a value between 0 and 255. For example, the color red is created by setting the red component to 255 and the green and blue components to 0. Type in the following code and try different RGB values:
+
+  ```ts
+  function setup() {
+    createCanvas(200, 200);
+
+    // Get a color by mixing red, green, and blue.
+    // Play with RGB values at e.g. https://colorpicker.me/
+
+    // Switch the color mode to RGB:
+    colorMode(RGB);
+
+    // Try different RGB values:
+    //         +------------ red (0..255)
+    //         |    +------- green (0..255)
+    //         |    |  +---- blue (0..255)
+    //         v    v  v
+    background(255, 0, 0);
+  }
+  ```
+
+  ## HSB
+
+  Another way to define colors is by using the HSB color model. HSB stands for Hue (German _Farbton_), Saturation (German _Sättigung_), and Brightness (German _Helligkeit_). Hue is the color type (e.g. red, green, blue), saturation is the intensity of the color, and brightness is the brightness of the color. Type in the following code and try different HSB values:
+
+  ![Hue Scale](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/HueScale.svg/220px-HueScale.svg.png)
+
+  ```ts
+  function setup() {
+    createCanvas(200, 200);
+
+    // Switch the color mode to HSB:
+    colorMode(HSB);
+
+    // Try different HSB values:
+    //         +------------ hue (0..360)
+    //         |    +------- saturation (0..100)
+    //         |    |  +---- brightness (0..100)
+    //         v    v  v
+    background(0, 100, 100);
+  }
+  ```
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        createCanvas(200, 200);
+        
+        // Add your code here
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: true
