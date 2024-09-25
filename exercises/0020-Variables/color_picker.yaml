@@ -1,0 +1,38 @@
+title: "Color Picker"
+descriptionMd: |
+  # Color Picker
+
+  Now we want to implement a simple color picker. For that, we split our canvas in half. The top half will change according to mouse moves. The horizontal mouse position controls the hue of the color (0..360). The vertical position controls the saturation (0..100). The brightness is always at maximum (100). When the user clicks, the current color is displayed in the bottom half of the canvas. Additionally, the HSB values are displayed in the lower left corner of the canvas.
+
+  ![Color Picker](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/color_picker.gif?raw=true)
+
+  Here is a diagram showing the dimensions of the color picker:
+
+  ![Color Picker](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/color_picker_mouse.png?raw=true)
+files:
+  "index.ts":
+    content: |
+      function setup() {
+      }
+
+      function mouseMoved() {
+      }
+
+      function mouseClicked() {
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: true
