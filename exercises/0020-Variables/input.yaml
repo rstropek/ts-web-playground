@@ -18,8 +18,19 @@ files:
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
           {{topScripts}}
-          </head>
+        </head>
         <body>
+          <div>
+            <label>Width:</label>
+            <input type="number" id="width" value="50" />
+          </div>
+          <script>
+            let shapeWidth = 50;
+            const widthInput = document.getElementById("width");
+            widthInput.addEventListener("input", () => {
+              shapeWidth = parseInt(widthInput.value);
+            });
+          </script>
           {{bodyScripts}}
         </body>
       </html>
