@@ -2,6 +2,7 @@ import { Database, SqlQuerySpec } from "@azure/cosmos";
 import { Collections, getContainer } from "../helpers/cosmosHelper.js";
 import { UserMasterData, UserWithId } from "./model.js";
 import crypto from "crypto";
+import bcrypt from "bcrypt";
 
 export async function storeLogin(cosmosDb: Database, userData: UserMasterData): Promise<UserWithId> {
   let user = await getUserById(cosmosDb, userData.userId);
@@ -96,4 +97,48 @@ export async function updateUser(cosmosDb: Database, userData: UserWithId): Prom
   const container = await getContainer(cosmosDb, Collections.Users);
 
   await container.items.upsert(userData);
+}
+
+export function generateUserTan(): string {
+  // Generate a random combination of 8 digits/characters.
+  // Avoids ambiguous characters like 0/O and 1/I/l.
+  const chars = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+  let tan = "";
+  for (let i = 0; i < 8; i++) {
+    tan += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+
+  return tan;
+}
+
+export type RegenerateUserTansResult = {
+  accountName: string;
+  firstName: string;
+  lastName: string;
+  plainTan: string;
+}
+
+export async function regenerateUserTans(cosmosDb: Database, userIds: string[]): Promise<RegenerateUserTansResult[]> {
+  const container = await getContainer(cosmosDb, Collections.Users);
+
+  const users: RegenerateUserTansResult[] = [];
+  for (const userId of userIds) {
+    const user = await getUserById(cosmosDb, userId);
+    if (!user) {
+      continue;
+    }
+
+    const tan = generateUserTan();
+    const salt = await bcrypt.genSalt(10);
+    user.tan = await bcrypt.hash(tan, salt);
+    await container.items.upsert(user);
+    users.push({
+      accountName: user.accountName,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      plainTan: tan,
+    });
+  }
+
+  return users;
 }

@@ -5,32 +5,59 @@
     <button type="submit">Search</button>
 </form>
 
-<table>
-    <thead>
-        <tr>
-            <th>Lastname</th>
-            <th>Firstname</th>
-            <th>Account Name</th>
-            <th>Class</th>
-            <th>First Login</th>
-            <th>Last Login</th>
-            <th>&nbsp;</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each users}}
-        <tr>
-            <td>{{lastName}}</td>
-            <td>{{firstName}}</td>
-            <td>{{accountName}}</td>
-            <td>{{class}}</td>
-            <td>{{dateFormat firstLogin}}</td>
-            <td>{{dateFormat lastLogin}}</td>
-            <td>
-                <a href="/users/{{userId}}">✏️</a>
-                <a target="_blank" href="https://github.com/Teaching-HTL-Leonding/{{repository}}">GH</a>
-            </td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+<form id="user-list" method="POST" action="/users/action">
+    <button id="generateTans" type="button">Generate TANs</button>
+    <input type="text" name="action" id="action" hidden />
+    <table>
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="select-all" /></th>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Account Name</th>
+                <th>Class</th>
+                <th>First Login</th>
+                <th>Last Login</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <td>
+                    <input type="checkbox" name="select-{{userId}}" />
+                </td>
+                <td>{{lastName}}</td>
+                <td>{{firstName}}</td>
+                <td>{{accountName}}</td>
+                <td>{{class}}</td>
+                <td>{{dateFormat firstLogin}}</td>
+                <td>{{dateFormat lastLogin}}</td>
+                <td>
+                    <a href="/users/{{userId}}">✏️</a>
+                    <a target="_blank" href="https://github.com/Teaching-HTL-Leonding/{{repository}}">GH</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</form>
+
+<script>
+    const userListForm = document.getElementById("user-list");
+    const generateTansButton = document.getElementById("generateTans");
+    const actionInput = document.getElementById("action");
+    const selectAllBox = document.getElementById("select-all");
+
+    selectAllBox.addEventListener("change", () => {
+        const allCheckboxes = userListForm.querySelectorAll("input[type='checkbox']");
+        for(const cb of allCheckboxes) {
+            cb.checked = cb.checked ? false : true;
+        }
+    });
+
+    generateTansButton.addEventListener("click", () => {
+        actionInput.value = 'generateTans';
+        userListForm.submit();
+    });
+</script>

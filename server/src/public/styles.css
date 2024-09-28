@@ -92,3 +92,33 @@ ul li {
   align-items: center;
   text-align: center;
 }
+
+.tan-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.tan-list li {
+  border: 1px solid black;
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  height: auto;
+  page-break-inside: avoid;
+}
+
+.tan-list li div {
+  font-size: 18px;
+}
+
+.tan-list li div.name {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.tan-list li div .code {
+  font-family: 'Courier New', Courier, monospace;
+}

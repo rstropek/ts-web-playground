@@ -1,6 +1,6 @@
 import express from "express";
 import { Database } from "@azure/cosmos";
-import { getAllUsers, getUserById, updateUser } from "../data/users.js";
+import { getAllUsers, getUserById, regenerateUserTans, updateUser } from "../data/users.js";
 import { Octokit } from "@octokit/rest";
 import { createRepository } from "../helpers/github.js";
 import { isAuthenticated } from "../helpers/authHelper.js";
@@ -25,6 +25,26 @@ export function createUserRoutes(cosmosDb: Database, ghPat: string): express.Rou
     }
 
     res.render("user-details", { user });
+  });
+
+  router.post("/action", async (req, res) => {
+    const { action } = req.body;
+    switch (action) {
+      case "generateTans":
+        const userIds: string[] = [];
+        for (const cb in req.body) {
+          if (cb.startsWith("select-") && req.body[cb] === "on") {
+            userIds.push(cb.substring(7));
+          }
+        }
+
+        const users = await regenerateUserTans(cosmosDb, userIds);
+        res.render("users-tans", { users });
+        break;
+      default:
+        res.status(400).send("Invalid action");
+        break;
+    }
   });
 
   router.post("/:userId", async (req, res) => {
