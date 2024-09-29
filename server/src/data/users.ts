@@ -142,3 +142,28 @@ export async function regenerateUserTans(cosmosDb: Database, userIds: string[]):
 
   return users;
 }
+
+export async function getUserWithTan(cosmosDb: Database, accountName: string, enteredTan: string): Promise<UserWithId | undefined> {
+  const container = await getContainer(cosmosDb, Collections.Users);
+
+  const querySpec: SqlQuerySpec = {
+    query: `SELECT * FROM ${Collections.Users} u WHERE u.accountName = @accountName`,
+    parameters: [
+      {
+        name: "@accountName",
+        value: accountName,
+      },
+    ],
+  };
+  const items = await container.items.query<UserWithId>(querySpec).fetchAll();
+  if (items.resources.length === 0 || !items.resources[0] || !items.resources[0].tan) {
+    return;
+  }
+
+  const user = items.resources[0];
+  if (await bcrypt.compare(enteredTan, user.tan!)) {
+    delete user.tan;
+    await container.items.upsert(user);
+    return user;
+  }
+}

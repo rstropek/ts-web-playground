@@ -122,3 +122,15 @@ ul li {
 .tan-list li div .code {
   font-family: 'Courier New', Courier, monospace;
 }
+
+#tan-login h2 {
+  margin-top: 30px;
+}
+
+#tan-login form {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: auto 300px;
+  gap: 10px;
+  justify-content: start;
+}

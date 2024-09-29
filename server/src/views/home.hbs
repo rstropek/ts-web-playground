@@ -1,6 +1,8 @@
 <div>
   <h1 class="hero">Welcome to TypeScript Playground</h1>
 
+  <h2>Login with School Account</h2>
+
   <p>
     To start coding, you need to login with your school account (Microsoft
     Entra ID, same account that you use to access your school email or
@@ -10,4 +12,22 @@
   <p>
     <a href="/login">Login with Entra ID</a>
   </p>
+
+  <div id="tan-login">
+    <h2>Login with TAN</h2>
+
+    <p>
+      Use this option during exams or exercises where you can't access your school account.
+      You will get a TAN code from your teacher to login.
+    </p>
+
+    <form method="POST" action="/loginWithTan">
+      <label for="user">User:</label>
+      <input type="text" name="user" id="user" autocomplete="email" placeholder="User name (typically school email address)" />
+      <label for="tan">TAN:</label>
+      <input type="text" name="tan" id="tan" autocomplete="off" placeholder="TAN you got from your teacher" />
+      <div></div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
 </div>

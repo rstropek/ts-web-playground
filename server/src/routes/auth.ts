@@ -3,7 +3,7 @@ import * as msal from "@azure/msal-node";
 import { getUserDetails, isUserInGroup } from "../helpers/graphHelper.js";
 import logger from "../helpers/logging.js";
 import { Database } from "@azure/cosmos";
-import { storeLogin } from "../data/users.js";
+import { getUserWithTan, storeLogin } from "../data/users.js";
 import kv from "@azure/keyvault-secrets";
 
 async function create(pca: msal.ConfidentialClientApplication, cosmosDb: Database, kv: kv.SecretClient): Promise<express.Router | undefined> {
@@ -65,6 +65,36 @@ async function create(pca: msal.ConfidentialClientApplication, cosmosDb: Databas
     req.session.destroy((err) => {
       res.redirect("/");
     });
+  });
+
+  router.post("/loginWithTan", async (req, res) => {
+    const { user, tan } = req.body;
+
+    const loggedInUser = await getUserWithTan(cosmosDb, user, tan);
+    if (!loggedInUser) {
+      res.redirect("/");
+      return;
+    }
+
+    req.session.userId = loggedInUser.userId;
+    req.session.accountName = loggedInUser.accountName;
+    req.session.firstName = loggedInUser.firstName;
+    req.session.lastName = loggedInUser.lastName;
+    req.session.isAdmin = false; // login with TAN does not support admin rights
+    req.session.save((err) => {
+      if (err) {
+        logger.error(err);
+      }
+    });
+
+    await storeLogin(cosmosDb, {
+      userId: req.session.userId!,
+      accountName: req.session.accountName!,
+      firstName: req.session.firstName!,
+      lastName: req.session.lastName!
+    });
+
+    res.redirect("/main");
   });
 
   return router;
