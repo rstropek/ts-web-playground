@@ -67,6 +67,14 @@ export async function ensureAuthenticated(req: express.Request, res: express.Res
   }
 }
 
+export async function ensureAuthenticatedWithoutRedirect(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+  if (isAuthenticated(req.session)) {
+    return next(); // User is authenticated, proceed to the next middleware
+  } else {
+    res.status(401).send("Unauthorized");
+  }
+}
+
 export function ensureAdmin(req: express.Request, res: express.Response, next: express.NextFunction): void {
   if (req.session.isAdmin) {
     return next(); // User is an admin, proceed to the next middleware

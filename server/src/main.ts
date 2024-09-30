@@ -10,7 +10,7 @@ import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
-import { ensureAdmin, ensureAuthenticated, getConfidentialClientApplication } from "./helpers/authHelper.js";
+import { ensureAdmin, ensureAuthenticated, ensureAuthenticatedWithoutRedirect, getConfidentialClientApplication } from "./helpers/authHelper.js";
 import { getSessionMiddleware } from "./helpers/sessionHelper.js";
 import logger from "./helpers/logging.js";
 import home from "./routes/home.js";
@@ -108,7 +108,7 @@ app.use("/", authMiddleware);
 app.use("/me", createMeRoute(cosmosDb));
 app.use("/users", ensureAuthenticated, ensureAdmin, createUserRoutes(cosmosDb, ghPat.value));
 app.use("/exercises", ensureAuthenticated, ensureAdmin, await exercises(cosmosDb, kvClient));
-app.use("/github", ensureAuthenticated, await github(cosmosDb, kvClient));
+app.use("/github", ensureAuthenticatedWithoutRedirect, await github(cosmosDb, kvClient));
 const proxyMiddleware = createProxyMiddleware<express.Request, express.Response>({
   target: `${process.env.PROXY_TARGET ?? "http://localhost:5173"}/playground`,
   changeOrigin: true,
