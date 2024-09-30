@@ -36,6 +36,21 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
     res.sendStatus(200);
   });
 
+  router.get("/exercise/proxy", async (req, res) => {
+    const exerciseUrl = req.query.exerciseUrl;
+
+    if (!exerciseUrl) {
+      res.status(400).send("Missing exerciseUrl query parameter");
+      return;
+    }
+
+    const response = await fetch(exerciseUrl.toString(), { redirect: 'follow' });
+    const text = await response.text();
+    res.status(response.status)
+      .header("Content-Type", response.headers.get("Content-Type") || "text/plain")
+      .send(text);
+  });
+
   return router;
 }
 

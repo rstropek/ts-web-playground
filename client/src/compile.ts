@@ -136,12 +136,14 @@ export async function compile(files: Files): Promise<CompileResult> {
   }
   const bodyScripts = `<script>${fileContents.get("index.js")}</script>`;
 
+  const p5Source = `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' : ''}${window.location.port}/libs/p5.min.js`;
   const blob = new Blob(
     [
       files
         .getFile("index.html")!
         .content.replace("{{topScripts}}", topScripts)
-        .replace("{{bodyScripts}}", bodyScripts),
+        .replace("{{bodyScripts}}", bodyScripts)
+        .replace("{{p5Source}}", p5Source),
     ],
     { type: "text/html" }
   );
