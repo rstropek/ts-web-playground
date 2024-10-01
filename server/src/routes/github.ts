@@ -4,6 +4,7 @@ import { saveFile } from "../helpers/github.js";
 import kv from "@azure/keyvault-secrets";
 import logger from "../helpers/logging.js";
 import { getUserById } from "../data/users.js";
+import { getExerciseByTitle } from "../data/exercises.js";
 
 async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.Router> {
   const router = express.Router();
@@ -28,6 +29,21 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
 
     if (!user.repository) {
       res.status(400 /* Bad Request */ ).send("No repository found for user");
+      return;
+    }
+
+    const exercise = await getExerciseByTitle(cosmosDb, title);
+    if (!exercise) {
+      res.status(404 /* Not found */).send();
+      return;
+    }
+    const currentDateTime = new Date();
+    if (exercise.displayFrom && new Date(exercise.displayFrom) > currentDateTime) {
+      res.status(403 /* Forbidden */).send("Exercise is not yet available");
+      return;
+    }
+    if (exercise.displayUntil && new Date(exercise.displayUntil) < currentDateTime) {
+      res.status(403 /* Forbidden */).send("Exercise is no longer available");
       return;
     }
 

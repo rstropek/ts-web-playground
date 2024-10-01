@@ -6,6 +6,11 @@ import crypto from "crypto";
 export async function createExercise(cosmosDb: Database, exercise: ExerciseMasterData): Promise<ExerciseWithId> {
   const container = await getContainer(cosmosDb, Collections.Exercises);
 
+  const existingExercise = await getExerciseByTitle(cosmosDb, exercise.title);
+  if (existingExercise) {
+    throw new Error("Exercise with this title already exists");
+  }
+
   const creationTime = new Date().toISOString();
   const newExercise: ExerciseWithId = {
     ...exercise,
@@ -64,6 +69,26 @@ export async function getExerciseById(cosmosDb: Database, exerciseId: string): P
       {
         name: "@exerciseId",
         value: exerciseId,
+      },
+    ],
+  };
+  const items = await container.items.query<ExerciseWithId>(querySpec).fetchAll();
+  if (items.resources.length === 0) {
+    return;
+  }
+
+  return items.resources[0];
+}
+
+export async function getExerciseByTitle(cosmosDb: Database, title: string): Promise<ExerciseWithId | undefined> {
+  const container = await getContainer(cosmosDb, Collections.Exercises);
+
+  const querySpec: SqlQuerySpec = {
+    query: `SELECT * FROM ${Collections.Exercises} e WHERE e.title = @title`,
+    parameters: [
+      {
+        name: "@title",
+        value: title,
       },
     ],
   };

@@ -30,8 +30,13 @@
         const displayFrom = document.getElementById('displayFrom');
         const displayUntil = document.getElementById('displayUntil');
 
-        displayFrom.value = new Date(displayFromInput.value).toISOString();
-        displayUntil.value = new Date(displayUntilInput.value).toISOString();
+        if (displayFromInput.value) {
+            displayFrom.value = new Date(displayFromInput.value).toISOString();
+        }
+
+        if (displayUntilInput.value) {
+            displayUntil.value = new Date(displayUntilInput.value).toISOString();
+        }
 
         return true;
     });

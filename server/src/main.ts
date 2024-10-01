@@ -70,6 +70,8 @@ app.engine("hbs", engine({
       return new Date(dateStr).toLocaleString('de-AT', options).replace(',', '');
     },
     utcDateTimeToLocal(dateStr: string) {
+      if (!dateStr) { return ""; }
+      
       const date = new Date(dateStr);
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
