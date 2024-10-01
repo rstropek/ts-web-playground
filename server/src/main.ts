@@ -69,6 +69,17 @@ app.engine("hbs", engine({
       };
       return new Date(dateStr).toLocaleString('de-AT', options).replace(',', '');
     },
+    utcDateTimeToLocal(dateStr: string) {
+      const date = new Date(dateStr);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+
+      const localDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+      return localDateTime;
+    }
   }
 }));
 app.set('view engine', 'hbs');

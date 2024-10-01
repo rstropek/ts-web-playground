@@ -44,7 +44,9 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
       title,
       sortOrder,
       yamlUrl,
-      category
+      category,
+      displayFrom,
+      displayUntil
     } = req.body;
 
     if (!id) {
@@ -53,6 +55,8 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
         yamlUrl,
         category,
         sortOrder,
+        displayFrom,
+        displayUntil
       };
       await createExercise(cosmosDb, newExercise);
     } else {
@@ -66,6 +70,8 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
       exercise.sortOrder = sortOrder;
       exercise.yamlUrl = yamlUrl;
       exercise.category = category;
+      exercise.displayFrom = displayFrom;
+      exercise.displayUntil = displayUntil;
       await updateExercise(cosmosDb, exercise);
     }
     res.redirect("/exercises");

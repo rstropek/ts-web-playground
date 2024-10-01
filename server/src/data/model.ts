@@ -22,6 +22,8 @@ export type ExerciseMasterData = {
   sortOrder?: string;
   title: string;
   yamlUrl?: string;
+  displayFrom?: string; // Date/time in ISO 8601 UTC format (e.g. 2024-10-01T03:15:59Z)
+  displayUntil?: string; // Date/time in ISO 8601 UTC format (e.g. 2024-10-01T03:15:59Z)
 }
 
 export type Exercise = ExerciseMasterData & {

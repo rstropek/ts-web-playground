@@ -22,6 +22,9 @@ h1.hero {
   color: var(--top-bar-color);
 }
 
+.nowrap {
+  white-space: nowrap;
+}
 
 table {
   margin-top: 20px;

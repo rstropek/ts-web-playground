@@ -10,6 +10,29 @@
     <input type="text" name="title" id="editTitle" value="{{exercise.title}}">
     <label for="editYamlUrl">YAML&nbsp;URL:</label>
     <input type="text" name="yamlUrl" id="editYamlUrl" value="{{exercise.yamlUrl}}">
-    <div></div>
+    <label for="displayFromInput" class="nowrap">Display from:</label>
+    <input type="datetime-local" name="displayFromInput" id="displayFromInput" value="{{utcDateTimeToLocal exercise.displayFrom}}">
+    <label for="displayUntilInput" class="nowrap">Display until:</label>
+    <input type="datetime-local" name="displayUntilInput" id="displayUntilInput" value="{{utcDateTimeToLocal exercise.displayUntil}}">
+    <div>
+        <input type="string" name="displayFrom" id="displayFrom" hidden >
+        <input type="string" name="displayUntil" id="displayUntil" hidden >
+    </div>
     <button type="submit">Save</button>
 </form>
+
+<script>
+    const editExerciseForm = document.getElementById('editExerciseForm');
+
+    editExerciseForm.addEventListener("submit", () => {
+        const displayFromInput = document.getElementById('displayFromInput');
+        const displayUntilInput = document.getElementById('displayUntilInput');
+        const displayFrom = document.getElementById('displayFrom');
+        const displayUntil = document.getElementById('displayUntil');
+
+        displayFrom.value = new Date(displayFromInput.value).toISOString();
+        displayUntil.value = new Date(displayUntilInput.value).toISOString();
+
+        return true;
+    });
+</script>
