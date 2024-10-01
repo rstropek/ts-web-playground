@@ -16,7 +16,7 @@ function create(cosmosDb: Database): express.Router {
   });
 
   router.get("/main", ensureAuthenticated, async (req, res) => {
-    const exercises = await getAllExercises(cosmosDb);
+    const exercises = await getAllExercises(cosmosDb, undefined, true);
 
     const categories = new Set(exercises.map(exercise => exercise.category ?? "Uncategorized"));
     const groupedExercises: { category: string, exercises: ExerciseWithId[] }[] = [];

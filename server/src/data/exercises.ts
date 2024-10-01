@@ -18,12 +18,23 @@ export async function createExercise(cosmosDb: Database, exercise: ExerciseMaste
   return newExercise;
 }
 
-export async function getAllExercises(cosmosDb: Database, filter?: string): Promise<ExerciseWithId[]> {
+export async function getAllExercises(cosmosDb: Database, filter?: string, onlyActive?: boolean): Promise<ExerciseWithId[]> {
   const container = await getContainer(cosmosDb, Collections.Exercises);
 
   let query = `SELECT * FROM ${Collections.Exercises} e`;
   if (filter) {
     query += ` WHERE CONTAINS(e.title, @filter) OR CONTAINS(e.category, @filter)`;
+  }
+  if (onlyActive) {
+    if (filter) {
+      query += " AND ";
+    } else {
+      query += " WHERE ";
+    }
+
+    query += `
+      (NOT IS_DEFINED(e.displayFrom) OR IS_NULL(e.displayFrom) OR e.displayFrom = "" OR e.displayFrom <= GetCurrentDateTime()) 
+        AND (NOT IS_DEFINED(e.displayUntil) OR IS_NULL(e.displayUntil) OR e.displayUntil = ""  OR e.displayUntil >= GetCurrentDateTime())`;
   }
 
   query += " ORDER BY e.category ASC, e.sortOrder ASC, e.title ASC";
