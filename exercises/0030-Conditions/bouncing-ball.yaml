@@ -1,0 +1,65 @@
+title: "Bouncing Ball"
+descriptionMd: |
+  # Bouncing Ball
+
+  ## Starting Point
+
+  In this exercise, we apply the concept of conditions to a simple animation. A ball moves from left to right and bounces back when it reaches the left or right border of the canvas. The starter code already handles the bouncing back when the ball reaches the left or right border.
+
+  ![Single bouncing ball](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/bouncing-ball-single.gif?raw=true)
+
+  ## Your Task
+
+  Make yourself familiar with the starter code. Particularly, pay attention to the _if_ statement that combines two conditions using the _OR_ operator. The code inside the _if_ statement is executed when the ball reaches the left _OR_ right border of the canvas.
+
+  When you are ready, add a second ball that moves from top to bottom. The ball should bounce back when it reaches the top or bottom border of the canvas. The ball should be drawn in a different color than the first ball.
+
+  ![Dual bouncing balls](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/bouncing-ball-dual.gif?raw=true)
+
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        createCanvas(300, 200);
+      }
+
+      const circleDiameter = 50;
+
+      let circleCenterX = 0;
+      let direction = 2;
+
+      // Remember: The _draw_ method is called FOR EVERY FRAME
+      function draw() {
+        background("gold");
+
+        stroke("white");
+        strokeWeight(3);
+        fill("lime");
+        circle(circleCenterX, height / 2, circleDiameter);
+
+        circleCenterX += direction;
+
+        //                         +----------------------------- OR operator
+        //                         |
+        //                         v
+        if (circleCenterX >= width || circleCenterX <= 0) {
+          // Reverse sign of direction (positive -> right, negative -> left)
+          direction *= -1; 
+        }
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
