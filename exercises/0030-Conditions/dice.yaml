@@ -1,0 +1,54 @@
+title: "Dice"
+descriptionMd: |
+  # Dice
+
+  In this exercise, you have to draw the points of a dice on the screen. At the beginning of the _setup_ method, a random number between 1 and 6 is generated. Depending on the number, you have to draw the points of the dice on the screen. The points are drawn as white circles. Here is an example of a dice with the number 2:
+
+  ![Dice](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/dice.png?raw=true)
+
+  The starter code already handles the cases 1 and 2. Add the missing cases 3 to 6.
+
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        // Diameter of a point from the dice
+        const dicePointDiameter: number = 30;
+
+        createCanvas(200, 200);
+        background("black");
+
+        // Generate an integer random number 
+        // between 1 (including) and 7 (excluding)
+        const dice = Math.floor(random(1, 7));
+
+        noStroke();
+        fill("white");
+        if (dice === 1) {
+          // One point in the middle of the dice
+          circle(width / 2, height / 2, dicePointDiameter);
+        } else if (dice === 2) {
+          // One point in the left upper corner, one
+          // in the lower right corner
+          circle(width / 4, height / 4, dicePointDiameter);
+          circle(3 * width / 4, 3 * height / 4, dicePointDiameter);
+        } else if (dice === 3) {
+          // Draw three dots (combination of 1 and 2)
+        } /* ... add the other cases here */
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
