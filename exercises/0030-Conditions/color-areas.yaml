@@ -16,7 +16,7 @@ descriptionMd: |
 
   ## Step 2 - Mouse Interaction
 
-  Now, let's make the canvas interactive. Add a _mouseClicked_ method to your code. This is where the _if_ statement comes into play. Use it to check which colored area of the canvas the mouse was clicked in. Depending on the area clicked, the name of the color should be displayed in the black area at the bottom. When you finish, the interaction should work like this:
+  Now, let's make the canvas interactive. Add a _mouseClicked_ method to your code. This is where the _if_ statement comes into play. Use it to check which colored area of the canvas the mouse was clicked in. Depending on the area clicked, the name of the color should be displayed in the black area at the bottom. When you finish, the interaction should work like this (note that the circle around the mouse cursor is just to help you visualize the click area, you do _not_ need to add it):
 
   ![Color Areas](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/color-areas.gif?raw=true)
 
