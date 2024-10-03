@@ -1,0 +1,56 @@
+title: "Color Areas"
+descriptionMd: |
+  # Color Areas
+
+  ## Introduction
+
+  In this exercise, you will practice using the _if_ statement. The _if_ statement is a fundamental part of programming that allows you to control the flow of your code. By using conditions, you can decide which block of code should execute based on whether the condition is true or false. This exercise will guide you through creating a simple interactive program using the _if_ statement.
+
+  ## Step 1 - General Layout
+
+  Let's start by setting up the basic layout. In the _setup_ method, create a canvas that is 400x200 pixels in size. You'll divide this canvas into three equal sections, each filled with a distinct color. These colors should be easy to distinguish from each other. Additionally, draw a black area at the bottom of the canvas, which will later serve as the display area for messages.
+
+  ![Color Areas Layout](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/color-areas.png?raw=true)
+
+  **Tip:** If you're uncertain which colors to use, tools like Adobe's [Color Wheel](https://color.adobe.com/create/color-wheel) can help you pick complementary colors. Select an option such as _Split Complementary_ under Color Harmony to find visually appealing combinations.
+
+  ## Step 2 - Mouse Interaction
+
+  Now, let's make the canvas interactive. Add a _mouseClicked_ method to your code. This is where the _if_ statement comes into play. Use it to check which colored area of the canvas the mouse was clicked in. Depending on the area clicked, the name of the color should be displayed in the black area at the bottom. When you finish, the interaction should work like this:
+
+  ![Color Areas](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/color-areas.gif?raw=true)
+
+  Here's a preview of how to use the _if_ statement for this task. You can use this code, but you'll need to adjust it to fit your specific requirements:
+
+  ![Color Areas if Statement](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/color-areas_code.png?raw=true)
+
+  In the example above, notice how the _message_ variable is set based on the area clicked. This message will then be used to write the corresponding color name into the black display area at the bottom of the canvas. Implement this logic in the _mouseClicked_ method and make sure the correct color name appears at the bottom when each area is clicked.
+
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          createCanvas(400, 200);
+          background("black");
+          noStroke();
+
+          // <<< Add your code here
+      }
+
+      // <<< Add the function `moveClicked` with the required code here
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
