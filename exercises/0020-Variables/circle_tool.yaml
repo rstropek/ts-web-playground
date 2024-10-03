@@ -1,0 +1,70 @@
+title: "Circle Tool (Exam)"
+descriptionMd: |
+  # Circle Tool
+
+  ## Introduction
+
+  Imagine you are part of a team working on a graphical design application. Your task is to implement a tool that allows users to create ellipses on the canvas.
+
+  ## Minimum Requirements
+
+  To pass the exam, you need to meet the following requirements:
+
+  1. **Draw the Ellipse:** As the user moves the mouse, an ellipse should appear centered on the canvas. If the size of the canvas changes (i.e. parameter for the method _createCanvas_ are changed), the ellipse must stay centered, ensuring a responsive design.
+
+  2. **Control Ellipse Size:** The width and height of the ellipse are controlled by the mouse's position. The width is the distance between the mouse's X-coordinate and the canvas center, multiplied by two. Similarly, the height is the distance between the mouse's Y-coordinate and the canvas center, also multiplied by two.
+
+  3. **Display the Area:** In the bottom left corner of the canvas, display the area of the ellipse in the format: _Area: 123_ (where _123_ is the calculated area). The area of the ellipse can be calculated using the formula: _horizontal radius × vertical radius × π_. Use _Math.PI_ in your program to represent π.
+
+  ![Minimum Requirements](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/circle_tool/010-minimum-requirements.gif?raw=true)
+
+  ## Advanced Requirements
+
+  For a higher score, implement the following additional features:
+
+  1. **Helper Lines:** Draw two lines through the center of the ellipse that divide it into four equal quadrants.
+
+      ![With Helper Lines](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/circle_tool/020-with-guidelines.gif?raw=true)
+
+  2. **Snap to Grid:** The ellipse's diameters must snap to a grid size of 20 pixels. This means the ellipse's width and height should always be multiples of 20 (e.g., 0, 20, 40, etc.).
+
+      ![With Snapping](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/circle_tool/025-snapping.gif?raw=true)
+
+  3. **Display Diameters:**
+
+      * **Horizontal Diameter:** Display the value of the horizontal diameter next to the left side of the ellipse's centerline. The text should be directly aligned to the left of the center of the shape.
+      * **Vertical Diameter:** Display the value of the vertical diameter above the top center of the ellipse.
+      * **Tip (optional, not mandatory):** For right-aligned text, you can use _textAlign(RIGHT);_ before calling the _text(...)_ function.
+
+      ![With Size](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/circle_tool/030-with-size.gif?raw=true)
+
+  4. **Color the Quadrants:** Divide the ellipse into four quadrants, each drawn with a different color.
+
+      ![With Colors](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/circle_tool/040-colored.gif?raw=true)
+
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          createCanvas(400, 200);
+          background("black");
+          angleMode(DEGREES);
+      }
+
+      // <<< Add the function `mouseMoved` with the required code here
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
