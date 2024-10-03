@@ -1,0 +1,34 @@
+title: "Bouncing Ball (Advanced)"
+descriptionMd: |
+  # Bouncing Ball (Advanced)
+
+  This is a more advanced version of the previous _bouncing ball_ exercise. In the previous version, the balls only flew from left to right or from top to bottom. Now, we focus on a single ball but it should move diagonally. The ball should bounce back when it reaches the left, right, top, or bottom border of the canvas.
+
+  ![Bouncing ball advanced](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/bouncing-ball-advanced.gif?raw=true)
+
+  **Tip:** Use the previous exercise (the one with a single ball) as a starting point. Modify the code to make the ball move diagonally.
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        createCanvas(300, 200);
+      }
+
+      function draw() {
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
