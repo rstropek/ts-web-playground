@@ -1,0 +1,48 @@
+title: "Digits"
+descriptionMd: |
+  # Digits
+
+  In this exercise, you have to draw the digits of a random number between 0 and 999999 on the screen. The output must look like this:
+
+  ![Digits](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/digits.png?raw=true)
+
+  The small number on the bottom is the original random number. This ouput is for verification purposes only. The important part is that you display the digits in the yellow rectangles (_rect_ method). You must draw each digit separately using the `text` method.
+
+  ## Tip
+
+  Can you remember how to extract the digits of a number?
+
+  With the modulo operator (`%`), you can get the last digit of a number: _const lastDigit = num % 10;_.
+
+  With integer division (using the `/` operator), you can remove the last digit from a number: _const numWithoutLastDigit = Math.floor(num / 10);_.
+
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        const num = Math.floor(random(0, 1_000_000));
+
+        // Add the necessary code here
+        
+        textAlign(CENTER, CENTER);
+        fill("yellow");
+        noStroke();
+        text(num, width / 2, height - 20);
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
