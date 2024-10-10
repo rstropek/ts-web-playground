@@ -1,0 +1,73 @@
+title: "Binary Guesser"
+descriptionMd: |
+  # Binary Guesser
+
+  In this small project, we bring together many of the concepts we have learned so far:
+
+  * Random numbers
+  * Drawing rectangles and text
+  * Conditions
+  * Extracting digits
+  * Binary numbers
+
+  This project challenges you to think logically and translate numerical concepts into visual representation.
+
+  This is how the game will look like:
+
+  ![Binary Guesser](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/binary-guesser.gif?raw=true)
+
+  ## Step 1 - Draw the initial screen
+
+  When the game starts (_setup_), generate a random number between 1 and 15 (inclusive) and store it in a variable. This will be the number that the player has to convert into binary in his/her mind. Draw the number in decimal format at the top of the screen as shown in the animation above.
+
+  ## Step 2 - Draw the rectangles
+
+  Draw four rectangles below the number. Each rectangle represents one binary digit of the number.
+
+  ## Step 3 - Handle mouse clicks
+
+  When the player clicks, check if the click is over one of the four rectangles. As a first step, write something on the screen (e.g. _Clicked on rect 1_) when the player clicks on one of the rectangles. This step helps verify that the event handling works properly before adding more complex logic. Ensuring the click detection and feedback mechanism are functioning correctly before proceeding is crucial.
+
+  ## Step 4 - Binary digits
+
+  Create four variables to store the binary digits that the user guesses. Initially, all digits are set to 0. If the user clicks on one of the rectangles, toggle the corresponding binary digit between 0 and 1 and update the UI accordingly.
+
+  ## Step 5 - Check the guess
+
+  After each click, check if the current binary guess matches the target number. To do that, convert the four binary digits to a decimal number and compare it to the target number. Here is how you can convert the four binary digits to a number: _num = digit1 * Math.pow(2, 3) + digit2 * Math.pow(2, 2) + digit3 * Math.pow(2, 1) + digit4 * Math.pow(2, 0)_.
+
+  If the guess is correct, provide immediate visual feedback by drawing the rectangles and the text in lime (_light green_) instead of yellow. Additionally, print a _Correct!_ message at the top of the canvas.
+
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        num = Math.floor(random(0, 16));
+
+        createCanvas(400, 300);
+        background("black");
+
+        // <<< Add your code here
+      }
+
+      function mouseClicked() {
+        // <<< Add your code here
+      }
+
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
