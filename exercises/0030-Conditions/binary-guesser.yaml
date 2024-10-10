@@ -41,6 +41,8 @@ descriptionMd: |
 files:
   "index.ts":
     content: |
+      let num = 0;
+
       function setup() {
         num = Math.floor(random(0, 16));
 
