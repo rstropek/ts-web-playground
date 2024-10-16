@@ -2,9 +2,19 @@ title: "RPS Part 3 (Advanced)"
 descriptionMd: |
   # Rock-Paper-Scissors-Lizard-Spock
 
-  Did you watch _The Big Bang Theory_? In one of the episodes, Sheldon Cooper invents _Rock-Paper-Scissors-Lizard-Spock_:
+  Did you watch [_The Big Bang Theory_](https://www.youtube.com/watch?v=_PUEoDYpUyQ) ([German version](https://youtu.be/4I3d9gKx_e4?t=20))? In one of the episodes, Sheldon Cooper invents _Rock-Paper-Scissors-Lizard-Spock_:
 
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/_PUEoDYpUyQ?si=RZbpZGqoADK0JNEC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  * Rock crushes Scissors
+  * Scissors cuts Paper
+  * Paper covers Rock
+  * Rock crushes Lizard
+  * Lizard poisons Spock
+  * Spock smashes Scissors
+  * Scissors decapitates Lizard
+  * Lizard eats Paper
+  * Paper disproves Spock
+  * Spock vaporizes Rock
+  * Each choice beats two other choices and loses to two others.
 
   Your task is to enhance the _Rock-Paper-Scissors_ game from the previous parts to _Rock-Paper-Scissors-Lizard-Spock_. You can use the starter code included in this exercise or you can build on your solution from the first part.
 
