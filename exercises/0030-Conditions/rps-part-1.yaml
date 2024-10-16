@@ -1,0 +1,72 @@
+title: "Rock-Paper-Scissors Part 1"
+descriptionMd: |
+  # Rock-Paper-Scissors Part 1
+
+  In this exercise, we build a simple _Rock-Paper-Scissors_ game.
+
+  ![Rock-Paper-Scissors](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/rps-animation.gif?raw=true)
+
+  In the first part, you have to draw the three options from which the user can choose. Additionally, you have to implement the _hover_ effect for the options. For now, ignore the random computer choice and the result of the game. We will add these features in the next part of this exercise.
+
+  Here is a detailed UI design that you have to follow as closely as possible:
+
+  ![Rock-Paper-Scissors UI design](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/rps-layout.png?raw=true)
+
+  Note: The second part of this exercise contains a sample solution for this part. **Do not look at it until you have completed this part yourself!** Once you have completed this part, continue with the second part and compare your solution with the sample solution. What did you do differently?
+
+  ## Step 1: Draw the options
+
+  As a first step, you have to draw the three options from which the user can choose. Use the emojis 🪨📃✂️ to represent _Rock_, _Paper_, and _Scissors_.
+
+  ## Step 2: Implement the hover effect
+  
+  Whenever the mouse moves over an option, draw a yellow border around it. If the mouse is no longer over the option, draw a black border to remove the highlight. Use _if_ statements in combination with _mouseX_ and _mouseY_ to check whether the mouse is over an option.
+
+files:
+  "index.ts":
+    content: |
+      // We declare constants to avoid repeating "magic numbers". 
+      // These numbers are used for positioning text and icons on the canvas.
+      // Note that we use all-caps for constants that represent 
+      // configuration values to make them easy to recognize.
+      const TEXT_LEFT = 30;
+      const STONE_LEFT = 50;
+      const PAPER_LEFT = 175;
+      const SCISSORS_LEFT = 300;
+      const ICON_WIDTH = 100;
+      const ICON_TOP = 75;
+      const ICON_HEIGHT = 100;
+
+      function setup() {
+          createCanvas(500, 490);
+          background("black");
+
+          fill("yellow");
+          textSize(30);
+          text("Human:", TEXT_LEFT, 50);
+
+          // Display the icons for "stone", "paper", and "scissors".
+          textSize(75);
+          // <<< Add your code here
+      }
+
+      function mouseMoved() {
+          // <<< Add your code here
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
