@@ -2,6 +2,7 @@ import ts from "typescript";
 import { Files } from "./files";
 import tsTypeDefs from "./ts-dts";
 import p5TypeDefs from "./p5-dts";
+import { p5Image } from "./p5image";
 
 export type CompileResult = {
   blobUrl: string;
@@ -46,6 +47,8 @@ export async function compile(files: Files): Promise<CompileResult> {
 
   const compilerHost: ts.CompilerHost = {
     getSourceFile: (fileName: any, languageVersion: any) => {
+      console.log("getSourceFile", fileName);
+      
       const sourceText = files.getFile(fileName)?.model.getValue();
       if (!sourceText) {
         if (fileName.startsWith("p5/")) {
@@ -60,6 +63,8 @@ export async function compile(files: Files): Promise<CompileResult> {
             p5TypeDefs[fileName.substring(23)],
             languageVersion
           );
+        } else if (fileName === "p5image.d.ts") {
+          return ts.createSourceFile(fileName, p5Image, languageVersion);
         } else if (tsTypeDefs.hasOwnProperty(fileName)) {
           return ts.createSourceFile(
             fileName,
@@ -91,9 +96,11 @@ export async function compile(files: Files): Promise<CompileResult> {
     [
       ...files.getFileNames().filter((fn) => fn.endsWith(".ts")),
       "./p5/global.d.ts",
+      "./p5image.d.ts",
     ],
     {
-      module: ts.ModuleKind.None,
+      module: ts.ModuleKind.ESNext,
+      moduleResolution: ts.ModuleResolutionKind.Classic,
       target: ts.ScriptTarget.ESNext,
       sourceMap: false,
       skipLibCheck: true,

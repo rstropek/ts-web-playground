@@ -57,7 +57,7 @@ loadExercise(exerciseUrl).then((ex1) => {
     target: monaco.languages.typescript.ScriptTarget.ESNext,
     allowSyntheticDefaultImports: true,
     //moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-    module: monaco.languages.typescript.ModuleKind.None,
+    module: monaco.languages.typescript.ModuleKind.ESNext,
   });
 
   fetch("/me").then(async (response) => {

@@ -1,4 +1,5 @@
 import p5TypeDefs from "./p5-dts";
+import { p5Image } from "./p5image";
 import * as monaco from "monaco-editor";
 
 // @ts-ignore
@@ -38,11 +39,16 @@ self.MonacoEnvironment = {
 };
 
 for (const dts in p5TypeDefs) {
+  console.log(`file:///node_modules/@types/p5/${dts}`);
   monaco.languages.typescript.typescriptDefaults.addExtraLib(
     p5TypeDefs[dts],
     `file:///node_modules/@types/p5/${dts}`
   );
 }
+monaco.languages.typescript.typescriptDefaults.addExtraLib(
+  p5Image,
+  `file:///p5image.d.ts`
+);
 
 monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
 monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
