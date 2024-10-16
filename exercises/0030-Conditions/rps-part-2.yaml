@@ -1,16 +1,18 @@
-title: "RPS Part 2"
+title: "RPS Part 3 (Advanced)"
 descriptionMd: |
-  # Rock-Paper-Scissors Part 2
+  # Rock-Paper-Scissors Part 3
 
   In this exercise, we build a simple _Rock-Paper-Scissors_ game.
 
   ![Rock-Paper-Scissors](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/rps-animation.gif?raw=true)
 
-  In the second part, we add the computer's random choise and find out the winner.
+  In the second part, we add the computer's random choise and find out the winner. You can use the starter code included in this exercise or you can build on your solution from the first part.
 
   The UI layout is the same as in the first part:
 
   ![Rock-Paper-Scissors UI design](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/rps-layout.png?raw=true)
+
+  Note: The third part of this exercise contains a sample solution for this part. **Do not look at it until you have completed this part yourself!** Once you have completed this part, continue with the second part and compare your solution with the sample solution. What did you do differently?
 
   ## Step 1: Let the user choose an option
 
