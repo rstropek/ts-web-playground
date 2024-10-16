@@ -4,6 +4,10 @@ descriptionMd: |
 
   Animations are just a sequence of images. In this exercise, we will display a Halloween-themed animation.
 
+  The starter code already loads and handles the first three images. Your task is to add the remaining images (10 in total) and to complete the logic for the animation. At the end, the animation should look like this:
+
+  ![Animation Basics](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/animation-basics.gif?raw=true)
+
 files:
   "index.ts":
     content: |
