@@ -1,4 +1,4 @@
-title: "Rock-Paper-Scissors Part 1"
+title: "RPS Part 2"
 descriptionMd: |
   # Rock-Paper-Scissors Part 2
 
@@ -15,6 +15,8 @@ descriptionMd: |
   ## Step 1: Let the user choose an option
 
   Add a global variable to store the user's choice. Add code to _mouseClicked_ to recognize the user's choice. Disable the hover effect once the user has made a choice.
+
+  Note: Once the user has made a choice, it cannot be changed. Therefore, ignore _mouseClicked_ events after the user has made a choice.
 
   ## Step 2: Random computer choice
   
