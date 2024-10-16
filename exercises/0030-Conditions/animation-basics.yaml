@@ -8,6 +8,8 @@ descriptionMd: |
 
   ![Animation Basics](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/animation-basics.gif?raw=true)
 
+  Do you find it strange that we need to duplicate so much code? We will learn how to avoid this in the upcoming exercises.
+
 files:
   "index.ts":
     content: |
