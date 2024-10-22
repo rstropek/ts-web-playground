@@ -1,28 +1,20 @@
-title: "Calculator If"
+title: "Calculator Switch"
 descriptionMd: |
-  # Calculator (with _if_)
+  # Calculator (with _switch_)
 
-  Let's write a program that could act as a basic UI for a simple calculator. It is not necessary to implement the full functionality of a calculator. Users should just be able to enter numbers by clicking on digits. Additionally, a _C_ (clear) button should be provided to reset the current number. Here is how the UI should look like:
-
-  ![Calculator UI](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0040-Switch/calculator-if.gif?raw=true)
-
-  Note that your UI implementation must be responsive. If you change the size of the canvas (_createCanvas()_), the UI components should be scaled accordingly. Here are three different variants of the UI with different canvas sizes:
-
-  ![Calculator UI](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0040-Switch/calculator-if.png?raw=true)
-
-  As a first step, use _if_ statements to implement the code for this exercise. In the next exercise, you will refactor the code to use _switch_ statements instead. 
+  In the previous exercise, you implemented a calculator using _if_ statements. In this exercise, you have to refactor code in _mouseClicked()_ to use _switch_ statements instead.
 
 files:
   "index.ts":
     content: |
       const MARGIN_NUM = 10;
 
-      let num: number = 0;          // Current number entered by the user
-      let lineHeight: number = 0;   // Height of a line of the responsive layout
-      let cellWidth: number = 0;    // Width of a cell of the responsive layout
+      let num: number = 0;
+      let lineHeight: number = 0;
+      let cellWidth: number = 0;
 
       function setup() {
-          createCanvas(300, 600);
+          createCanvas(300, 500);
           lineHeight = height / 5;
           cellWidth = width / 3;
       }
@@ -30,11 +22,83 @@ files:
       function draw() {
           background("lightgray");
 
-          // <<< Add code here
+          noStroke();
+          fill("white");
+          rect(MARGIN_NUM, MARGIN_NUM, width - 2 * MARGIN_NUM, lineHeight - 2 * MARGIN_NUM);
+
+          stroke("black");
+          fill("black");
+          strokeWeight(2);
+          textSize(50);
+
+          textAlign(RIGHT, CENTER);
+          text(num, width - MARGIN_NUM * 2, lineHeight / 2);
+
+          textAlign(CENTER, CENTER);
+
+          let y = lineHeight * 1;
+          line(0, y, width, y);
+          text('7', width / 3 * 0 + cellWidth / 2, y + lineHeight / 2);
+          text('8', width / 3 * 1 + cellWidth / 2, y + lineHeight / 2);
+          text('9', width / 3 * 2 + cellWidth / 2, y + lineHeight / 2);
+
+          y += lineHeight;
+          line(0, y, width, y);
+          text('4', width / 3 * 0 + cellWidth / 2, y + lineHeight / 2);
+          text('5', width / 3 * 1 + cellWidth / 2, y + lineHeight / 2);
+          text('6', width / 3 * 2 + cellWidth / 2, y + lineHeight / 2);
+
+          y += lineHeight;
+          line(0, y, width, y);
+          text('1', width / 3 * 0 + cellWidth / 2, y + lineHeight / 2);
+          text('2', width / 3 * 1 + cellWidth / 2, y + lineHeight / 2);
+          text('3', width / 3 * 2 + cellWidth / 2, y + lineHeight / 2);
+
+          y += lineHeight;
+          line(0, y, width, y);
+          text('0', cellWidth, y + lineHeight / 2);
+          text('C', cellWidth * 2.5, y + lineHeight / 2);
+          
+          let x = cellWidth * 1;
+          line(x, lineHeight, x, height - lineHeight);
+
+          x += cellWidth;
+          line(x, lineHeight, x, height);
       }
 
       function mouseClicked() {
-          // <<< Add code here
+        if (mouseY > lineHeight && mouseY <= height && mouseX >= 0 && mouseX <= width) {
+          const clickedY = Math.floor((mouseY - lineHeight) / lineHeight);
+          const clickedX = Math.floor(mouseX / cellWidth);
+          
+          let digit: number = -1;
+
+          // <<< Turn all of the following if statements into switch statements
+          if (clickedY === 0) {
+              if (clickedX === 0) { digit = 7; }
+              else if (clickedX === 1) { digit = 8; }
+              else if (clickedX === 2) { digit = 9; }
+          } else if (clickedY === 1) {
+              if (clickedX === 0) { digit = 4; }
+              else if (clickedX === 1) { digit = 5; }
+              else if (clickedX === 2) { digit = 6; }
+          } else if (clickedY === 2) {
+              if (clickedX === 0) { digit = 1; }
+              else if (clickedX === 1) { digit = 2; }
+              else if (clickedX === 2) { digit = 3; }
+          } else if (clickedX !== 2) { digit = 0; }
+          // <<< =========================================== Until here
+
+          if (digit === -1) {
+              num = 0;
+          } else {
+              const oldNum = num;
+              num = num * 10 + digit;
+              if (num >= 1000000000) {
+                  num = oldNum;
+              }
+          }
+        }
       }
 
     isEditable: true
