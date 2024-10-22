@@ -1,0 +1,55 @@
+title: "Calculator If"
+descriptionMd: |
+  # Calculator (with _if_)
+
+  Let's write a program that could act as a basic UI for a simple calculator. It is not necessary to implement the full functionality of a calculator. Users should just be able to enter numbers by clicking on digits. Additionally, a _C_ (clear) button should be provided to reset the current number. Here is how the UI should look like:
+
+  ![Calculator UI](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0040-Switch/calculator-if.gif?raw=true)
+
+  Note that your UI implementation must be responsive. If you change the size of the canvas (_createCanvas()_), the UI components should be scaled accordingly. Here are three different variants of the UI with different canvas sizes:
+
+  ![Calculator UI](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0040-Switch/calculator-if.png?raw=true)
+
+  As a first step, use _if_ statements to implement the code for this exercise. In the next exercise, you will refactor the code to use _switch_ statements instead. 
+
+files:
+  "index.ts":
+    content: |
+      const MARGIN_NUM = 10;
+
+      let num: number = 0;          // Current number entered by the user
+      let lineHeight: number = 0;   // Height of a line of the responsive layout
+      let cellWidth: number = 0;    // Width of a cell of the responsive layout
+
+      function setup() {
+          createCanvas(300, 600);
+          lineHeight = height / 5;
+          cellWidth = width / 3;
+      }
+
+      function draw() {
+          background("lightgray");
+
+          // <<< Add code here
+      }
+
+      function mouseClicked() {
+          // <<< Add code here
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false

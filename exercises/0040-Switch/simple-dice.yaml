@@ -35,15 +35,15 @@ descriptionMd: |
   function setup() {
     // ...
 
-    switch (dice) {
-      case 1: // <<< Add one case after the other
+    switch (dice) {        // <<< The switch statement starts with the dice variable
+      case 1:              // <<< Add one case after the other
         message = "Eins"; 
-        break; // <<< At the end of each case, we need to add a break statement
+        break;             // <<< At the end of each case, we need to add a break statement
       case 2: 
         message = "Zwei"; 
         break;
       // ...
-      default: // <<< The default case is executed if none of the other cases match
+      default:             // <<< The default case is executed if none of the other cases match
         message = "Sechs";
         break;
     }
