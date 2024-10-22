@@ -12,6 +12,8 @@ descriptionMd: |
 
   As a first step, use _if_ statements to implement the code for this exercise. In the next exercise, you will refactor the code to use _switch_ statements instead. 
 
+  Note: The second part of this exercise contains a sample solution for this part. **Do not look at it until you have completed this part yourself!** Once you have completed this part, continue with the second part and compare your solution with the sample solution. What did you do differently?
+
 files:
   "index.ts":
     content: |
