@@ -1,5 +1,7 @@
 let cardImage: p5.Image;
 
+const BASE_URL = 'https://cddataexchange.blob.core.windows.net/images/cards';
+
 function preload() {
   let color: string;
   const colorIx = Math.floor(random(0, 4));
@@ -23,7 +25,7 @@ function preload() {
   }
   card = `${card}.png`;
 
-  const url = `https://cddataexchange.blob.core.windows.net/images/cards/${color}/${card}`;
+  const url = `${BASE_URL}/${color}/${card}`;
   cardImage = loadImage(url);
 }
 
