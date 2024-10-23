@@ -1,0 +1,83 @@
+title: "TicTacToe"
+descriptionMd: |
+  # TicTacToe
+
+  In this exercise, you implement a simple TicTacToe game. Players X and O take turns to mark the cells in a 3x3 grid. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game.
+
+  ![TicTacToe](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0040-Switch/tictactoe.gif?raw=true)
+
+  This exercise is more difficult than most of the other exercises we did so far. **Implement the program step by step.** Try to solve at least steps 1 to 3. Try your best to also solve steps 4 to 6.
+
+  **Note** that you can freely choose whether to use _if_ or _switch_ statements. Use whatever fits best to your algorithm.
+
+  ## Step 1: Draw the grid
+
+  Draw the grid lines. Responsive design is not required. You can use absolute coordinates. However, use constants where appropriate.
+
+  ## Step 2: Variables to store the state of each cell
+
+  Use nine variables to store the state (_X_ or _O_) of each cell. Write the code that draws the symbols in the corresponding cells. Test your code by manually setting the state of some cells.
+
+  ## Step 3: Current player
+
+  Add a variable to store the current player. Initially, it should be _X_. Write "Player X's turn" or "Player O's turn" on the screen as shown in the screen above.
+
+  ## Step 4: Handle mouse clicks (hard)
+
+  Add code to handle mouse clicks. If the user clicks on an empty cell, the cell should be marked with the current player's symbol. Also, switch to the other player.
+
+  ## Step 5: Game result (harder)
+
+  Add code to check if the game has ended. The game ends if one player has three of their marks in a row, column, or diagonal. The game also ends if all cells have been filled without a player winning. In this case, the result should be a tie. Display the result message on the screen as shown in the screen above.
+
+  ## Step 6: Reset the game (hard)
+
+  If the game has ended and the user clicks anywhere on the canvas, the game should be reset to the initial state so that a new game starts.
+
+files:
+  "index.ts":
+    content: |
+      // Constants for the game grid
+      const GRID_SIZE = 300;           // The size of the Tic Tac Toe grid
+      const CELL_SIZE = GRID_SIZE / 3; // The size of each cell in the grid
+      const LINE_THICKNESS = 3;        // Thickness of the grid lines
+
+      // Canvas size
+      const CANVAS_WIDTH = GRID_SIZE; // Width of the canvas
+      const CANVAS_HEIGHT = GRID_SIZE + 50; // Height of the canvas (extra space for messages)
+
+      // <<< Add variables here
+
+      function setup() {
+          // Create the canvas with specified width and height
+          createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+      }
+
+      // Remember: The draw function is called repeatedly (once per frame) to update the display.
+      // In this exercise, we redraw the entire game board in each frame.
+      function draw() {
+          background("white");
+
+          // <<< Add code here
+      }
+
+      function mouseClicked() {
+          // <<< Add code here
+      }
+  
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
