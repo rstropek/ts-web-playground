@@ -4,6 +4,10 @@ descriptionMd: |
 
   In the previous exercise, you learned the basics of the _switch_ statement. Let's apply it to the _dice_ example that you have already solved with _if_ statements. Complete the _switch_ statement in the starter code below.
 
+  ![Dice](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/dice.png?raw=true)
+
+  The starter code already handles the cases 1 and 2. Add the missing cases 3 to 6.
+
 files:
   "index.ts":
     content: |

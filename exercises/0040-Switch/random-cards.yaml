@@ -1,6 +1,6 @@
-title: "Simple Dice"
+title: "Random Cards"
 descriptionMd: |
-  # Simple Dice
+  # Random Cards
 
   We have practiced _if_ statements a lot lately. However, there is another statement to execute code conditionally: _switch_. It is particularly useful to replace long chains of _if-then-else-if_ statements.
 

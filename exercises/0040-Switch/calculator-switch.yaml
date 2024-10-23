@@ -4,6 +4,8 @@ descriptionMd: |
 
   In the previous exercise, you implemented a calculator using _if_ statements. In this exercise, you have to refactor code in _mouseClicked()_ to use _switch_ statements instead.
 
+  The starter code contains a sample solution for the previous exercise. You can use it as a basis or you can overwrite it with your own code from the previous exercise.
+
 files:
   "index.ts":
     content: |
