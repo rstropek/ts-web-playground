@@ -4,7 +4,7 @@ import { getUserDetails, isUserInGroup } from "../helpers/graphHelper.js";
 import logger from "../helpers/logging.js";
 import { Database } from "@azure/cosmos";
 import { getUserWithTan, storeLogin } from "../data/users.js";
-import kv from "@azure/keyvault-secrets";
+import * as kv from "@azure/keyvault-secrets";
 
 async function create(pca: msal.ConfidentialClientApplication, cosmosDb: Database, kv: kv.SecretClient): Promise<express.Router | undefined> {
   const router = express.Router();

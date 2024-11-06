@@ -13,7 +13,7 @@ export type Exercise = {
 
 export async function loadExercise(url: string): Promise<Exercise> {
   // Try to load it via proxy
-  let response = await fetch(`/github/exercise/proxy?exerciseUrl=${url}`, { redirect: "manual" });
+  let response = await fetch(`/github/exercise/proxy?exerciseUrl=${encodeURIComponent(url)}`, { redirect: "manual" });
   if (!response.ok) {
     // Try to load it directly
     response = await fetch(url);

@@ -3,7 +3,7 @@ import { Database } from "@azure/cosmos";
 import { createExercise, deleteExercise, getAllExercises, getExerciseById, updateExercise } from "../data/exercises.js";
 import { ExerciseMasterData, ExerciseWithId } from "../data/model.js";
 import { saveFile } from "../helpers/github.js";
-import kv from "@azure/keyvault-secrets";
+import * as kv from "@azure/keyvault-secrets";
 import logger from "../helpers/logging.js";
 import { getUserById } from "../data/users.js";
 

@@ -51,7 +51,19 @@ if (!exerciseUrl) {
 loadExercise(exerciseUrl).then((ex1) => {
   const files = new Files(ex1);
   title.innerText = purify.sanitize(ex1.title);
-  spec.innerHTML = purify.sanitize(marked.parse(ex1.descriptionMd) as string);
+  let specContent = purify.sanitize(marked.parse(ex1.descriptionMd) as string);
+
+  specContent = specContent.replace(
+    /<img\s+[^>]*src="(https:\/\/github\.com[^"]*)"[^>]*>/g,
+    (match, originalUrl) => {
+      return match.replace(
+        originalUrl,
+        `/github/exercise/image-proxy?imageUrl=${encodeURIComponent(originalUrl)}`
+      );
+    }
+  );
+
+  spec.innerHTML = specContent;
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
     target: monaco.languages.typescript.ScriptTarget.ESNext,

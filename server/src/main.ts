@@ -3,7 +3,7 @@ import cors from "cors";
 import pinoHTTP from "pino-http";
 import dotenv from "dotenv";
 import identity from "@azure/identity";
-import kv from "@azure/keyvault-secrets";
+import * as kv from "@azure/keyvault-secrets";
 import { engine } from "express-handlebars";
 import path from "path";
 import { fileURLToPath } from "url";

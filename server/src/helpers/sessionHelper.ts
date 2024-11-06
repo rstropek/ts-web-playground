@@ -1,5 +1,5 @@
 import express from "express";
-import kv from "@azure/keyvault-secrets";
+import * as kv from "@azure/keyvault-secrets";
 import session from "express-session";
 import RedisStore from "connect-redis";
 import logger from './logging.js';

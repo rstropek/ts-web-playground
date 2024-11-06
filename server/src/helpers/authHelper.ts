@@ -1,4 +1,4 @@
-import kv from "@azure/keyvault-secrets";
+import * as kv from "@azure/keyvault-secrets";
 import * as msal from "@azure/msal-node";
 import logger from "./logging.js";
 import express from "express";

@@ -1,7 +1,7 @@
 import express from "express";
 import { Database } from "@azure/cosmos";
 import { saveFile } from "../helpers/github.js";
-import kv from "@azure/keyvault-secrets";
+import * as kv from "@azure/keyvault-secrets";
 import logger from "../helpers/logging.js";
 import { getUserById } from "../data/users.js";
 import { getExerciseByTitle } from "../data/exercises.js";
@@ -34,7 +34,7 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
 
     const exercise = await getExerciseByTitle(cosmosDb, title);
     if (!exercise) {
-      res.status(404 /* Not found */).send();
+      res.status(404 /* Not found */).send(`Exercise ${title} not found`);
       return;
     }
     const currentDateTime = new Date();
@@ -65,6 +65,22 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
     res.status(response.status)
       .header("Content-Type", response.headers.get("Content-Type") || "text/plain")
       .send(text);
+  });
+
+  router.get("/exercise/image-proxy", async (req, res) => {
+    const imageUrl = req.query.imageUrl;
+
+    if (!imageUrl) {
+      res.status(400).send("Missing imageUrl query parameter");
+      return;
+    }
+
+    const response = await fetch(imageUrl.toString(), { redirect: 'follow' });
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    res.status(response.status)
+      .header("Content-Type", response.headers.get("Content-Type") || "application/octet-stream")
+      .send(buffer);
   });
 
   return router;

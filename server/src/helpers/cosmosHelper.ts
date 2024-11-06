@@ -1,5 +1,5 @@
 import { CosmosClient, Database } from "@azure/cosmos";
-import kv from "@azure/keyvault-secrets";
+import * as kv from "@azure/keyvault-secrets";
 import logger from "./logging.js";
 
 export async function createCosmosClient(kvClient: kv.SecretClient): Promise<CosmosClient | undefined> {
