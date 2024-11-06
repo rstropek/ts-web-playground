@@ -54,7 +54,7 @@ loadExercise(exerciseUrl).then((ex1) => {
   let specContent = purify.sanitize(marked.parse(ex1.descriptionMd) as string);
 
   specContent = specContent.replace(
-    /<img\s+[^>]*src="(https:\/\/github\.com[^"]*)"[^>]*>/g,
+    /<img\s+[^>]*src="(https:\/\/[^"]*)"[^>]*>/g,
     (match, originalUrl) => {
       return match.replace(
         originalUrl,
