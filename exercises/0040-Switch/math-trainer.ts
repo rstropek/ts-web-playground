@@ -1,10 +1,6 @@
 // This program generates a simple math quiz in a graphical window, where the user selects the correct result
 // of a randomly generated arithmetic operation.
 
-let points: number = 0; // Keeps track of the user's score
-let firstNumber: number = 0; // Stores the first operand of the arithmetic operation
-let secondNumber: number = 0; // Stores the second operand of the arithmetic operation
-let operator: string = ''; // Stores the operator (+, -, *) of the arithmetic operation
 let result1: number = 0; // First possible answer displayed
 let result2: number = 0; // Second possible answer displayed
 let result3: number = 0; // Third possible answer displayed
@@ -12,6 +8,10 @@ let correctResult: number = 0; // Stores the correct answer for the operation
 
 // setup function runs once and sets up the quiz elements on the canvas
 function setup() {
+    let firstNumber: number = 0; // Stores the first operand of the arithmetic operation
+    let secondNumber: number = 0; // Stores the second operand of the arithmetic operation
+    let operator: string = ''; // Stores the operator (+, -, *) of the arithmetic operation
+    
     createCanvas(400, 400);
     background("black");
 
