@@ -1,0 +1,88 @@
+title: "Math Trainer"
+descriptionMd: |
+  # Math Trainer
+
+  In this exercise, you must implement a simple math trainer. Pupils can use it to train basic arithmetic operations (addition, subtraction, and multiplication). The UI is shown below:
+
+  ![Math Trainer UI](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0040-Switch/math-trainer.gif?raw=true)
+
+  The math trainer displays two random operands with one operator (+, -, or *) between them. Additionally, it shows three possible answers. If the user clicks on a correct answer, the math trainer displays the message _<chosen answer> is correct!_ (e.g. _21 is correct!_) in green. If the user clicks on an incorrect answer, the math trainer displays the message _<chosen answer> is wrong!_ (e.g. _21 is wrong!_) in red.
+
+  The possible answers must be generated as follows:
+
+  * Generate three random numbers.
+  * Choose a random location (first, second, or third) for the correct answer.
+  * Replace the corresponding location with the correct answer.
+
+  As the possible answers are generated randomly, it might happen that the correct answer is displayed multiple times. That is fine. The answer is counted as correct if the user clicks on any of the correct answers.
+
+  ## Minimum Requirements
+
+  To pass the exam, you need to meet the following requirements:
+
+  1. The operands must be between 1 and 100 (inclusive).
+  2. It is ok to use _if_ statements, even if a _switch_ statement would be more appropriate.
+  3. The quiz, possible answers, and feedback must be displayed correctly. Responsive design is **not** required. Note that the response text must be exactly as specified above!
+
+  ## Advanced Requirements
+
+  For a higher score, implement the following additional features:
+
+  1. Think about an algorithm that guarantees that for the _subtraction_ operation, the second operand is always smaller than the first one. This will avoid negative results. (4 points)
+  2. Implement responsive design as shown below (4 points).
+  3. When using the _multiplication_ operator, the operands must be between 1 and 10 (inclusive). (2 points)
+
+  ![Math Trainer Responsive Design](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0040-Switch/math-trainer.png?raw=true)
+
+files:
+  "index.ts":
+    content: |
+      // This program generates a simple math quiz in a graphical window, where the user selects the correct result
+      // of a randomly generated arithmetic operation.
+
+      // <<< TODO: Declare your GLOBAL variables here
+
+      // setup function runs once and sets up the quiz elements on the canvas
+      function setup() {
+          createCanvas(400, 400);
+          background("black");
+
+          // <<< TODO: Add your code here
+      }
+
+      // mouseClicked function checks if the user clicked on the correct answer
+      function mouseClicked() {
+          // <<< TODO: Add your code here
+      }
+
+      // mouseMoved function displays mouse coordinates as feedback
+      function mouseMoved() {
+          // This is a HELPER FUNCTION. It should make finding coordinates
+          // easier for you. You DO NOT NEED to change this method!
+
+          fill("black");
+          noStroke();
+          rect(0, height - 20, width, height); // Draws a rectangle to clear previous coordinates
+
+          fill("white");
+          textSize(10);
+          textAlign(LEFT, BOTTOM); // Aligns coordinates text to bottom-left
+          text(`${mouseX}/${mouseY}`, 5, height - 5); // Displays current mouse coordinates
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
