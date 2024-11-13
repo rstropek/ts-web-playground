@@ -1,0 +1,45 @@
+title: "Rays"
+descriptionMd: |
+  # Rays
+
+  In this exercise, you have to draw "rays" from the edges of the canvas to the mouse position.
+
+  ![Rays](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/rays.gif?raw=true)
+
+  The size of the canvas is defined by the constant _SIZE_. The distance between the grid lines is defined by the constant _MARGIN_. It must be possible to change these values to draw different sizes of grids.
+
+files:
+  "index.ts":
+    content: |
+      const SIZE = 400;  // Canvas size (square)
+      const MARGIN = 25; // Margin between the edges and the rays.
+                         // This is also the distance between the rays.
+
+      function setup() {
+        createCanvas(SIZE, SIZE);
+        background("black");
+      }
+
+      function mouseMoved() {
+        background("black");
+        strokeWeight(2);
+
+        // <<< Add your code here
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
