@@ -2,7 +2,7 @@ title: "Rays"
 descriptionMd: |
   # Rays
 
-  In this exercise, you have to draw "rays" from the edges of the canvas to the mouse position.
+  In this exercise, you have to draw "rays" from the edges of the canvas to the mouse position. Use _while_ loops to draw the rays.
 
   ![Rays](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/rays.gif?raw=true)
 

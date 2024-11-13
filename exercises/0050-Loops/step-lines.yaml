@@ -8,6 +8,8 @@ descriptionMd: |
 
   The size of the canvas is defined by the constant _SIZE_. The distance between the grid lines is defined by the constant _GRID_. It must be possible to change these values to draw different sizes of grids.
 
+  **Tip:** Finish drawing the left part of the lines using a _while_ loop. Only if that works, try to add the right part of the lines.
+
 files:
   "index.ts":
     content: |

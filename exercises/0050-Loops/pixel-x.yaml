@@ -1,0 +1,46 @@
+title: "Pixel X"
+descriptionMd: |
+  # Pixel X
+
+  In this exercise, you have to draw an X pattern with large pixels (rectangles). Here is how your output should look like:
+
+  ![Rays](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/pixel-x.png?raw=true)
+
+  **Tip:** The _rect_ method has four parameters:
+
+  * x-coordinate of the top left corner
+  * y-coordinate of the top left corner
+  * width
+  * height
+
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          const SIZE = 425; // Canvas size
+          const GRID = 25;  // Size of the squares
+
+          createCanvas(SIZE, SIZE);
+          background("black");
+
+          noStroke();
+
+          // <<< Add your code here
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
