@@ -8,6 +8,8 @@ descriptionMd: |
 
   ![Canvas](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/grid.png?raw=true)
 
+  The size of the canvas is defined by the constant _SIZE_. The distance between the grid lines is defined by the constant _GRID_. It must be possible to change these values to draw different sizes of grids.
+
   The starter code already contains the canvas setup and the vertical lines. Your job is to add the horizontal lines.
   Use the vertical line code as a template for your _while_ loop.
 
