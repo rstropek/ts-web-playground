@@ -1,0 +1,51 @@
+title: "Chessboard"
+descriptionMd: |
+  # Chessboard
+
+  In this exercise, you must draw a chessboard.
+
+  ![Chessboard](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/chessboard.png?raw=true)
+
+  ## Step 1
+
+  Write a program that draws the chessboard. Ignore the markings for the files (a, b, c, ...) and ranks (1, 2, 3, ...) for the moment. It is ok to use two _while_ loops if you need to.
+
+  ## Step 2
+
+  Add the markings for the files (a, b, c, ...) and ranks (1, 2, 3, ...). It is ok to use two _while_ loops if you need to.
+
+  ## Step 3 (Avanced)
+
+  Try to find a solution that uses a _single while_ loop for the chessboard and _one_ additional _while_ loop for the markings.
+
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          const SIZE = 500; // Canvas size
+          const SQUARE_SIZE = 50; // Size of a chess board square
+
+          createCanvas(SIZE, SIZE);
+          background("black");
+
+          noStroke();
+
+          // <<< Add the code for drawing the chess board here
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false

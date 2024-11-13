@@ -1,22 +1,22 @@
-title: "Mesh (Advanced)"
+title: "Mesh"
 descriptionMd: |
-  # Mesh (Advanced)
+  # Mesh
 
   In this exercise, you must draw a pattern of lines. To solve this exercise, you must use so called _nested while_ loops. Nested loops are loops that are inside other loops.
 
-  ## Step 1 (Simple)
+  ## Step 1
 
   Write a program that draws the following simple pattern. Note that you do not yet need nested loops. A single _while_ loop is sufficient.
 
   ![Simple](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/mesh1.png?raw=true)
 
-  ## Step 2 (Advanced)
+  ## Step 2
 
   In the previous step, you drew lines from seven different points on the left to a _single_ point on the right. Now, you must repeat this process so that you connect each point on the left to each point on the right. For that, you need nested loops (a _while_ loop inside another _while_ loop).
 
   ![Advanced](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/mesh2.png?raw=true)
 
-  ## Step 3 (Hard)
+  ## Step 3 (Avanced)
 
   Congrats if you made it this far! Now we add colors:
 
