@@ -1,0 +1,62 @@
+title: "Step Lines"
+descriptionMd: |
+  # Step Lines
+
+  This exercise is an extension of the previous _Grid_ exercise. You have to add colored lines as shown in the image below:
+
+  ![Step Lines](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/step-lines.png?raw=true)
+
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          const SIZE = 400; // Canvas size (square)
+          const GRID = 25; // Grid line distance
+
+          createCanvas(SIZE, SIZE);
+          background("black");
+
+          strokeWeight(0.25);
+          stroke("lightgray");
+
+          // Draw vertical lines
+          let i = GRID;
+          while (i < SIZE) {
+              line(i, 0, i, SIZE);
+              i += GRID;
+          }
+
+          // Draw horizontal lines
+          i = GRID;
+          while (i < SIZE) {
+              line(0, i, SIZE, i);
+              i += GRID;
+          }
+
+          strokeWeight(2);
+
+          // Draw left part of the lines
+          stroke("yellow");
+          // <<< Write your code here
+
+          // Draw right part of the lines
+          stroke("red");
+          // <<< Write your code here
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
