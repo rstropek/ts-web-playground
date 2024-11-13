@@ -1,0 +1,61 @@
+title: "Mesh (Advanced)"
+descriptionMd: |
+  # Mesh (Advanced)
+
+  In this exercise, you must draw a pattern of lines. To solve this exercise, you must use so called _nested while_ loops. Nested loops are loops that are inside other loops.
+
+  ## Step 1 (Simple)
+
+  Write a program that draws the following simple pattern. Note that you do not yet need nested loops. A single _while_ loop is sufficient.
+
+  ![Simple](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/mesh1.png?raw=true)
+
+  ## Step 2 (Advanced)
+
+  In the previous step, you drew lines from seven different points on the left to a _single_ point on the right. Now, you must repeat this process so that you connect each point on the left to each point on the right. For that, you need nested loops (a _while_ loop inside another _while_ loop).
+
+  ![Advanced](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/mesh2.png?raw=true)
+
+  ## Step 3 (Hard)
+
+  Congrats if you made it this far! Now we add colors:
+
+  ![Hard](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/mesh3.png?raw=true)
+
+  Use the _HSB color model_ to colorize the lines. Start with a hue value of 0 and increase it by 60 from one point on the left to the next.
+
+  **Tip:** If you cannot remember the basics of the HSB color model, revisit the _Colors (Basics)_ exercise in the _Variables_ section.
+
+files:
+  "index.ts":
+    content: |
+      const SIZE = 400;  // Canvas size (square)
+      const MARGIN = 50; // Margin between the edges and the rays.
+                        // This is also the distance between the rays.
+
+      function setup() {
+        createCanvas(SIZE, SIZE);
+        background("black");
+
+        strokeWeight(1);
+        stroke("lime");
+
+        // <<< Add your code here
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
