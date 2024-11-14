@@ -1,0 +1,86 @@
+title: "Colored Rays"
+descriptionMd: |
+  # Colored Rays
+
+  Did you like the _Rays_ exercise? Here is a variation of it. The rays should continuously change their color, similar to e.g. RGB LEDs in a gaming keyboard.
+
+  ![Colored Rays](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/colored-rays.gif?raw=true)
+
+  We start with a sample solution for the _Rays_ exercise. It is your starter code. We are going to use the HSB color model in this exercise. **Tip:** If you cannot remember the basics of the HSB color model, revisit the _Colors (Basics)_ exercise in the _Variables_ section.
+
+  Let's start by setting the color mode to _HSB_ in the `setup` function:
+
+  ```
+  colorMode(HSB);
+  ```
+
+  Add a **global** variable `rayColor`:
+
+  ```
+  // The current hue value for the rays
+  let rayColor = 0;
+  ```
+
+  Inside the _while_ loop at the very end, update _rayColor_ as follows:
+
+  ```
+  rayColor = (rayColor + 0.25) % 360;
+  ```
+
+  This moves the hue value slowly from 0 to 360 (color wheel). When we reach 360, the _modulo_ operator _%_ will set it back to 0.
+
+  Now we have to use _rayColor_ to set the stroke color. Remove all existing _stroke_ calls and add the following line at the beginning of the _while_ loop:
+
+  ```
+  stroke(rayColor, 100, 100);
+  ```
+
+  There you have it! Changing colors for our rays.
+
+files:
+  "index.ts":
+    content: |
+      const SIZE = 400;    // Canvas size (square)
+        const MARGIN = 25; // Margin between the edges and the rays.
+                           // This is also the distance between the rays.
+
+        function setup() {
+          createCanvas(SIZE, SIZE);
+          background("black");
+        }
+
+        function mouseMoved() {
+          background("black");
+          strokeWeight(2);
+
+          // <<< Add your code here
+          let i = MARGIN;
+          while (i <= SIZE - MARGIN) {
+            stroke("yellow");
+            line(MARGIN, i, mouseX, mouseY);
+            line(width - MARGIN, i, mouseX, mouseY);
+
+            stroke("lime");
+            line(i, MARGIN, mouseX, mouseY);
+            line(i, height - MARGIN, mouseX, mouseY);
+
+            i += MARGIN;
+          }
+        }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
