@@ -15,6 +15,7 @@ descriptionMd: |
   ## Task 2 - Understanding the code
 
   Play around with the code by changing the function parameters and see what happens. If you hover your mouse over a function name, you will see a tooltip with its documentation.
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0010-Basics/shapes.ts"
 files:
   "index.ts":
     content: |

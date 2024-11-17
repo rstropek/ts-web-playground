@@ -13,6 +13,7 @@ descriptionMd: |
   1. Start by sketching your robot on checkered paper to get a clear idea of the layout.
   2. Make a list of all the shapes you will need to draw for your robot.
   3. **Having a plan will make your coding much smoother!**
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0010-Basics/robot.ts"
 files:
   "index.ts":
     content: |

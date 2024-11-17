@@ -16,6 +16,7 @@ descriptionMd: |
   * The y-coordinate determines the position of a shape from top to bottom on the canvas. A larger y value moves the shape further down.
 
   Use these tips to place each ring in the right position and make sure they overlap as shown in the image.
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0010-Basics/olympic_rings.ts"
 files:
   "index.ts":
     content: |

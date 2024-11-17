@@ -11,6 +11,7 @@ descriptionMd: |
   ## Tips
 
   Are you looking for **nice colors**? Check out _https://htmlcolorcodes.com/color-names/_ for a list of color names that you can use in your code.
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0010-Basics/house.ts"
 files:
   "index.ts":
     content: |

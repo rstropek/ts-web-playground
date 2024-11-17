@@ -18,6 +18,7 @@ descriptionMd: |
   * Use _Ctrl + v_ to paste code.
   * Did you know that you can move lines up and down with _Alt + Arrow Up_ and _Alt + Arrow Down_?
   * _Ctrl + z_ is also very useful. It undoes the last change you made.
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0010-Basics/cat.ts"
 files:
   "index.ts":
     content: |

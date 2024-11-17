@@ -9,6 +9,7 @@ descriptionMd: |
   ## Tips
 
   Understanding the parameters of the _arc_ function is not so easy. Take the time to play around with the parameters and understand their effect.
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0010-Basics/arcs.ts"
 files:
   "index.ts":
     content: |
