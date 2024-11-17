@@ -1,3 +1,14 @@
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+    function onSubmit(token) {
+      document.getElementById("tan-login-form").submit();
+    }
+
+    function onSubmitAnonymously(token) {
+      document.getElementById("work-anonymously-form").submit();
+    }
+</script>
+
 <div>
   <h1 class="hero">Welcome to TypeScript Playground</h1>
 
@@ -13,6 +24,18 @@
     <a href="/login">Login with Entra ID</a>
   </p>
 
+  <div id="work-anonymously">
+    <h2>Work Anonymously</h2>
+
+    <p>
+      Use this option to work on exercises without being logged in.
+    </p>
+
+    <form method="post" action="/workAnonymously" id="work-anonymously-form">
+      <button class="g-recaptcha" data-sitekey="{{captchaKey}}" data-callback="onSubmitAnonymously" data-action="workAnonymously">Work Anonymously</button>
+    </form>
+  </div>
+
   <div id="tan-login">
     <h2>Login with TAN</h2>
 
@@ -21,13 +44,13 @@
       You will get a TAN code from your teacher to login.
     </p>
 
-    <form method="POST" action="/loginWithTan">
+    <form method="post" action="/loginWithTan" id="tan-login-form">
       <label for="user">User:</label>
       <input type="text" name="user" id="user" autocomplete="email" placeholder="User name (typically school email address)" />
       <label for="tan">TAN:</label>
       <input type="text" name="tan" id="tan" autocomplete="off" placeholder="TAN you got from your teacher" />
       <div></div>
-      <button type="submit">Login</button>
+      <button class="g-recaptcha" data-sitekey="{{captchaKey}}" data-callback="onSubmit" data-action="loginWithTan">Login</button>
     </form>
   </div>
 </div>

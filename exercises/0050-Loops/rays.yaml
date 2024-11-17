@@ -8,6 +8,7 @@ descriptionMd: |
 
   The size of the canvas is defined by the constant _SIZE_. The distance between the grid lines is defined by the constant _MARGIN_. It must be possible to change these values to draw different sizes of grids.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0050-Loops/rays.ts"
 files:
   "index.ts":
     content: |

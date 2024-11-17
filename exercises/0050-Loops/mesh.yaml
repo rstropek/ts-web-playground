@@ -26,6 +26,7 @@ descriptionMd: |
 
   **Tip:** If you cannot remember the basics of the HSB color model, revisit the _Colors (Basics)_ exercise in the _Variables_ section.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0050-Loops/mesh.ts"
 files:
   "index.ts":
     content: |

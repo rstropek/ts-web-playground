@@ -12,6 +12,7 @@ descriptionMd: |
 
   Don't forget that hexadecimal digits are 0, 1, 2, ..., 9, A, B, C, D, E, F.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0030-Conditions/hex-digits.ts"
 files:
   "index.ts":
     content: |

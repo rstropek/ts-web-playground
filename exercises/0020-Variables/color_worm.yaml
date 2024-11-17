@@ -11,6 +11,8 @@ descriptionMd: |
   _color_hue_ is a **global** variable because it it declared **outside** of any function. This means that it can be accessed by any function in your code. Additionally, it keeps its value between function calls (e.g. between mouse movements). Generally, **avoid** global variables and use them only if you have to. **Prefer** local variables (i.e. variables declared inside a function).
 
   The code contains the _%_ operator (_modulo_). This operator calculates the remainder of a division. For example, _5 % 2_ is _1_ because _5_ divided by _2_ is _2_ with a remainder of _1_. In our case, we use it to limit the value of _color_hue_ to a maximum of _360_. When the value rises to e.g. _361_, the _%_ operator will return _1_. Therefore, the color will start again at the beginning (red).
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0020-Variables/color_worm.ts"
 files:
   "index.ts":
     content: |

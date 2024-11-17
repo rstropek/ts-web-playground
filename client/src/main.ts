@@ -11,6 +11,7 @@ import { marked } from "marked";
 const editor = document.getElementById("editor")! as HTMLDivElement;
 const run = document.getElementById("run")! as HTMLButtonElement;
 const save = document.getElementById("save")! as HTMLButtonElement;
+const loadSolution = document.getElementById("loadSolution")! as HTMLButtonElement;
 const iframe = document.getElementById("result-frame")! as HTMLIFrameElement;
 const fileNames = document.getElementById("fileNames")! as HTMLSelectElement;
 const output = document.getElementById("output-content")! as HTMLPreElement;
@@ -49,6 +50,25 @@ if (!exerciseUrl) {
 }
 
 loadExercise(exerciseUrl).then((ex1) => {
+  if (!ex1.sampleSolution) {
+    loadSolution.style.display = "none";
+  }
+
+  loadSolution.addEventListener("click", async () => {
+    // ask user with an alert if they want to load the sample solution
+    if (ex1.sampleSolution && confirm("Are you sure you want to load the sample solution? This will replace all your changes.\n\nTry your very best to solve the exercise yourself before using the sample solution!")) {
+      let response = await fetch(`/github/exercise/proxy?exerciseUrl=${encodeURIComponent(ex1.sampleSolution)}`, { redirect: "manual" });
+      if (!response.ok) {
+        // Try to load it directly
+        response = await fetch(ex1.sampleSolution);
+      }
+    
+      const content = await response.text();
+      files.getFile("index.ts")?.replaceContent(content);
+    }
+  });
+  
+
   const files = new Files(ex1);
   title.innerText = purify.sanitize(ex1.title);
   let specContent = purify.sanitize(marked.parse(ex1.descriptionMd) as string);
@@ -73,7 +93,7 @@ loadExercise(exerciseUrl).then((ex1) => {
   });
 
   fetch("/me").then(async (response) => {
-    if (response.status === /* forbidden */ 403) {
+    if (response.status === /* forbidden */ 403 || response.status === /* not found */ 404) {
       userName.innerText = `Anonymous`;
       save.style.display = "none";
     } else if (response.ok) {

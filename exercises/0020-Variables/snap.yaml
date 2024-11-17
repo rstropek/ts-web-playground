@@ -17,6 +17,8 @@ descriptionMd: |
   * _Math.round(3.6)_ returns 4
   * _Math.round(3.4)_ returns 3
   * _Math.round(x)_ returns 2 assuming that _x_ is 2.3.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0020-Variables/snap.ts"
 files:
   "index.ts":
     content: |

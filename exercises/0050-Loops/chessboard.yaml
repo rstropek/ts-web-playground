@@ -18,6 +18,7 @@ descriptionMd: |
 
   Try to find a solution that uses a _single while_ loop for the chessboard and _one_ additional _while_ loop for the markings.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0050-Loops/chessboard.ts"
 files:
   "index.ts":
     content: |

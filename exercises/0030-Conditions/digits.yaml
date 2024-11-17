@@ -16,6 +16,7 @@ descriptionMd: |
 
   With integer division (using the `/` operator), you can remove the last digit from a number: _const numWithoutLastDigit = Math.floor(num / 10);_.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0030-Conditions/digits.ts"
 files:
   "index.ts":
     content: |

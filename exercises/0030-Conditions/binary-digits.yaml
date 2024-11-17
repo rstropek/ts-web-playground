@@ -10,6 +10,7 @@ descriptionMd: |
 
   In the last exercise, you already learned how to extract the digits of a number. You used _% 10_ and _Math.floor(num / 10)_. This time, you need to extract the binary digits of a number. What do you have to change to switch from base-10 (decimal) to base-2 (binary)?
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0030-Conditions/binary-digits.ts"
 files:
   "index.ts":
     content: |

@@ -6,6 +6,14 @@ import { Database } from "@azure/cosmos";
 import { getUserWithTan, storeLogin } from "../data/users.js";
 import * as kv from "@azure/keyvault-secrets";
 
+type RecaptchaResponse = {
+  success: boolean;
+  challenge_ts: string;
+  hostname: string;
+  score: number;
+  action: string;
+};
+
 async function create(pca: msal.ConfidentialClientApplication, cosmosDb: Database, kv: kv.SecretClient): Promise<express.Router | undefined> {
   const router = express.Router();
 
@@ -13,6 +21,12 @@ async function create(pca: msal.ConfidentialClientApplication, cosmosDb: Databas
   if (!entraAdminGroupId || !entraAdminGroupId.value) {
     logger.error("Secret ENTRA-ADMIN-GROUP-ID not found in Key Vault");
     return;
+  }
+
+  const recaptchaSecret = await kv.getSecret("RECAPTCHA-SECRET");
+  if (!recaptchaSecret || !recaptchaSecret.value) {
+    logger.error("Failed to get recaptcha secret");
+    process.exit(1);
   }
 
   router.get("/login", async (req, res) => {
@@ -68,6 +82,32 @@ async function create(pca: msal.ConfidentialClientApplication, cosmosDb: Databas
   });
 
   router.post("/loginWithTan", async (req, res) => {
+    const recaptcha_response = req.body["g-recaptcha-response"];
+
+    const recaptchaResult = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `secret=${recaptchaSecret.value}&response=${recaptcha_response}`,
+    });
+
+    if (!recaptchaResult.ok) {
+      logger.error("Recaptcha request failed");
+      res.status(500).send("Recaptcha request failed");
+      return;
+    }
+
+    const result: RecaptchaResponse = await recaptchaResult.json();
+    const challenge_ts = new Date(result.challenge_ts);
+    const now = new Date();
+
+    if (!result.success || result.action !== "loginWithTan" || result.score < 0.5 || now.getTime() - challenge_ts.getTime() > 1000 * 60 * 5) {
+      logger.error("Recaptcha failed");
+      res.status(400).send("Recaptcha failed");
+      return;
+    }
+
     const { user, tan } = req.body;
 
     const loggedInUser = await getUserWithTan(cosmosDb, user, tan);
@@ -92,6 +132,47 @@ async function create(pca: msal.ConfidentialClientApplication, cosmosDb: Databas
       accountName: req.session.accountName!,
       firstName: req.session.firstName!,
       lastName: req.session.lastName!
+    });
+
+    res.redirect("/main");
+  });
+
+  router.post("/workAnonymously", async (req, res) => {
+    const recaptcha_response = req.body["g-recaptcha-response"];
+
+    const recaptchaResult = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `secret=${recaptchaSecret.value}&response=${recaptcha_response}`,
+    });
+
+    if (!recaptchaResult.ok) {
+      logger.error("Recaptcha request failed");
+      res.status(500).send("Recaptcha request failed");
+      return;
+    }
+
+    const result: RecaptchaResponse = await recaptchaResult.json();
+    const challenge_ts = new Date(result.challenge_ts);
+    const now = new Date();
+
+    if (!result.success || result.action !== "workAnonymously" || result.score < 0.5 || now.getTime() - challenge_ts.getTime() > 1000 * 60 * 5) {
+      logger.error("Recaptcha failed");
+      res.status(400).send("Recaptcha failed");
+      return;
+    }
+
+    req.session.userId = "~~anonymous~~";
+    req.session.accountName = "anonymous";
+    req.session.firstName = "Anonymous";
+    req.session.lastName = "";
+    req.session.isAdmin = false; // working anonymously does not support admin rights
+    req.session.save((err) => {
+      if (err) {
+        logger.error(err);
+      }
     });
 
     res.redirect("/main");

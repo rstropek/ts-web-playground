@@ -10,6 +10,7 @@ descriptionMd: |
 
   Do you find it strange that we need to duplicate so much code? We will learn how to avoid this in the upcoming exercises.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0030-Conditions/animation-basics.ts"
 files:
   "index.ts":
     content: |

@@ -34,6 +34,7 @@ descriptionMd: |
 
   If the game has ended and the user clicks anywhere on the canvas, the game should be reset to the initial state so that a new game starts.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0040-Switch/tictactoe.ts"
 files:
   "index.ts":
     content: |

@@ -3,6 +3,7 @@ import * as monaco from "monaco-editor";
 
 export class EditorFile {
   public uri: monaco.Uri;
+  public language: string;
   public model: monaco.editor.ITextModel;
 
   constructor(
@@ -11,24 +12,27 @@ export class EditorFile {
     public isEditable = true
   ) {
     this.uri = monaco.Uri.parse(`file:///${fileName}`);
-    let language: string;
     switch (fileName.split(".").pop()) {
       case "ts":
-        language = "typescript";
+        this.language = "typescript";
         break;
       case "js":
-        language = "javascript";
+        this.language = "javascript";
         break;
       case "html":
-        language = "html";
+        this.language = "html";
         break;
       case "css":
-        language = "css";
+        this.language = "css";
         break;
       default:
-        language = "plaintext";
+        this.language = "plaintext";
     }
-    this.model = monaco.editor.createModel(content, language, this.uri);
+    this.model = monaco.editor.createModel(content, this.language, this.uri);
+  }
+
+  public replaceContent(content: string): void {
+    this.model.setValue(content);
   }
 }
 

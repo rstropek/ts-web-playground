@@ -28,6 +28,7 @@ descriptionMd: |
 
   Use _if_ statements to determine the winner based on the choices of the user and the computer. Display the result as shown in the layout above.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0030-Conditions/rps.ts"
 files:
   "index.ts":
     content: |

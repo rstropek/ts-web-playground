@@ -13,6 +13,7 @@ descriptionMd: |
   * width
   * height
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0050-Loops/pixel-x.ts"
 files:
   "index.ts":
     content: |

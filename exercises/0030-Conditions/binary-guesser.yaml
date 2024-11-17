@@ -38,6 +38,7 @@ descriptionMd: |
 
   If the guess is correct, provide immediate visual feedback by drawing the rectangles and the text in lime (_light green_) instead of yellow. Additionally, print a _Correct!_ message at the top of the canvas.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0030-Conditions/binary-guesser.ts"
 files:
   "index.ts":
     content: |

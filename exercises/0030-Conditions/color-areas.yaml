@@ -26,6 +26,7 @@ descriptionMd: |
 
   In the example above, notice how the _message_ variable is set based on the area clicked. This message will then be used to write the corresponding color name into the black display area at the bottom of the canvas. Implement this logic in the _mouseClicked_ method and make sure the correct color name appears at the bottom when each area is clicked.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0030-Conditions/color-areas.ts"
 files:
   "index.ts":
     content: |

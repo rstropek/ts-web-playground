@@ -8,6 +8,7 @@ descriptionMd: |
 
   The starter code already handles the cases 1 and 2. Add the missing cases 3 to 6.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0030-Conditions/dice.ts"
 files:
   "index.ts":
     content: |

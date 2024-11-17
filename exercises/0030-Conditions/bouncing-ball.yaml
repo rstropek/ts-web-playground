@@ -16,6 +16,7 @@ descriptionMd: |
 
   ![Dual bouncing balls](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/bouncing-ball-dual.gif?raw=true)
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0030-Conditions/bouncing-ball.ts"
 files:
   "index.ts":
     content: |

@@ -115,7 +115,7 @@ if (!ghPat || !ghPat.value) {
   process.exit(1);
 }
 
-app.use("/", home(cosmosDb));
+app.use("/", await home(cosmosDb, kvClient));
 app.use("/", express.static(path.join(__dirname, 'public')));
 app.use("/", authMiddleware);
 app.use("/me", createMeRoute(cosmosDb));

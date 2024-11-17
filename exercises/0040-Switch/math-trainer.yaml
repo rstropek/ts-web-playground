@@ -34,6 +34,7 @@ descriptionMd: |
 
   ![Math Trainer Responsive Design](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0040-Switch/math-trainer.png?raw=true)
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0040-Switch/math-trainer.ts"
 files:
   "index.ts":
     content: |

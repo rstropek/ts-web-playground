@@ -13,6 +13,7 @@ descriptionMd: |
   The starter code already contains the canvas setup and the vertical lines. Your job is to add the horizontal lines.
   Use the vertical line code as a template for your _while_ loop.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0050-Loops/grid.ts"
 files:
   "index.ts":
     content: |

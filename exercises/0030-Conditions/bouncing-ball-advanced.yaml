@@ -7,6 +7,8 @@ descriptionMd: |
   ![Bouncing ball advanced](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/bouncing-ball-advanced.gif?raw=true)
 
   **Tip:** Use the previous exercise (the one with a single ball) as a starting point. Modify the code to make the ball move diagonally.
+  
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0030-Conditions/bouncing-ball-advanced.ts"
 files:
   "index.ts":
     content: |

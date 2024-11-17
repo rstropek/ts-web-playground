@@ -10,6 +10,7 @@ descriptionMd: |
 
   **Tip:** Finish drawing the left part of the lines using a _while_ loop. Only if that works, try to add the right part of the lines.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0050-Loops/step-lines.ts"
 files:
   "index.ts":
     content: |

@@ -34,6 +34,7 @@ descriptionMd: |
 
   Complete the starter code. **Use _switch_ statements, not _if_ statements.**
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0040-Switch/random-card.ts"
 files:
   "index.ts":
     content: |

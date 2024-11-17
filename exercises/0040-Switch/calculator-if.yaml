@@ -26,6 +26,7 @@ descriptionMd: |
 
   Add code to handle mouse clicks. If the user clicks on a digit, it must be added on the right side of the current number. If the user clicks on the _C_ button, the displayed number must be reset to 0.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0040-Switch/calculator-if.ts"
 files:
   "index.ts":
     content: |

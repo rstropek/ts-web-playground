@@ -9,6 +9,7 @@ export type Exercise = {
   title: string;
   descriptionMd: string;
   files: { [key: string]: File };
+  sampleSolution?: string;
 };
 
 export async function loadExercise(url: string): Promise<Exercise> {

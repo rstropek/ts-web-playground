@@ -13,6 +13,9 @@ descriptionMd: |
   Until now, we always used three parameters for the _text()_ method. The call _text("Hello", 10, 10)_ draws the text _Hello_ at the position 10/10. If we want to have _text wrapping_ (i.e. text continuing in the next line), we use five parameters. The call _text("Hello", 10, 10, 100, 100)_ draws the text _Hello_ at the position 10/10. If a line of text is longer than 100 pixels, it continues in the next line. This is continued until the text reaches the position 100/100.
 
   You will need a **global variable** to store the "click protocol". It has to be of type _string_.
+
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0020-Variables/string_concat.ts"
 files:
   "index.ts":
     content: |

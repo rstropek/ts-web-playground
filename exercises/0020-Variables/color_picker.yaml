@@ -9,6 +9,8 @@ descriptionMd: |
   Here is a diagram showing the dimensions of the color picker:
 
   ![Color Picker](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/color_picker_mouse.png?raw=true)
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0020-Variables/color_picker.ts"
 files:
   "index.ts":
     content: |

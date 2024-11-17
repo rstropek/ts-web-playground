@@ -37,6 +37,7 @@ descriptionMd: |
 
   There you have it! Changing colors for our rays.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0050-Loops/colored-rays.ts"
 files:
   "index.ts":
     content: |

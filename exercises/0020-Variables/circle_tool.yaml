@@ -42,6 +42,7 @@ descriptionMd: |
 
       ![With Colors](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/circle_tool/040-colored.gif?raw=true)
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0020-Variables/circle_tool.ts"
 files:
   "index.ts":
     content: |

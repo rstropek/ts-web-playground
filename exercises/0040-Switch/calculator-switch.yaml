@@ -6,6 +6,7 @@ descriptionMd: |
 
   The starter code contains a sample solution for the previous exercise. You can use it as a basis or you can overwrite it with your own code from the previous exercise.
 
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0040-Switch/calculator-switch.ts"
 files:
   "index.ts":
     content: |

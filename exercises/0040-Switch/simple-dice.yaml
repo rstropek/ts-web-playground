@@ -55,7 +55,8 @@ descriptionMd: |
   ![if to switch](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0040-Switch/if-to-switch.png?raw=true)
     
   **Try to rewrite the provided starter code with _switch_.**
-
+  
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0040-Switch/simple-dice.ts"
 files:
   "index.ts":
     content: |
