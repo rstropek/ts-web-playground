@@ -1,0 +1,82 @@
+title: "Move Origin"
+descriptionMd: |
+  # Move Origin
+
+  By default, the origin 0/0 of the coordinate system is at the top-left corner of the canvas. The _translate_ method can be used to move the origin **relative** to the current origin.
+
+  ## Task 1: Experiment with the starter code to understand how _translate_ works
+
+  Uncomment the lines of code step-by-step to understand how _translate_ works.
+
+  ## Task 2: Draw a diagonal of circles
+
+  When you think you understand how _translate_ works, draw a diagonal of circles. This is how your output should look like:
+
+  ![Move Origin](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/move-origin.png?raw=true)
+
+  Draw all circles with _circle(0, 0, CIRCLE_DIAMETER)_. Control the position of the circles by using the _translate_ method. Use a _for_ loop to draw all circles.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0050-Loops/move-origin.ts"
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          const SIZE = 400;
+          const CIRCLE_DIAMETER = 50;
+
+          createCanvas(SIZE, SIZE);
+          background("black");
+
+          strokeWeight(3);
+          stroke("yellow");
+          noFill();
+
+          // Draw a circle at 0/0
+          circle(0, 0, CIRCLE_DIAMETER);
+
+          // Task: Uncomment the following lines of code step-by-step
+          //       to find out how translate works.
+
+          // We want to draw a circle at 50/0. However, we do NOT
+          // change the x and y coordinates. Instead, we move the
+          // origin point of our coordinate system.
+          //translate(CIRCLE_DIAMETER, 0);
+
+          // Because we moved the origin, the circle appears on a 
+          // different location although the parameters of the
+          // method call are the same as above.
+          //circle(0, 0, CIRCLE_DIAMETER);
+
+          // If you call translate again, the origin is moved
+          // RELATIVE to the previous translation.
+          //translate(CIRCLE_DIAMETER, 0);
+          //circle(0, 0, CIRCLE_DIAMETER);
+
+          // We can move the next circle down
+          //translate(0, CIRCLE_DIAMETER);
+          //circle(0, 0, CIRCLE_DIAMETER);
+
+          // We can also move the origin to the left or up by
+          // specifying a negative value in the translate call.
+          //translate(-CIRCLE_DIAMETER, 0);
+          //circle(0, 0, CIRCLE_DIAMETER);
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
+
+

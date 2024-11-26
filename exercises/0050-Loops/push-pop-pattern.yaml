@@ -1,0 +1,65 @@
+title: "Pattern with Push and Pop"
+descriptionMd: |
+  # Pattern with Push and Pop
+
+  In the previous exercise, you learned the basics of _push_ and _pop_. In this exercise, you will use these methods to draw a pattern.
+
+  ![Pattern](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/push-pop-pattern.png?raw=true)
+
+  The existing starter code already draws the pattern. Examine it closely and make sure you understand how it works.
+
+  Your job is to convert the existing, nested _while_ loops into _for_ loops.
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0050-Loops/push-pop-pattern.ts"
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          const SIZE = 400;
+          const CIRCLE_DIAMETER = 50;
+
+          createCanvas(SIZE, SIZE);
+          background("black");
+
+          strokeWeight(3);
+          stroke("yellow");
+          noFill();
+
+          let y = 0;
+          while (y <= SIZE) {
+              // Save the current origin (left-most position in the current row)
+              push();
+
+              let x = 0;
+              while (x <= SIZE) {
+                  circle(0, 0, CIRCLE_DIAMETER);
+                  translate(CIRCLE_DIAMETER, 0); // Move origin to the right
+                  x += CIRCLE_DIAMETER;
+              }
+
+              // Restore the stored origin -> back to left-most position in the current row
+              pop();
+
+              // Move one row down
+              translate(0, CIRCLE_DIAMETER);
+              y += CIRCLE_DIAMETER;
+          }
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
+
+

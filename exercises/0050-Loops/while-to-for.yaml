@@ -1,0 +1,69 @@
+title: "While to For"
+descriptionMd: |
+  # _While_ to _For_
+
+  In this exercise, you learn the simplest form of a _for_ loop. It it a simpler way to count than a _while_ loop. The following image shows how you can build a simple _for_ loop from the components of a _while_ loop:
+
+  ![While to For](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/while-to-for.png?raw=true)
+
+  ## Task 1: Convert the _while_ loop to a _for_ loop
+
+  The starter code already uses the _for_ loop for the horizontal lines. Your job is to convert the _while_ loop for the vertical lines to a _for_ loop.
+
+  ## Task 2: Revisit previous exercises
+
+  Take **at least three** of the previous _loop_-exercises and convert your _while_-solution to a _for_-solution.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0050-Loops/while-to-for.ts"
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          // We have a square canvas. The side length is defined by the constant SIZE.
+          const SIZE = 400;
+          // Your job is to draw a grid on the canvas. The distance between the grid lines is defined by the constant GRID.
+          const GRID = 25;
+
+          createCanvas(SIZE, SIZE);
+          background("black");
+
+          strokeWeight(0.25);
+          stroke("lightgray");
+
+          // Draw a grid by using a while loop.
+          
+          // Part 1: Draw vertical lines
+          // Here you see how to use a while loop.
+          let i = GRID;            // STEP 1: Initialize the loop variable
+          while (i < SIZE) {       // STEP 2: Check the loop condition
+              line(i, 0, i, SIZE); // STEP 3: Do whatever you want to do repeatedly
+              i += GRID;           // STEP 4: Update the loop variable
+          }
+
+          // Part 2: Draw horizontal lines
+          // Note that this time, we are using a for loop.
+          //   +--------------------------- STEP 1: Initialize the loop variable
+          //   |             +------------- STEP 2: Check the loop condition
+          //   |             |         +--- STEP 4: Update the loop variable
+          //   v             v         v
+          for (let i = GRID; i < SIZE; i += GRID) {
+              line(0, i, SIZE, i);       // STEP 3: Do whatever you want to do repatedly
+          }
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false

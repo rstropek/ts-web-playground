@@ -1,0 +1,56 @@
+title: "Triangles"
+descriptionMd: |
+  # Triangles
+
+  In this exercise, we practice _push_, _pop_, _translate_, and _for_ loops.
+
+  ## Level 1: Simple Version
+
+  Change the starter code so that it draws the triangles in a grid:
+
+  ![Triangles](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/triangles.png?raw=true)
+
+  ## Level 2: Advanced Version
+
+  In the advanced version, the triangles in the grid are shifted half of the side length to the left and half of the height up.
+
+  ![Triangles Advanced](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/triangles-level-2.png?raw=true)
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0050-Loops/triangles.ts"
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          const SIZE = 400;
+          const SIDE_LENGTH = 50;
+
+          // We have an isosceles triangle ("gleichschenkeliges Dreieck").
+          // This is the formula to calculate the height of such a triangle
+          const HEIGHT = SIDE_LENGTH * Math.sqrt(3) / 2;
+
+          createCanvas(SIZE, HEIGHT * 9);
+          background("black");
+
+          strokeWeight(1);
+          stroke("yellow");
+          noFill();
+
+          // <<< Add code to draw the triangles here
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
