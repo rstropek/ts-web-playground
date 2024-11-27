@@ -1,0 +1,59 @@
+title: "Christmas Tree"
+descriptionMd: |
+  # Christmas Tree
+
+  In this exercise, you must draw a christmas tree. It must look exactly like this:
+
+  ![Christmas Tree](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/christmas-tree.png?raw=true)
+
+  Here are the **rules for drawing the tree**:
+
+  1. The tree must be centered horizontally and symmetrical in shape.
+  2. The tip (topmost point) of the tree is positioned at the y-coordinate defined by TOP_MARGIN.
+  3. The base width of the topmost triangle is set by INITIAL_TRIANGLE_BASE_WIDTH.
+  4. The height of each triangle is calculated as 50% (HEIGHT_TO_WIDTH_RATIO) of its base width.
+  5. After each triangle is drawn, the origin of the drawing must shift downward by the triangle's height.
+  6. For each subsequent layer, both the base width and height of the triangle increase by 50% (SIZE_INCREASE_BY_LAYER).
+  7. Draw a Christmas tree ball with a random color on the left- and rightmost edge of each layer.
+  8. The tree trunk is drawn at the bottom of the tree. It has a width of TRUNK_WIDTH and a height of TRUNK_HEIGHT.
+
+  Note that the dimensions of the tree must be controlled only by the constants defined at the beginning of the code. Your drawing code must not contain any hardcoded values.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0050-Loops/christmas-tree.ts"
+files:
+  "index.ts":
+    content: |
+      const TOP_MARGIN = 80;
+      const SPHERE_DIAMETER = 30;
+      const INITIAL_TRIANGLE_BASE_WIDTH = 100;
+      const SIZE_INCREASE_BY_LAYER = 0.5;
+      const HEIGHT_TO_WIDTH_RATIO = 0.5;
+      const NUMBER_OF_LAYERS = 4;
+      const TRUNK_WIDTH = 50;
+      const TRUNK_HEIGHT = 50;
+
+      function setup() {
+        createCanvas(500, 500);
+        background("black");
+        fill("green");
+        noStroke();
+
+        // <<< Draw the tree
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
