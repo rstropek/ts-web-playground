@@ -4,22 +4,6 @@ const INITIAL_TRIANGLE_BASE_WIDTH = 100;
 const NUMBER_OF_LAYERS = 4;
 
 function setup() {
-
-// Rules for drawing the tree:
-// ===========================
-//
-// 1. The tree must be centered horizontally and symmetrical in shape.
-// 2. The tip (topmost point) of the tree is positioned at the 
-//    y-coordinate defined by TOP_MARGIN.
-// 3. The base width of the topmost triangle is set by INITIAL_TRIANGLE_BASE_WIDTH.
-// 4. The height of each triangle is calculated as 50% of its base width.
-// 5. After each triangle is drawn, the origin of the drawing 
-//    must shift downward by the triangle's height.
-// 6. For each subsequent layer, both the base width and height 
-//    of the triangle increase by 50%.
-// 7. Draw a Christmas tree ball with a random color on the left- 
-//    and rightmost edge of each layer.
-
   createCanvas(500, 500);
   background("black");
   fill("green");
