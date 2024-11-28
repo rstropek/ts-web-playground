@@ -4,7 +4,7 @@ function setup() {
     const SIZE = 400;
     const SIDE_LENGTH = 50;
 
-    // We have an isosceles triangle ("gleichschenkeliges Dreieck").
+    // We have an isosceles triangle ("gleichseitiges Dreieck").
     // This is the formula to calculate the height of such a triangle
     const HEIGHT = SIDE_LENGTH * Math.sqrt(3) / 2;
 
