@@ -6,7 +6,17 @@ descriptionMd: |
 
   ![Christmas Tree](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/christmas-tree.png?raw=true)
 
-  Here are the **rules for drawing the tree**:
+  ## Level 1: Drawing the Tree
+
+  Write code that draws a tree that looks as closely as possible to the one shown in the image above.
+
+  **Avoid** specifying hardcoded coordinates in calls to _triangle()_, _circle()_, and _rect()_. Use `translate()` to move the origin of the drawing instead.
+
+  Do not repeat the code for drawing triangles and circles. Use _for_ loops instead.
+
+  ## Level 2: Drawing Rules
+
+  Draw the tree following the following **rules** to the letter:
 
   1. The tree must be centered horizontally and symmetrical in shape.
   2. The tip (topmost point) of the tree is positioned at the y-coordinate defined by TOP_MARGIN.

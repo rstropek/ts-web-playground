@@ -20,11 +20,9 @@ function setup() {
       if (pass === 0) {
         triangle(-triangleBaseWidth / 2, 0, 0, -triangleHeight, triangleBaseWidth / 2, 0);
       } else {
-        push();
         fill(Math.floor(random(0, 255)), Math.floor(random(0, 255)), Math.floor(random(0, 255)));
         circle(-triangleBaseWidth / 2, SPHERE_DIAMETER / 2, SPHERE_DIAMETER);
         circle(triangleBaseWidth / 2, SPHERE_DIAMETER / 2, SPHERE_DIAMETER);
-        pop();
       }
 
       if (i < NUMBER_OF_LAYERS - 1) {
