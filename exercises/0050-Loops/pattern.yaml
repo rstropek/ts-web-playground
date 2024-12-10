@@ -1,0 +1,77 @@
+title: "Patterns With Lines (Exam)"
+descriptionMd: |
+  # Patterns With Lines (Exam)
+
+  In this exercise, you have to demonstrate your understanding of nested _for_ loops. You have to draw patterns using lines.
+
+  ## Minimum Requirements
+
+  Draw the following pattern using lines:
+
+  ![Pattern](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/minimum.gif?raw=true)
+
+  * The pattern consists of repetitions of two lines shaped like a _>_ sign. By repeating it vertically and horizontally, you get a zigzag pattern.
+  * The pattern is 10px high and 10px wide:
+
+    ![Pattern Size](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/pattern-size.png?raw=true)
+
+  * At the bottom of the screen, display the current mouse position (white font, size 12, black background) in the format _<mouseX> of <width>_ (_<mouseX>_ stands for the current x-coordinate of the mouse pointer, and _<width>_ stands for the width of the canvas).
+
+  Tips:
+
+  * Use a _nested for loop_ to draw the pattern. One for the horizontal repetitions, one for the vertical repetitions.
+  * Use _translate_ to make your algorithm simpler. You can use _push_ and _pop_, but it is not required.
+
+  ## Additional Requirements
+
+  ![Advanced Pattern](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0050-Loops/advanced.gif?raw=true)
+
+  Add the following features to your app to get extra points:
+
+  * Convert the mouse position to a percentage of the width of the canvas. If the canvas has a width of 600px and the mouse is at 300px, the percentage is 50%. Display the percentage (rounded, no digits after the comma) at the bottom of the screen.
+  * Use the HSB color model to colorize the pattern. On the left, use a hue of 0 (red). The further right you go, the higher the hue value should be. On the very right, the hue should be 360 (red again). Use a saturation of 100 and a brightness of 100.
+  * Let the user influence the size of the pattern. If the mouse is at position <= 0, the pattern should be 10px wide and 10px high. If the mouse is at position >= width, the pattern should be 20px wide and 20px high. Between these two positions, the pattern should scale linearly. That means if the mouse is e.g. at 300px and the canvas is 600px wide, the pattern should be 15px wide and 15px high.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0050-Loops/pattern_advanced.ts"
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          createCanvas(601, 301);
+          background("black");
+
+          fill("aqua");
+          noStroke();
+
+          textSize(50);
+          textAlign(CENTER, CENTER);
+          text("Move the mouse to start", 0, 0, width, height);
+      }
+
+      function mouseMoved() {
+          resetMatrix();
+          background("black");
+          strokeWeight(2);
+
+          noFill();
+          stroke("aqua");
+
+          // <<< Add your code here
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
