@@ -1,0 +1,140 @@
+title: "Word Swirrel (Level 3)"
+descriptionMd: |
+  # Word Swirrel (Level 3)
+
+  It is time for level 3 of Word Swirrel. In the first two levels, the program only supported a single word to guess. Now we want to support multiple words.
+
+  A string is an array of characters. Similarly, you can create an array of strings. Here is an example:
+
+  ![Array of strings](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0060-Arrays/arrayOfStrings.png?raw=true)
+
+  With _p5js_, it is super simple to pick one _random_ element from an array: _const wordToGuess = random(WORDS)_ will pick a random word from the array _WORDS_ and store it in the string variable _wordToGuess_.
+
+  ## Task
+
+  Your starter code is the sample solution of level 2. Your task is to modify the code so that it supports multiple words. Here is a list of words you can use:
+
+  * apple
+  * banana
+  * cherr
+  * orang
+  * grape
+  * lemo
+  * melon
+  * peach
+  * plum
+  * berry"
+  * water
+  * cloud
+  * bread
+  * cheese
+  * pizz
+  * table
+  * chair
+  * house
+  * grass
+  * flower
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/word-swirrel-2.ts"
+files:
+  "index.ts":
+    content: |
+      const WIDTH = 500;
+      const HEIGHT = 300;
+      const MARGIN = 50;
+
+      let wordToGuess = "apple";
+
+      function setup() {
+        createCanvas(WIDTH, HEIGHT);
+        background("black");
+        textAlign(CENTER, CENTER);
+        colorMode(HSB);
+        angleMode(DEGREES);
+
+        for (let i = 0; i < wordToGuess.length; i++) {
+          // Get random position, font size, text color, and angle
+          const x = random(MARGIN, WIDTH - MARGIN);
+          const y = random(MARGIN, HEIGHT - MARGIN);
+          const charSize = random(50, 150);
+          const textColor = random(0, 360);
+          const angle = random(-90, 90);
+
+          push();
+          translate(x, y);
+          // This is NEW! We can easily rotate text.
+          // NOTE: _rotate_ rotates around the origin (0, 0). Therefore it is important
+          //       that you _translate_ to the position you want to draw the text at.
+          //       We covered _translate_ in previous examples.
+          rotate(angle);
+          fill(textColor, 100, 100);
+          textSize(charSize);
+          text(wordToGuess[i], 0, 0);
+          pop();
+        }
+      }
+
+      function guess(textInput: string) {
+        fill("white");
+
+        if (textInput === wordToGuess) {
+          background("green");
+          textSize(75);
+          text("Correct!", WIDTH / 2, HEIGHT / 2);
+        } else {
+          background("red");
+          textSize(50);
+          text(`Wrong!\nIt was "${wordToGuess}"`, WIDTH / 2, HEIGHT / 2);
+        }
+      }
+
+
+    isEditable: true
+  "helper.ts":
+    content: |
+      function submitClick() {
+          const input = document.getElementById("input") as HTMLInputElement;
+          guess(input.value);
+      }
+
+    isEditable: false
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+            }
+
+            button {
+              margin-left: 3px;
+            }
+
+            div#canvas-container {
+              margin-top: 20px;
+            }
+
+            div#label {
+              margin-bottom: 3px;
+            }
+          </style>
+        </head>
+        <body>
+          <div>
+            <div id="label">Look at the letters below. Which word can you form?</div>
+            <input type="text" id="input" />
+            <button onclick="submitClick()">Guess</button>
+          </div>
+
+          <div id="canvas-container"></div>
+
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
