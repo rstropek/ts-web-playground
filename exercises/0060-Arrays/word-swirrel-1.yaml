@@ -1,0 +1,95 @@
+title: "Word Swirrel (Level 2)"
+descriptionMd: |
+  # Word Swirrel (Level 2)
+
+  This exercise is an extension of _Word Swirrel_. This time, you have to draw the letters of the word criss-cross on the canvas:
+
+  ![Word Swirrel](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0060-Arrays/word-swirrel-1.png?raw=true)
+
+  Rotating text is new. We have not done that before. The method you need for that is _rotate_. Example: _rotate(45)_ will rotate the following drawing commands by 45 degrees around the origin 0/0. Experiment and try to understand how _rotate_ works. If you struggle, leave out the rotation for now. Once you have done everything else, look at the provided sample solution to see how to rotate text.
+
+  **Remember:** You can access a character in a string using the _indexer_ syntax. Example: _myStringVariable[1]_ will return the second character of the string in _myStringVariable_ (second because the index is zero-based).
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/word-swirrel-1.ts"
+files:
+  "index.ts":
+    content: |
+      const WIDTH = 500;
+      const HEIGHT = 300;
+      const MARGIN = 50;
+
+      const wordToGuess = "apple";
+
+      function setup() {
+        createCanvas(WIDTH, HEIGHT);
+        background("black");
+        textAlign(CENTER, CENTER);
+        colorMode(HSB);
+        angleMode(DEGREES);
+
+        // <<< Add your code here
+      }
+
+      function guess(textInput: string) {
+        fill("white");
+
+        if (textInput === wordToGuess) {
+          background("green");
+          textSize(75);
+          text("Correct!", WIDTH / 2, HEIGHT / 2);
+        } else {
+          background("red");
+          textSize(50);
+          text(`Wrong!\nIt was "${wordToGuess}"`, WIDTH / 2, HEIGHT / 2);
+        }
+      }
+
+    isEditable: true
+  "helper.ts":
+    content: |
+      function submitClick() {
+          const input = document.getElementById("input") as HTMLInputElement;
+          guess(input.value);
+      }
+
+    isEditable: false
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+            }
+
+            button {
+              margin-left: 3px;
+            }
+
+            div#canvas-container {
+              margin-top: 20px;
+            }
+
+            div#label {
+              margin-bottom: 3px;
+            }
+          </style>
+        </head>
+        <body>
+          <div>
+            <div id="label">Look at the letters below. Which word can you form?</div>
+            <input type="text" id="input" />
+            <button onclick="submitClick()">Guess</button>
+          </div>
+
+          <div id="canvas-container"></div>
+
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
