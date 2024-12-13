@@ -1,0 +1,90 @@
+title: "Word Swirrel"
+descriptionMd: |
+  # Word Swirrel
+
+  In this exercise, you will implement a simple word guessing game. You will practice important concepts of strings, particularly working with substrings.
+
+  ## Task: Type in the Code
+
+  Here is the code for the example. Type it in and experiment with it. Try to understand how it works. Take a look at the documention of methods that are new (e.g. _substring_).
+
+  ![Word Swirrel](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0060-Arrays/word-swirrel.png?raw=true)
+
+  ## Task: Examine Sample Solution
+
+  Load the sample solution. It contains the same source code as above, but with lots if helpful comments. Read the comments. They help you understand the code.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/word-swirrel.ts"
+files:
+  "index.ts":
+    content: |
+      const WIDTH = 500;
+      const HEIGHT = 300;
+
+      // Enter the word to guess here.
+      //                   vvv
+      //                   vvv
+      const wordToGuess = "apple";
+
+      function setup() {
+        createCanvas(WIDTH, HEIGHT);
+        background("black");
+
+        // <<< Add your code here
+      }
+
+      // This method will be called automatically when the user clicks "Guess".
+      // The guessed text will be in "textInput".
+      function guess(textInput: string) {
+        // <<< Add your code here
+      }
+
+    isEditable: true
+  "helper.ts":
+    content: |
+      function submitClick() {
+          const input = document.getElementById("input") as HTMLInputElement;
+          guess(input.value);
+      }
+
+    isEditable: false
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+            }
+
+            button {
+              margin-left: 3px;
+            }
+
+            div#canvas-container {
+              margin-top: 20px;
+            }
+
+            div#label {
+              margin-bottom: 3px;
+            }
+          </style>
+        </head>
+        <body>
+          <div>
+            <div id="label">Look at the letters below. Which word can you form?</div>
+            <input type="text" id="input" />
+            <button onclick="submitClick()">Guess</button>
+          </div>
+
+          <div id="canvas-container"></div>
+
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false

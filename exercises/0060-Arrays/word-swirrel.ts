@@ -1,103 +1,66 @@
-const WORDS = [
-    "apple",
-    "banana",
-    "cherry",
-    "orange",
-    "grapes",
-    "lemon",
-    "melon",
-    "peach",
-    "plum",
-    "berry",
-    "water",
-    "cloud",
-    "bread",
-    "cheese",
-    "pizza",
-    "table",
-    "chair",
-    "house",
-    "grass",
-    "flower"
-  ];
-  
-  const WIDTH = 500;
-  const HEIGHT = 500;
-  const MARGIN = 75;
-  
-  let wordToGuess: string;
-  
-  function setup() {
-    createCanvas(WIDTH, HEIGHT);
-    background("black");
-    textAlign(CENTER, CENTER);
-    colorMode(HSB);
-    angleMode(DEGREES);
-  
-    wordToGuess = random(WORDS);
-  
-    for(let i = 0; i < wordToGuess.length; i++) {
-      const x = random(MARGIN, WIDTH - MARGIN);
-      const y = random(MARGIN, HEIGHT - MARGIN);
-      const charSize = random(50, 200);
-      const textColor = random(0, 360);
-      const angle = random (-90, 90);
-  
-      push();
-      translate(x, y);
-      rotate(angle);
-      fill(textColor, 100, 100);
-      textSize(charSize);
-      text(wordToGuess[i], 0, 0);
-      pop();
-    }
-  
-    addForm();
+const WIDTH = 500;
+const HEIGHT = 300;
+
+// Enter the word to guess here.
+//                   vvv
+//                   vvv
+const wordToGuess = "apple";
+
+function setup() {
+  createCanvas(WIDTH, HEIGHT);
+  background("black");
+
+  // Lets copy the word to guess. wordToScramble will contain the remaining
+  // characters during the scrambling process.
+  let wordToScramble = wordToGuess;
+
+  // scrambledWord receives the letters of the word to scramble.
+  let scrambledWord = "";
+
+  // Repeat until all letters will have been used.
+  while (wordToScramble.length > 0) {
+    // Get a random position in wordToScramble
+    let letterIndex = Math.floor(random(wordToScramble.length));
+
+    // Add the random letter to scrambledWord
+    scrambledWord += wordToScramble[letterIndex];
+
+    // ATTENTION: Here you see the new function "substring". As the name suggest,
+    // it returns a sub-string of the original string. In this case, we take
+    // all letters BEFORE letterIndex and all letter AFTER the letterIndex, but
+    // not the letter at the position letterIndex.
+    // Example: Assume, wordToScramble is aple (apple, but one p has already been removed).
+    //          Also assume that letterIndex is 2 ("l").
+    //          substring(0, 2) = "ap"
+    //          substring(3) = "e"
+    //
+    //                                        +---------------- Start
+    //                                        |  +------------- End (excluding)
+    //                                        V  V
+    wordToScramble = wordToScramble.substring(0, letterIndex)
+    //                           +----------------------------- Start
+    //                           V                   (No end means "take until end")
+      + wordToScramble.substring(letterIndex + 1);
   }
-  
-  function correct() {
+
+  textAlign(CENTER, CENTER);
+  fill("white");
+  textSize(75);
+  text(scrambledWord, WIDTH / 2, HEIGHT / 2);
+}
+
+// This method will be called automatically when the user clicks "Guess".
+// The guessed text will be in "textInput".
+function guess(textInput: string) {
+  fill("white");
+
+  if (textInput === wordToGuess) {
     background("green");
-  
     textSize(75);
-    fill("black");
     text("Correct!", WIDTH / 2, HEIGHT / 2);
-  }
-  
-  function wrong() {
+  } else {
     background("red");
-  
     textSize(50);
-    fill("white");
-    text(`Wrong!\nIt was ${wordToGuess}`, WIDTH / 2, HEIGHT / 2);
-  
+    text(`Wrong!\nIt was "${wordToGuess}"`, WIDTH / 2, HEIGHT / 2);
   }
-  
-  function addForm() {
-    const div = document.createElement("div");
-    div.style.marginTop = "20px";
-    div.style.fontFamily = "Arial";
-  
-    const label = document.createElement("div");
-    label.innerText = "Welches Wort ist das?";
-    div.appendChild(label);
-  
-    const input = document.createElement("input");
-    input.type = "text";
-    input.style.minWidth = "20rem";
-    div.appendChild(input);
-  
-    const button = document.createElement("button");
-    button.innerText = "Raten";
-    button.style.marginLeft = "3px";
-    button.addEventListener("click", () => {
-      if (input.value === wordToGuess) {
-        correct();
-      } else {
-        wrong();
-      }
-    });
-    div.appendChild(button);
-  
-    document.body.append(div);
-  }
-  
+}
