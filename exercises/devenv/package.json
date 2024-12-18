@@ -1,0 +1,19 @@
+{
+  "name": "playground-devenv",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "start": "vite dev"
+  },
+  "author": "Rainer Stropek",
+  "license": "MIT",
+  "description": "Dev env for playground examples",
+  "devDependencies": {
+    "@types/p5": "^1.7.6",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3"
+  },
+  "dependencies": {
+    "p5": "^1.11.2"
+  }
+}
