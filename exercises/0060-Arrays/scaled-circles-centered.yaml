@@ -1,0 +1,54 @@
+title: "Scaled Circles (Centered)"
+descriptionMd: |
+  # Scaled Circles (Centered)
+
+  In the _Scaled Circles_ exercise, the circles did not have the same center. Try to find a solution that still scales the circles with the _scale_ method, but centers them correctly. The output has to look like this:
+
+  ![Scaled Circles (Centered)](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0060-Arrays/scaled-circles-centered.png?raw=true)
+
+  The starter code for this exercise is the sample solution of the previous _Scaled Circles_ exercise.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/scaled-circles-centered.ts"
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          createCanvas(400, 400);
+          background("white");
+          noFill();
+
+          stroke("blue");
+          strokeWeight(3);
+          circle(50, 50, 50);
+          
+          push();
+          stroke("red");
+          scale(2);
+          strokeWeight(3 / 2);
+          circle(50, 50, 50);
+          pop();
+          
+          push();
+          stroke("green");
+          scale(4.0);
+          strokeWeight(3 / 4); 
+          circle(50, 50, 50);
+          pop();
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
