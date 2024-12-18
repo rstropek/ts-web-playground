@@ -12,7 +12,7 @@ descriptionMd: |
   
   ![Scaled Soccer Field](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/soccer-field-scaled.png)
   
-  Your field must be as close as possible to the real field. The field must be scaled by a constant _SCALE_. The field must have a margin of _MARGIN_ pixels around it.
+  Your field must be **as close as possible to the real field** (don't forget details like the penalty point and the corners). The field must be scaled by a constant _SCALE_. The field must have a margin of _MARGIN_ pixels around it.
 
   ## Task: Draw the Players
 
@@ -20,6 +20,8 @@ descriptionMd: |
 
   * The player number needs to be in orange and right-aligned.
   * The player name needs to be in yellow and left-aligned.
+
+  **Note**: You can get the first name of the second player by accessing the second element of the array _firstNames_ with square brackets: _firstNames[1]_. The syntax is the same as for accessing specific characters in a string.
 
   BTW - of course you can replace the player numbers and names with your own favorite players 😉.
 
