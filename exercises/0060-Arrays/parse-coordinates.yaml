@@ -1,0 +1,53 @@
+title: "Parse Coordinates"
+descriptionMd: |
+  # Parse Coordinates
+
+  In this exercise, you have to _parse_ a string. _Parsing_ is the process of analyzing a string and extracting information from it. In this case, you have to extract the coordinates of circles from a string.
+
+  The starter code contains a string that represents the coordinates of circles. Each circle is defined by a pair of numbers separated by a comma. The first number is the x-coordinate, the second number is the y-coordinate. The coordinates of the circles are separated by a space. For example, the string _"50,50 50,100 100,50 100,100"_ defines four circles. The first circle is at position (50,50), the second circle is at position (50,100), and so on.
+
+  The output of this exercise must be:
+
+  ![Parse Coordinates](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/parse-coordinates.png)
+
+  Your task is to write code that parses the string and draws the circles. Each circle must have a radius of 40. You **must not** extract the coordinates manually. You have to write code that **extracts the coordinates from the string**. In this exercise, you **must not use the _split_ function**.
+
+  To solve this exercise, follow these steps:
+
+  1. Start by extracting the first pair of coordinates from the string and draw a single circle. Remember: You can access a character in a string by using the square brackets notation. For example, _circles[1]_ returns the second character of the string (in the starter code, this would be _0_).
+  2. Find a solution that extracts pairs of coordinates in a loop and draws all the circles.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/parse-coordinates.ts"
+files:
+  "index.ts":
+    content: |
+      // The following string represents coordinates (x,y) of circles
+      // that you have to draw. Each circle must have a radius of 40.
+      const circles = "50,50 50,100 100,50 100,100";
+
+      function setup() {
+          createCanvas(400, 400);
+          background("white");
+          noFill();
+          stroke("black");
+          strokeWeight(3);
+
+          // <<< Add your code here
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
