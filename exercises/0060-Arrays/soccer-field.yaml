@@ -8,7 +8,11 @@ descriptionMd: |
 
   ## Task: Draw the Soccer Field
 
-  The soccer field must be a scaled-down version of a real soccer field. You can find the dimensions of a real soccer field [at https://de.wikipedia.org/wiki/Strafraum#/media/Datei:Fu%C3%9Fballfeld_mit_Ma%C3%9Fen_und_Beschreibung.svg](https://de.wikipedia.org/wiki/Strafraum#/media/Datei:Fu%C3%9Fballfeld_mit_Ma%C3%9Fen_und_Beschreibung.svg). Your field must be as close as possible to the real field. The field must be scaled by a constant _SCALE_. The field must have a margin of _MARGIN_ pixels around it.
+  The soccer field must be a scaled-down version of a real soccer field. You can find the dimensions of a real soccer field [at https://de.wikipedia.org/wiki/Strafraum#/media/Datei:Fu%C3%9Fballfeld_mit_Ma%C3%9Fen_und_Beschreibung.svg](https://de.wikipedia.org/wiki/Strafraum#/media/Datei:Fu%C3%9Fballfeld_mit_Ma%C3%9Fen_und_Beschreibung.svg).
+  
+  ![Scaled Soccer Field](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/soccer-field-scaled.png)
+  
+  Your field must be as close as possible to the real field. The field must be scaled by a constant _SCALE_. The field must have a margin of _MARGIN_ pixels around it.
 
   ## Task: Draw the Players
 
@@ -56,10 +60,15 @@ files:
 
           push();
 
+          // Note that we scale everything by the constant SCALE. We use the size values
+          // in meters as if they were pixels, and then scale them up by the SCALE factor.
+          scale(SCALE);
+          translate(MARGIN, MARGIN);
+
           // Field (100x70m)
           rect(0, 0, 100, 70);
 
-          // <<< Add your code to draw the soccer field here
+          // <<< Add your code to draw the rest if the soccer field here
 
           // Draw a semi-transparent rectangle as a background for the player names and numbers
           // NEW: Note that the color value has EIGHT hex digits, not six.
