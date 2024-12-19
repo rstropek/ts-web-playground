@@ -6,7 +6,7 @@ descriptionMd: |
 
   ![Bubbles](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/bubbles.png)
 
-sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/parse-coordinates.ts"
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/bubbles.ts"
 files:
   "index.ts":
     content: |

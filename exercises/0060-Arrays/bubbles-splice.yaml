@@ -1,0 +1,73 @@
+title: "Bubbles (Splice)"
+descriptionMd: |
+  # Bubbles (Splice)
+
+  Now we extend the _Bubbles_ exercise. Add the necessary code that makes sure that bubbles disappear after a random time (some seconds).
+
+  The starter code is a sample solution for the _Bubbles_ exercise.
+
+  **Tip**: Use the _millis()_ function to get the current time in milliseconds. You can use this function to calculate the time when a bubble should disappear.
+
+  **Tip**: Use the _splice()_ function to remove an element from an array. _myArray.splice(index, 1)_ removes the element at the given index from the array.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/bubbles-splice.ts"
+files:
+  "index.ts":
+    content: |
+      const circlesCenterX: number[] = [];
+      const circlesCenterY: number[] = [];
+      const circlesDiameter: number[] = [];
+      const circlesFill: string[] = [];
+      let nextCircle = 0;
+      const maxDiameter = 150;
+
+      const availableColors = [
+        "pink",
+        "yellow",
+        "aqua",
+        "lime",
+        "red",
+        "gold",
+      ]
+
+      // setup runs once at the start
+      function setup() {
+        createCanvas(400, 400);
+      }
+
+      // draw runs continuously in a loop
+      function draw() {
+        background("black");
+
+        if (millis() >= nextCircle) {
+          const d = random(10, maxDiameter);  // Random diameter between 10 and maxDiameter
+          circlesDiameter.push(d);            
+          circlesCenterX.push(random(d / 2, width - d / 2));
+          circlesCenterY.push(random(d / 2, height - d / 2));
+          circlesFill.push(random(availableColors));
+          nextCircle = millis() + random(500, 2000);
+        }
+
+        noStroke();
+        for (let i = 0; i < circlesDiameter.length; i++) {
+          fill(circlesFill[i]);
+          circle(circlesCenterX[i], circlesCenterY[i], circlesDiameter[i]);
+        }
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
