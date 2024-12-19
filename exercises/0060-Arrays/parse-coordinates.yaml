@@ -17,6 +17,8 @@ descriptionMd: |
   1. Start by extracting the first pair of coordinates from the string and draw a single circle. Remember: You can access a character in a string by using the square brackets notation. For example, _circles[1]_ returns the second character of the string (in the starter code, this would be _0_).
   2. Find a solution that extracts pairs of coordinates in a loop and draws all the circles.
 
+  **Tip:** If you have a string containing the digits of a number (e.g. _"42"_), you can convert it to a number using the _parseInt_ function. For example, _parseInt("42")_ returns the number 42.
+
 sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/parse-coordinates.ts"
 files:
   "index.ts":
