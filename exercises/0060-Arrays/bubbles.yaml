@@ -1,0 +1,40 @@
+title: "Bubbles"
+descriptionMd: |
+  # Bubbles
+
+  In this exercise, you learn new functions to work with arrays. Your task is to type in the following code and make sure that you understand how it works. Experiment with the code to see how you can change the behavior of the program.
+
+  ![Bubbles](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/bubbles.png)
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/parse-coordinates.ts"
+files:
+  "index.ts":
+    content: |
+      // <<< Add your code here
+
+      // setup runs once at the start
+      function setup() {
+        createCanvas(400, 400);
+      }
+
+      // draw runs continuously in a loop
+      function draw() {
+        // <<< Add your code here
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
