@@ -1,0 +1,98 @@
+title: "Silos"
+descriptionMd: |
+  # Silos
+
+  Your job is to visualize and fill status of silos in a factory. At the end, your visualization should look like this:
+
+  ![Silos](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/silos.png)
+
+  ## Task: Parse _INITIAL_FILL_ and display the fill levels
+
+  Your first task is to parse the initial fill level from _INITIAL_FILL_. The fill level is a value between 0 and _SILO_MAX_. Add code to the _draw_ method to display the fill level of each silo as a number (as shown in the image above).
+  
+  The number of silos is not fixed. The number of silos is determined by the number of values in _INITIAL_FILL_.
+  
+  ## Task: Draw the silos
+
+  Draw the silos as shown in the image above. The fill level of each silo is represented by a rectangle. If the fill level is below _CRITICAL_FILL_, the fill level should be displayed in green. If the fill level is above _CRITICAL_FILL_, the fill level should be displayed in red.
+  
+  The numeric value of the fill level (implemented in the previous task) should be displayed below the silo (centered horizontally).
+
+  Use the given constants to calculate the positions of the silos.
+
+  ## Task: Draw the _add_ and _remove_ buttons
+
+  Draw two buttons above each silo. The left one _adds_ material to the silo (i.e. increases the fill level by 1). The right one _removes_ material from the silo (i.e. decreases the fill level by 1). The buttons should be rectangles with triangles representing the material flow. You can see how the buttons should look like in the image above.
+
+  ## Task: Implement the _mouseClicked_ method
+
+  Implement the _mouseClicked_ method to handle clicks on the buttons. If the user clicks on the _add_ button, the fill level of the corresponding silo should be increased by 1. If the user clicks on the _remove_ button, the fill level of the corresponding silo should be decreased by 1.
+
+  ![Silos](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/silos.gif)
+
+  The fill level must never be lower than 0 or higher than _SILO_MAX_.
+
+  ## Task: Implement a hover effect
+
+  If the mouse hovers over a button, the button should be highlighted. In the image above, highlighting is done by change the color of the triangular indicator. You can use any other visual effect you like.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/silos.ts"
+files:
+  "index.ts":
+    content: |
+      // Set the initial fill levels for the silos. The fill levels are separated by commas.
+      const INITIAL_FILL = "3,7,8,3,10,2"
+
+      const SILO_MAX = 10; // Maximum fill for each silo
+      const CRICITAL_FILL = 8; // Critical fill level for each silo
+
+      // Store the fill values for the silos. Will be a value between 0 and SILO_MAX.
+      const silos: number[] = [];
+
+      // Constants for the layout
+      const CANVAS_HEIGHT = 500;
+      const CANVAS_WIDTH = 480;
+
+      const SILO_WIDTH = 50; // Width of each silo
+      const SILO_GAP = 25; // Gap between silos
+      const SILO_HEIGHT = 320; // Height of each silo
+      const SILOS_TOP = CANVAS_HEIGHT / 2 - SILO_HEIGHT / 2; // Y-coordinate of the top of the silos
+
+      const BUTTON_SIZE = 20; // Size of the buttons ("add" and "remove")
+      const BUTTON_GAP = 15; // Gap between the bottom of the buttons and the top of the silos
+      const BUTTON_TOP = SILOS_TOP - BUTTON_GAP - BUTTON_SIZE; // Y-coordinate of the top of the buttons
+
+      // <<< Add your arrays here
+
+      function setup() {
+        createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+
+        // <<< Add your code here
+      }
+
+      function draw() {
+        background("black");
+
+        // <<< Add your code here
+      }
+
+      function mouseClicked() {
+        // <<< Add your code here
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
