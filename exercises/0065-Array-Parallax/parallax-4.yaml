@@ -34,6 +34,8 @@ descriptionMd: |
   * When the scrolling has reached the limit, the worm's position changes so that it moves towards the edge of the scene.
   * When the worm moves back, the background does **not** scroll immediately. First, the worm moves to the center of the scene, and then the background scrolls.
 
+  **Tip:** Draw the current worm position in the upper left corner. This will help you to understand the worm's movement.
+  
 sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0065-Array-Parallax/parallax-4.ts"
 files:
   "index.ts":
