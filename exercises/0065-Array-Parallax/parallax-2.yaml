@@ -1,0 +1,193 @@
+title: "Parallax (Step 2)"
+descriptionMd: |
+  # Parallax (Step 2)
+
+  Our next step is to move the background images using the cursor keys (cursor left/right).  
+
+  ## Task 1: Understand the starter code
+
+  Your first task is to understand the starter code. The code is similar to the code from the previous exercise. The main difference is that we added code to move the background images when the user presses the cursor keys.
+
+  ![Moving background](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0065-Array-Parallax/parallax-2.gif)
+
+  ## Task 2: Repeat the background images
+
+  Our current solution is very limited. As soon as the user starts scrolling, the background images move out of the visible area. The following image demonstrates the problem. The visible area of the canvas is visualized by the red rectangle. Everything outside of this rectangle will not be visible to the user.
+  
+  ![Moving background](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0065-Array-Parallax/parallax-2-limited.gif)
+  
+  Your task is to repeat the background images (one time to the left and one time to the right). With this, the user can scroll further without running out of background images.
+
+  ![Moving background](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0065-Array-Parallax/parallax-2-larger.gif)
+
+  **Tip:** It might be helpful if you draw the current scroll position on the left upper corner of the canvas. This will help you to understand how the scroll position changes when the user presses the cursor keys.
+
+  ## Task 3: Limit scrolling
+
+  Add code that makes sure that the user cannot scroll further than the leftmost or rightmost background image. If the user tries to scroll further, the background images should not move anymore.
+
+  ## Task 4: Endless scrolling (advanced, optional)
+
+  If you want to challenge yourself, try to implement endless scrolling. This means that when the user reaches the leftmost or rightmost background image, the background images should start again at the opposite side of the canvas. This way, the user can scroll endlessly in both directions. Note that no sample solution is provided for this task. You have to implement it on your own.
+
+  **Tip:** If you struggle with this task, practice working with an AI like ChatGPT or Claude. Maybe they can help you to find a solution. However, make sure that you understand the solution. **Do not just copy and paste code without understanding it.**
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0065-Array-Parallax/parallax-2.ts"
+files:
+  "index.ts":
+    content: |
+      const THEME_IX = 2;
+
+      const images: p5.Image[] = [];
+
+      let backgroundScale = 1;
+      let scaledImageWidth = 0;
+      let scaledImageHeight = 0;
+
+      // Number of pixels to scroll when the user presses the cursor keys
+      const SCROLL_SPEED = 5;
+
+      // Current scroll position in x direction. A positive value means that the background
+      // images are moved to the right. A negative value means that the background images are moved to the left.
+      let scrollPosition = 0;
+
+      function preload() {
+          // Same code as in the previous example
+
+          const theme = themes[THEME_IX];
+          for (let i = 0; i < theme.length; i++) {
+              const imageName = theme[i];
+              const image = loadImage(`${BASE_URL}${themeNames[THEME_IX]}/${imageName}`);
+              images.push(image);
+          }
+      }
+
+      function setup() {
+          // Same code as in the previous example
+
+          createCanvas(500, 500);
+
+          backgroundScale = width / images[0].width;
+          scaledImageWidth = images[0].width * backgroundScale;
+          scaledImageHeight = images[0].height * backgroundScale;
+      }
+
+      function draw() {
+          background("black");
+
+          // Check if user presses the cursor keys
+          if (keyIsDown(39)) {
+              // Cursor right
+              scrollPosition -= SCROLL_SPEED;
+          } else if (keyIsDown(37)) {
+              // Cursor left
+              scrollPosition += SCROLL_SPEED;
+          }
+
+          // Uncomment the following lines to zoom out. This will make it easier for you
+          // to see how the background images move out of the visible area when you press the cursor keys.
+          //scale(0.5);
+          //translate(width / 2, height / 2);
+
+          push();
+
+          // Translate the background images according to the current scroll position
+          translate(scrollPosition, 0);
+
+          // From here on, the code is the same as in the previous example
+          translate(0, (height - scaledImageHeight) / 2);
+          for (let i = 0; i < images.length; i++) {
+              const img = images[i];
+              image(img, 0, 0, scaledImageWidth, scaledImageHeight);
+          }
+          pop();
+
+          // Uncomment the following lines to draw a rectangle around the canvas. This will help you to see
+          // how the background images move out of the visible area when you press the cursor keys. Use
+          // these lines of code together with the commented _scale()_ and _translate()_ functions above.
+          //push();
+          //noFill();
+          //stroke("red");
+          //rect(0, 0, width, height);
+          //pop();
+      }
+
+    isEditable: true
+  "images.ts":
+    content: |
+      // URL where the images are stored. You have to append the theme name (see also _themeNames_ below)
+      // and the image name to get the full URL. Example: To get the URL of the first image of the 
+      // _cave_ theme, use `${BASE_URL}/cave/1_wall.png`.
+      const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/parallax";
+
+      // Define the images for the different themes. The first image must be drawn first because it is the farthest away.
+      // The last image must be drawn last because it is the closest to the viewer.
+      const cave = [
+          "1_wall.png",
+          "2_prop01.png",
+          "3_prop02.png",
+          "4_stones.png",
+          "5_crystals.png",
+          "6_ground.png"
+      ];
+      const mountains = [
+          "1_sky.png",
+          "2_mountains.png",
+          "3_clouds.png",
+          "4_bg-ground01.png",
+          "5_bg-ground02.png",
+          "6_ground.png"
+      ];
+      const winter = [
+          "1_sky.png",
+          "2_stars.png",
+          "3_clouds01.png",
+          "4_clouds02.png",
+          "5_mountains.png",
+          "6_ground01.png",
+          "7_ground02.png",
+          "8_ground.png"
+      ];
+      const dessert = [
+          "1_sky.png",
+          "2_clouds.png",
+          "3_pyramid.png",
+          "4_bg-ground01.png",
+          "5_bg-ground02.png",
+          "6_bg-ground03.png",
+          "7_ground.png"
+      ];
+
+      // _themes_ is an array of arrays. Each sub-array contains the image names for one theme.
+      // If you want to get the theme _cave_, use _themes[0]_, for _winter_ use _themes[2]_, and so on.
+      const themes = [
+          cave,
+          mountains,
+          winter,
+          dessert
+      ];
+
+      // The names of the themes. The order must match the order of the themes in the _themes_ array.
+      const themeNames = [
+          "cave",
+          "mountains",
+          "winter",
+          "dessert"
+      ]
+    isEditable: false
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
