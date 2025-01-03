@@ -20,6 +20,8 @@ descriptionMd: |
 
   ## First exercise
 
+  ![Background Images](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0065-Array-Parallax/parallax-1.png)
+
   Before we can start coding the parallax effect, we need to display the background images without moving them. In this first exercise, you do not need to write your own code. The starter code contains the necessary code to display the background images. Your task is to understand the code and run it. Read the code carefully and experiment with it. Change _THEME_IX_ and see how the background images change.
 
   The following exercises will build on this code.
