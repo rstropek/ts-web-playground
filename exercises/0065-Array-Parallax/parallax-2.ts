@@ -19,7 +19,7 @@ function preload() {
     const theme = themes[THEME_IX];
     for (let i = 0; i < theme.length; i++) {
         const imageName = theme[i];
-        const image = loadImage(`${BASE_URL}${themeNames[THEME_IX]}/${imageName}`);
+        const image = loadImage(`${BASE_URL}/${themeNames[THEME_IX]}/${imageName}`);
         images.push(image);
     }
 }
