@@ -1,0 +1,166 @@
+title: "Parallax (Step 1)"
+descriptionMd: |
+  # Parallax (Step 1)
+
+  ## Introduction
+
+  In this series of exercises, we will practice using arrays by learning about the _Parallax Effect_. The parallax effect in game design is a technique used to create a sense of depth in 2D games by making background elements move at different speeds than foreground elements.
+  
+  [Imagine you're looking out of a car window](https://www.pexels.com/video/window-view-from-a-moving-car-on-a-country-road-12520339/): nearby objects like trees zoom past quickly, while distant mountains seem to move slowly. This is the parallax effect in real life. In games, this is achieved by layering images and moving them at different speeds as the player moves.
+
+  1. The foreground (closest to the player) moves the fastest.
+  2. The middle ground moves a bit slower.
+  3. The background (farthest from the player) moves the slowest.
+
+  To code this, you would typically:
+
+  - Use layers of images for the background.
+  - Adjust the movement speed of each layer based on its "distance" (closer layers move more pixels per frame, distant layers fewer).
+  - Sync these movements with the player’s actions (like scrolling left or right).
+
+  ## First exercise
+
+  Before we can start coding the parallax effect, we need to display the background images without moving them. In this first exercise, you do not need to write your own code. The starter code contains the necessary code to display the background images. Your task is to understand the code and run it. Read the code carefully and experiment with it. Change _THEME_IX_ and see how the background images change.
+
+  The following exercises will build on this code.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/bubbles-splice.ts"
+files:
+  "index.ts":
+    content: |
+      // Index of the theme to use. 0 = cave, 1 = mountains, 2 = winter, 3 = dessert
+      // IMPORTANT: Take a look at the file _images.ts_ to see the available themes and their indexes.
+      // Make sure you understand the structure of the arrays in _images.ts_.
+      const THEME_IX = 2;
+
+      // Array with p5js images holding the image objects for the current theme
+      const images: p5.Image[] = [];
+
+      // The background images do not have the same size as the drawing canvas. Therefore,
+      // we have to scale them to fit the canvas. The scale factor is calculated in the _setup()_ function.
+      // The scale factor is the percentage of the canvas width that the background image will use.
+      // Example: 0.5 means that the background image has to be scaled to 50% to fill the width of the canvas.
+      // 1 would mean that the image fits perfectly into the canvas width (i.e. image size matches canvas size).
+      let backgroundScale = 1;
+
+      // Width and height of the scaled images
+      let scaledImageWidth = 0;
+      let scaledImageHeight = 0;
+
+      function preload() {
+          // Load the images for the current theme. For that, we iterate over the image names of the current theme.
+          const theme = themes[THEME_IX];
+          for (let i = 0; i < theme.length; i++) {
+              const imageName = theme[i];
+              const image = loadImage(`${BASE_URL}/${themeNames[THEME_IX]}/${imageName}`);
+
+              // Add the p5js image to the array of p5js images
+              images.push(image);
+          }
+      }
+
+      function setup() {
+          createCanvas(500, 500);
+
+          // Calculate the scale factor for the background images
+          backgroundScale = width / images[0].width;
+
+          // Calculate the scaled image width and height
+          scaledImageWidth = images[0].width * backgroundScale;
+          scaledImageHeight = images[0].height * backgroundScale;
+      }
+
+      function draw() {
+          background("black");
+
+          push();
+          // Center the images on the canvas
+          translate(0, (height - scaledImageHeight) / 2);
+
+          // Draw the images
+          for (let i = 0; i < images.length; i++) {
+              const img = images[i];
+              image(img, 0, 0, scaledImageWidth, scaledImageHeight);
+          }
+          pop();
+      }
+
+    isEditable: true
+  "images.ts":
+    content: |
+      // URL where the images are stored. You have to append the theme name (see also _themeNames_ below)
+      // and the image name to get the full URL. Example: To get the URL of the first image of the 
+      // _cave_ theme, use `${BASE_URL}/cave/1_wall.png`.
+      const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/parallax/";
+
+      // Define the images for the different themes. The first image must be drawn first because it is the farthest away.
+      // The last image must be drawn last because it is the closest to the viewer.
+      const cave = [
+          "1_wall.png",
+          "2_prop01.png",
+          "3_prop02.png",
+          "4_stones.png",
+          "5_crystals.png",
+          "6_ground.png"
+      ];
+      const mountains = [
+          "1_sky.png",
+          "2_mountains.png",
+          "3_clouds.png",
+          "4_bg-ground01.png",
+          "5_bg-ground02.png",
+          "6_ground.png"
+      ];
+      const winter = [
+          "1_sky.png",
+          "2_stars.png",
+          "3_clouds01.png",
+          "4_clouds02.png",
+          "5_mountains.png",
+          "6_ground01.png",
+          "7_ground02.png",
+          "8_ground.png"
+      ];
+      const dessert = [
+          "1_sky.png",
+          "2_clouds.png",
+          "3_pyramid.png",
+          "4_bg-ground01.png",
+          "5_bg-ground02.png",
+          "6_bg-ground03.png",
+          "7_ground.png"
+      ];
+
+      // _themes_ is an array of arrays. Each sub-array contains the image names for one theme.
+      // If you want to get the theme _cave_, use _themes[0]_, for _winter_ use _themes[2]_, and so on.
+      const themes = [
+          cave,
+          mountains,
+          winter,
+          dessert
+      ];
+
+      // The names of the themes. The order must match the order of the themes in the _themes_ array.
+      const themeNames = [
+          "cave",
+          "mountains",
+          "winter",
+          "dessert"
+      ]
+    isEditable: false
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
