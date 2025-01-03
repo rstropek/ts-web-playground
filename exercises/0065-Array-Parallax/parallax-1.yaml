@@ -93,7 +93,7 @@ files:
       // URL where the images are stored. You have to append the theme name (see also _themeNames_ below)
       // and the image name to get the full URL. Example: To get the URL of the first image of the 
       // _cave_ theme, use `${BASE_URL}/cave/1_wall.png`.
-      const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/parallax/";
+      const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/parallax";
 
       // Define the images for the different themes. The first image must be drawn first because it is the farthest away.
       // The last image must be drawn last because it is the closest to the viewer.
