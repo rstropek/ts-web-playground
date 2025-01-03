@@ -24,7 +24,7 @@ descriptionMd: |
 
   Before we can start coding the parallax effect, we need to display the background images without moving them. In this first exercise, you do not need to write your own code. The starter code contains the necessary code to display the background images. Your task is to understand the code and run it. Read the code carefully and experiment with it. Change _THEME_IX_ and see how the background images change.
 
-  The following exercises will build on this code.
+  **Note:** You also need to understand the structure of the arrays in _images.ts_. Use the dropdown menu in the left upper corner of the playground to switch between the files _index.ts_ and _images.ts_. 
 
 sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/bubbles-splice.ts"
 files:
