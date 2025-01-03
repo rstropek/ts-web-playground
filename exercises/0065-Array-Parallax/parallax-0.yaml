@@ -1,0 +1,118 @@
+title: "Parallax (Starter)"
+descriptionMd: |
+  # Parallax (Starter)
+
+  This is the starter code for the Parallax Effect exercise. This starter code is used during interactive coding sessions. 
+
+files:
+  "index.ts":
+    content: |
+      const THEME_IX = 0;
+
+      const images: p5.Image[] = [];
+
+      let backgroundScale = 1;
+      let scaledImageWidth = 0;
+      let scaledImageHeight = 0;
+
+      function preload() {
+          const theme = themes[THEME_IX];
+          // <<< Add code here
+      }
+
+      function setup() {
+          createCanvas(500, 500);
+
+          // Calculate the scale factor for the background images
+          backgroundScale = width / images[0].width;
+
+          // Calculate the scaled image width and height
+          scaledImageWidth = images[0].width * backgroundScale;
+          scaledImageHeight = images[0].height * backgroundScale;
+      }
+
+      function draw() {
+          background("black");
+
+          // <<< Add code here
+      }
+
+    isEditable: true
+  "images.ts":
+    content: |
+      // URL where the images are stored. You have to append the theme name (see also _themeNames_ below)
+      // and the image name to get the full URL. Example: To get the URL of the first image of the 
+      // _cave_ theme, use `${BASE_URL}/cave/1_wall.png`.
+      const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/parallax";
+
+      // Define the images for the different themes. The first image must be drawn first because it is the farthest away.
+      // The last image must be drawn last because it is the closest to the viewer.
+      const cave = [
+          "1_wall.png",
+          "2_prop01.png",
+          "3_prop02.png",
+          "4_stones.png",
+          "5_crystals.png",
+          "6_ground.png"
+      ];
+      const mountains = [
+          "1_sky.png",
+          "2_mountains.png",
+          "3_clouds.png",
+          "4_bg-ground01.png",
+          "5_bg-ground02.png",
+          "6_ground.png"
+      ];
+      const winter = [
+          "1_sky.png",
+          "2_stars.png",
+          "3_clouds01.png",
+          "4_clouds02.png",
+          "5_mountains.png",
+          "6_ground01.png",
+          "7_ground02.png",
+          "8_ground.png"
+      ];
+      const dessert = [
+          "1_sky.png",
+          "2_clouds.png",
+          "3_pyramid.png",
+          "4_bg-ground01.png",
+          "5_bg-ground02.png",
+          "6_bg-ground03.png",
+          "7_ground.png"
+      ];
+
+      // _themes_ is an array of arrays. Each sub-array contains the image names for one theme.
+      // If you want to get the theme _cave_, use _themes[0]_, for _winter_ use _themes[2]_, and so on.
+      const themes = [
+          cave,
+          mountains,
+          winter,
+          dessert
+      ];
+
+      // The names of the themes. The order must match the order of the themes in the _themes_ array.
+      const themeNames = [
+          "cave",
+          "mountains",
+          "winter",
+          "dessert"
+      ]
+    isEditable: false
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
