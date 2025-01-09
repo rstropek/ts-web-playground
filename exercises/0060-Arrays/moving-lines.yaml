@@ -1,0 +1,145 @@
+title: "Moving Lines (Exam)"
+descriptionMd: |
+  # Moving Lines
+
+  ## Introduction
+
+  There is a classical computer game called _Qix_. In this game, you have to draw lines to fill a certain percentage of the screen. While you draw, you have to avoid being hit by enemies. The "enemies" are lines that move on the screen. Here is a short video of the game:
+
+  ![Qix](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/moving-lines-qix.gif)
+
+  In this exercise, you have to implement a simplified version of the "enemies" (i.e. moving lines).
+
+  ![Final solution](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/moving-lines-solution.gif)
+
+  ## Minimum Requirements
+
+  ### Read and understand the starter code
+
+  The starter code contains a simple sketch that draws a line on the screen. The line moves in a random direction. When the line reaches the edge of the screen, it bounces back. The color of the line is also chosen randomly. Read and understand the code before you start further work.
+
+  ### Implement multiple lines
+
+  Change the code so that it draws **multiple** lines. For that, you have to change variables to arrays and process them using loops. Each line must have a random start and end point, a random color, and a random movement direction **analogous to the single line in the starter code**.
+
+  ### Adding and removing lines
+
+  Add two buttons somewhere on the canvas:
+
+  * The _Add_ button adds a new, random line. It immediately starts moving.
+  * The _Remove_ button removes a line (tip: You can use the _splice_ method to remove an element from an array). The last line cannot be removed, so there is always at least one line moving on the screen.
+
+  ## Additional Requirements
+
+  ### Distance to other lines
+
+  The start and end coordinates of the lines must be coordinated. The random X coordinate of all subsequent lines must be at most 40 pixels away from the first line. The random Y coordinate of all subsequent lines must be at most 40 pixels away from the first line. This way, the starting points of the lines are close to each other. The following image illustrates this. The next line's starting point must be within the red rectangle:
+
+  ![Starting point](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/moving-lines-start.png)
+
+  Each subsequent line must also copy the movement direction (_dx_ and _dy_) of the first line. This way, all lines initially move in the same direction (this changes when they bounce back from the edge of the screen).
+
+  Note that this requirement applies to initially created lines **and** to lines created by the _Add_ button.
+
+  ### Parse Configuration
+  
+  The starter code contains a configuration string (_CONFIGURATION_). It contains two parts separated by a semicolon. The first part is the number of lines to draw initially. The second part is the range of colors to use.
+
+  Add code to the _setup_ method that parses this configuration string and initializes the number of lines and the color range accordingly. You are **not** allowed to use the _split_ method. You have to parse the string manually.
+  
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/moving-lines.ts"
+files:
+  "index.ts":
+    content: |
+      // Configuration for the number of lines, and the range of colors The format is:
+      // <number of lines>;<min hue>-<max hue>
+      //
+      // "number of lines" is the number of lines to draw, can be between 1 and 30
+      // "min hue" is the minimum hue (HSB color space), can be between 0 and 360
+      // "max hue" is the maximum hue (HSB color space), can be between 0 and 360
+      const CONFIGURATION = "5;0-360";
+
+      let lineStartX: number = 0;     // Start coordinates of line
+      let lineStartY: number = 0;
+      let lineEndX: number = 0;       // End coordinates of line
+      let lineEndY: number = 0;
+      let lineColor: number = 0;
+
+      let lineStartDx: number = 0;    // Movement of start point per frame in X and Y direction
+      let lineStartDy: number = 0;
+      let lineEndDx: number = 0;      // Movement of end point per frame in X and Y direction
+      let lineEndDy: number = 0;
+
+      let minColor = 0;               // Lower bound of random hue value
+      let maxColor = 360;             // Upper bound of random hue value
+
+      function setup() {
+          createCanvas(500, 500);
+          colorMode(HSB);
+
+          // Set random start and end position
+          lineStartX = random(50, 450);
+          lineStartY = random(50, 450);
+          lineEndX = random(50, 450);
+          lineEndY = random(50, 450);
+
+          // Set random movement
+          lineStartDx = random(0, 5);
+          lineStartDy = random(0, 5);
+          lineEndDx = random(0, 5);
+          lineEndDy = random(0, 5);
+
+          // Set random color
+          lineColor = random(minColor, maxColor);
+      }
+
+      function draw() {
+          background("black");
+
+          push();
+          // Draw current line
+          stroke(lineColor, 100, 100);
+          strokeWeight(2);
+          line(lineStartX, lineStartY, lineEndX, lineEndY);
+
+          // Move start and end point
+          lineStartX += lineStartDx;
+          lineStartY += lineStartDy;
+          lineEndX += lineEndDx;
+          lineEndY += lineEndDy;
+
+          // Reverse direction when edge has been reached
+          if (lineStartX < 0 || lineStartX > width) {
+              lineStartDx = -lineStartDx;
+          }
+          if (lineStartY < 0 || lineStartY > height) {
+              lineStartDy = -lineStartDy;
+          }
+
+          if (lineEndX < 0 || lineEndX > width) {
+              lineEndDx = -lineEndDx;
+          }
+          if (lineEndY < 0 || lineEndY > height) {
+              lineEndDy = -lineEndDy;
+          }
+
+          pop();
+      }
+
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
