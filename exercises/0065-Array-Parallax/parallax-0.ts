@@ -3,6 +3,7 @@ const GRAVITY = 0.8;
 const JUMP_FORCE = -15;
 const HATI = "demo_figure2.png";
 const SCROLL_SPEED = 5;
+const CANVAS_SIZE = 500;
 
 const images: p5.Image[] = [];
 let hatiImage: p5.Image;
@@ -31,7 +32,7 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(500, 500);
+    createCanvas(CANVAS_SIZE, CANVAS_SIZE);
 
     backgroundScale = width / images[0].width;
     scaledImageWidth = images[0].width * backgroundScale;
