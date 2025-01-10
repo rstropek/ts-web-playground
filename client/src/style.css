@@ -108,27 +108,19 @@ select {
 #result-frame {
   border: none;
   height: 100%;
+  width: 100%;
 }
 
 #output-content {
   margin: 0;
-  padding: 0;
+  padding: 0 0 10px 0;
   width: 100%;
   text-align: left;
   white-space: pre-line;
 }
 
-#result-frame {
-  width: 100%;
-  height: 100%;
-}
-
 #output {
   overflow-y: auto;
-}
-
-#output-content {
-  padding-bottom: 10px;
 }
 
 .centered {
@@ -159,7 +151,6 @@ select {
   border-left: none;
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
   padding: var(--button-padding);
-  ;
   margin-left: 0;
   cursor: pointer;
   font-size: var(--button-font-size);
