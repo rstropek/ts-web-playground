@@ -3,6 +3,8 @@ name: 'Build TS Playground Server'
 on:
   workflow_dispatch:
   push:
+    branches:
+    - main
     paths:
       - 'server/**'
 
