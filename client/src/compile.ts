@@ -47,8 +47,8 @@ export async function compile(files: Files): Promise<CompileResult> {
 
   const compilerHost: ts.CompilerHost = {
     getSourceFile: (fileName: any, languageVersion: any) => {
-      console.log("getSourceFile", fileName);
-      
+      console.debug("getSourceFile", fileName);
+
       const sourceText = files.getFile(fileName)?.model.getValue();
       if (!sourceText) {
         if (fileName.startsWith("p5/")) {
@@ -136,6 +136,31 @@ export async function compile(files: Files): Promise<CompileResult> {
   });
 
   let topScripts = ``;
+  // Inject a console object that sends messages to the parent window.
+  topScripts += `
+    <script>
+      oldConsole = console;
+      console = {
+        ...oldConsole,
+        info(...args) {
+          window.parent.postMessage({ type: "console.info", data: args }, "*");
+        },
+        debug(...args) {
+          window.parent.postMessage({ type: "console.debug", data: args }, "*");
+        },
+        log(...args) {
+          window.parent.postMessage({ type: "console.log", data: args }, "*");
+        },
+        warn(...args) {
+          window.parent.postMessage({ type: "console.warn", data: args }, "*");
+        },
+        error(...args) {
+          window.parent.postMessage({ type: "console.error", data: args }, "*");
+        }
+      };
+    </script>
+    `;
+  
   for (const [fileName, content] of fileContents) {
     if (fileName !== "index.js") {
       topScripts += `<script>${content}</script>`;
