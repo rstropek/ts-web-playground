@@ -25,6 +25,9 @@ const specSelector = document.getElementById(
 const spec = document.getElementById("spec")! as HTMLDivElement;
 const title = document.getElementById("title")! as HTMLDivElement;
 const message = document.getElementById("message")! as HTMLDialogElement;
+const clearButton = document.getElementById("output-clear")! as HTMLButtonElement;
+
+const debugEnviroment = false;
 
 spec.style.display = "none";
 resultSelector.addEventListener("click", () => {
@@ -39,6 +42,8 @@ specSelector.addEventListener("click", () => {
   spec.style.display = "";
   iframe.style.display = "none";
 });
+
+clearButton.addEventListener("click", clearOutput);
 
 const exerciseUrl = getExerciseUrlFromQueryString();
 
@@ -170,7 +175,7 @@ loadExercise(exerciseUrl).then((ex1) => {
 
   async function runCode() {
     const { blobUrl, errorOutput } = await compile(files);
-    output.innerText = errorOutput;
+    compilerError(errorOutput);
     iframe.src = blobUrl;
   }
 
@@ -181,3 +186,86 @@ loadExercise(exerciseUrl).then((ex1) => {
     sizes: [80, 20],
   });
 });
+
+// Redirect console output to the output field 
+// and the original console
+const originalConsole = console;
+console = {
+  ...originalConsole,
+  clear(): void {
+    clearOutput();
+    originalConsole.clear();
+  },
+  info(...data: any[]): void {
+    output.innerHTML += `<div class="info">${data.join(" ")}</div>`;
+    originalConsole.info(...data);
+  },
+  debug(...data: any[]): void {
+    if (debugEnviroment || data[0] == "debugEnviromentOvveride") {
+      data.shift(); // remove the debugEnviromentOvveride
+      output.innerHTML += `<div class="debug">${data.join(" ")}</div>`;
+    }
+    originalConsole.debug(...data);
+  },
+  log(...data: any[]): void {
+    output.innerHTML += `<div class="log">${data.join(" ")}</div>`;
+    originalConsole.log(...data);
+  },
+  warn(...data: any[]): void {
+    output.innerHTML += `<div class="warn">${data.join(" ")}</div>`;
+    originalConsole.warn(...data);
+  },
+  error(...data: any[]): void {
+    output.innerHTML += `<div class="error">${data.join(" ")}</div>`;
+    originalConsole.error(...data);
+  }
+};
+
+function compilerError(...data: any[]): void {
+  output.innerHTML += `<div class="compiler-error">${data.join(" ")}</div>`;
+}
+
+function clearOutput() {
+  output.innerHTML = "";
+}
+
+// Listen for console messages from the iframe
+window.addEventListener('message', (event) => {
+  if (event.origin !== window.location.origin) {
+    return;
+  }
+  if (event.data.type?.startsWith("console.") && event.data.data) {
+    const type = event.data.type.split(".")[1];
+    switch (type) {
+      case "info":
+        console.info(...event.data.data);
+        break;
+      case "debug":
+        console.debug("debugEnviromentOvveride", ...event.data.data);
+        break;
+      case "log":
+        console.log(...event.data.data);
+        break;
+      case "warn":
+        console.warn(...event.data.data);
+        break;
+      case "error":
+        console.error(...event.data.data);
+        break;
+    }
+  }
+});
+
+// Tests
+// console.info("Information message");
+// console.debug("Debugging message");
+// console.debug("debugEnviromentOvveride", "Debugging message with override");
+// console.log("Regular log message");
+// console.warn("Warning message");
+// console.error("Error message");
+// compilerError("Compiler error message");
+// console.info("Information message from iframe");
+// console.debug("Debugging message from iframe");
+// console.log("Regular log message from iframe");
+// console.warn("Warning message from iframe");
+// console.error("Error message from iframe");

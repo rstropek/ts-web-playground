@@ -1,0 +1,63 @@
+title: "Empty Playground (More Documentation)"
+descriptionMd: |
+  This exercise is an empty playground. You can use it to experiment
+  with TypeScript and p5js.
+files:
+  "index.ts":
+    content: |
+      // you can omit any of the functions below if you don't need them.
+      // draw() and setup() are the most common functions used in p5.js
+
+      function preload() {
+        // A function that's called once to load assets before the sketch runs.
+        // runs once automatically before setup() or draw().
+        // It's used to load assets including multimedia files, fonts, data, and 3D models
+        // https://p5js.org/reference/p5/preload
+      }
+
+      function setup() {
+        // A function that's called once when the sketch begins running.
+        // runs once automatically when the sketch starts running.
+        // It's used to perform setup tasks such as creating the canvas and initializing variables
+        // https://p5js.org/reference/p5/setup
+
+        p.createCanvas(700, 500); // example: Create a canvas 700px wide and 500px high
+      }
+
+      function keyPressed() {
+        // A function that's called once when any key is pressed.
+        // runs once automatically when the user presses any key
+        // https://p5js.org/reference/p5/keyPressed
+        console.log(`Key ${p.keyCode} has been pressed`);
+      }
+
+      function mousePressed() {
+        // A function that's called once when a mouse button is pressed.
+        // runs automatically when the user presses a mouse button
+        // https://p5js.org/reference/p5/mousePressed
+        console.log(`Mouse was pressed at ${p.mouseX}/${p.mouseY}`);
+      }
+
+      function draw() {
+        // A function that's called repeatedly while the sketch runs.
+        // runs repeatedly once the sketch starts.
+        // It’s used to create animations and respond to user input
+        // https://p5js.org/reference/p5/draw
+        p.background('yellow'); // example: Set the background color od the canvas to yellow
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
