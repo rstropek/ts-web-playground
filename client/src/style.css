@@ -1,4 +1,10 @@
 :root {
+  /* Typescript barnding color palette */
+  --typescript-color: #2d79c7;
+  --typescript-color-primary: #3178c6;
+  --typescript-color-secondary: #00273f;
+  --typescript-color-tertiary: #ffffff;
+
   --top-bar-height: 50px;
   /* --top-bar-bg-color: rgb(233, 231, 255);
   --top-bar-border-color: rgb(140, 131, 240);
