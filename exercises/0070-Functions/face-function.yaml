@@ -9,7 +9,7 @@ descriptionMd: |
   ## Step 1: Draw the face
 
   * Add the code in the _smile_ function to draw a face at a random position.
-  * Call the _smile_ function in the _setup_ function to draw a single, smiling "https://raw.
+  * Call the _smile_ function in the _setup_ function to draw a single, smiling face.
   * Make sure you understand how the function definition and the function call work.
 
   ## Step 2: Draw the face on mouse click
