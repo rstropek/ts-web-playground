@@ -173,6 +173,16 @@ loadExercise(exerciseUrl).then((ex1) => {
     });
   });
 
+  // Add custom monaco editor commands
+  monacoEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
+    if (userName.innerText != `Anonymous`)
+      save.click();
+  });
+
+  monacoEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyR, () => {
+    run.click();
+  });
+
   async function runCode() {
     const { blobUrl, errorOutput } = await compile(files);
     compilerError(errorOutput);
