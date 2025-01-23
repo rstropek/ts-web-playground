@@ -6,6 +6,8 @@ descriptionMd: |
 
   ![Temperature Chart](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/temperature-chart.png)
 
+  **Do use loops** to draw the tick marks and labels on the axes. **Do not hard-code the positions** of the tick marks and labels.
+
   **Important**: Implement the missing functions step-by-step starting with the topmost (_drawAxes_). Once you have implemented a function, call it from the _setup_ function and check the intermediate result. If everything works as expected, proceed with the next function.
 
 sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/temperature-chart.ts"
