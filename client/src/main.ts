@@ -357,14 +357,16 @@ const themes: Theme[] = themeNames.map((theme) => {
   };
 });
 
-for (const theme of themes) {
-  try {
-    theme.themeData = await fetch(`/playground/themes/${theme.friendlyName}.json`).then(m => m.json());
-  } catch (e) {
-    console.error(e);
+// Start loading themes in the background
+(async () => {
+  for (const theme of themes) {
+    try {
+      theme.themeData = await fetch(`/playground/themes/${theme.friendlyName}.json`).then(m => m.json());
+    } catch (e) {
+      console.error(e);
+    }
   }
-}
-console.log(themes);
+})();
 
 const themeSelect = document.getElementById("theme") as HTMLSelectElement;
 for (const theme of themeNames) {
