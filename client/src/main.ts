@@ -11,6 +11,7 @@ import { marked } from "marked";
 const editor = document.getElementById("editor")! as HTMLDivElement;
 const run = document.getElementById("run")! as HTMLButtonElement;
 const save = document.getElementById("save")! as HTMLButtonElement;
+const backButton = document.getElementById("back")! as HTMLButtonElement;
 const loadSolution = document.getElementById("loadSolution")! as HTMLButtonElement;
 const iframe = document.getElementById("result-frame")! as HTMLIFrameElement;
 const fileNames = document.getElementById("fileNames")! as HTMLSelectElement;
@@ -42,7 +43,9 @@ specSelector.addEventListener("click", () => {
   spec.style.display = "";
   iframe.style.display = "none";
 });
-
+backButton.addEventListener("click", () => {
+  window.location.href = `/main`;
+});
 clearButton.addEventListener("click", clearOutput);
 
 const exerciseUrl = getExerciseUrlFromQueryString();
