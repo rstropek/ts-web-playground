@@ -1,0 +1,40 @@
+title: "Return Values"
+descriptionMd: |
+  # Return Values
+
+  Functions can receive parameters. We have already seen that in previous exercises. But functions can also return values. This is useful if you want to calculate a value in a function and then use it in the code that called the function.
+  
+  Here is the code that you have to type. **Take the time to really understand what is happening in the code.**
+
+  ![Return values](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/return_values.png)
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/return_values.ts"
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        createCanvas(300, 300);
+        background("black");
+        strokeWeight(2);
+        stroke("lime");
+        noFill();
+      }
+
+      // <<< Add additional functions here
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false

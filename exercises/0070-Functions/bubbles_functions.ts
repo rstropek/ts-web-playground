@@ -2,7 +2,7 @@ const circles_x: number[] = [];
 const circles_y: number[] = [];
 const circles_diameter: number[] = [];
 
-let waiting_time = 5000;
+let waiting_time = 3000;
 let circle_interval: number;
 let level_interval: number;
 
@@ -97,7 +97,6 @@ function mouseClicked() {
       circles_y.splice(i, 1);
       circles_diameter.splice(i, 1);
       points++;
-      return;
     }
   }
 }

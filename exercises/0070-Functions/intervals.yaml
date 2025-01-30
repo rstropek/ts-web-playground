@@ -1,0 +1,50 @@
+title: "Intervals"
+descriptionMd: |
+  # Intervals
+
+  Function are useful in many situations, for instance:
+
+  * Split large problems into smaller, more manageable parts
+  * Reuse code
+  * Make code more readable
+
+  In this exercise, you will learn another application of function in TypeScript. You will create a simple function that draws a random circle. This function will be called every second. We say that the function is called at regular _intervals_.
+
+  Note that a function that is called by someone else (in this case the interval timer) is called a _callback function_. Callback functions are a common concept in programming.
+
+  Here is the code that you have to type. **Take the time to really understand what is happening in the code.**
+
+  ![Intervals](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/intervals.png)
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/intervals.ts"
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        createCanvas(300, 300);
+        background("black");
+        strokeWeight(2);
+        stroke("lime");
+        noFill();
+
+        // <<< Add code to setup interval here
+      }
+
+      // <<< Add additional functions here
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false

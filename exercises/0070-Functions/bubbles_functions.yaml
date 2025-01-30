@@ -1,0 +1,96 @@
+title: "Bubbles With Functions"
+descriptionMd: |
+  # Bubbles With Functions
+
+  In this exercise, we apply what we have learned about functions to build a simple _bubble buster_ game.
+
+  Once you completed this exercise, **make sure to take a look at the sample solution**. It contains important hints and tips.
+
+  ## Task 1: Random Bubbles
+  
+  * Create a function _addRandomCircle_ (no parameters, no return value) that draws a random circle on the canvas.
+    * The circles' data must be stored in arrays, they must be drawn in the _draw_ function in a loop.
+    * The center must be inside the canvas. 
+    * The diameter must be between 10 and 50 pixels.
+  * Setup an interval so that the function is called every 3 seconds.
+  * Make sure that the first bubble is drawn immediately when the game starts (i.e. _setup_ is called).
+
+  ## Task 2: Pop Bubbles
+
+  * Create a function _isInside_ that calculates if a given point is inside a circle.
+    * The function should have three parameters: _x_, _y_, and _circle_index_.
+    * _x_ and _y_ are the coordinates of the point to check.
+    * _circle_index_ is the index of the circle in the arrays.
+    * The function should return _true_ if the point is inside the circle, _false_ otherwise.
+    * Use the [Pythagorean theorem](https://www.geogebra.org/m/hQW8KxXz) (_a^2 + b^2 = c^2_) to calculate the distance between the point and the circle's center.
+  * Create a function _mouseClicked_ that p5js will call when the user clicks on the canvas.
+    * The function should iterate over all circles and check if the mouse click is inside a circle.
+    * If the click is inside a circle, remove the circle from the arrays.
+    * Make sure that the circles are removed from the arrays, not just hidden.
+    * If multiple circles are at the mouse position, remove all of them.
+
+  ## Task 3: Points
+
+  * Whenever the user pops a bubble, add 1 point.
+  * Display the current score on the left upper side of the canvas.
+
+  ## Task 4: Levels (Advanced)
+
+  * After every 10 seconds, the time between the creation of new bubbles should be halved.
+    * We start with e.g. 3 seconds.
+    * After 10 seconds, the interval should be 1.5 seconds.
+    * After 20 seconds, the interval should be 0.75 seconds.
+    * And so on.
+  
+  Tip: You can achieve this by using a second interval that clears the first interval and sets a new one with a shorter time.
+
+  ## Task 5: Game Over (Advanced)
+
+  * If there are more than 10 circles on the screen, the game is over.
+  * Stop all intervals.
+  * Display a message on the canvas that the game is over. Include the final score.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/bubbles_functions.ts"
+files:
+  "index.ts":
+    content: |
+      const circles_x: number[] = [];
+      const circles_y: number[] = [];
+      const circles_diameter: number[] = [];
+
+      let waiting_time = 3000;
+      let circle_interval: number;
+      let level_interval: number;
+
+      let points = 0;
+
+      function setup() {
+        createCanvas(300, 300);
+
+        // <<< Add code here
+      }
+
+      function draw() {
+        background("black");
+
+        // <<< Add code here
+      }
+
+      // <<< Add functions here
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
