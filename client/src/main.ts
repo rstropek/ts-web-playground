@@ -397,7 +397,12 @@ themeSelect.addEventListener("change", async function () {
   const textColor = themeData.colors["editor.foreground"];
   //  add style rule "#output-content .log { color: #${textColor}; }"
   const style = document.createElement("style");
-  style.textContent = `#output-content .log { color: ${textColor}; }`;
+  style.textContent =
+  `
+    #output-content .log,
+    #spec {
+      color: ${textColor};
+    }`;
   document.head.appendChild(style);
 });
 
