@@ -54,6 +54,11 @@ const exerciseUrl = getExerciseUrlFromQueryString();
 if (!exerciseUrl) {
   message.querySelector('p')!.innerText = `Exercise URL missing in query string`;
   (message.querySelector('#ok')! as HTMLButtonElement).style.display = "none";
+  (message.querySelector('#openDefault') as HTMLButtonElement).style.display = "initial";
+  (message.querySelector('#openDefault') as HTMLButtonElement).addEventListener("click", () => {
+    (message.querySelector('#openDefault') as HTMLButtonElement).style.display = "none";
+    window.location.href = `${window.location.href}?exerciseUrl=https://raw.githubusercontent.com/rstropek/ts-web-playground/main/exercises/emptyPlayground.yaml`;
+  });
   message.showModal();
   throw new Error("No exercise URL found in query string");
 }
@@ -71,12 +76,12 @@ loadExercise(exerciseUrl).then((ex1) => {
         // Try to load it directly
         response = await fetch(ex1.sampleSolution);
       }
-    
+
       const content = await response.text();
       files.getFile("index.ts")?.replaceContent(content);
     }
   });
-  
+
 
   const files = new Files(ex1);
   title.innerText = purify.sanitize(ex1.title);
@@ -140,7 +145,7 @@ loadExercise(exerciseUrl).then((ex1) => {
         }),
       });
       if (!result.ok) {
-        success = false; 
+        success = false;
         break;
       }
     }
@@ -398,7 +403,7 @@ themeSelect.addEventListener("change", async function () {
   //  add style rule "#output-content .log { color: #${textColor}; }"
   const style = document.createElement("style");
   style.textContent =
-  `
+    `
     #output-content .log,
     #spec {
       color: ${textColor};
