@@ -9,10 +9,12 @@
     <div id="app-container">
       <div id="top-bar">
         <div class="left">
+          <button id="back">Back</button>
           <select id="fileNames"></select>
           <button id="run">Run</button>
           <button id="save">Save</button>
           <button id="loadSolution">Load Solution</button>
+          <select id="theme"></select>
         </div>
         <div class="centered">
           <div id="title">no exercise title</div>
@@ -44,6 +46,7 @@
     <dialog id="message">
       <p></p>
       <button id="ok">Ok</button>
+      <button id="openDefault" style="display: none;">Open empty Playground</button>
     </dialog>
 
     <script type="module" src="/src/main.ts"></script>

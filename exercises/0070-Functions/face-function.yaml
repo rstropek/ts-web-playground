@@ -1,0 +1,67 @@
+title: "Face Function"
+descriptionMd: |
+  # Face Function
+
+  In this example, you have to draw smiley faces on the canvas. The entire logic of drawing the face **must** be inside the _smile_ function. The function should take a single parameter, a boolean value that indicates whether the face should be happy or sad.
+
+  ![Smiley face](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/face-function.png)
+
+  ## Step 1: Draw the face
+
+  * Add the code in the _smile_ function to draw a face at a random position.
+  * Call the _smile_ function in the _setup_ function to draw a single, smiling face.
+  * Make sure you understand how the function definition and the function call work.
+
+  ## Step 2: Draw the face on mouse click
+
+  Whenever the user clicks the mouse, draw another smiling face on a random position.
+
+  ## Step 3: Toggle between happy and sad faces
+
+  * The first face (_setup_) must smile.
+  * The next face must be sad.
+  * The face after that must smile again.
+  * And so on.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/face-function.ts"
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        createCanvas(500, 500);
+        angleMode(DEGREES);
+
+        // Function CALL
+        // +------------------------------ Function name
+        // |  +--------------------------- Function parameter
+        // v  v
+        smile(true);
+      }
+
+      // Function DEFINITION
+      //       +-------------------------- Function name
+      //       |     +-------------------- Parameter name
+      //       |     |      +------------- Parameter type
+      //       v     v      v
+      function smile(happy: boolean) {
+        // <<< Add your code here
+      }
+
+
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false

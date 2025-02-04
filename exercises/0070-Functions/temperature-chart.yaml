@@ -1,0 +1,67 @@
+title: "Temperature Chart"
+descriptionMd: |
+  # Temperature Chart
+
+  In this example, you have to draw a temperature chart. The starter code contains sample data from Linz and Johannesburg. Here is how the chart must look like:
+
+  ![Temperature Chart](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/temperature-chart.png)
+
+  **Do use loops** to draw the tick marks and labels on the axes. **Do not hard-code the positions** of the tick marks and labels.
+
+  **Important**: Implement the missing functions step-by-step starting with the topmost (_drawAxes_). Once you have implemented a function, call it from the _setup_ function and check the intermediate result. If everything works as expected, proceed with the next function.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/temperature-chart.ts"
+files:
+  "index.ts":
+    content: |
+      const AVG_TEMP_LINZ: number[] = [
+        -0.7, 0.5, 4.7, 9.9, 14.2, 17.9, 19.5, 19.3, 14.7, 10, 4.8, 0.6,
+      ];
+
+      const AVG_TEMP_JOHANNESBURG: number[] = [
+        20, 20, 18, 15, 12, 9, 9, 12, 16, 18, 18, 19,
+      ];
+
+      function setup() {
+        createCanvas(460, 300);
+
+        // <<< Call the functions in the following order:
+        // 1. Draw temperatures (gets AVG_TEMP_LINZ or AVG_TEMP_JOHANNESBURG as parameter)
+        // 2. Draw axes
+        // 3. Draw Y labels
+        // 4. Draw X labels
+      }
+
+      function drawAxes() {
+        // <<< Add code to draw X and Y axes here
+      }
+
+      function drawYLabels() {
+        // <<< Add code to draw labels for the Y axis here
+      }
+
+      function drawXLabels() {
+        // <<< Add code to draw labels for the X axis here
+      }
+
+      function drawTemperatures(temperatures: number[]) {
+        // <<< Add code to draw the temperatures here
+      }
+
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
