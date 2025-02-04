@@ -12,7 +12,8 @@
           <button id="back">Back</button>
           <select id="fileNames"></select>
           <button id="run">Run</button>
-          <button id="save">Save</button>
+          <button id="save">Save to Cloud</button>
+          <button id="localSaves">Local saves</button>
           <button id="loadSolution">Load Solution</button>
           <select id="theme"></select>
         </div>
@@ -47,6 +48,19 @@
       <p></p>
       <button id="ok">Ok</button>
       <button id="openDefault" style="display: none;">Open empty Playground</button>
+    </dialog>
+
+    <dialog id="saveDialog">
+      <p>Local Saves</p>
+      <select id="localSaveSelect"></select>
+      <button id="loadLocalSave">Load</button>
+      <button id="deleteLocalSave">Delete</button>
+      <br>
+      <p>Save the currently open file:</p>
+      <input id="localSaveName" type="text" placeholder="key">
+      <button id="saveLocalSave">Save</button>
+      <br>
+      <button id="cancelSave">Cancel</button>
     </dialog>
 
     <script type="module" src="/src/main.ts"></script>
