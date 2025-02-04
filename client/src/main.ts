@@ -27,8 +27,10 @@ const spec = document.getElementById("spec")! as HTMLDivElement;
 const title = document.getElementById("title")! as HTMLDivElement;
 const message = document.getElementById("message")! as HTMLDialogElement;
 const clearButton = document.getElementById("output-clear")! as HTMLButtonElement;
+const localSaves = document.getElementById("localSaves")! as HTMLButtonElement;
 
 const debugEnviroment = false;
+
 let monacoEditor: monaco.editor.IStandaloneCodeEditor;
 
 spec.style.display = "none";
@@ -48,6 +50,99 @@ backButton.addEventListener("click", () => {
   window.location.href = `/main`;
 });
 clearButton.addEventListener("click", clearOutput);
+
+localSaves.addEventListener("click", () => {
+  const dialog = document.getElementById("saveDialog")! as HTMLDialogElement;
+  const localSaveSelect = document.getElementById("localSaveSelect")! as HTMLSelectElement;
+  const loadLocalSave = document.getElementById("loadLocalSave")! as HTMLButtonElement;
+  const deleteLocalSave = document.getElementById("deleteLocalSave")! as HTMLButtonElement;
+  const localSaveName = document.getElementById("localSaveName")! as HTMLInputElement;
+  const saveLocalSave = document.getElementById("saveLocalSave")! as HTMLButtonElement;
+  const cancelSave = document.getElementById("cancelSave")! as HTMLButtonElement;
+
+  dialog.showModal();
+
+  // Load all local saves
+  localSaveSelect.innerHTML = "";
+  for (let i = 0; i < localStorage.length; i++) {
+    if (localStorage.key(i)?.startsWith("code_")) {
+      const key = localStorage.key(i)?.substring(5)!;
+      const option = document.createElement("option");
+      option.value = key;
+      option.text = key;
+      localSaveSelect.appendChild(option);
+    }
+  }
+
+  loadLocalSave.addEventListener("click", () => {
+    const key = localSaveSelect.value;
+    if (key) {
+      loadCode("code_" + key);
+    }
+  });
+
+  deleteLocalSave.addEventListener("click", () => {
+    const key = localSaveSelect.value;
+    if (key) {
+      localStorage.removeItem("code_" + key);
+      localSaveSelect.innerHTML = "";
+      for (let i = 0; i < localStorage.length; i++) {
+        if (localStorage.key(i)?.startsWith("code_")) {
+          const key = localStorage.key(i)?.substring(5)!;
+          const option = document.createElement("option");
+          option.value = key;
+          option.text = key;
+          localSaveSelect.appendChild(option);
+        }
+      }
+    }
+  });
+
+  saveLocalSave.addEventListener("click", () => {
+    const key = localSaveName.value;
+    if (key) {
+      saveCode("code_" + key);
+      localSaveSelect.innerHTML = "";
+      for (let i = 0; i < localStorage.length; i++) {
+        if (localStorage.key(i)?.startsWith("code_")) {
+          const key = localStorage.key(i)?.substring(5)!;
+          const option = document.createElement("option");
+          option.value = key;
+          option.text = key;
+          localSaveSelect.appendChild(option);
+        }
+      }
+    }
+  });
+
+  cancelSave.addEventListener("click", () => {
+    dialog.close();
+  });
+});
+
+// saveLocalButton.addEventListener("click", () => {
+//   const loading: boolean = confirm("Do you want to save or load code from local storage?\nClick 'OK' to save, 'Cancel' to load");
+//   if (loading) {
+//     if (promptSaveCode()) {
+//       message.querySelector('p')!.innerText = `Code saved successfully`;
+//       message.showModal();
+//     } else {
+//       message.querySelector('p')!.innerText = `Error saving code`;
+//       message.showModal();
+//     }
+//   } else {
+//     if (promptLoadCode()) {
+//       message.querySelector('p')!.innerText = `Code loaded successfully`;
+//       message.showModal();
+//     } else {
+//       message.querySelector('p')!.innerText = `Error loading code`;
+//       message.showModal();
+//     }
+//   }
+
+//   // ok button closes the dialog
+//   (message.querySelector('#ok')! as HTMLButtonElement).addEventListener("click", () => message.close());
+// });
 
 const exerciseUrl = getExerciseUrlFromQueryString();
 
@@ -184,8 +279,11 @@ loadExercise(exerciseUrl).then((ex1) => {
 
   // Add custom monaco editor commands
   monacoEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
-    if (userName.innerText != `Anonymous`)
+    if (userName.innerText != `Anonymous`) {
       save.click();
+    } else {
+      localSaves.click();
+    }
   });
 
   monacoEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyR, () => {
@@ -418,4 +516,30 @@ if (savedTheme) {
 } else {
   themeSelect.value = "github";
   themeSelect.dispatchEvent(new Event("change"));
+}
+
+// Save current code to local storage
+function saveCode(key: string): boolean {
+  const code: string = monacoEditor.getValue();
+
+  // Save the code to local storage
+  localStorage.setItem(key, code);
+
+  if (localStorage.getItem(key) === code) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Load code from local storage
+function loadCode(key: string): boolean {
+  const code: string | null = localStorage.getItem(key);
+
+  if (code) {
+    monacoEditor.setValue(code);
+    return true;
+  } else {
+    return false;
+  }
 }
