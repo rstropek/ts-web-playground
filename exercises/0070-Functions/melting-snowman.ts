@@ -14,20 +14,6 @@ const wordToGuess = "Winterwald";
  */
 let currentWordStatus: string;
 
-/**
- * Last guess
- * 
- * This character contains the lastly revealed character(s).
- * If the character at a given index has not be revealed, it contains
- * a space at the position.
- * 
- * Example if wordToGuess is "ice":
- * * At the beginning, this variable contains three spaces.
- * * If the user guesses "i", it contains "i  " ("i" with two spaces).
- * * If the user guesses "c", it contains space, "c", and space.
- */
-let lastGuess: string;
-
 /** Font for text output */
 let font: any;
 
@@ -41,9 +27,20 @@ let wrongGuesses = 0;
  */
 let acceptKeys = true;
 
-/** Initially fills currentWordStatus with underscores based on wordToGuess */
-function fillCurrentWord() {
-    currentWordStatus = "";
+/** 
+ * Get the initial value for currentWordStatus with underscores based on wordToGuess
+ * 
+ * @param wordToGuess Word to guess
+ * 
+ * @returns Initial value for currentWordStatus
+ * 
+ * This function must return a string with the same length as wordToGuess.
+ * If a character in wordToGuess is a letter, the corresponding character
+ * in the return value must be an underscore. If a character in wordToGuess
+ * is a space, the corresponding character in the return value must be a space.
+ */
+function getInitialCurrentWord(wordToGuess: string): string {
+    let currentWordStatus = "";
     for (let i = 0; i < wordToGuess.length; i++) {
         if (wordToGuess[i] != " ") {
             currentWordStatus += "_";
@@ -51,40 +48,37 @@ function fillCurrentWord() {
             currentWordStatus += " ";
         }
     }
+
+    return currentWordStatus;
 }
 
 /**
  * Handles a guess from a user
  * 
  * @param key Key that the user guessed
+ * @param wordToGuess Word to guess
+ * @param currentWordStatus Current word status
  * 
- * This method must maintain the following global variables:
+ * @returns New value for currentWordStatus
  * 
- * * currentWordStatus
- * * lastGuess
+ * This function must return a new value for currentWordStatus based on the
+ * key that the user guessed. If the key is in wordToGuess, the corresponding
+ * characters in currentWordStatus must be revealed.
  */
-function guessKey(key: string) {
+function guessKey(key: string, wordToGuess: string, currentWordStatus: string): string {
     const lowerKey = key.toLowerCase();
 
-    lastGuess = "";
-    let found = false;
     let newCurrentWordStatus = "";
     for (let i = 0; i < wordToGuess.length; i++) {
         const lowerChar = wordToGuess[i].toLowerCase();
         if (lowerChar === lowerKey) {
             newCurrentWordStatus += wordToGuess[i];
-            lastGuess += wordToGuess[i];
-            found = true;
         } else {
             newCurrentWordStatus += currentWordStatus[i];
-            lastGuess += " ";
         }
     }
 
-    currentWordStatus = newCurrentWordStatus;
-    if (!found) {
-        wrongGuesses++;
-    }
+    return newCurrentWordStatus;
 }
 
 function preload() {
@@ -94,7 +88,7 @@ function preload() {
 
 function setup() {
     // Initially fill the currentWordStatus
-    fillCurrentWord();
+    currentWordStatus = getInitialCurrentWord(wordToGuess);
 
     createCanvas(800, 500);
     angleMode(DEGREES);
@@ -110,15 +104,15 @@ function draw() {
     if (currentWordStatus === wordToGuess) {
         // User has guessed the word correctly
         acceptKeys = false;
-        drawResult(true);
+        drawResult(true, wrongGuesses);
     } else if (wrongGuesses === MAX_WRONG_GUESSES) {
         // User has reached 10 wrong guesses -> game over
         acceptKeys = false;
-        drawResult(false);
+        drawResult(false, wrongGuesses);
     } else {
         // Game still running -> draw snowman
         drawSnowman(wrongGuesses);
-        drawCurrentWordStatus(font, currentWordStatus, lastGuess);
+        drawCurrentWordStatus(font, currentWordStatus);
     }
 
 }
@@ -128,7 +122,11 @@ function keyPressed() {
     if (!acceptKeys) { return; }
 
     // Handle guess
-    guessKey(key);
+    const newCurrentWordStatus = guessKey(key, wordToGuess, currentWordStatus);
+    if (currentWordStatus === newCurrentWordStatus) {
+        wrongGuesses++;
+    }
+    currentWordStatus = newCurrentWordStatus;
 
     // Refresh the screen one time
     redraw();
@@ -148,7 +146,7 @@ function keyPressed() {
  * * "One wrong guess!" if number of wrong guesses is one.
  * * "n wrong guesses" otherwise ("n" is number of wrong guesses).
  */
-function drawResult(win: boolean) {
+function drawResult(win: boolean, wrongGuesses: number) {
     push();
     textAlign(CENTER, CENTER);
     if (win) {
@@ -181,7 +179,9 @@ function drawResult(win: boolean) {
  * Draw the snowman
  * 
  * Leave out some parts of the snowman depending on the number of
- * wrong guesses:
+ * wrong guesses. Note that the left out parts are additive. That means
+ * if 3 wrong guesses are made, the parts for 1, 2, and 3 wrong guesses
+ * should be left out.
  * 
  * * 1 wrong: Lower three buttons
  * * 2 wrong: Upper three buttons
@@ -276,7 +276,15 @@ function drawSnowman(numberOfWrongGuesses: number) {
     }
 }
 
-function drawCurrentWordStatus(font: any, currentWordStatus: string, lastGuess: string) {
+/**
+ * Draws the current word status
+ * 
+ * @param font Font to use
+ * @param currentWordStatus Current word status
+ * 
+ * Draws the current word status on the screen.
+ */
+function drawCurrentWordStatus(font: any, currentWordStatus: string) {
     push();
     textAlign(LEFT, BOTTOM);
     translate(225, 0);
@@ -287,9 +295,5 @@ function drawCurrentWordStatus(font: any, currentWordStatus: string, lastGuess: 
     textSize(45);
     textFont(font);
     text(currentWordStatus, 0, 250);
-
-    // Draw last guess in different color
-    fill("darkblue");
-    text(lastGuess, 0, 250);
     pop();
 }
