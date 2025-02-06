@@ -1,6 +1,6 @@
-title: "Melting Snowman (Part 1)"
+title: "Melting Snowman (1)"
 descriptionMd: |
-  # Melting Snowman (Part 1)
+  # Melting Snowman (1)
 
   Our goal is to create a "Melting Snowman" game (aka _Hangman_). In this first part, we focus on drawing the snowman. The starter code already contains a function _drawSnowman_ in the _snowman.ts_ module. It draws a snowman with **all its parts**.
 

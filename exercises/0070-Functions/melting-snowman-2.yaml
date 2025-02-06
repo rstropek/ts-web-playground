@@ -1,6 +1,6 @@
-title: "Melting Snowman (Part 2)"
+title: "Melting Snowman (2)"
 descriptionMd: |
-  # Melting Snowman (Part 2)
+  # Melting Snowman (2)
 
   Now we are going to complete our _Melting Snowman_ game. If you did not manage to complete the first part, start by closely examining the code in the _snowman.ts_ module. It contains the sample solution for the first part of the exercise.
 
