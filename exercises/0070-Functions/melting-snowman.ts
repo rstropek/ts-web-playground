@@ -118,6 +118,7 @@ function draw() {
     } else {
         // Game still running -> draw snowman
         drawSnowman(wrongGuesses);
+        drawCurrentWordStatus(font, currentWordStatus, lastGuess);
     }
 
 }
@@ -194,23 +195,7 @@ function drawResult(win: boolean) {
  * * 10 wrong: GAME OVER
  */
 function drawSnowman(numberOfWrongGuesses: number) {
-    push();
-    textAlign(LEFT, BOTTOM);
-    translate(225, 0);
-
-    // Draw current word status
-    fill("dodgerblue");
-    noStroke();
-    textSize(45);
-    textFont(font);
-    text(currentWordStatus, 0, 250);
-
-    // Draw last guess in different color
-    fill("darkblue");
-    text(lastGuess, 0, 250);
-    pop();
-
-    // Center X axis
+    // Set center of X axis
     translate(130, 0);
 
     // Body
@@ -289,4 +274,22 @@ function drawSnowman(numberOfWrongGuesses: number) {
         rect(-50, 50, 100, 60);
         pop();
     }
+}
+
+function drawCurrentWordStatus(font: any, currentWordStatus: string, lastGuess: string) {
+    push();
+    textAlign(LEFT, BOTTOM);
+    translate(225, 0);
+
+    // Draw current word status
+    fill("dodgerblue");
+    noStroke();
+    textSize(45);
+    textFont(font);
+    text(currentWordStatus, 0, 250);
+
+    // Draw last guess in different color
+    fill("darkblue");
+    text(lastGuess, 0, 250);
+    pop();
 }
