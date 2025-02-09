@@ -536,7 +536,7 @@ function saveCode(key: string): boolean {
 function loadCode(key: string): boolean {
   const code: string | null = localStorage.getItem(key);
 
-  if (code && monacoEditor.getOption(monaco.editor.EditorOption.readOnly)) {
+  if (code && !monacoEditor.getOption(monaco.editor.EditorOption.readOnly)) {
     monacoEditor.setValue(code);
     return true;
   } else {
