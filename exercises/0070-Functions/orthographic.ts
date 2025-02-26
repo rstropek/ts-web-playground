@@ -26,14 +26,19 @@ function draw() {
     // the right.
     translate(850, -100);
 
-    // Draw five railroad segments
-    for (let i = 0; i < 5; i++) {
-        drawRailroad(i);
-    }
+    // Loop for tracks
+    for (let track = 0; track < 3; track++) {
+        // Draw five railroad segments
+        for (let i = 0; i < 5; i++) {
+            drawRailroad(i);
+        }
 
-    // Draw six train wagons
-    for (let i = 0; i < 6; i++) {
-        drawTrainWagon(i);
+        // Draw six train wagons
+        for (let i = 0; i < 6; i++) {
+            drawTrainWagon(i);
+        }
+
+        translate(125, 100);
     }
 }
 

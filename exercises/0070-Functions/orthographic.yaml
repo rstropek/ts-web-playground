@@ -36,15 +36,23 @@ descriptionMd: |
 
   ## Starter code
 
+  The starter code draws a simple railroad track by combining multiple segments. Take the time to read and understand the code. To make your task easier, here are the measurements of the image used in the code:
+
   ![Railroad size](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/railroadsize.png)
 
-  The starter code draws a simple railroad track by combining multiple segments. Take the time to read and understand the code.
+  ## Task 1: Draw a Train on the Tracks
 
-  ## Your task
+  ![Train on tracks](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/train-on-tracks.png)
+
+  Your task is to extend the code to draw a train with six wagons. Note comments starting with _// <<<_ in the code. They indicate where you need to add code. The train wagons have slightly different dimensions than the railroad segments:
 
   ![Train size](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/trainsize.png)
 
-  Your task is to extend the code to draw a train with six wagons. Note comments starting with _// <<<_ in the code. They indicate where you need to add code.
+  ## Task 2: Add a second track
+
+  Your second task is to extend the code to draw more than one track. You should draw two tracks side by side. Here is an image of what the result should look like:
+
+  ![Three tracks](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/multi-tracks.png)
 
 sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/orthographic.ts"
 files:
@@ -76,6 +84,8 @@ files:
           // objects that are further left are "on top" of objects on
           // the right.
           translate(850, -100);
+
+          // <<< For task 2, add another loop here
 
           // Draw five railroad segments
           for (let i = 0; i < 5; i++) {
