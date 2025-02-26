@@ -20,6 +20,8 @@ descriptionMd: |
 
   Implement a new function _parseTrain_ that receives a string with comma-separated abbreviations of wagons (e.g. _TLB,TCCG,TCTL,TCW,TCL,TCCR_) as an argument and returns a corresponding array of images (_p5.Image[]_). The images for the result array are taken from the _trainCars_ array. Use the previously implemented _getWagonIndex_ function to find the index of the image for each abbreviation.
 
+  You are **not** allowed to use existing helper functions like _split_. You must implement the parse algorithm yourself.
+
   Call _parseTrain_ in the _setup_ function to parse the _TRAIN_ string and store the result in the _train_ array.
 
   Now the output should look like this:
@@ -35,6 +37,8 @@ descriptionMd: |
   ### Task 4: Method for parsing a track string
 
   Implement a new function _parseTracks_ that receives a string with semicolon-separated train strings (e.g. _TLB,TCCG,TCTL,TCW,TCL,TCCR;TEDA,TEDB,TEDB,TEDC,TEDB;TDA,TCF,TCC,TCC,TCB,TCD_) as an argument and returns an array of arrays, where each inner array contains the train wagon images for each train.
+
+  You are **not** allowed to use existing helper functions like _split_. You must implement the parse algorithm yourself.
 
   To make your life easier, here is the method signature of _parseTracks_: _function parseTracks(tracks: string): p5.Image[][]_ { ... }_
 
