@@ -1,0 +1,237 @@
+title: "Train Station"
+descriptionMd: |
+  # Train Station
+
+  You job is to visualize trains in a train station. From another computer system, you get information about the wagons of the trains as strings. You have to parse these strings and visualize the trains on the tracks.
+
+  ## Base Requirements
+
+  ### Task 1: Load train images
+
+  Add code to the _setup_ function that loads all images from the _imageUrls_ array in the _wagons.ts_ file. Add the images to the _trainCars_ array. After loading all images, the length of the _trainCars_ array must be equal to the length of _imageUrls_.
+
+  ### Task 2: Method for finding an abbreviation
+
+  Implement a new function _getWagonIndex_ that receives an abbreviation of a wagon (e.g. _TLB_, _TCW_) as an argument and returns the index of the corresponding image in the _abbreviations_ array. If the abbreviation is not found, the function should return -1.
+  
+  You are **not** allowed to use existing helper functions like _indexOf_. You must implement the search algorithm yourself.
+
+  ### Task 3: Method for parsing a train string
+
+  Implement a new function _parseTrain_ that receives a string with comma-separated abbreviations of wagons (e.g. _TLB,TCCG,TCTL,TCW,TCL,TCCR_) as an argument and returns a corresponding array of images (_p5.Image[]_). The images for the result array are taken from the _trainCars_ array. Use the previously implemented _getWagonIndex_ function to find the index of the image for each abbreviation.
+
+  Call _parseTrain_ in the _setup_ function to parse the _TRAIN_ string and store the result in the _train_ array.
+
+  Now the output should look like this:
+
+  ![Train Station](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/train-station-minimum.png)
+
+  ## Advanced Requirements
+
+  In the advanced requirements, you have to visualize multiple tracks with trains on them:
+
+  ![Train Station](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/train-station-advanced.png)
+
+  ### Task 4: Method for parsing a track string
+
+  Implement a new function _parseTracks_ that receives a string with semicolon-separated train strings (e.g. _TLB,TCCG,TCTL,TCW,TCL,TCCR;TEDA,TEDB,TEDB,TEDC,TEDB;TDA,TCF,TCC,TCC,TCB,TCD_) as an argument and returns an array of arrays, where each inner array contains the train wagon images for each train.
+
+  To make your life easier, here is the method signature of _parseTracks_: _function parseTracks(tracks: string): p5.Image[][]_ { ... }_
+
+  Call _parseTracks_ in the _setup_ function to parse the _TRACKS_ string and store the result in the _trains_ array.
+
+  ### Task 5: Draw multiple tracks
+
+  Change the _draw_ function to draw multiple tracks. For each track, draw the railroad and the trains on it. Use the _trains_ array to draw the trains.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/train-station.ts"
+files:
+  "index.ts":
+    content: |
+      const RAILROAD_WIDTH = 225;
+      const RAILROAD_HEIGHT = 160;
+
+      const WAGON_WIDTH = 160;
+      const WAGON_HEIGHT = 113;
+
+      let railroad: p5.Image;
+      const trainCars: p5.Image[] = [];
+
+      /** Array of wagons for train (for base requirements) */
+      let train: p5.Image[] = [];
+
+      /** Array of trains on tracks (for ADVANCED requirements)
+        * 
+        * This is an array of arrays. The outer array contains the trains on the tracks.
+        * Each inner array contains the train wagons of a single train.
+        */
+      let trains: p5.Image[][] = [];
+
+      /** Input text for base requirements */
+      const TRAIN = "TLB,TCCG,TCTL,TCW,TCL,TCCR"
+
+      /** Input text for ADVANCED requirements */
+      const TRACKS = "TLB,TCCG,TCTL,TCW,TCL,TCCR;TEDA,TEDB,TEDB,TEDC,TEDB;TDA,TCF,TCC,TCC,TCB,TCD"
+
+      function setup() {
+          createCanvas(800, 550);
+          railroad = loadImage(`${BASE_URL}/railroad-straight.png`);
+
+          // <<< Add code to load all images (see imageUrls in wagons.ts).
+          //     Add the images to the trainCars array. After loading all image,
+          //     the length of the trainCars array must be equal to the length of imageUrls.
+
+          // <<< Add code to parse the TRAIN string and store the result in the 
+          //     train array (base requirements) or the trains array (ADVANCED requirements).
+      }
+
+      function draw() {
+          background("#f0f0f0");
+
+          scale(0.5, 0.5);
+
+          translate(850, -100);
+
+          // <<< Change this code accordingly for ADVANCED requirements
+
+          for (let i = 0; i < 5; i++) {
+              drawRailroad(i);
+          }
+
+          for (let ix = 0; ix < train.length; ix++) {
+              drawTrainWagon(train[ix], ix);
+          }
+      }
+
+      // <<< Add additional functions here
+
+      /** Draw a railroad segment */
+      function drawRailroad(ix: number) {
+          image(railroad, -RAILROAD_WIDTH * ix, RAILROAD_HEIGHT * ix, railroad.width, railroad.height);
+
+      }
+
+      /** Draw a train wagon */
+      function drawTrainWagon(wagon: p5.Image, ix: number) {
+          image(wagon, -WAGON_WIDTH * ix, WAGON_HEIGHT * ix, wagon.width, wagon.height);
+      }
+    isEditable: true
+
+  "wagons.ts":
+    content: |
+      /** Base URL for images */
+      const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/trains";
+
+      /** Image names for train wagons */
+      const imageUrls = [
+          "train-carriage-box.png",
+          "train-carriage-coal.png",
+          "train-carriage-container-blue.png",
+          "train-carriage-container-green.png",
+          "train-carriage-container-red.png",
+          "train-carriage-dirt.png",
+          "train-carriage-flatbed-wood.png",
+          "train-carriage-flatbed.png",
+          "train-carriage-lumber.png",
+          "train-carriage-tank-large.png",
+          "train-carriage-tank.png",
+          "train-carriage-wood.png",
+          "train-diesel-a.png",
+          "train-diesel-b.png",
+          "train-diesel-box-a.png",
+          "train-diesel-box-b.png",
+          "train-diesel-box-c.png",
+          "train-diesel-c.png",
+          "train-electric-bullet-a.png",
+          "train-electric-bullet-b.png",
+          "train-electric-bullet-c.png",
+          "train-electric-city-a.png",
+          "train-electric-city-b.png",
+          "train-electric-city-c.png",
+          "train-electric-double-a.png",
+          "train-electric-double-b.png",
+          "train-electric-double-c.png",
+          "train-electric-square-a.png",
+          "train-electric-square-b.png",
+          "train-electric-square-c.png",
+          "train-electric-subway-a.png",
+          "train-electric-subway-b.png",
+          "train-electric-subway-c.png",
+          "train-locomotive-a.png",
+          "train-locomotive-b.png",
+          "train-locomotive-c.png",
+          "train-locomotive-passenger-a.png",
+          "train-locomotive-passenger-b.png",
+          "train-tram-classic.png",
+          "train-tram-modern.png",
+          "train-tram-round.png",
+      ];
+
+      /**
+        * Abbreviations for train wagons
+        * 
+        * Indices in abbreviations correspond to image names in imageUrls above.
+        * e.g. index 0 "TCB" corresponds to imageUrls[0] "train-carriage-box.png"
+        * e.g. index 1 "TCC" corresponds to imageUrls[1] "train-carriage-coal.png"
+        * etc.
+        */
+      const abbreviations = [
+          "TCB",
+          "TCC",
+          "TCCB",
+          "TCCG",
+          "TCCR",
+          "TCD",
+          "TCFW",
+          "TCF",
+          "TCL",
+          "TCTL",
+          "TCT",
+          "TCW",
+          "TDA",
+          "TDB",
+          "TDBA",
+          "TDBB",
+          "TDBC",
+          "TDC",
+          "TEBA",
+          "TEBB",
+          "TEBC",
+          "TECA",
+          "TECB",
+          "TECC",
+          "TEDA",
+          "TEDB",
+          "TEDC",
+          "TESA",
+          "TESB",
+          "TESC",
+          "TESA",
+          "TESB",
+          "TESC",
+          "TLA",
+          "TLB",
+          "TLC",
+          "TLPA",
+          "TLPB",
+          "TTC",
+          "TTM",
+          "TTR"
+      ];
+    isEditable: false
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
