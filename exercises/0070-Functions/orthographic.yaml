@@ -46,7 +46,7 @@ descriptionMd: |
 
   Your task is to extend the code to draw a train with six wagons. Note comments starting with _// <<<_ in the code. They indicate where you need to add code.
 
-sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/return_values.ts"
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/orthographic.ts"
 files:
   "index.ts":
     content: |
