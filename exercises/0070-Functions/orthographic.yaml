@@ -1,0 +1,112 @@
+title: "Orthographic Rendering"
+descriptionMd: |
+  # Orthographic Rendering
+
+  In this exercise, we will learn foundations about orthographic and perspective rendering. We will combine this knowledge with practicing TypeScript functions.
+
+  ## Perspective vs. Orthographic Rendering
+
+  _Perspective rendering_ mimics how our eyes see the world: **Objects that are farther away appear smaller**, and parallel lines converge in the distance.
+  
+  ![Perspective rendering](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/perspective.png)
+  
+  _Orthographic rendering_, on the other hand, **displays objects without any size distortion** based on distance. All objects remain the same size regardless of how far they are from the viewer, making it useful for technical drawings (e.g. for 3D printing) and certain types of video games.
+
+  ![Orthographic rendering](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/orthographic.png)
+
+  ## Our Example: Railroads with Trains
+
+  Take a look at the following railroad track. It was rendered with [_Blender_](https://www.blender.org/) using a perspective camera.
+
+  ![Railroad track (perspective)](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/railroad-straight_perspective.png)
+
+  Here is the same railroad track rendered with an orthographic camera.
+
+  ![Railroad track (orthographic)](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/railroad-straight_orthographic.png)
+
+  Do you see a difference? Maybe the difference is not that obvious. Let's try to build a longer track by repeating the same segment multiple times.
+
+  ![Railroad track (repeated)](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/railroad_persp_ortho.png)
+
+  As you can see, the perspective rendering does not allow us to build a longer track because the beginning of the track is larger than the end. Therefore, the tracks do not fit. In contrast, the orthographic rendering allows us to build a longer track by simply repeating the same segment multiple times. This is possible because the size of the track does not change with distance.
+  
+  Orthographic rendering is often used in computer games because it presents a clear, distortion-free view of the game world. Without perspective distortion, objects remain the same size regardless of their distance from the camera, which simplifies level design, collision detection, etc. Here is an example from the classical computer game _SimCity_ ([image source](https://en.wikipedia.org/wiki/SimCity_2000)):
+
+  ![SimCity 2000](https://upload.wikimedia.org/wikipedia/en/e/e5/Sc2kscr.png)
+
+  ## Starter code
+
+  ![Railroad size](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/railroadsize.png)
+
+  The starter code draws a simple railroad track by combining multiple segments. Take the time to read and understand the code.
+
+  ## Your task
+
+  ![Train size](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/trainsize.png)
+
+  Your task is to extend the code to draw a train with six wagons. Note comments starting with _// <<<_ in the code. They indicate where you need to add code.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/return_values.ts"
+files:
+  "index.ts":
+    content: |
+      const RAILROAD_WIDTH = 225;
+      const RAILROAD_HEIGHT = 160;
+
+      const WAGON_WIDTH = 160;
+      const WAGON_HEIGHT = 113;
+
+      let railroad: p5.Image;
+
+      const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/trains";
+
+      function setup() {
+          createCanvas(800, 550);
+          railroad = loadImage(`${BASE_URL}/railroad-straight.png`);
+          // <<< Load the image of a train wagon (train-carriage-wood.png)
+      }
+
+      function draw() {
+          background("#f0f0f0");
+
+          scale(0.5, 0.5);
+
+          // Move the origin to the right, upper corner. This makes sense
+          // because we must draw the images from right to left so that
+          // objects that are further left are "on top" of objects on
+          // the right.
+          translate(850, -100);
+
+          // Draw five railroad segments
+          for (let i = 0; i < 5; i++) {
+              drawRailroad(i);
+          }
+
+          // <<< Add code to draw six train wagons
+      }
+
+      /** Draw a railroad segment */
+      function drawRailroad(ix: number) {
+          image(railroad, -RAILROAD_WIDTH * ix, RAILROAD_HEIGHT * ix, railroad.width, railroad.height);
+
+      }
+
+      // <<< Add a function that draws a train wagon in analogy to drawRailroad
+
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
