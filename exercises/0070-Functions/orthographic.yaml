@@ -68,12 +68,15 @@ files:
 
       const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/trains";
 
-      function setup() {
-          createCanvas(800, 550);
+      function preload() {
           railroad = loadImage(`${BASE_URL}/railroad-straight.png`);
           // <<< Load the image of a train wagon (train-carriage-wood.png)
       }
 
+      function setup() {
+          createCanvas(800, 550);
+      }
+      
       function draw() {
           background("#f0f0f0");
 

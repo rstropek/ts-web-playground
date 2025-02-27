@@ -9,10 +9,13 @@ let train: p5.Image;
 
 const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/trains";
 
-function setup() {
-    createCanvas(800, 550);
+function preload() {
     railroad = loadImage(`${BASE_URL}/railroad-straight.png`);
     train = loadImage(`${BASE_URL}/train-carriage-wood.png`);
+}
+
+function setup() {
+    createCanvas(800, 550);
 }
 
 function draw() {
