@@ -105,6 +105,7 @@ const WAGON_WIDTH = 160;
 const WAGON_HEIGHT = 113;
 
 let railroad: p5.Image;
+const trainCars: p5.Image[] = [];
 const train: p5.Image[] = [];
 let trains: p5.Image[][] = [];
 
@@ -119,7 +120,7 @@ function preload() {
 
     for (let t of imageUrls) {
         const image = loadImage(`${BASE_URL}/${t}`);
-        train.push(image);
+        trainCars.push(image);
     }
 }
 
@@ -175,14 +176,14 @@ function parseTrain(trainString: string): p5.Image[] {
     let wagon = "";
     for (let i = 0; i < trainString.length; i++) {
         if (trainString[i] === ",") {
-            result.push(train[getWagonIndex(wagon)]);
+            result.push(trainCars[getWagonIndex(wagon)]);
             wagon = "";
         } else {
             wagon += trainString[i];
         }
     }
 
-    result.push(train[getWagonIndex(wagon)]);
+    result.push(trainCars[getWagonIndex(wagon)]);
     return result.reverse();
 }
 
