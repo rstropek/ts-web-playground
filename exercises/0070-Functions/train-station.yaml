@@ -8,7 +8,7 @@ descriptionMd: |
 
   ### Task 1: Load train images
 
-  Add code to the _setup_ function that loads all images from the _imageUrls_ array in the _wagons.ts_ file. Add the images to the _trainCars_ array. After loading all images, the length of the _trainCars_ array must be equal to the length of _imageUrls_.
+  Add code to the _preload_ function that loads all images from the _imageUrls_ array in the _wagons.ts_ file. Add the images to the _trainCars_ array. After loading all images, the length of the _trainCars_ array must be equal to the length of _imageUrls_.
 
   ### Task 2: Method for finding an abbreviation
 
@@ -77,13 +77,16 @@ files:
       /** Input text for ADVANCED requirements */
       const TRACKS = "TLB,TCCG,TCTL,TCW,TCL,TCCR;TEDA,TEDB,TEDB,TEDC,TEDB;TDA,TCF,TCC,TCC,TCB,TCD"
 
-      function setup() {
-          createCanvas(800, 550);
+      function preload() {
           railroad = loadImage(`${BASE_URL}/railroad-straight.png`);
 
           // <<< Add code to load all images (see imageUrls in wagons.ts).
           //     Add the images to the trainCars array. After loading all image,
           //     the length of the trainCars array must be equal to the length of imageUrls.
+      }
+
+      function setup() {
+          createCanvas(800, 550);
 
           // <<< Add code to parse the TRAIN string and store the result in the 
           //     train array (base requirements) or the trains array (ADVANCED requirements).

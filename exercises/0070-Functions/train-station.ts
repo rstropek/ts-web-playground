@@ -114,14 +114,17 @@ const TRAIN = "TLB,TCCG,TCTL,TCW,TCL,TCCR"
 /** Input text for ADVANCED requirements */
 const TRACKS = "TLB,TCCG,TCTL,TCW,TCL,TCCR;TEDA,TEDB,TEDB,TEDC,TEDB;TDA,TCF,TCC,TCC,TCB,TCD"
 
-function setup() {
-    createCanvas(800, 550);
+function preload() {
     railroad = loadImage(`${BASE_URL}/railroad-straight.png`);
 
     for (let t of imageUrls) {
         const image = loadImage(`${BASE_URL}/${t}`);
         trainCars.push(image);
     }
+}
+
+function setup() {
+    createCanvas(800, 550);
 
     trains = parseTracks(TRACKS);
 }
