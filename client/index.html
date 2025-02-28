@@ -1,70 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TypeScript Playground</title>
-    
-    <!-- Icon -->
-    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="msapplication-TileColor" content="#2d79c7">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#2d79c7">
-  </head>
-  <body>
-    <div id="app-container">
-      <div id="top-bar">
-        <div class="left">
-          <select id="fileNames"></select>
-          <button id="run">Run</button>
-          <button id="save">Save</button>
-          <button id="loadSolution">Load Solution</button>
-        </div>
-        <div class="centered">
-          <div id="title">Error: no Exercise specified</div>
-        </div>
-        <div class="right">
-          <div id="result-selector" class="select-left selected">Result</div><div id="spec-selector" class="select-right">Spec</div>
-          <div id="userName"></div>
-        </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TypeScript Playground</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="TS Web" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+</head>
+
+<body>
+  <div id="app-container">
+    <div id="top-bar">
+      <div class="left">
+        <select id="fileNames"></select>
+        <button id="run">Run</button>
+        <button id="save">Save</button>
+        <button id="loadSolution">Load Solution</button>
       </div>
-      <div id="content">
-          <div id="editor"></div>
-          <div id="result-area">
-            <div id="result">
-              <iframe id="result-frame"></iframe>
-              <div id="spec">asdfasdfsdaf</div>
-            </div>  
-            <div id="output">
-              <div id="output-header">
-                <div id="output-title">Console</div>
-                <button id="output-clear">Clear</button>
-              </div>
-              <pre id="output-content"></pre>
-            </div>
+      <div class="centered">
+        <div id="title">Error: no Exercise specified</div>
+      </div>
+      <div class="right">
+        <div id="result-selector" class="select-left selected">Result</div>
+        <div id="spec-selector" class="select-right">Spec</div>
+        <div id="userName"></div>
+      </div>
+    </div>
+    <div id="content">
+      <div id="editor"></div>
+      <div id="result-area">
+        <div id="result">
+          <iframe id="result-frame"></iframe>
+          <div id="spec">asdfasdfsdaf</div>
+        </div>
+        <div id="output">
+          <div id="output-header">
+            <div id="output-title">Console</div>
+            <button id="output-clear">Clear</button>
           </div>
+          <pre id="output-content"></pre>
         </div>
       </div>
     </div>
+  </div>
+  </div>
 
-    <dialog id="message">
-      <p></p>
-      <button id="ok">Ok</button>
-    </dialog>
+  <dialog id="message">
+    <p></p>
+    <button id="ok">Ok</button>
+  </dialog>
 
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
