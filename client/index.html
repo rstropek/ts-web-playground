@@ -1,70 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TypeScript Playground</title>
-  </head>
-  <body>
-    <div id="app-container">
-      <div id="top-bar">
-        <div class="left">
-          <button id="back">Back</button>
-          <select id="fileNames"></select>
-          <button id="run">Run</button>
-          <button id="save">Save to Cloud</button>
-          <button id="localSaves">Local saves</button>
-          <button id="loadSolution">Load Solution</button>
-          <select id="theme"></select>
-        </div>
-        <div class="centered">
-          <div id="title">no exercise title</div>
-        </div>
-        <div class="right">
-          <div id="result-selector" class="select-left selected">Result</div><div id="spec-selector" class="select-right">Spec</div>
-          <div id="userName"></div>
-        </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TypeScript Playground</title>
+
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="TS Web" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+</head>
+
+<body>
+  <div id="app-container">
+    <div id="top-bar">
+      <div class="left">
+        <button id="back">Back</button>
+        <select id="fileNames"></select>
+        <button id="run">Run</button>
+        <button id="save">Save to Cloud</button>
+        <button id="localSaves">Local saves</button>
+        <button id="loadSolution">Load Solution</button>
+        <select id="theme"></select>
       </div>
-      <div id="content">
-          <div id="editor"></div>
-          <div id="result-area">
-            <div id="result">
-              <iframe id="result-frame"></iframe>
-              <div id="spec">no exercise description</div>
-            </div>  
-            <div id="output">
-              <div id="output-header">
-                <div id="output-title">Console</div>
-                <button id="output-clear">Clear</button>
-              </div>
-              <pre id="output-content"></pre>
-            </div>
+      <div class="centered">
+        <div id="title">no exercise title</div>
+      </div>
+      <div class="right">
+        <div id="result-selector" class="select-left selected">Result</div>
+        <div id="spec-selector" class="select-right">Spec</div>
+        <div id="userName"></div>
+      </div>
+    </div>
+    <div id="content">
+      <div id="editor"></div>
+      <div id="result-area">
+        <div id="result">
+          <iframe id="result-frame"></iframe>
+          <div id="spec">no exercise description</div>
+        </div>
+        <div id="output">
+          <div id="output-header">
+            <div id="output-title">Console</div>
+            <button id="output-clear">Clear</button>
           </div>
+          <pre id="output-content"></pre>
         </div>
       </div>
     </div>
+  </div>
+  </div>
 
-    <dialog id="message">
-      <p></p>
-      <button id="ok">Ok</button>
-      <button id="openDefault" style="display: none;">Open empty Playground</button>
-    </dialog>
+  <dialog id="message">
+    <p></p>
+    <button id="ok">Ok</button>
+    <button id="openDefault" style="display: none;">Open empty Playground</button>
+  </dialog>
 
-    <dialog id="saveDialog">
-      <h3>Local Saves</h3>
-      <p title="You can save your current work to the local storage of your browser. This will allow you to load it later. You need to provide a key to save your work. If you provide a key that already exists, it will be overwritten. A key is just a name for your save. It can be anything you want. Note: This does only save the currently open file.">info (hover me)</p>
-      <h4>Load a saved file</h4>
-      <select id="localSaveSelect"></select>
-      <button id="loadLocalSave">Load</button>
-      <button id="deleteLocalSave">Delete</button>
-      <br>
-      <h4>Save the currently open file:</h4>
-      <input id="localSaveName" type="text" placeholder="key">
-      <button id="saveLocalSave">Save</button>
-      <br>
-      <button id="cancelSave">Cancel</button>
-    </dialog>
+  <dialog id="saveDialog">
+    <h3>Local Saves</h3>
+    <p
+      title="You can save your current work to the local storage of your browser. This will allow you to load it later. You need to provide a key to save your work. If you provide a key that already exists, it will be overwritten. A key is just a name for your save. It can be anything you want. Note: This does only save the currently open file.">
+      info (hover me)</p>
+    <h4>Load a saved file</h4>
+    <select id="localSaveSelect"></select>
+    <button id="loadLocalSave">Load</button>
+    <button id="deleteLocalSave">Delete</button>
+    <br>
+    <h4>Save the currently open file:</h4>
+    <input id="localSaveName" type="text" placeholder="key">
+    <button id="saveLocalSave">Save</button>
+    <br>
+    <button id="cancelSave">Cancel</button>
+  </dialog>
 
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
