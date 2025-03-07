@@ -454,7 +454,7 @@ type Theme = {
 
 const themes: Theme[] = themeNames.map((theme) => {
   return {
-    id: theme.toLowerCase().replaceAll(" ", "-"),
+    id: theme.toLowerCase().replaceAll(/[^0-9a-z-]/g, "-"),
     friendlyName: theme,
     themeData: {}
   };
@@ -464,26 +464,35 @@ const themes: Theme[] = themeNames.map((theme) => {
 (async () => {
   for (const theme of themes) {
     try {
-      theme.themeData = await fetch(`/playground/themes/${theme.friendlyName}.json`).then(m => m.json());
+      await loadTheme(theme);
     } catch (e) {
       console.error(e);
     }
   }
 })();
 
+async function loadTheme(theme: Theme) {
+  theme.themeData = await fetch(`/playground/themes/${theme.friendlyName}.json`).then(m => m.json());
+  monaco.editor.defineTheme(theme.id, theme.themeData as monaco.editor.IStandaloneThemeData);
+}
 const themeSelect = document.getElementById("theme") as HTMLSelectElement;
-for (const theme of themeNames) {
+for (const theme of themes) {
   const option = document.createElement("option");
-  option.value = theme.toLowerCase().replaceAll(" ", "-");
-  option.textContent = theme;
+  option.value = theme.id;
+  option.textContent = theme.friendlyName;
   themeSelect.appendChild(option);
 }
 
 themeSelect.addEventListener("change", async function () {
   const themeName = themeSelect.value;
-  const themeData = themes.find(t => t.id === themeName)!.themeData as monaco.editor.IStandaloneThemeData;
-  monaco.editor.defineTheme('monokai', themeData);
-  monaco.editor.setTheme('monokai');
+  let themeData = themes.find(t => t.id === themeName)!.themeData as monaco.editor.IStandaloneThemeData;
+
+  if (Object.keys(themeData).length === 0) {
+    await loadTheme(themes.find(t => t.id === themeName)!);
+    themeData = themes.find(t => t.id === themeName)!.themeData as monaco.editor.IStandaloneThemeData;
+  }
+
+  monaco.editor.setTheme(themeName);
 
   localStorage.setItem("theme", themeName);
   // change the theme of the output iframe
