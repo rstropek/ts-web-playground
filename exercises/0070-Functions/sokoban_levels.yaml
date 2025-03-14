@@ -29,6 +29,10 @@ files:
       const images: p5.Image[] = [];
 
       // Current level being displayed
+      // Note that the file levels.ts contains the level data
+      // for multiple levels as strings. Switch between levels
+      // by changing the index in the levels array. Test your
+      // implementation with different levels.
       const levelString = levels[0];
 
       // 2D array to store the level grid after parsing
