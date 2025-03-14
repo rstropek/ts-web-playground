@@ -8,7 +8,7 @@ descriptionMd: |
 
   In our exercise, we do not implement the entire game. We only load a level from a string representation and display it on the screen. Our goal is to practice the use of functions and understand how the _split()_ function works.
 
-sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/sokoban-levels.ts"
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/sokoban_levels.ts"
 files:
   "index.ts":
     content: |
