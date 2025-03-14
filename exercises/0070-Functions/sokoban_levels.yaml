@@ -4,7 +4,7 @@ descriptionMd: |
 
   Sokoban is a classical computer puzzle game. The player pushes boxes around a maze to their designated locations. The game is played on a grid. The player can move in four directions: up, down, left, and right. The player can only push boxes, not pull them. The player can only push one box at a time. The player wins when all boxes are on their designated locations.
 
-  ![Sokoban Levels](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/sokoban-levels.png)
+  ![Sokoban Levels](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/sokoban_levels.png)
 
   In our exercise, we do not implement the entire game. We only load a level from a string representation and display it on the screen. Our goal is to practice the use of functions and understand how the _split()_ function works.
 
