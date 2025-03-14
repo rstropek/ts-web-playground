@@ -1,0 +1,127 @@
+title: "Sokoban Levels"
+descriptionMd: |
+  # Sokoban Levels
+
+  Sokoban is a classical computer puzzle game. The player pushes boxes around a maze to their designated locations. The game is played on a grid. The player can move in four directions: up, down, left, and right. The player can only push boxes, not pull them. The player can only push one box at a time. The player wins when all boxes are on their designated locations.
+
+  ![Sokoban Levels](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/sokoban-levels.png)
+
+  In our exercise, we do not implement the entire game. We only load a level from a string representation and display it on the screen. Our goal is to practice the use of functions and understand how the _split()_ function works.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/sokoban-levels.ts"
+files:
+  "index.ts":
+    content: |
+      // Base URL for all game assets
+      const baseUrl = 'https://cddataexchange.blob.core.windows.net/data-exchange/sokoban';
+
+      // List of image assets to be loaded
+      // These correspond to different game elements (walls, floor, targets, crates)
+      const imageNames = [
+          `${baseUrl}/Blocks/block_06.png`,  // Wall
+          `${baseUrl}/Ground/ground_01.png`, // Floor
+          `${baseUrl}/Ground/ground_04.png`, // Target
+          `${baseUrl}/Crates/crate_43.png`,  // Box/Crate
+          `${baseUrl}/Crates/crate_08.png`   // Box on target
+      ];
+
+      // Array to store loaded p5 image objects
+      const images: p5.Image[] = [];
+
+      // Current level being displayed
+      const levelString = levels[0];
+
+      // 2D array to store the level grid after parsing
+      let level: string[][] = [];
+
+      // Tracks the maximum width of any row in the level for canvas sizing
+      let maxWidth = 0;
+      function preload() {
+          // <<< Add code to load all images from the imageNames array
+
+          // <<< Add code to parse the level string into a 2D array
+      }
+
+      /**
+      * Returns the appropriate image for a given tile type
+      * @param type - The character symbol representing the tile type
+      * @returns The corresponding p5.Image object
+      */
+      function getBlockImageBySymbol(type: string): p5.Image {
+          // <<< Add necessary code here
+          return images[0]; // <<< Replace this code with your implementation
+      }
+
+      // Size of each cell in pixels
+      const cellSize = 64;
+
+      function setup() {
+          // <<< Add code to create a canvas sized to fit the level dimensions
+
+          // <<< Add code to draw level
+      }
+
+    isEditable: true
+
+  "levels.ts":
+    content: |
+      // Collection of game levels as string representations
+      // Each character represents a game element according to the symbol legend
+      const levels = [
+        `XXXXX__
+      X   X__
+      X@XbXXX
+      X b ..X
+      XXXXXXX`,
+        `XXXXXXX
+      X.   .X
+      X  b  X
+      X b@b X
+      X  b  X
+      X.   .X
+      XXXXXXX`,
+        `XXXXXXX
+      X.   .X
+      X.bbb.X
+      XXb@bXX
+      X.bbb.X
+      X.   .X
+      XXXXXXX`,
+        `__XXXXX_
+      XXX   X_
+      X.@b  X_
+      XXX b.X_
+      X.XXb X_
+      X X . XX
+      Xb Bbb.X
+      X   .  X
+      XXXXXXXX`,
+        `____XXXXX_____________
+      ____X   X_____________
+      ____Xb  X_____________
+      __XXX  bXXX___________
+      __X  b  b X___________
+      XXX X XXX X     XXXXXX
+      X   X XXX XXXXXXX  ..X
+      X b  b             ..X
+      XXXXX XXXX X@XXXX  ..X
+      ____X      XXX__XXXXXX
+      ____XXXXXXXX__________`
+      ];
+    isEditable: false
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
