@@ -1,0 +1,100 @@
+title: "Crossword Puzzle"
+descriptionMd: |
+  # Crossword Puzzle
+
+  In this exercise you have to implement a simple crossword puzzle game. The game is about guessing letters to reveal animal names. The game highlights a vertical solution word that is formed from a specific column. Players win when they've guessed all letters in the solution word.
+
+  ![Crossword](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/crossword.png)
+
+  ## Detailed game rules
+
+  At the beginning, the crossword puzzle cells are empty.
+
+  When a player presses a key, ...
+
+  * ... the game checks if the key has been pressed before. If it has, this counts as a wrong guess.
+  * ... the game checks if the key is part of any animal name. If it is, the letter is revealed in the crossword puzzle. If not, this counts as a wrong guess.
+
+  The game is finished when all letters of the solution word have been guessed.
+
+  ## Level 1: Draw the empty crossword puzzle cells
+
+  * Parse the data in _crossword_.
+  * Draw the empty crossword puzzle cells on the canvas.
+  * The cells must be aligned according to the start position in _crossword_.
+  * The solution column must be highlighted as shown in the image above.
+  * Display the hint from _crossword_ right of the crossword puzzle as shown in the image above.
+
+  **Structure your code using functions**. For example, you could write a function that parses the crossword data and another function that draws certain aspects of the crossword puzzle. **Do not write all the code in a single function!**
+
+  ## Level 2: Draw the filled crossword puzzle cells
+
+  Once you implemented level 1, extend your drawing algorithm so that all crossword cells are filled with the correct letters.
+
+  ## Level 3 (advanced): Implement the guessing logic
+
+  ![Crossword](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/crossword.gif)
+
+  * At the beginning, all cells are empty.
+  * When a player presses a key, the game checks if the key is part of any animal name.
+  * If the key is part of an animal name, the letter is revealed in the crossword puzzle.
+
+  ## Level 4 (advanced): Count wrong guesses, game end condition
+
+  * Implement a counter that counts the number of wrong guesses.
+  * Display the number of wrong guesses on the canvas.
+  * After each guess, check if the solution word has been guessed completely. If so, display a message that the player has won.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/crossword.ts"
+files:
+  "index.ts":
+    content: |
+      /**
+      * Animal Crossword Game
+      *
+      * This is a crossword puzzle game where players guess letters to reveal animal names.
+      * The game highlights a vertical solution word that is formed from a specific column.
+      * Players win when they've guessed all letters in the solution word.
+      */
+
+      // Raw input data in format: animalName,startPosition,hint
+      const crossword = `krebs,0,Schalentier  
+      elefant,-1,Größtes Landtier  
+      schlange,-4,Lautloser Jäger  
+      papagei,-2,Bunter Sprachkünstler  
+      pinguin,0,Flugunfähiger Schwimmer  
+      esel,-2,Sturer Vierbeiner  
+      piranha,-2,Gefährlicher Schwarmfisch  
+      seestern,-3,Meerestier mit fünf Armen  
+      schildkröte,-1,Langsamer Panzerträger  
+      hund,0,Treuer Begleiter  
+      seelöwe,-3,Verspielter Meeressäuger  
+      aal,-1,Schlängelnder Stromleiter  
+      antilope,-1,Schneller Sprinter der Savanne  
+      regenwurm,-2,Bodenlockerer mit Ringeln  
+      seegurke,-2,Tarnkünstler der Tiefsee`;
+
+      // The word that players need to completely reveal to win
+      const solution = 'klapperschlange';
+
+      // === Write the necessary code starting here ===
+      function setup() {
+      }
+
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
