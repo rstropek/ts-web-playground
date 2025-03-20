@@ -21,21 +21,21 @@ files:
         // It's used to perform setup tasks such as creating the canvas and initializing variables
         // https://p5js.org/reference/p5/setup
 
-        p.createCanvas(700, 500); // example: Create a canvas 700px wide and 500px high
+        createCanvas(700, 500); // example: Create a canvas 700px wide and 500px high
       }
 
       function keyPressed() {
         // A function that's called once when any key is pressed.
         // runs once automatically when the user presses any key
         // https://p5js.org/reference/p5/keyPressed
-        console.log(`Key ${p.keyCode} has been pressed`);
+        console.log(`Key ${keyCode} has been pressed`);
       }
 
       function mousePressed() {
         // A function that's called once when a mouse button is pressed.
         // runs automatically when the user presses a mouse button
         // https://p5js.org/reference/p5/mousePressed
-        console.log(`Mouse was pressed at ${p.mouseX}/${p.mouseY}`);
+        console.log(`Mouse was pressed at ${mouseX}/${mouseY}`);
       }
 
       function draw() {
@@ -43,7 +43,7 @@ files:
         // runs repeatedly once the sketch starts.
         // It’s used to create animations and respond to user input
         // https://p5js.org/reference/p5/draw
-        p.background('yellow'); // example: Set the background color od the canvas to yellow
+        background('yellow'); // example: Set the background color od the canvas to yellow
       }
     isEditable: true
   "index.html":
