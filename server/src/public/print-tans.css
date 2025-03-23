@@ -1,0 +1,31 @@
+/* Print layout for the TAN List */
+
+@media print {
+  h1.hero.hero-admin {
+    display: block;
+    background-color: white;
+    color: black;
+  }
+
+  .print-hide {
+    display: none;
+  }
+
+  .content {
+    display: block;
+  }
+  
+  footer {
+    display: none;
+  }
+
+  .admin-table {
+    & th {
+      background-color: #fff;
+    }
+  
+    & tr:nth-child(even) {
+      background-color: #fefefe;
+    }
+  }
+}

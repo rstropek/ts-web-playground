@@ -5,18 +5,23 @@
 
     <label for="editUserId">User&nbsp;ID:</label>
     <input type="text" readonly name="userId" id="editUserId" value="{{user.userId}}">
+    
     <label for="editFirstName">First&nbsp;Name:</label>
     <input type="text" name="firstName" id="editFirstName" value="{{user.firstName}}">
+    
     <label for="editLastName">Last&nbsp;Name:</label>
     <input type="text" name="lastName" id="editLastName" value="{{user.lastName}}">
+    
     <label for="editAccountName">Account&nbsp;Name:</label>
     <input type="text" name="accountName" id="editAccountName" value="{{user.accountName}}">
+    
     <label for="editClass">Class:</label>
     <input type="text" name="class" id="editClass" value="{{user.class}}">
+    
     <label for="editRepository">Repository:</label>
     <input type="text" name="repository" id="editRepository" value="{{user.repository}}">
-    <div></div>
-    <div>
+    
+    <div class="admin-edit-actions">
         <button id="generate" type="button">Generate Repository</button>
         <button id="save" type="button">Save</button>
     </div>

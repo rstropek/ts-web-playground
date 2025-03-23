@@ -1,9 +1,28 @@
-<ul class="tan-list">
-{{#each users}}
-    <li>
-        <div class="name">{{firstName}} {{lastName}}</div>
-        <div class="account">User: <span class="code">{{accountName}}</span></div>
-        <div class="tan">TAN: <span class="code">{{plainTan}}</span></div>
-    </li>    
-{{/each}}
-</ul>
+<button id="print" class="print-hide pr">Print page</button>
+
+    <div class="table-scroller">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>User</th>
+                    <th>TAN</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each users}}
+                <tr>
+                    <td>{{firstName}} {{lastName}}</td>
+                    <td>{{accountName}}</td>
+                    <td>{{plainTan}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+<script>
+    document.getElementById('print').addEventListener('click', function() {
+        window.print();
+    });
+</script>

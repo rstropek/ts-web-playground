@@ -1,46 +1,55 @@
 <h2>Users</h2>
 
-<form method="GET" action="/users">
-    <input type="text" name="search" placeholder="Enter filter text..." value="{{searchQuery}}">
-    <button type="submit">Search</button>
+<form method="GET" action="/users" id="search-form">
+    <div class="input-container">
+        <input type="text" name="search" id="search" class="input" required />
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label for="search">Search</label>
+    </div>
+    <button type="submit" class="pr">Search</button>
 </form>
 
 <form id="user-list" method="POST" action="/users/action">
-    <button id="generateTans" type="button">Generate TANs</button>
+    <button id="generateTans" type="button" class="pr">Generate TANs</button>
     <input type="text" name="action" id="action" hidden />
-    <table>
-        <thead>
-            <tr>
-                <th><input type="checkbox" id="select-all" /></th>
-                <th>Lastname</th>
-                <th>Firstname</th>
-                <th>Account Name</th>
-                <th>Class</th>
-                <th>First Login</th>
-                <th>Last Login</th>
-                <th>&nbsp;</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each users}}
-            <tr>
-                <td>
-                    <input type="checkbox" name="select-{{userId}}" />
-                </td>
-                <td>{{lastName}}</td>
-                <td>{{firstName}}</td>
-                <td>{{accountName}}</td>
-                <td>{{class}}</td>
-                <td>{{dateFormat firstLogin}}</td>
-                <td>{{dateFormat lastLogin}}</td>
-                <td>
-                    <a href="/users/{{userId}}">✏️</a>
-                    <a target="_blank" href="https://github.com/Teaching-HTL-Leonding/{{repository}}">GH</a>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+    <div class="table-scroller">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="select-all" /></th>
+                    <th>Lastname</th>
+                    <th>Firstname</th>
+                    <th>Account Name</th>
+                    <th>Class</th>
+                    <th>First Login</th>
+                    <th>Last Login</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each users}}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="select-{{userId}}" />
+                    </td>
+                    <td>{{lastName}}</td>
+                    <td>{{firstName}}</td>
+                    <td>{{accountName}}</td>
+                    <td>{{class}}</td>
+                    <td>{{dateFormat firstLogin}}</td>
+                    <td>{{dateFormat lastLogin}}</td>
+                    <td class="admin-table-actions">
+                        <ul>
+                            <li><a href="/users/{{userId}}">✏️</a></li>
+                            <li><a target="_blank" href="https://github.com/Teaching-HTL-Leonding/{{repository}}">GH</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
 </form>
 
 <script>
@@ -51,7 +60,7 @@
 
     selectAllBox.addEventListener("change", () => {
         const allCheckboxes = userListForm.querySelectorAll("input[type='checkbox']");
-        for(const cb of allCheckboxes) {
+        for (const cb of allCheckboxes) {
             cb.checked = cb.checked ? false : true;
         }
     });

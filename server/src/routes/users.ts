@@ -13,7 +13,7 @@ export function createUserRoutes(cosmosDb: Database, ghPat: string): express.Rou
     const searchQuery = req.query.search?.toString();
     const users = await getAllUsers(cosmosDb, searchQuery);
 
-    res.render("users", { users, searchQuery });
+    res.render("users", { layout: 'adminLayout.hbs', users, searchQuery });
   });
 
   router.get("/:userId", async (req, res) => {
@@ -24,7 +24,7 @@ export function createUserRoutes(cosmosDb: Database, ghPat: string): express.Rou
       return;
     }
 
-    res.render("user-details", { user });
+    res.render("user-details", { layout: 'adminLayout.hbs', user });
   });
 
   router.post("/action", async (req, res) => {
@@ -39,7 +39,7 @@ export function createUserRoutes(cosmosDb: Database, ghPat: string): express.Rou
         }
 
         const users = await regenerateUserTans(cosmosDb, userIds);
-        res.render("users-tans", { users });
+        res.render("users-tans", { layout: 'tanLayout.hbs', users });
         break;
       default:
         res.status(400).send("Invalid action");

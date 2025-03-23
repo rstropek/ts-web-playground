@@ -14,7 +14,7 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
     const searchQuery = req.query.search?.toString();
     const exercises = await getAllExercises(cosmosDb, searchQuery);
 
-    res.render("exercises", { exercises, searchQuery });
+    res.render("exercises", { layout: 'adminLayout.hbs', exercises, searchQuery });
   });
 
   router.get("/:exerciseId", async (req, res) => {
@@ -35,7 +35,7 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
       }
     }
 
-    res.render("exercise-details", { exercise });
+    res.render("exercise-details", { layout: 'adminLayout.hbs', exercise });
   });
 
   router.post("/", async (req, res) => {

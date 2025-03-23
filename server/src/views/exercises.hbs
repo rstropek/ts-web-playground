@@ -1,46 +1,60 @@
 <h2>Exercises</h2>
 
-<form method="GET" action="/exercises">
-    <input type="text" name="search" placeholder="Enter filter text..." value="{{searchQuery}}">
-    <button type="submit">Search</button>
-</form>
+<div id="admin-actions">
+    <form method="GET" action="/exercises" id="search-form">
+        <div class="input-container">
+            <input type="text" name="search" id="search" class="input" required />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label for="search">Search</label>
+        </div>
+        <button type="submit" class="pr">Search</button>
+    </form>
 
-<form method="GET" action="/exercises/new">
-    <button type="submit">Create new exercise</button>
-</form>
+    <form method="GET" action="/exercises/new" id="new-exercise-form">
+        <button type="submit" class="pr">Create new exercise</button>
+    </form>
+</div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Category</th>
-            <th>Order</th>
-            <th>Title</th>
-            <th>Created</th>
-            <th>Last Changed</th>
-            <th>&nbsp;</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each exercises}}
-        <tr>
-            <td>{{category}}</td>
-            <td>{{sortOrder}}</td>
-            <td>{{title}}</td>
-            <td>{{dateFormat created}}</td>
-            <td>{{dateFormat lastChanged}}</td>
-            <td>
-                <a href="/exercises/{{id}}">✏️</a>
-                <span class="link" onclick="confirm('{{id}}', '{{title}}')">❌</span>
-            </td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+<div class="table-scroller">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Order</th>
+                <th>Title</th>
+                <th>Created</th>
+                <th>Last Changed</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each exercises}}
+            <tr>
+                <td>{{category}}</td>
+                <td>{{sortOrder}}</td>
+                <td>{{title}}</td>
+                <td>{{dateFormat created}}</td>
+                <td>{{dateFormat lastChanged}}</td>
+                <td class="admin-table-actions">
+                    <ul>
+                        <li><a href="/exercises/{{id}}">✏️</a></li>
+                        <li><span class="link" onclick="confirm('{{id}}', '{{title}}')">❌</span></li>
+                    </ul>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
 
 <dialog>
+    <h2>Confirmation</h2>
     <p></p>
-    <button id="yes">Yes</button>
-    <button id="cancel">Cancel</button>
+    <div class="dialog-actions">
+        <button id="yes">Yes</button>
+        <button id="cancel">Cancel</button>
+    </div>
 </dialog>
 
 <script>

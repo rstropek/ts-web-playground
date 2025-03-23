@@ -1,58 +1,93 @@
 <script src="https://www.google.com/recaptcha/api.js"></script>
-<script>
-    function onSubmit(token) {
-      document.getElementById("tan-login-form").submit();
-    }
 
-    function onSubmitAnonymously(token) {
-      document.getElementById("work-anonymously-form").submit();
-    }
+<script>
+  function onSubmit(token) {
+    document.getElementById("tan-login-form").submit();
+  }
+
+  function onSubmitAnonymously(token) {
+    document.getElementById("work-anonymously-form").submit();
+  }
 </script>
 
 <div>
   <h1 class="hero">Welcome to TypeScript Playground</h1>
 
-  <h2>Login with School Account</h2>
+  <div id="home-container">
+    <div class="school-login">
+      <h2>Login with School Account</h2>
 
-  <p>
-    To start coding, you need to login with your school account (Microsoft
-    Entra ID, same account that you use to access your school email or
-    Microsoft Teams). <b>This currently only works for HTBLA Leonding.</b>
-    If you are interested in using this for your school, please
-    <a href="mailto:r.stropek@htl-leonding.ac.at" target="_blank">contact me</a>.
-  </p>
+      <p>
+        To start coding, you need to login with your school account (Microsoft
+        Entra ID, same account that you use to access your school email or
+        Microsoft Teams). <b>This currently only works for HTBLA Leonding.</b>
+        If you are interested in using this for your school, please
+        <a href="mailto:r.stropek@htl-leonding.ac.at" target="_blank">contact me</a>.
+      </p>
 
-  <p>
-    <a href="/login">Login with Entra ID</a>
-  </p>
+      <p>
+        <a href="/login" class="pr">Login with Entra ID</a>
+      </p>
+    </div>
 
-  <div id="work-anonymously">
-    <h2>Work Anonymously</h2>
+    <div id="work-anonymously">
+      <h2>Work Anonymously</h2>
 
-    <p>
-      Use this option to work on exercises without being logged in.
-    </p>
+      <p>
+        Use this option to work on exercises without being logged in.
+      </p>
 
-    <form method="post" action="/workAnonymously" id="work-anonymously-form">
-      <button class="g-recaptcha" data-sitekey="{{captchaKey}}" data-callback="onSubmitAnonymously" data-action="workAnonymously">Work Anonymously</button>
-    </form>
-  </div>
+      <form method="post" action="/workAnonymously" id="work-anonymously-form">
+        <button class="g-recaptcha pr" data-sitekey="{{captchaKey}}" data-callback="onSubmitAnonymously"
+          data-action="workAnonymously">Work Anonymously</button>
+      </form>
+    </div>
 
-  <div id="tan-login">
-    <h2>Login with TAN</h2>
+    <div id="tan-login">
+      <h2>Login with TAN</h2>
 
-    <p>
-      Use this option during exams or exercises where you can't access your school account.
-      You will get a TAN code from your teacher to login.
-    </p>
+      <p>
+        Use this option during exams or exercises where you can't access your school account.
+        You will get a TAN code from your teacher to login. Your user name is typically your school email address.
+      </p>
 
-    <form method="post" action="/loginWithTan" id="tan-login-form">
-      <label for="user">User:</label>
-      <input type="text" name="user" id="user" autocomplete="email" placeholder="User name (typically school email address)" />
-      <label for="tan">TAN:</label>
-      <input type="text" name="tan" id="tan" autocomplete="off" placeholder="TAN you got from your teacher" />
-      <div></div>
-      <button class="g-recaptcha" data-sitekey="{{captchaKey}}" data-callback="onSubmit" data-action="loginWithTan">Login</button>
-    </form>
+      <form method="post" action="/loginWithTan" id="tan-login-form">
+        <div class="input-container">
+          <input type="text" name="user" id="user" autocomplete="email" class="input" required />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label for="user">User</label>
+        </div>
+
+        <div class="input-container">
+          <input type="text" name="tan" id="tan" autocomplete="off" class="input" required />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label for="tan">TAN</label>
+        </div>
+
+        <button class="g-recaptcha pr" data-sitekey="{{captchaKey}}" data-callback="onSubmit"
+          data-action="loginWithTan">Login</button>
+      </form>
+    </div>
+
+    <div id="cat-picture" style="display: none;">
+      <h2>Coding Cat</h2>
+      <p>Here's a random cat picture for you to get motivated.</p>
+      <div class="cat-image-container">
+        <img src="https://cataas.com/cat/computer?width=400&height=300" alt="No internet :cry:" class="cat-image">
+      </div>
+    </div>
+    {{!-- <span style="color: white;">Press CTRL+M for a cat (only works with internet)</span> --}}
   </div>
 </div>
+
+{{!-- <script>
+  // show cat picture when CTRL+M is pressed
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'm') {
+      document.getElementById('cat-picture').style.display = 'block';
+      document.getElementById('cat-picture').scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+</script> --}}

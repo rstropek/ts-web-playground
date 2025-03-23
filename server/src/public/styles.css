@@ -1,139 +1,521 @@
+/* Main Stylesheet */
+/* Ideas:
+ * * flex-grow for menu items
+ * * Green borders for new (unvisited) menu items
+ * * Fix the distances between the admin table and actions at the top
+*/
+
 :root {
-  --top-bar-height: 50px;
-
-  --top-bar-color: white;
-  --top-bar-bg-color: #3a6e86;
-  --top-bar-border-color: #4d90ae;
-  --top-bar-selected-bg-color: #5190ad;
-
-  --button-padding: 5px 10px;
-  --border-radius: 5px;
-
-  --button-font-size: 13px;
+  --primary-color: #3a6e86;
 }
 
-html, body {
+/***** base styles *****/
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
 }
 
-h1.hero {
-  padding: 40px 10px 10px 10px;
-  background-color: var(--top-bar-bg-color);
-  color: var(--top-bar-color);
+body {
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 .nowrap {
   white-space: nowrap;
 }
 
-table {
-  margin-top: 20px;
-  border-collapse: collapse;
-}
-
-td,
-th {
-  padding: 10px;
-  border: 1px solid black;
-}
-
-form.edit {
-  display: grid;
-  gap: 5px;
-  grid-template-columns: min-content minmax(0, 500px);
-}
-
-form.edit label {
-  padding-right: 5px;
-}
-
-form.edit input[type="checkbox"] {
-  justify-self: left;
-}
-
 span.link {
   cursor: pointer;
 }
 
+/***** Hero bar *****/
+h1.hero {
+  position: absolute;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  padding: 40px 10px 10px 10px;
+  background-color: var(--primary-color);
+  color: white;
+  height: 100px;
+
+  &.hero-admin {
+    background-color: #870000;
+  }
+}
+
+/***** Home view *****/
+
+/* Home container */
+#home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+
+  &>* {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+}
+
+/* Cat picture */
+#cat-picture {
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  border: 3px solid var(--primary-color);
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.cat-image-container {
+  max-width: 400px;
+  aspect-ratio: 4 / 3;
+  margin: 10px auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cat-image {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+  transform: scale(1.05);
+  margin: 0;
+}
+
+.cat-image:hover {
+  transform: scale(1.1);
+}
+
+/* Tan Login form */
+#tan-login>form {
+  padding-top: 20px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 3fr 1fr;
+  width: 80%;
+
+  &>button {
+    grid-column: 1 / -1;
+  }
+
+  &>.input-container>.input {
+    width: 100%;
+  }
+}
+
+/***** Main view *****/
 .content {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-footer {
-  border-top: 1px solid black;
-  padding-top: 10px;
-  margin-top: 20px;
-}
-
-.content {
   max-width: 1024px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
 
-ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px; /* Optional: Adjust the gap between tiles */
-  padding: 0;
-  list-style: none;
-}
-
-ul li {
-  width: 15%;
-  min-width: 200px;
-  box-sizing: border-box;
-  padding: 10px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  height: 75px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.menu-heading {
+  font-size: 1.5em;
+  margin: 0 initial;
+  padding: 0 initial;
   text-align: center;
 }
 
-.tan-list {
+.category-heading {
+  font-size: 1.2em;
+  margin: 0 initial;
+  padding: 0 10px;
+}
+
+.menu {
   display: flex;
-  flex-direction: column;
-  width: 100%;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0 0 10px 0;
+  padding: 0;
+  list-style: none;
+
+  &.admin>li {
+    flex-grow: 1;
+
+    a {
+      background-color: #500000;
+      color: white;
+    }
+  }
+
+  &.exercises>li>a {
+    background-color: #f9f9f9;
+    color: black;
+
+    &:visited {
+      background-color: #f0f0f0;
+    }
+  }
+
+  &>li {
+    border-radius: 5px;
+    width: 15%;
+    min-width: 200px;
+    box-sizing: border-box;
+    padding: 0;
+    border: 1px solid #ccc;
+    height: 75px;
+
+    & a {
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+      padding: 10px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border-radius: inherit;
+    }
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
 }
 
-.tan-list li {
-  border: 1px solid black;
-  margin-bottom: 10px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  height: auto;
-  page-break-inside: avoid;
+
+/***** Administrative views *****/
+
+/* Users, Exercises and TANs views */
+
+#admin-actions {
+  width: fit-content;
+  padding: 0;
+  margin: 0 auto 20px auto;
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  &>* {
+    margin: 0;
+  }
 }
 
-.tan-list li div {
-  font-size: 18px;
-}
-
-.tan-list li div.name {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.tan-list li div .code {
-  font-family: 'Courier New', Courier, monospace;
-}
-
-#tan-login h2 {
-  margin-top: 30px;
-}
-
-#tan-login form {
-  margin-top: 20px;
+#search-form {
   display: grid;
-  grid-template-columns: auto 300px;
   gap: 10px;
-  justify-content: start;
+  grid-template-columns: 1fr;
+  width: 200px;
+  margin: 0 auto 20px auto;
+
+  &>* {
+    margin: 0;
+  }
+}
+
+#new-exercise-form {
+
+  &>* {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+#user-list {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow-x: scroll;
+
+  &>#generateTans {
+    margin: 0 auto 20px auto;
+    width: 200px;
+  }
+}
+
+.table-scroller {
+  overflow-x: scroll;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  & th {
+    background-color: #dddddd;
+    border: 1px solid black;
+    padding: 10px;
+    white-space: nowrap;
+  }
+
+  & td {
+    padding: 10px;
+    border: 1px solid black;
+    white-space: nowrap;
+  }
+
+  & tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  & td.admin-table-actions {
+    padding: 0;
+
+    &>ul {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      list-style: none;
+      padding: 10px;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+
+      & a,
+      & span.link {
+        color: black;
+        text-decoration: none;
+        background-color: #f9f9f9;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid black;
+        width: 40px;
+
+        &:hover {
+          background-color: #e0e0e0;
+        }
+      }
+    }
+  }
+}
+
+/* User and Exercise edit view */
+
+form.edit {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: min-content minmax(0, 500px);
+  width: fit-content;
+  margin: 0 auto;
+
+  & input[type="text"],
+  & input[type="datetime-local"] {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100%;
+  }
+
+  & .admin-edit-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    &>input[type="submit"],
+    &>button {
+      padding: 10px;
+      border: 1px solid black;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+  }
+}
+
+/***** Footer *****/
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  background-color: #1d1d1d;
+  text-align: center;
+  padding: 10px;
+
+  & a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+}
+
+/***** Styling Elements *****/
+
+/* Pretty (link) button by @Benjamin */
+.pr {
+  display: inline-block;
+  padding: 0.5em 1em;
+  border: 3px solid var(--primary-color);
+  border-radius: 0.5em;
+  background-color: transparent;
+  color: var(--primary-color);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  margin-bottom: 0.5em;
+
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #3a6e86;
+    color: white;
+  }
+
+  &:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+}
+
+/* From Uiverse.io by @G4b413l */
+.input-container {
+  position: relative;
+
+  .input {
+    font-size: 16px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 200px;
+    border: none;
+    border-bottom: 1px solid #515151;
+    background: transparent;
+  }
+
+  .input:focus {
+    outline: none;
+  }
+
+  label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+
+  .input:focus~label,
+  .input:valid~label {
+    top: -20px;
+    font-size: 14px;
+    color: var(--primary-color)
+  }
+
+  .bar {
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+
+  .bar:before,
+  .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: var(--primary-color);
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+
+  .bar:before {
+    left: 50%;
+  }
+
+  .bar:after {
+    right: 50%;
+  }
+
+  .input:focus~.bar:before,
+  .input:focus~.bar:after {
+    width: 50%;
+  }
+
+  .highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .input:focus~.highlight {
+    animation: inputHighlighter 0.3s ease;
+  }
+
+  @keyframes inputHighlighter {
+    from {
+      background-color: var(--primary-color);
+    }
+
+    to {
+      width: 0;
+      background-color: transparent;
+    }
+  }
+
+}
+
+/* Dialog with h2, p and action buttons */
+dialog {
+  padding: 0;
+
+  & h2 {
+    margin: 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ccc;
+  }
+
+  & p {
+    padding: 16px;
+  }
+
+  & .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+
+    & button {
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid black;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      cursor: pointer;
+    }
+  }
 }

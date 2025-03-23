@@ -71,7 +71,7 @@ app.engine("hbs", engine({
     },
     utcDateTimeToLocal(dateStr: string) {
       if (!dateStr) { return ""; }
-      
+
       const date = new Date(dateStr);
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
@@ -81,6 +81,9 @@ app.engine("hbs", engine({
 
       const localDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
       return localDateTime;
+    },
+    or: function (a: any, b: any) {
+      return a || b;
     }
   }
 }));
@@ -122,11 +125,23 @@ app.use("/me", createMeRoute(cosmosDb));
 app.use("/users", ensureAuthenticated, ensureAdmin, createUserRoutes(cosmosDb, ghPat.value));
 app.use("/exercises", ensureAuthenticated, ensureAdmin, await exercises(cosmosDb, kvClient));
 app.use("/github", ensureAuthenticatedWithoutRedirect, await github(cosmosDb, kvClient));
-const proxyMiddleware = createProxyMiddleware<express.Request, express.Response>({
+const proxyMiddleware = createProxyMiddleware({
   target: `${process.env.PROXY_TARGET ?? "http://localhost:5173"}/playground`,
   changeOrigin: true,
   ws: true,
+  on: {
+    error: (err, req, res, target) => {
+      logger.error("Proxy Target could not be reached - Is the client server running?", 'Proxy Error');
+      if ('writeHead' in res) {
+        res.writeHead(500, {
+          'Content-Type': 'text/plain',
+        });
+        res.end('Something went wrong.');
+      }
+    }
+  }
 });
+
 app.use('/playground', proxyMiddleware);
 
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {

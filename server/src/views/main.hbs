@@ -1,18 +1,18 @@
 <div>
   <h1 class="hero">Welcome, {{firstName}}</h1>
 
-  {{#if isAdmin}}
-    <h2>Administration</h2>
-    <ul>
+  {{#if (or isAdmin isDevelopment)}}
+    <h2 class="menu-heading">Administration</h2>
+    <ul class="admin menu">
       <li><a href="users">Users</a></li>
       <li><a href="exercises">Exercises</a></li>
     </ul>
   {{/if}}
 
-  <h2>Exercises</h2>
+  <h2 class="menu-heading">Exercises</h2>
   {{#each groupedExercises}}
-    <h3>{{category}}</h3>
-    <ul>
+    <h3 class="category-heading">{{category}}</h3>
+    <ul class="exercises menu">
       {{#each exercises}}
         <li><a href="/playground?exerciseUrl={{yamlUrl}}">{{title}}</a></li>
       {{/each}}

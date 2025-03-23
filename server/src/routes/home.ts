@@ -28,11 +28,16 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
 
     const categories = new Set(exercises.map(exercise => exercise.category ?? "Uncategorized"));
     const groupedExercises: { category: string, exercises: ExerciseWithId[] }[] = [];
-    for(const c of categories) {
+    for (const c of categories) {
       groupedExercises.push({ category: c, exercises: exercises.filter(e => e.category === c) });
     }
 
-    res.render("main", { firstName: req.session.firstName, isAdmin: req.session.isAdmin, groupedExercises });
+    res.render("main", {
+      firstName: req.session.firstName,
+      isAdmin: req.session.isAdmin,
+      groupedExercises,
+      isDevelopment: process.env.NODE_ENV === "development",
+    });
   });
 
   return router;
