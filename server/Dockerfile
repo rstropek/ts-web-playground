@@ -9,7 +9,6 @@ FROM node:lts
 WORKDIR /app
 ENV PORT=80
 ENV NODE_ENV=production
-COPY .env.example .env
 COPY --from=build /app-build/dist .
 RUN npm install --omit=dev \
     && rm package-lock.json
