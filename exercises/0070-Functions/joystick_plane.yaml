@@ -4,7 +4,7 @@ descriptionMd: |
 
   In this exercise, we control the movements of a fighter jet using a simulated joystick. Our "joystick" is a black dot in a red circle. We can drag it with the mouse in all directions. The further the dot is away from the center of the red circle, the faster the jet moves into the given directions.
 
-  ![Joystick plane](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/joystick_plane.png)
+  ![Joystick plane](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/joystick_plane.gif)
 
   ## Step 1: Make yourself familiar with the code
 
