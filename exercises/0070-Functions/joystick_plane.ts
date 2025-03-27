@@ -72,10 +72,14 @@ function draw() {
   pop();
 }
 
+function distance(x1: number, y1: number, x2: number, y2: number): number {
+  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+}
+
 function mousePressed() {
   const stickCenterX = width / 2 + stickX;
   const stickCenterY = height - movementRadius + stickY;
-  const distanceToStick = Math.sqrt(Math.pow(mouseX - stickCenterX, 2) + Math.pow(mouseY - stickCenterY, 2));
+  const distanceToStick = distance(mouseX, mouseY, stickCenterX, stickCenterY);
   if (distanceToStick < controlStickRadius) {
     dragging = true;
   }
@@ -87,11 +91,11 @@ function mouseDragged() {
     stickY = mouseY - stickOriginY;
 
     // Calculate the distance from the center
-    const distance = Math.sqrt(stickX * stickX + stickY * stickY);
+    const distanceFromCenter = distance(0, 0, stickX, stickY);
     
     // If the distance exceeds the movement radius, scale down the values
-    if (distance > movementRadius - controlStickRadius) {
-      const scale = (movementRadius - controlStickRadius) / distance;
+    if (distanceFromCenter > movementRadius - controlStickRadius) {
+      const scale = (movementRadius - controlStickRadius) / distanceFromCenter;
       stickX *= scale;
       stickY *= scale;
     }
