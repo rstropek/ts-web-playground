@@ -1,0 +1,72 @@
+title: "Animation (Arrays)"
+descriptionMd: |
+  # Animation with Arrays
+
+  Animations are just a sequence of images. In this exercise, we will display a Halloween-themed animation.
+
+  The starter code already loads and handles the first image. Your task is to add the remaining images (10 in total) and to complete the logic for the animation. At the end, the animation should look like this:
+
+  ![Animation Basics](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/animation-basics.gif?raw=true)
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/animation-array.ts"
+files:
+  "index.ts":
+    content: |
+      const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/NecromancerHalloween/Walking";
+      const IMAGE_SCALE = 0.2;
+
+      // Our animation will be a series of 10 images
+      let necromancers: p5.Image[] = [];
+
+      function preload() {
+          // Load all the images. This is how you load a single image:
+          necromancers.push(loadImage(`${BASE_URL}/Necromancer_01__WALK_000.png`));
+      }
+
+      function setup() {
+          createCanvas(necromancers[0].width * IMAGE_SCALE, necromancers[0].height * IMAGE_SCALE);
+
+          // You can control the speed of the animation by changing the frame rate
+          frameRate(20);
+      }
+
+      let imageIndex = 0; // This variable will keep track of the current image (=frame) in the animation
+      let x = -500; // This variable will keep track of the current position of the animation on the x-axis.
+                    // By moving the sprite to the left, we can create the illusion of movement.
+                    // We start at -500 because the the image contains a pretty wide whitespace on the left side.
+
+      function draw() {
+          background("lightgray");
+
+          let currentImage: p5.Image;
+
+          // Assign the corresponding image
+          currentImage = necromancers[imageIndex];
+
+          // Draw the selected image on the canvas
+          image(currentImage, x, 0, currentImage.width * IMAGE_SCALE, currentImage.height * IMAGE_SCALE);
+
+          // <<< Move to the next image in the animation. If we reach the end, start over.
+
+          // Move the sprite to the right. If the sprite moved too far, set it back to the left.
+          x += 5;
+          // <<< Add the logic to reset the sprite position to the left when it has moved too far to the right (> 500 pixels is a good threshold).
+      }
+
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
