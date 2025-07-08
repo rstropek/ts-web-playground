@@ -38,7 +38,6 @@ files:
           </style>
         </head>
         <body>
-          <h1>Welcome to p5js!</h1>
           {{bodyScripts}}
         </body>
       </html>
