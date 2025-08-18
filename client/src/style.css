@@ -91,6 +91,7 @@ select {
 #top-bar select {
   padding: var(--button-padding);
   border-radius: var(--border-radius);
+  border: var(--top-bar-border-color) 2px solid;
 }
 
 #content {
