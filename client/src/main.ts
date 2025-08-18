@@ -294,6 +294,8 @@ loadExercise(exerciseUrl).then((ex1) => {
     const { blobUrl, errorOutput } = await compile(files);
     compilerError(errorOutput);
     iframe.src = blobUrl;
+    // Select the result tab
+    resultSelector.click();
   }
 
   Split(["#editor", "#result-area"], { direction: "horizontal" });
