@@ -1,0 +1,85 @@
+title: "Soccer Field"
+descriptionMd: |
+  # Soccer Field
+
+  You were hired by a local TV station. They need a background graphic for a soccer match:
+
+  ![Soccer Field](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0010-Basics/soccer-field-basics.png)
+
+  ## Task: Draw the Soccer Field
+
+  The soccer field must be a scaled-down version of a real soccer field. You can find the dimensions of a real soccer field [at https://de.wikipedia.org/wiki/Strafraum#/media/Datei:Fu%C3%9Fballfeld_mit_Ma%C3%9Fen_und_Beschreibung.svg](https://de.wikipedia.org/wiki/Strafraum#/media/Datei:Fu%C3%9Fballfeld_mit_Ma%C3%9Fen_und_Beschreibung.svg).
+    
+  Your field must be **as close as possible to the real field** (don't forget details like the penalty point and the corners).
+
+  ## Learning: Constants
+
+  This exercise teaches you how to use **constants** in your code. Constants are values that do not change during the execution of your program. They are useful for defining fixed values that you want to use throughout your code, such as dimensions, scaling factors, etc.
+
+  ## Learning: Scaling
+
+  Our draing platform p5 let's us **scale** the entire drawing. This is useful if you want to create a drawing that can be easily resized. In this exercise, you will learn how to use the `scale` function to scale your drawing.
+
+  ## Learning: Moving the Origin
+
+  In p5, the origin of the coordinate system is at the top-left corner of the canvas. However, you can **move the origin** to a different location using the `translate` function. This is useful if you want to create a drawing that is centered or has a specific margin.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0010-Basics/soccer-field-basics.ts"
+files:
+  "index.ts":
+    content: |
+      // It must be possible to scale the entire field by changing the value of the constant SCALE.
+      // E.g. a SCALE value of 2 will create a small image, while a SCALE value of 10 will create a large image.
+      const SCALE = 5;
+
+      // Margin around the field (i.e. distance from edge to the field)
+      const MARGIN = 4;
+
+      function setup() {
+          // We must calculate the size of the canvas using the constants.
+          // Note that we assume that the soccer field has a width of 100m
+          // and a height of 70m.
+          createCanvas((100 + MARGIN * 2) * SCALE, (70 + MARGIN * 2) * SCALE);
+          background("green");
+
+          strokeWeight(0.5);
+          stroke("white");
+          noFill();
+          angleMode(DEGREES);
+
+          push();
+
+          // Note that we scale everything by the constant SCALE. We use the size values
+          // in meters as if they were pixels, and then scale them up by the SCALE factor.
+          // Experiment with different SCALE values to see how it works.
+          scale(SCALE);
+
+          // translate moves the origin of the coordinate system. 0/0 will not be
+          // in the top-left corner, but MARGIN pixels to the right/down.
+          // Experiment with different MARGIN values to see how it works.
+          translate(MARGIN, MARGIN);
+
+          // TODO: Draw the soccer field as close as possible to a real soccer field.
+          // <<< ADD YOUR CODE HERE
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          {{topScripts}}
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+            }
+          </style>
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
