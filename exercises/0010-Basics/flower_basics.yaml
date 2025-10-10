@@ -51,8 +51,6 @@ descriptionMd: |
 
   Sie arbeiten in einem Team, das ein Comic-artiges _Leisure-Game_ entwickelt. Ihre Aufgabe ist es, in TypeScript einen Algorithmus zu schreiben, der Blumen zeichnet. Manche Eigenschaften der Blumen wurden von Designern exakt vorgegeben, andere können Sie selbst bestimmen.
 
-  ![Blumen](./flower_basics.png)
-
   ## Rahmenbedingungen
 
   Sie müssen diese Programmieraufgabe im _TypeScript Playground_ lösen, den Sie unter [https://bit.ly/tsplayg](https://bit.ly/tsplayg) finden. Verwenden Sie TypeScript als Programmiersprache und _p5js_ als Grafikbibliothek.
