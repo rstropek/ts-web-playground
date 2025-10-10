@@ -1,0 +1,120 @@
+title: "Flowers Basics"
+descriptionMd: |
+  # Flowers
+  
+  ## Introduction
+
+  You are part of a team building a comic-style leisure game. Your task is to write a TypeScript algorithm that draws flowers. Some properties of the flowers have been specified precisely by designers; others you may decide yourself.
+  
+  ![Flowers](./flower_basics.png)
+  
+  ## Constraints
+  
+  You must solve this programming task in the TypeScript Playground that you can find at [https://bit.ly/tsplayg](https://bit.ly/tsplayg). Use TypeScript as the programming language and p5.js as the graphics library.
+  
+  You may look at other exercise examples in the playground for inspiration or as a template. During an assessment, however, you will not have access to the examples you previously created yourself.
+  
+  ## Tasks
+
+  Write a program that draws **two flowers side by side**.
+  
+  The dotted guide lines and dimension hints in the figure are only to clarify distances and symmetries. Your program must **not** draw these guide lines.
+  
+  ### Right Flower (easier)
+
+  * Draw the right flower as precisely as shown in the figure above (you may choose different colors).
+  * Pay attention to the specified diameters and distances.
+  * Use an arc (`arc`) for the stem. There are no exact measurements for this. Orient yourself by the figure and try to reproduce a similar stem.
+  * The right flower is both horizontally and vertically symmetrical. That means the top and bottom parts mirror each other, and so do the left and right parts.
+  
+  ### Left Flower (more challenging)
+
+  * Draw the left flower as precisely as shown in the figure above (you may choose different colors).
+  * Pay attention to the specified diameters and distances.
+  * The same stem requirements apply as for the right flower.
+  * The left flower is only vertically symmetrical. That means the top and bottom parts mirror each other, but the left and right parts do not.
+  
+  ## Essential Assessment areas
+
+  To pass, you need to largely satisfy the requirements in all essential areas:
+  
+  * Writing functional TypeScript code (sequences, `setup` function)
+  * Working with coordinates
+  * Drawing simple shapes (circles, arcs) with p5.js
+  * Working with stroke and fill colors
+  
+  If you only draw the right flower and largely fulfill all essential areas, that is sufficient to pass the assessment.
+  
+  ---
+
+  ## Einleitung (German translation)
+
+  Sie arbeiten in einem Team, das ein Comic-artiges _Leisure-Game_ entwickelt. Ihre Aufgabe ist es, in TypeScript einen Algorithmus zu schreiben, der Blumen zeichnet. Manche Eigenschaften der Blumen wurden von Designern exakt vorgegeben, andere können Sie selbst bestimmen.
+
+  ![Blumen](./flower_basics.png)
+
+  ## Rahmenbedingungen
+
+  Sie müssen diese Programmieraufgabe im _TypeScript Playground_ lösen, den Sie unter [https://bit.ly/tsplayg](https://bit.ly/tsplayg) finden. Verwenden Sie TypeScript als Programmiersprache und _p5js_ als Grafikbibliothek.
+
+  Sie dürfen andere Übungsbeispiele aus dem Playground als Inspiration oder Vorlage verwenden. Während der Leistungsfeststellung haben Sie jedoch keinen Zugriff auf die von Ihnen selbst erstellten Beispiele.
+
+  ## Aufgabenstellungen
+
+  Schreiben Sie ein Programm, das **zwei Blumen nebeneinander** zeichnet.
+
+  Die punktierten Hilfslinien und Maßangaben in der Abbildung dienen nur zur Verdeutlichung der Abstände und Symmetrien. Ihr Programm darf diese Hilfslinien **nicht** zeichnen.
+
+  ### Rechte Blume (einfach)
+
+  * Zeichnen Sie die rechte Blume möglichst exakt so, wie in der Abbildung oben dargestellt (Sie können andere Farben wählen).
+  * Achten Sie auf die angegebenen Durchmesser und Abstände.
+  * Verwenden Sie einen Kreisbogen (`arc`) für den "Stängel". Hier gibt es keine genauen Angaben zu den Maßen. Orientieren Sie sich an der Abbildung und versuchen Sie, den Stängel ähnlich zu zeichnen.
+  * Die rechte Blume ist sowohl horizontal als auch vertikal symmetrisch. Das bedeutet, dass der obere und der untere Teil der Blume spiegelbildlich sind, ebenso wie der linke und der rechte Teil.
+
+  ### Linke Blume (anspruchsvoller)
+
+  * Zeichnen Sie die linke Blume möglichst exakt so, wie in der Abbildung oben dargestellt (Sie können andere Farben wählen).
+  * Achten Sie auf die angegebenen Durchmesser und Abstände.
+  * Bzgl. des Stängels gelten die gleichen Anforderungen wie bei der rechten Blume.
+  * Die linke Blume ist nur vertikal symmetrisch. Das bedeutet, dass der obere und der untere Teil der Blume spiegelbildlich sind, der linke und der rechte Teil jedoch nicht.
+
+  ## Wesentliche Aufgabenbereiche
+
+  Um die Prüfung zu bestehen, müssen Sie in allen wesentlichen Bereichen die Anforderungen überwiegend erfüllen. Die wesentlichen Bereiche sind:
+
+  * Schreiben von funktionsfähigem TypeScript-Code (Sequenzen, `setup`-Funktion)
+  * Umgang mit Koordinaten
+  * Zeichnen von einfachen Formen (Kreise, Kreisbögen) mit p5js
+  * Arbeiten mit Farben für Umrisse und Füllungen
+
+  Wenn Sie nur die rechte Blume zeichnen und dabei alle wesentlichen Aufgabenbereiche überwiegend erfüllen, reicht das aus, um die Prüfung zu bestehen.
+files:
+  "index.ts":
+    content: |
+      // <<< ADD CONSTANTS HERE (if you need them)
+
+      function setup() {
+        // <<< ADD YOUR CODE HERE
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js" integrity="sha512-lvddmeF7aHRJwdbJeYThWd5kWSjTrXBzCRF/jYROiHzmhMJ1dEXfGH5Q7ft0yhizXTopAETG03s5ajTflauijA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          {{topScripts}}
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+            }
+          </style>
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
