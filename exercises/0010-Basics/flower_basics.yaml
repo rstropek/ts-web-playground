@@ -6,7 +6,7 @@ descriptionMd: |
 
   You are part of a team building a comic-style leisure game. Your task is to write a TypeScript algorithm that draws flowers. Some properties of the flowers have been specified precisely by designers; others you may decide yourself.
   
-  ![Flowers](./flower_basics.png)
+  ![Flowers](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0010-Basics/flower_basics.png)
   
   ## Constraints
   
