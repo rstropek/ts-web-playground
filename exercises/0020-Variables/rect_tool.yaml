@@ -1,0 +1,64 @@
+title: "Rect Tool (Exam)"
+descriptionMd: |
+  # Rect Tool
+
+  ## Introduction
+
+  Imagine you are part of a team working on a graphical design application. Your task is to implement a tool that allows users to create rectangles on the canvas.
+
+  ## Minimum Requirements
+
+  To pass the exam, you need to meet the following requirements:
+
+  1. **Draw the rectangle:** As the user moves the mouse, a rectangle should appear centered on the canvas. If the size of the canvas changes (i.e. parameter for the method _createCanvas_ are changed), the rectangle must stay centered, ensuring a responsive design.
+
+  2. **Control Rectangle Size:** The width and height of the rectangle are controlled by the mouse's position. The width is the distance between the mouse's X-coordinate and the canvas center, multiplied by two. Similarly, the height is the distance between the mouse's Y-coordinate and the canvas center, also multiplied by two.
+
+  3. **Display the Area:** In the bottom left corner of the canvas, display the area of the rectangle in the format: _Area: 123_ (where _123_ is the calculated area). The area of the rectangle can be calculated using the formula: _width × height_.
+
+  ![Minimum Requirements](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/rect_tool_minimum.gif?raw=true)
+
+  ## Advanced Requirements
+
+  For a higher score, implement the following additional features:
+
+  1. **Crossing Lines:** Draw two diagonal lines through the center of the rectangle that divide it into four equal quadrants.
+
+  2. **Snap to Grid:** The rectangle's dimensions must snap to a grid size of 20 pixels. This means the rectangle's width and height should always be multiples of 20 (e.g., 0, 20, 40, etc.).
+
+  3. **Display Dimensions:**
+
+      * **Width:** Display the value of the width next to the left side of the rectangle's centerline. The text should be directly aligned to the left of the center of the shape.
+      * **Height:** Display the value of the height above the top center of the rectangle.
+      * **Tip (optional, not mandatory):** For right-aligned text, you can use _textAlign(RIGHT);_ before calling the _text(...)_ function.
+
+  4. **Color the Sides:** Draw each side of the rectangle in a different color (e.g., top: red, right: green, bottom: blue, left: yellow).
+
+      ![Minimum Requirements](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/rect_tool_final.gif?raw=true)
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0020-Variables/rect_tool.ts"
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          createCanvas(400, 200);
+          background("black");
+          angleMode(DEGREES);
+      }
+
+      // <<< Add the function `mouseMoved` with the required code here
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
