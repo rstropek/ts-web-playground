@@ -1,0 +1,148 @@
+title: "Bouncing Diamond (Exam)"
+descriptionMd: |
+  # Bouncing Diamond
+
+  Your task is to create a variant of the _Bouncing Ball_ exercise, but this time with a diamond shape that moves diagonally across the canvas. The diamond should bounce off the walls of the canvas and include a countdown counter that decreases each time the diamond bounces. The exercise is divided into multiple levels of increasing complexity. You must complete each level before moving on to the next.
+
+  ![Bouncing Diamond](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/bouncing-diamond.gif?raw=true)
+
+  ## General Requirements (All Levels)
+
+  - Canvas size: 300 x 300 pixels
+  - Choose a background color of your choice
+  - Diamond size: 50 pixels (distance from center to any vertex)
+  - Diamond stroke: color of your liking
+  - Diamond fill: none
+  - Starting position: center of diamond at top-middle of canvas (x: width / 2, y: diamond height / 2)
+  - Starting direction: SE (southeast) at 45 degrees
+  - Speed: 2 pixels per frame in both X and Y direction
+
+  ## Minimum Requirements: Basic Diamond with Countdown (50 points)
+  
+  ![Bouncing Diamond](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/bouncing-diamond-minimal.gif?raw=true)
+
+  Solve these requirements to pass the exam.
+
+  - Draw a diamond shape using four lines connecting vertices (top, right, bottom, left)
+  - Diamond moves diagonally across the canvas
+  - Diamond bounces off walls when its **center** touches any edge
+  - Bouncing inverts the appropriate direction (X or Y)
+  - Diamond starts at specified position moving SE
+  - Display a counter that starts at **10**
+  - Counter is displayed at the center of the diamond
+  - Counter **decreases by 1** each time the diamond bounces off any wall
+  - Counter alignment: centered both horizontally and vertically
+
+  ## Level 1: Stop on Zero
+
+  - When the counter reaches **0**, the diamond **stops moving**
+  - The diamond remains visible at its final position
+  - The counter continues to display 0
+  - Before reaching 0, the diamond behaves normally
+
+  ## Level 2: Vertex-Based Collision
+
+  - Change collision detection from center-based to **vertex-based**
+  - Diamond bounces when any of its four vertices touches a wall
+  - All other behavior remains the same (countdown, stop at zero)
+
+  ## Level 3: Flight Direction Highlighting
+
+  - The edge of the diamond in the direction of flight is highlighted in **red**
+  - All other edges remain **white** (or whatever stroke color you chose)
+  - The highlighted edge changes dynamically as the diamond changes direction
+  - Direction mapping:
+    - Flying NE (northeast): top-right edge is red
+    - Flying SE (southeast): right-bottom edge is red
+    - Flying SW (southwest): bottom-left edge is red
+    - Flying NW (northwest): left-top edge is red
+
+  Good luck! 🚀
+
+  ---
+
+  # Bouncing Diamond
+
+  Deine Aufgabe ist es, eine Variante der _Bouncing Ball_ Übung zu erstellen, diesmal aber mit einer Rautenform ("Diamant"), die sich diagonal über den Canvas bewegt. Der Diamant soll von den Wänden der Leinwand abprallen und einen Countdown-Zähler enthalten, der bei jedem Abprallen des Diamanten abnimmt. Die Übung ist in mehrere Schwierigkeitsstufen unterteilt, die zunehmend komplexer werden. Du musst jede Stufe abschließen, bevor du zur nächsten übergehst.
+
+  ![Bouncing Diamond](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/bouncing-diamond.gif?raw=true)
+
+  ## Allgemeine Anforderungen (Alle Stufen)
+
+  - Leinwandgröße: 300 x 300 Pixel
+  - Wähle eine Hintergrundfarbe deiner Wahl
+  - Diamantgröße: 50 Pixel (Entfernung vom Zentrum zu jedem Eckpunkt)
+  - Diamant-Umrandung: Farbe deiner Wahl
+  - Diamant-Füllung: keine
+  - Startposition: Zentrum des Diamanten oben-mittig auf der Leinwand (x: _width / 2_, y: _diamond size_)
+  - Startrichtung: SO (Südost) bei 45 Grad
+  - Geschwindigkeit: 2 Pixel pro Frame in X- und Y-Richtung
+
+  ## Mindestanforderungen: Basis-Diamant mit Countdown (50 Punkte)
+  
+  ![Bouncing Diamond](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0030-Conditions/bouncing-diamond-minimal.gif?raw=true)
+
+  Löse diese Anforderungen, um die Prüfung zu bestehen.
+
+  - Zeichne eine Rautenform mit vier Linien, die die Eckpunkte verbinden (oben, rechts, unten, links)
+  - Der Diamant bewegt sich diagonal über die Leinwand
+  - Der Diamant prallt von den Wänden ab, wenn sein **Zentrum** einen Rand berührt
+  - Abprallen invertiert die entsprechende Richtung (X oder Y)
+  - Der Diamant startet an der angegebenen Position und bewegt sich nach SO
+  - Zeige einen Zähler an, der bei **10** startet
+  - Der Zähler wird im Zentrum des Diamanten angezeigt
+  - Der Zähler **verringert sich um 1** jedes Mal, wenn der Diamant von einer Wand abprallt
+  - Zähler-Ausrichtung: horizontal und vertikal zentriert
+
+  ## Level 1: Stopp bei Null
+
+  - Wenn der Zähler **0** erreicht, **stoppt der Diamant**
+  - Der Diamant bleibt an seiner Endposition sichtbar
+  - Der Zähler zeigt weiterhin 0 an
+  - Vor Erreichen von 0 verhält sich der Diamant normal
+
+  ## Level 2: Eckpunkt-basierte Kollisionserkennung
+
+  - Ändere die Kollisionserkennung von zentrumsbasiert zu **eckpunktbasiert**
+  - Der Diamant prallt ab, wenn einer seiner vier Eckpunkte eine Wand berührt
+  - Alle anderen Verhaltensweisen bleiben gleich (Countdown, Stopp bei Null)
+
+  ## Level 3: Hervorhebung der Flugrichtung
+
+  - Die Kante des Diamanten in Flugrichtung wird **rot** hervorgehoben
+  - Alle anderen Kanten bleiben **weiß** (oder in der von dir gewählten Umrandungsfarbe)
+  - Die hervorgehobene Kante ändert sich dynamisch, wenn der Diamant die Richtung ändert
+  - Richtungszuordnung:
+    - Flug NO (Nordost): obere rechte Kante ist rot
+    - Flug SO (Südost): rechte untere Kante ist rot
+    - Flug SW (Südwest): untere linke Kante ist rot
+    - Flug NW (Nordwest): linke obere Kante ist rot
+
+  Viel Erfolg! 🚀
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0030-Conditions/bouncing-diamond.ts"
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          createCanvas(300, 300);
+      }
+
+      function draw() {
+          background("gold");
+      }
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+          </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
