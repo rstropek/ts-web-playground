@@ -1,0 +1,123 @@
+title: "Bubble Launcher (Exam)"
+descriptionMd: |
+  # Bubble Launcher
+
+  ## Starter Code
+
+  ![Starter Animation](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/bubble-launcher-start.gif)
+
+  The starter code animates a bubble horizontally across the canvas, bouncing off the left and right edges. Before you start coding, make yourself familiar with the existing code.
+
+  ## Minimum Requirements
+
+  ![Minimum Requirements](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/bubble-launcher-minimal.gif)
+
+  Whenever the user clicks anywhere on the canvas, add an additional, animated bubble that moves in the same way as the original bubble.
+
+  - Horizontally, each new bubble must start on the left edge inside the gray rectangle.
+  - Vertically, each new bubble must start on a random position within the canvas height.
+  - The animation must start immediately after the user clicks.
+
+  To complete this task, you must convert the existing variables into arrays and draw the bubbles inside a loop.
+
+  ## Additional Logic
+
+  - Add a condition so that clicks **outside the canvas are ignored**.
+  - Choose the random vertical position so that each bubble is **fully visible** within the canvas (i.e., it should not be cut off at the top or bottom edges).
+
+  ## Launcher
+
+  ![Launcher](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/bubble-launcher-final.gif)
+
+  The final step is to launch the bubble at the vertical position of the mouse cursor.
+
+  Draw a "launch indicator" inside the gray rectangle. The "launch indicator" is a bubble that moves up and down vertically within the gray rectangle, indicating where the next bubble will be launched from when the user clicks. It's Y position follows the mouse's Y position, but is constrained to stay fully within the gray rectangle.
+
+  ---
+
+  # Bubble Launcher
+
+  ## Starter Code
+
+  ![Starter Animation](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/bubble-launcher-start.gif)
+
+  Der Starter-Code animiert eine Bubble horizontal über die Leinwand, die von den linken und rechten Rändern abprallt. Bevor Sie mit dem Programmieren beginnen, machen Sie sich mit dem vorhandenen Code vertraut.
+
+  ## Mindestanforderungen
+
+  ![Minimum Requirements](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/bubble-launcher-minimal.gif)
+
+  Fügen Sie jedes Mal, wenn der Benutzer irgendwo auf den Canvas klickt, eine zusätzliche, animierte Bubble hinzu, die sich genauso bewegt wie die ursprüngliche Bubble.
+
+  - Horizontal muss jede neue Bubble am linken Rand innerhalb des grauen Rechtecks beginnen.
+  - Vertikal muss jede neue Bubble an einer zufälligen Position innerhalb der Leinwandhöhe beginnen.
+  - Die Animation muss sofort nach dem Klicken des Benutzers beginnen.
+
+  Um diese Aufgabe zu erfüllen, müssen Sie die vorhandenen Variablen in Arrays umwandeln und die Bubbles in einer Schleife zeichnen.
+
+  ## Zusätzliche Logik
+
+  - Fügen Sie eine Bedingung hinzu, damit Klicks **außerhalb des Canvas ignoriert werden**.
+  - Wählen Sie die zufällige vertikale Position so, dass jede Bubble **vollständig sichtbar** innerhalb des Canvas ist (d.h. sie sollte nicht am oberen oder unteren Rand abgeschnitten werden).
+
+  ## Launcher
+
+  ![Launcher](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/bubble-launcher-final.gif)
+
+  Der letzte Schritt besteht darin, die Bubble an der vertikalen Position des Mauszeigers zu starten.
+
+  Zeichnen Sie einen "Start-Indikator" innerhalb des grauen Rechtecks. Der "Start-Indikator" ist eine Bubble, die sich vertikal innerhalb des grauen Rechtecks auf und ab bewegt und anzeigt, von wo aus die nächste Bubble beim Klicken gestartet wird. Ihre Y-Position folgt der Y-Position der Maus, ist jedoch so beschränkt, dass sie vollständig innerhalb des grauen Rechtecks bleibt.
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/bubble-launcher.ts"
+files:
+  "index.ts":
+    content: |
+      let circleX: number = 0;
+      let circleY: number = 150;
+      let direction: number = 1;
+
+      const SPEED: number = 2;
+      const RADI: number = 10;
+      const DIAM: number = RADI * 2;
+
+      function setup() {
+          createCanvas(500, 300);
+      }
+
+      function draw() {
+          background("white");
+
+          fill('lightgray');
+          stroke('darkgray');
+          rect(0, 0, DIAM, height);
+
+          fill('yellow');
+          stroke('gold');
+
+          circle(circleX, circleY, DIAM);
+
+          circleX += SPEED * direction;
+          if (circleX - RADI < 0 || circleX + RADI > width) {
+              direction *= -1;
+              circleX = max(RADI, min(width - RADI, circleX));
+          }
+      }
+
+      function mouseClicked() {
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
