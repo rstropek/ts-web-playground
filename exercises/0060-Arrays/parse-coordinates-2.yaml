@@ -1,0 +1,60 @@
+title: "Parse Coordinates 2"
+descriptionMd: |
+  # Parse Coordinates 2
+
+  This exercise is a follow-up to the _Parse Coordinates_ exercise. **You must complete the original exercise before working on this one.**
+
+  In this exercise, you have to _parse_ a string containing coordinates of points. Instead of drawing circles, you will connect consecutive points with lines to create a shape.
+
+  The starter code contains a string that represents the coordinates of points. Each point is defined by a pair of numbers separated by a comma. The first number is the x-coordinate, the second number is the y-coordinate. The coordinates of the points are separated by a space. For example, the string _"50,50 150,100 100,200"_ defines three points. The first point is at position (50,50), the second point is at position (150,100), and so on.
+
+  Your task is to connect these points with lines. Each line connects two consecutive points. The end point of one line becomes the start point of the next line. This creates a connected sequence of lines (similar to a polyline, but drawn with separate _line()_ calls).
+
+  The output of this exercise must be a hexagon:
+
+  ![Parse Coordinates 2](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/parse-coordinates-2.png)
+
+  You **must not** extract the coordinates manually. You have to write code that **extracts the coordinates from the string**. In this exercise, you **must not use the _split_ function**.
+
+  To solve this exercise, follow these steps:
+
+  1. Start by extracting the first two points from the string and draw a single line between them.
+  2. Find a solution that extracts all points in a loop and draws lines connecting consecutive points. Remember: The end point of one line becomes the start point of the next line.
+
+  **Tip:** If you have a string containing the digits of a number (e.g. _"42"_), you can convert it to a number using the _parseInt_ function. For example, _parseInt("42")_ returns the number 42.
+
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/parse-coordinates-2.ts"
+files:
+  "index.ts":
+    content: |
+      // The following string represents coordinates (x,y) of points
+      // that you have to connect with lines. Each line connects two consecutive points.
+      const points = "200,100 300,150 300,250 200,300 100,250 100,150 200,100";
+
+      function setup() {
+          createCanvas(400, 400);
+          background("white");
+          noFill();
+          stroke("black");
+          strokeWeight(3);
+
+          // <<< Add your code here
+      }
+
+    isEditable: true
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
