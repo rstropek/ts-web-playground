@@ -24,7 +24,6 @@ descriptionMd: |
   **Tip:** If you have a string containing the digits of a number (e.g. _"42"_), you can convert it to a number using the _parseInt_ function. For example, _parseInt("42")_ returns the number 42.
 
 
-sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/parse-coordinates-2.ts"
 files:
   "index.ts":
     content: |
