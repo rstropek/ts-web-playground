@@ -16,37 +16,35 @@ function setup() {
     let isFirstPoint = true; // Track if we're parsing the very first point
 
     for (let ix = 0; ix < points.length; ix++) {
-        switch (points[ix]) {
-            case ",":
-                // We found a comma, so the current x coordinate is complete.
-                x2 = parseInt(coordinates);
-                coordinates = "";
-                break;
-            case " ":
-                // We found a space, so the current y coordinate is complete.
-                y2 = parseInt(coordinates);
-                
-                if (!isFirstPoint) {
-                    // Draw a line from the previous point to the current point.
-                    line(x1, y1, x2, y2);
-                }
-                
-                // The current end point becomes the next start point.
-                x1 = x2;
-                y1 = y2;
-                isFirstPoint = false;
-                coordinates = "";
-                break;
-            default:
-                // If the character is not a comma or a space, it must be a number.
-                // We append the character to the buffer that will be parsed
-                // with _parseInt_ later.
-                coordinates += points[ix];
-                break;
+        let ch = points[ix];
+
+        if (ch === ",") {
+            // Comma means x coordinate is finished
+            x2 = parseInt(coordinates);
+            coordinates = "";
+        } 
+        else if (ch === " ") {
+            // Space means y coordinate is finished
+            y2 = parseInt(coordinates);
+
+            if (!isFirstPoint) {
+                // Draw a line from the previous point to the current point
+                line(x1, y1, x2, y2);
+            }
+
+            // Current point becomes the next start point
+            x1 = x2;
+            y1 = y2;
+            isFirstPoint = false;
+            coordinates = "";
+        } 
+        else {
+            // Otherwise, it's a digit → add it to the buffer
+            coordinates += ch;
         }
     }
 
-    // The last point has not been processed because there is no space after it.
+    // Process the last point (no space after it)
     y2 = parseInt(coordinates);
     line(x1, y1, x2, y2);
 }
