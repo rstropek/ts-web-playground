@@ -1,0 +1,80 @@
+title: "Ratio Visualizer"
+descriptionMd: |
+  # Ratio Visualizer
+
+  In this exercise you will visualize a random number between 0 and 100
+  as a grid of circles, similar to a progress bar, but in 2D.
+
+  ![Ratio Visualizer](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/ratio_visualizer.png)
+
+  ## Your Task
+
+  A 10x10 grid represents 100 units. A random number `n` determines how many
+  circles are colored. Circles are counted **left-to-right, top-to-bottom**,
+  so the first `n` circles are filled and the rest are empty.
+
+  Write two functions (you decide on names and parameters):
+
+  1. A function that **determines whether a given circle should be colored**,
+     based on its position in the grid and the random number.
+
+  2. A function that **draws a single circle** at the current origin,
+     styled differently depending on whether it is colored or not.
+
+  ## In `setup()`
+
+  Once your functions are ready, add the drawing logic:
+
+  1. Display the random number as a title (centered, near the top)
+  2. Use `translate` to move the origin to the center of the first circle
+  3. Draw all 100 circles in a nested loop using your two functions
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/ratio_visualizer.ts"
+files:
+  "index.ts":
+    content: |
+      // A grid of 10x10 circles represents 100 units.
+      // A random number n (0–100) determines how many circles are "filled".
+      // Circles are counted left-to-right, top-to-bottom.
+
+      // Canvas / layout constants
+      const COLS = 10;
+      const ROWS = 10;
+      const CELL_SIZE = 46;  // distance between circle centers
+      const MARGIN = 10;
+      const TITLE_HEIGHT = 35;
+
+      // Colors
+      const COLOR_FILLED = "steelblue";
+      const COLOR_EMPTY = "lightgray";
+      const COLOR_STROKE = "white";
+
+      // The random number we want to visualize (0–100)
+      let randomNumber: number;
+
+      // <<< Add your functions here
+
+      function setup(): void {
+          createCanvas(COLS * CELL_SIZE + 2 * MARGIN, ROWS * CELL_SIZE + TITLE_HEIGHT + MARGIN);
+          randomNumber = Math.floor(Math.random() * 101);
+          background("white");
+
+          // <<< Add your logic here
+      }
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
