@@ -5,7 +5,7 @@ descriptionMd: |
   In this exercise you will visualize a random number between 0 and 100
   as a grid of circles, similar to a progress bar, but in 2D.
 
-  ![Ratio Visualizer](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/ratio_visualizer.png)
+  ![Ratio Visualizer](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/ratio-visualizer.png)
 
   ## Your Task
 
@@ -29,7 +29,7 @@ descriptionMd: |
   2. Use `translate` to move the origin to the center of the first circle
   3. Draw all 100 circles in a nested loop using your two functions
 
-sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/ratio_visualizer.ts"
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/ratio-visualizer.ts"
 files:
   "index.ts":
     content: |
