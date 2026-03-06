@@ -1,0 +1,121 @@
+
+title: "Tally Visualizer (exam)"
+descriptionMd: |
+  # Tally Visualizer
+
+  A classic tally chart (Strichliste) is a way to visualize counts by drawing
+  groups of five strokes: four vertical lines, with a diagonal crossing through
+  them as the fifth. The grid has 10 rows x 10 groups, representing 500 total.
+
+  ![Tally Visualizer](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/tally-visualizer.png)
+
+  ![Tally Visualizer 2](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/tally-visualizer-2.png)
+
+  Write two functions (you decide on names and parameters):
+
+  1. A function that **determines how many strokes in a given group should be
+     colored**, based on the group's position in the grid and the random number.
+
+  2. A function that **draws one tally group** at the current origin, rendering
+     only the colored strokes (skip the rest entirely).
+
+  In `setup()`, generate a random number between 0 and 500, display it as a
+  title, then draw the full grid using `translate` to step through rows and
+  columns — no coordinate arithmetic needed inside the loops.
+
+  ## Minimum Requirements (sufficient to pass)
+
+  If the full grid feels too challenging, implement a simplified version:
+
+  - Generate a random number between **0 and 5** instead of 0 and 500
+  - Draw only **a single group** of five tally marks
+  - The functions are still required
+
+
+  ---
+
+  # Strichlisten-Visualisierer
+
+  Eine klassische Strichliste visualisiert Zählwerte durch Gruppen von fünf
+  Strichen: vier senkrechte Linien, die durch einen diagonalen Strich als
+  fünften ergänzt werden. Das Raster hat 10 Zeilen x 10 Gruppen und steht
+  damit für insgesamt 500 Striche.
+
+  Schreibe zwei Funktionen (Namen und Parameter darfst du selbst wählen):
+
+  1. Eine Funktion, die **bestimmt, wie viele Striche einer bestimmten Gruppe
+     eingefärbt werden sollen**, abhängig von der Position der Gruppe im Raster
+     und der Zufallszahl.
+
+  2. Eine Funktion, die **eine Strichgruppe am aktuellen Ursprung zeichnet**
+     und dabei nur die eingefärbten Striche darstellt (die übrigen werden
+     weggelassen).
+
+  In `setup()` erzeugst du eine Zufallszahl zwischen 0 und 500, gibst sie als
+  Titel aus und zeichnest dann das gesamte Raster mit `translate`, um durch
+  Zeilen und Spalten zu iterieren — ohne Koordinatenrechnung in den Schleifen.
+
+  ## Mindestanforderungen (zum Bestehen ausreichend)
+
+  Falls die vollständige Umsetzung zu anspruchsvoll ist, genügt eine vereinfachte Version:
+
+  - Erzeuge eine Zufallszahl zwischen **0 und 5** statt 0 und 500
+  - Zeichne nur **eine einzige Gruppe** von fünf Strichen
+  - Die Funktionen sind trotzdem erforderlich
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/tally-visualizer.ts"
+files:
+  "index.ts":
+    content: |
+      // Layout constants
+      const GROUPS_PER_ROW = 10;
+      const ROWS = 10;
+      const MARKS_PER_GROUP = 5;
+      const TOTAL = ROWS * GROUPS_PER_ROW * MARKS_PER_GROUP; // 500
+
+      const GROUP_W = 42;   // width of one tally group
+      const GROUP_H = 36;   // height of the vertical strokes
+      const COL_GAP = 10;   // gap between groups
+      const ROW_GAP = 16;   // gap between rows
+      const MARGIN = 16;
+      const TITLE_HEIGHT = 30;
+
+      const CELL_W = GROUP_W + COL_GAP;
+      const CELL_H = GROUP_H + ROW_GAP;
+
+      // Colors
+      const COLOR_FILLED = "steelblue";
+
+      // The random number to visualize (0–500)
+      let randomNumber: number;
+
+      // <<< Add your functions here
+
+      function setup(): void {
+          const canvasW = GROUPS_PER_ROW * CELL_W + 2 * MARGIN;
+          const canvasH = ROWS * CELL_H + TITLE_HEIGHT + MARGIN;
+          createCanvas(canvasW, canvasH);
+
+          randomNumber = Math.floor(Math.random() * (TOTAL + 1));
+
+          background("white");
+
+          // <<< Add your logic here
+      }
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
