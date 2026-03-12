@@ -1,0 +1,75 @@
+title: "Domino With Functions"
+descriptionMd: |
+  # Domino With Functions
+
+  ![Domino](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/domino-1.png)
+  
+  ## Starter Code
+
+  In this example, you get a starter code that draws a simple dice. The dice's surface is black and the dots are white. The number of dots is random between 1 and 6.
+
+  ## Step 1: Refactor the code to use functions
+
+  The code for drawing the dice is currently all in the _setup_ function. Refactor the code so that the logic for drawing the dots is in a separate function _drawDice_. The _setup_ function should only contain the code for drawing the dice's surface and calling the function that draws the dots.
+
+  ## Step 2: Draw a domino
+
+  A domino consists of two dice. Refactor the code again so that you have a function _drawDomino_ that draws two dice next to each other. The _setup_ function should only call the _drawDomino_ function.
+
+  Internally, _drawDomino_ should call _drawDice_ twice, once for each dice.
+
+  The number of dots on each side of the domino piece should be random between 1 and 6. The random numbers should be generated in _setup_ and passed as parameters to the _drawDomino_ function, which in turn should pass them to the _drawDice_ function.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/domino-1.ts"
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        createCanvas(200, 200);
+        background("lightgray");
+
+        const dicePointDiameter: number = 30; // Size of a dot
+        const diceSize = 200; // size of dice (width and height)
+
+        const dice = floor(random(1, 7));
+
+        // draw black dice surface
+        fill("black");
+        noStroke();
+        rect(0, 0, diceSize, diceSize);
+
+        // draw dots
+        fill("white");
+        if (dice === 1 || dice === 3 || dice === 5) {
+          circle(diceSize / 2, diceSize / 2, dicePointDiameter);
+        }
+        if (dice !== 1) {
+          circle(diceSize / 4, diceSize / 4, dicePointDiameter);
+          circle(3 * diceSize / 4, 3 * diceSize / 4, dicePointDiameter);
+        }
+        if (dice >= 4) {
+          circle(3 * diceSize / 4, diceSize / 4, dicePointDiameter);
+          circle(diceSize / 4, 3 * diceSize / 4, dicePointDiameter);
+        }
+        if (dice === 6) {
+          circle(diceSize / 4, diceSize / 2, dicePointDiameter);
+          circle(3 * diceSize / 4, diceSize / 2, dicePointDiameter);
+        }
+      }
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
