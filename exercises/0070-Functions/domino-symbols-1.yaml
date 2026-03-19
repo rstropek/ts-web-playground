@@ -1,0 +1,115 @@
+title: "Domino With Symbols"
+descriptionMd: |
+  # Domino With Symbols
+
+  ![Domino with Symbols](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/domino-symbols-1.png)
+  
+  ## Starter Code
+
+  In this example, you get a starter code that draws a random symbol. The background is black and the symbol is white. The symbol is chosen randomly from six options:
+
+  1. Square
+  2. Circle
+  3. Triangle
+  4. Star (⭐)
+  5. Heart (❤️)
+  6. Lucky Charm (🍀)
+
+  ## Step 1: Refactor the code to use functions
+
+  The code for drawing the symbol is currently all in the _setup_ function. Refactor the code so that the logic for drawing the symbol is in a separate function _drawSymbol_. The _setup_ function should only contain the code for drawing the background and calling the function that draws the symbol.
+
+  ## Step 2: Draw a domino
+
+  A domino consists of two parts with symbols. Refactor the code again so that you have a function _drawDomino_ that draws two symbols next to each other. The _setup_ function should only call the _drawDomino_ function.
+
+  Internally, _drawDomino_ should call _drawSymbol_ twice, once for each side.
+
+  The symbol on each side of the domino piece should be random between 1 and 6. The random numbers should be generated in _setup_ and passed as parameters to the _drawDomino_ function, which in turn should pass them to the _drawSymbol_ function.
+
+sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/domino-symbols-1.ts"
+files:
+  "index.ts":
+    content: |
+      function setup() {
+        createCanvas(200, 200);
+        background("lightgray");
+
+        const diceSize = 200; // size of the square (width and height)
+
+        const symbol = floor(random(1, 7));
+
+        // draw black background
+        fill("black");
+        noStroke();
+        rect(0, 0, diceSize, diceSize);
+
+        const centerX = diceSize / 2;
+        const centerY = diceSize / 2;
+        const size = 80;
+
+        // draw symbol
+        switch (symbol) {
+          case 1:
+            // Square
+            fill("white");
+            stroke("white");
+            strokeWeight(2);
+            rectMode(CENTER);
+            rect(centerX, centerY, size, size);
+            rectMode(CORNER);
+            break;
+          case 2:
+            // Circle
+            fill("white");
+            noStroke();
+            circle(centerX, centerY, size);
+            break;
+          case 3:
+            // Triangle
+            fill("white");
+            stroke("white");
+            strokeWeight(2);
+            triangle(
+              centerX, centerY - size / 2,
+              centerX - size / 2, centerY + size / 2,
+              centerX + size / 2, centerY + size / 2
+            );
+            break;
+          case 4:
+            // Star emoji ⭐
+            textAlign(CENTER, CENTER);
+            textSize(size);
+            text("⭐", centerX, centerY);
+            break;
+          case 5:
+            // Heart emoji ❤️
+            textAlign(CENTER, CENTER);
+            textSize(size);
+            text("❤️", centerX, centerY);
+            break;
+          case 6:
+            // Lucky charm emoji 🍀
+            textAlign(CENTER, CENTER);
+            textSize(size);
+            text("🍀", centerX, centerY);
+            break;
+        }
+      }
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
