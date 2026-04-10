@@ -1,0 +1,115 @@
+title: "Honeycombs"
+descriptionMd: |
+  # Honeycombs
+
+  ![Honeycombs](https://cddataexchange.blob.core.windows.net/data-exchange/htl/honeycombs.png)
+  
+  ## Starter Code
+
+  In this example, you get a starter code that instructs you to draw a single hexagon using six line() calls.
+
+  ## Preparation: Draw a single hexagon
+  
+  Follow the instructions in the starter code to draw a single hexagon. Make sure to draw it correctly, i.e., with the correct number of lines and at the correct position.
+
+  ## Step 1: Introduce a function
+
+  Refactor the code so that the drawing of a single hexagon is encapsulated in a function _drawHexagon_. The _setup_ function should only call the _drawHexagon_ function.
+
+  ## Step 2: First line
+  
+  Draw the topmost line of hexagons by calling _drawHexagon_ **in a loop**. Make sure to draw exactly the number of hexagons shown in the image above, and to position them correctly (i.e., with no gaps between them).
+
+  Note: You can either use the _translate_ function to shift the coordinate origin, or you can modify the _drawHexagon_ function to accept a position (x, y) as parameters and use those parameters in the line() calls.
+  
+  ## Step 3: Second line
+  
+  Draw the second line of hexagons. Note that the second line must be shifted horizontally to achieve the honeycomb pattern. Again, correct number and position of hexagons is important.
+  
+  ## Step 4: Nested loop
+  
+  Convert your code to use a nested loop, so that you can draw the entire honeycomb pattern. Again, make sure to draw the correct number of hexagons and to position them correctly.
+  
+  ## Step 5: Introduce a second function
+  
+  Refactor your code to introduce a second function _drawHoneycomb_, which draws the entire honeycomb pattern. The _setup_ function should only call the _drawHoneycomb_ function.
+
+  ---
+
+  # Honigwaben
+
+  ## Startercode
+
+  In diesem Beispiel erhältst du einen Startercode, der dir zeigt, wie du ein einzelnes Sechseck mit sechs line()-Aufrufen zeichnest.
+
+  ## Vorbereitung: Ein einzelnes Sechseck zeichnen
+
+  Befolge die Anweisungen im Startercode, um ein einzelnes Sechseck zu zeichnen. Achte darauf, es korrekt zu zeichnen, d.h. mit der richtigen Anzahl an Linien und an der richtigen Position.
+
+  ## Schritt 1: Eine Funktion einführen
+
+  Refaktoriere den Code so, dass das Zeichnen eines einzelnen Sechsecks in einer Funktion _drawHexagon_ gekapselt ist. Die _setup_-Funktion muss die _drawHexagon_-Funktion aufrufen.
+
+  ## Schritt 2: Erste Zeile
+
+  Zeichne die oberste Zeile von Sechsecken, indem du _drawHexagon_ **in einer Schleife** aufrufst. Achte darauf, genau die Anzahl an Sechsecken wie im Bild oben zu zeichnen und sie korrekt zu positionieren (d.h. ohne Lücken zwischen ihnen).
+
+  Hinweis: Du kannst entweder die _translate_-Funktion verwenden, um den Koordinatenursprung zu verschieben, oder die _drawHexagon_-Funktion so anpassen, dass sie eine Position (x, y) als Parameter akzeptiert und diese in den line()-Aufrufen verwendet.
+
+  ## Schritt 3: Zweite Zeile
+
+  Zeichne die zweite Zeile von Sechsecken. Beachte, dass die zweite Zeile horizontal verschoben werden muss, um das Wabenmuster zu erzeugen. Auch hier ist die korrekte Anzahl und Position der Sechsecke wichtig.
+
+  ## Schritt 4: Verschachtelte Schleife
+
+  Wandle deinen Code so um, dass er eine verschachtelte Schleife verwendet, damit du das gesamte Wabenmuster zeichnen kannst. Achte erneut darauf, die korrekte Anzahl an Sechsecken zu zeichnen und sie richtig zu positionieren.
+
+  ## Schritt 5: Eine zweite Funktion einführen
+
+  Refaktoriere deinen Code, um eine zweite Funktion _drawHoneycomb_ einzuführen, die das gesamte Wabenmuster zeichnet. Die _setup_-Funktion soll nur die _drawHoneycomb_-Funktion aufrufen.
+files:
+  "index.ts":
+    content: |
+      function setup() {
+          createCanvas(450, 370);   // create a 450×370 px drawing surface
+          background("black");      // fill the canvas with black
+          stroke("yellow");         // all future lines will be yellow
+                                    // (no fill() call → shapes are outlines only)
+      
+          // Move the coordinate origin 10 px right and 10 px down.
+          // Every subsequent drawing call is now relative to (10, 10),
+          // giving us a small margin around the hive.
+          translate(10, 10);
+      
+          // Draw a single hexagon using six line() calls.
+          //
+          // Vertex layout (pixel coordinates, origin = top-left of bounding box):
+          //
+          //          (20,0) ──────── (45,0)
+          //         /                      \
+          //      (0,25)                  (65,25)
+          //         \                      /
+          //          (20,50) ──────── (45,50)
+          //
+          // Each line() call: line(x1, y1, x2, y2)
+          // <<< ADD YOUR CODE HERE >>>
+      }
+      
+      // <<< ADD YOUR CODE HERE >>>
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false
