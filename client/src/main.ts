@@ -51,6 +51,42 @@ backButton.addEventListener("click", () => {
 });
 clearButton.addEventListener("click", clearOutput);
 
+// Burger menu: on narrow viewports (< 1280px) the collapsible top-bar controls
+// live inside #burger-menu, toggled by the burger button.
+const burger = document.getElementById("burger")! as HTMLButtonElement;
+const burgerMenu = document.getElementById("burger-menu")! as HTMLDivElement;
+
+function setBurgerMenuOpen(open: boolean) {
+  burgerMenu.classList.toggle("open", open);
+  burger.setAttribute("aria-expanded", String(open));
+}
+
+burger.addEventListener("click", (event) => {
+  event.stopPropagation();
+  setBurgerMenuOpen(!burgerMenu.classList.contains("open"));
+});
+
+// Close after activating a menu button (the native theme <select> keeps it open
+// until a value is chosen; see the change listener where the theme is wired up).
+burgerMenu.addEventListener("click", (event) => {
+  if ((event.target as HTMLElement).closest("button")) {
+    setBurgerMenuOpen(false);
+  }
+});
+
+// Close on outside click and on Escape.
+document.addEventListener("click", (event) => {
+  const target = event.target as Node;
+  if (!burgerMenu.contains(target) && target !== burger) {
+    setBurgerMenuOpen(false);
+  }
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    setBurgerMenuOpen(false);
+  }
+});
+
 localSaves.addEventListener("click", () => {
   const dialog = document.getElementById("saveDialog")! as HTMLDialogElement;
   const localSaveSelect = document.getElementById("localSaveSelect")! as HTMLSelectElement;
@@ -486,6 +522,8 @@ for (const theme of themes) {
 }
 
 themeSelect.addEventListener("change", async function () {
+  // Close the burger menu once a theme has been picked (narrow viewports).
+  setBurgerMenuOpen(false);
   const themeName = themeSelect.value;
   let themeData = themes.find(t => t.id === themeName)!.themeData as monaco.editor.IStandaloneThemeData;
 

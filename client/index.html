@@ -18,13 +18,16 @@
   <div id="app-container">
     <div id="top-bar">
       <div class="left">
-        <button id="back">Back</button>
+        <button id="burger" aria-label="Menu" aria-expanded="false">☰</button>
         <select id="fileNames"></select>
         <button id="run">Run</button>
-        <button id="save">Save to Cloud</button>
-        <button id="localSaves">Local saves</button>
-        <button id="loadSolution">Load Solution</button>
-        <select id="theme"></select>
+        <div id="burger-menu">
+          <button id="back">Back</button>
+          <button id="save">Save to Cloud</button>
+          <button id="localSaves">Local saves</button>
+          <button id="loadSolution">Load Solution</button>
+          <select id="theme"></select>
+        </div>
       </div>
       <div class="centered">
         <div id="title">no exercise title</div>
