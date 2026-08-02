@@ -15,7 +15,7 @@ descriptionMd: |
   Modify your code as follows:
 
   1. Create an array of images for the worm sprites (similar to the _images_ array for the background images).
-  2. Load **all** the worm images (_Moving_00.png_ to _Moving_39.png_) in the _preload()_ function. Add the images to the array you created in step 1.
+  2. Load **all** the worm images (_Moving_00.png_ to _Moving_39.png_) in the asynchronous _setup()_ function using `await loadImage(...)`. Add the images to the array you created in step 1.
   3. Add a variable to store the current frame of the worm animation. Initialize it with 0.
   4. In the _draw()_ function, draw the current frame of the worm animation. It must be horizontally centered and vertically placed on the "ground" of our background image.
   5. Whenever the user presses a cursor key, switch to the next frame of the worm animation by increasing the variable you created in step 3. Make sure to wrap around when you reach the last frame (modulos operation (_%_) or _if_ statement).
@@ -51,16 +51,13 @@ files:
       const SCROLL_SPEED = 5;
       let scrollPosition = 0;
 
-      function preload() {
+      async function setup() {
           const theme = themes[THEME_IX];
-          for (let i = 0; i < theme.length; i++) {
-              const imageName = theme[i];
-              const image = loadImage(`${BASE_URL}/${themeNames[THEME_IX]}/${imageName}`);
-              images.push(image);
-          }
-      }
+          const backgroundImages = await Promise.all(
+              theme.map(imageName => loadImage(`${BASE_URL}/${themeNames[THEME_IX]}/${imageName}`))
+          );
+          images.push(...backgroundImages);
 
-      function setup() {
           createCanvas(500, 500);
 
           backgroundScale = width / images[0].width;

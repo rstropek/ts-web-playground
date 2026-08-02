@@ -33,17 +33,11 @@ files:
       const ballDiameter = 50;
 
       /**
-      * p5.js preload function - loads all game assets before starting
-      * Loads tree and ornament images
+      * p5.js setup function - loads all game assets and initializes the canvas
       */
-      function preload() {
-        // <<< Add your code here
-      }
+      async function setup() {
+        // <<< Load the tree and ornament images here using await loadImage(...)
 
-      /**
-      * p5.js setup function - initializes canvas
-      */
-      function setup() {
         createCanvas(400, 408);
       }
 

@@ -40,11 +40,6 @@ files:
 
       // Tracks the maximum width of any row in the level for canvas sizing
       let maxWidth = 0;
-      function preload() {
-          // <<< Add code to load all images from the imageNames array
-
-          // <<< Add code to parse the level string into a 2D array
-      }
 
       /**
       * Returns the appropriate image for a given tile type
@@ -59,7 +54,11 @@ files:
       // Size of each cell in pixels
       const cellSize = 64;
 
-      function setup() {
+      async function setup() {
+          // <<< Add code to load all images from the imageNames array using await loadImage(...)
+
+          // <<< Add code to parse the level string into a 2D array
+
           // <<< Add code to create a canvas sized to fit the level dimensions
 
           // <<< Add code to draw level

@@ -21,17 +21,15 @@ let verticalPosition = 0;
 let verticalVelocity = 0;
 let isJumping = false;
 
-function preload() {
+async function setup() {
     const theme = themes[THEME_IX];
-    for (const imageName of theme) {
-        const image = loadImage(getImageUrl(THEME_IX, imageName));
-        images.push(image);
-    }
+    const backgroundImages = await Promise.all(
+        theme.map(imageName => loadImage(getImageUrl(THEME_IX, imageName)))
+    );
+    images.push(...backgroundImages);
 
-    hatiImage = loadImage(getFigureUrl(HATI));
-}
+    hatiImage = await loadImage(getFigureUrl(HATI));
 
-function setup() {
     createCanvas(CANVAS_SIZE, CANVAS_SIZE);
 
     backgroundScale = width / images[0].width;
@@ -143,4 +141,3 @@ function draw() {
     // );
     // pop();
 }
-

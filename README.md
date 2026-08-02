@@ -61,7 +61,7 @@ Open an exercise by passing its raw YAML URL:
 http://localhost:5173/playground/?exerciseUrl=https%3A%2F%2Fraw.githubusercontent.com%2Frstropek%2Fts-web-playground%2Fmain%2Fexercises%2F0010-Basics%2Fshapes.yaml
 ```
 
-In this mode `/me` and `/github/*` have no backing server, so cloud save is unavailable and exercise loading falls back to a direct cross-origin request. Exercises that use `{{p5Source}}` also expect `/libs/p5.min.js`, which the Express server normally serves; exercises with their own CDN script can run standalone.
+In this mode `/me` and `/github/*` have no backing server, so cloud save is unavailable and exercise loading falls back to a direct cross-origin request. All repository exercises use `{{p5Source}}` and therefore expect `/libs/p5.min.js`, which the Express server normally serves. To run their sketches from the client-only Vite server, expose the installed `p5/lib/p5.min.js` at that path on the client origin.
 
 ### Run the full platform
 
@@ -143,6 +143,7 @@ Important contracts:
 - `index.ts` and `index.html` are assumed by the client and should always exist.
 - All `.ts` files are compiled. Emitted scripts other than `index.js` replace `{{topScripts}}`; `index.js` replaces `{{bodyScripts}}`.
 - `{{p5Source}}` resolves to the current origin's `/libs/p5.min.js`.
+- The platform uses p5.js 2. Asset loaders return promises, so load assets in an `async function setup()` with `await loadImage(...)`, `await loadFont(...)`, and similar calls; p5.js 1's `preload()` lifecycle is not available.
 - `descriptionMd` is rendered with Marked and sanitized with DOMPurify. HTTPS images in the rendered HTML are routed through the authenticated image proxy.
 - `isEditable` controls Monaco read-only state and whether a file is saved to GitHub.
 - `sampleSolution` enables the destructive “Load Solution” action for `index.ts`.
@@ -153,7 +154,7 @@ For a quick end-to-end check, run the client and substitute the new raw URL in t
 
 ## Runtime behavior
 
-- The client bundles p5 and TypeScript declaration files into `client/src/p5-dts.ts` and `client/src/ts-dts.ts` for Monaco and the browser compiler.
+- The client bundles p5's built-in global declarations and TypeScript declaration files into `client/src/p5-dts.ts` and `client/src/ts-dts.ts` for Monaco and the browser compiler.
 - Compilation uses the TypeScript compiler API with ESNext output and bundler module resolution. Diagnostics are displayed but do not block iframe creation.
 - Generated HTML runs from a blob URL in an unsandboxed iframe. Treat exercise code as trusted: it is not an isolation boundary from the parent application.
 - Console calls in the iframe are forwarded to the parent with `postMessage` and shown in the output pane.

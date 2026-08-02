@@ -19,17 +19,15 @@ files:
       //               v
       let necromancer: p5.Image;
 
-      // preload is an important method for p5. Use it to load
-      // images from the internet using the method "loadImage"
-      function preload() {
+      // setup can be asynchronous in p5. Use await to load
+      // images from the internet using the method "loadImage".
+      async function setup() {
           //                       +---------------------------- URL of the image to display
           //                       |           +----------------- Try Necromancer and Skeleton
           //                       |           |            +---- Try 02 and 03
           //                       v           v            v
-          necromancer = loadImage(`${BASE_URL}/Necromancer_01__WALK_000.png`);
-      }
+          necromancer = await loadImage(`${BASE_URL}/Necromancer_01__WALK_000.png`);
 
-      function setup() {
           // Adjust size of canvas to size of image.
           createCanvas(necromancer.width * IMAGE_SCALE, necromancer.height * IMAGE_SCALE);
           background("lightgray");

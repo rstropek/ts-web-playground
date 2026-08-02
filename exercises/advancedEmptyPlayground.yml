@@ -8,17 +8,11 @@ files:
       // you can omit any of the functions below if you don't need them.
       // draw() and setup() are the most common functions used in p5.js
 
-      function preload() {
-        // A function that's called once to load assets before the sketch runs.
-        // runs once automatically before setup() or draw().
-        // It's used to load assets including multimedia files, fonts, data, and 3D models
-        // https://p5js.org/reference/p5/preload
-      }
-
-      function setup() {
+      async function setup() {
         // A function that's called once when the sketch begins running.
         // runs once automatically when the sketch starts running.
-        // It's used to perform setup tasks such as creating the canvas and initializing variables
+        // It's used to perform setup tasks such as loading assets, creating the canvas,
+        // and initializing variables. Use await with asset loaders such as loadImage().
         // https://p5js.org/reference/p5/setup
 
         createCanvas(700, 500); // example: Create a canvas 700px wide and 500px high

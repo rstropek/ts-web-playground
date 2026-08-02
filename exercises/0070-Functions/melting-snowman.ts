@@ -81,12 +81,10 @@ function guessKey(key: string, wordToGuess: string, currentWordStatus: string): 
     return newCurrentWordStatus;
 }
 
-function preload() {
+async function setup() {
     // Load the font from the web
-    font = loadFont("https://cddataexchange.blob.core.windows.net/images/SyneMono-Regular.ttf");
-}
+    font = await loadFont("https://cddataexchange.blob.core.windows.net/images/SyneMono-Regular.ttf");
 
-function setup() {
     // Initially fill the currentWordStatus
     currentWordStatus = getInitialCurrentWord(wordToGuess);
 

@@ -48,19 +48,16 @@ files:
       let scaledImageWidth = 0;
       let scaledImageHeight = 0;
 
-      function preload() {
+      async function setup() {
           // Load the images for the current theme. For that, we iterate over the image names of the current theme.
           const theme = themes[THEME_IX];
-          for (let i = 0; i < theme.length; i++) {
-              const imageName = theme[i];
-              const image = loadImage(`${BASE_URL}/${themeNames[THEME_IX]}/${imageName}`);
+          const backgroundImages = await Promise.all(
+              theme.map(imageName => loadImage(`${BASE_URL}/${themeNames[THEME_IX]}/${imageName}`))
+          );
 
-              // Add the p5js image to the array of p5js images
-              images.push(image);
-          }
-      }
+          // Add the p5js images to the array of p5js images
+          images.push(...backgroundImages);
 
-      function setup() {
           createCanvas(500, 500);
 
           // Calculate the scale factor for the background images
