@@ -7,6 +7,7 @@ import * as kv from "@azure/keyvault-secrets";
 import { engine } from "express-handlebars";
 import path from "path";
 import { fileURLToPath } from "url";
+import { readFileSync } from "fs";
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 import { ensureAdmin, ensureAuthenticated, ensureAuthenticatedWithoutRedirect, getConfidentialClientApplication } from "./helpers/authHelper.js";
@@ -51,6 +52,14 @@ const cosmosDb = await getDatabase(cosmosClient, "tsweb");
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Health check with version number, e.g. to verify that a deployment has landed.
+// Must stay above all middlewares so it works even if sessions or auth are broken.
+const packageJson = JSON.parse(readFileSync(path.join(__dirname, "package.json"), "utf-8"));
+app.get("/health", (_req, res) => {
+  res.json({ status: "ok", version: packageJson.version });
+});
+
 app.engine("hbs", engine({
   extname: "hbs",
   defaultLayout: "layout",
