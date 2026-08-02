@@ -3,7 +3,7 @@ import * as kv from "@azure/keyvault-secrets";
 import session from "express-session";
 import { RedisStore } from "connect-redis";
 import logger from './logging.js';
-import { Redis } from "ioredis";
+import { createClient } from "redis";
 
 export async function getSessionMiddleware(kvClient: kv.SecretClient): Promise<express.RequestHandler | undefined> {
   const redisHostname = await kvClient.getSecret("REDIS-HOSTNAME");
@@ -40,22 +40,22 @@ export async function getSessionMiddleware(kvClient: kv.SecretClient): Promise<e
   });
 }
 
-async function getRedisClient(redisKey: string, hostname: string): Promise<Redis> {
-  //const redisToken = await credential.getToken("https://redis.azure.com/.default");
-  //const redisPrincipal = extractUsernameFromToken(redisToken!);
-  const redis = new Redis({
+async function getRedisClient(redisKey: string, hostname: string) {
+  const redis = createClient({
     username: "default",
     password: redisKey,
-    tls: {
+    socket: {
       host: hostname,
       port: 6380,
+      tls: true,
     },
-    keepAlive: 0,
   });
 
   redis.on("error", (error: Error) => {
     logger.error(error, "Redis client error");
   });
+
+  await redis.connect();
 
   // Write a value to the cache to ensure the connection is successful
   await redis.set("foo", "bar");

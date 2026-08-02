@@ -9,11 +9,11 @@
   "license": "MIT",
   "description": "Dev env for playground examples",
   "devDependencies": {
-    "@types/p5": "^1.7.6",
-    "typescript": "^5.7.2",
-    "vite": "^6.0.3"
+    "@types/p5": "^1.7.7",
+    "typescript": "~6.0.3",
+    "vite": "^8.2.0"
   },
   "dependencies": {
-    "p5": "^1.11.2"
+    "p5": "^1.11.13"
   }
 }

@@ -76,10 +76,22 @@ export class Files {
     // Convert string to ArrayBuffer
     const encoder = new TextEncoder();
     const data = encoder.encode(str);
-  
+
+    // crypto.subtle is only available in secure contexts (https or localhost).
+    // The hash is only used for change detection, so a simple FNV-1a hash
+    // is a sufficient fallback when running on plain http (e.g. LAN testing).
+    if (!crypto.subtle) {
+      let hash = 0x811c9dc5;
+      for (const byte of data) {
+        hash ^= byte;
+        hash = Math.imul(hash, 0x01000193);
+      }
+      return new Uint32Array([hash >>> 0]).buffer;
+    }
+
     // Calculate hash
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  
+
     return hashBuffer;
   }
 }

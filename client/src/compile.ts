@@ -100,7 +100,7 @@ export async function compile(files: Files): Promise<CompileResult> {
     ],
     {
       module: ts.ModuleKind.ESNext,
-      moduleResolution: ts.ModuleResolutionKind.Classic,
+      moduleResolution: ts.ModuleResolutionKind.Bundler,
       target: ts.ScriptTarget.ESNext,
       sourceMap: false,
       skipLibCheck: true,

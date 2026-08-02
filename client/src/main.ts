@@ -194,11 +194,11 @@ loadExercise(exerciseUrl).then((ex1) => {
 
   spec.innerHTML = specContent;
 
-  monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-    target: monaco.languages.typescript.ScriptTarget.ESNext,
+  monaco.typescript.typescriptDefaults.setCompilerOptions({
+    target: monaco.typescript.ScriptTarget.ESNext,
     allowSyntheticDefaultImports: true,
-    //moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-    module: monaco.languages.typescript.ModuleKind.ESNext,
+    //moduleResolution: monaco.typescript.ModuleResolutionKind.NodeJs,
+    module: monaco.typescript.ModuleKind.ESNext,
   });
 
   fetch("/me").then(async (response) => {

@@ -2,16 +2,11 @@ import p5TypeDefs from "./p5-dts";
 import { p5Image } from "./p5image";
 import * as monaco from "monaco-editor";
 
-// @ts-ignore
-import monacoJsonWorker from "monaco-editor/esm/vs/language/json/json.worker?worker";
-// @ts-ignore
-import monacoCssWorker from "monaco-editor/esm/vs/language/css/css.worker?worker";
-// @ts-ignore
-import monacoHtmlWorker from "monaco-editor/esm/vs/language/html/html.worker?worker";
-// @ts-ignore
-import monacoTsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
-// @ts-ignore
-import monacoEditorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
+import monacoJsonWorker from "monaco-editor/languages/features/json/json.worker?worker";
+import monacoCssWorker from "monaco-editor/languages/features/css/css.worker?worker";
+import monacoHtmlWorker from "monaco-editor/languages/features/html/html.worker?worker";
+import monacoTsWorker from "monaco-editor/languages/features/typescript/ts.worker?worker";
+import monacoEditorWorker from "monaco-editor/editor/editor.worker?worker";
 
 self.MonacoEnvironment = {
   getWorker: function (workerId, label) {
@@ -40,15 +35,15 @@ self.MonacoEnvironment = {
 
 for (const dts in p5TypeDefs) {
   console.log(`file:///node_modules/@types/p5/${dts}`);
-  monaco.languages.typescript.typescriptDefaults.addExtraLib(
+  monaco.typescript.typescriptDefaults.addExtraLib(
     p5TypeDefs[dts],
     `file:///node_modules/@types/p5/${dts}`
   );
 }
-monaco.languages.typescript.typescriptDefaults.addExtraLib(
+monaco.typescript.typescriptDefaults.addExtraLib(
   p5Image,
   `file:///p5image.d.ts`
 );
 
-monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
-monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
+monaco.typescript.javascriptDefaults.setEagerModelSync(true);
+monaco.typescript.typescriptDefaults.setEagerModelSync(true);

@@ -2,12 +2,11 @@ import express from "express";
 import cors from "cors";
 import pinoHTTP from "pino-http";
 import dotenv from "dotenv";
-import identity from "@azure/identity";
+import * as identity from "@azure/identity";
 import * as kv from "@azure/keyvault-secrets";
 import { engine } from "express-handlebars";
 import path from "path";
 import { fileURLToPath } from "url";
-import bodyParser from "body-parser";
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 import { ensureAdmin, ensureAuthenticated, ensureAuthenticatedWithoutRedirect, getConfidentialClientApplication } from "./helpers/authHelper.js";
@@ -103,8 +102,8 @@ if (!sessionMiddleware) {
 }
 app.use(sessionMiddleware);
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 const authMiddleware = await auth(pca, cosmosDb, kvClient);
 if (!authMiddleware) {
@@ -131,7 +130,7 @@ const proxyMiddleware = createProxyMiddleware({
   ws: true,
   on: {
     error: (err, req, res, target) => {
-      logger.error("Proxy Target could not be reached - Is the client server running?", 'Proxy Error');
+      logger.error({ err }, "Proxy Target could not be reached - Is the client server running?");
       if ('writeHead' in res) {
         res.writeHead(500, {
           'Content-Type': 'text/plain',
