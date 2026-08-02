@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test TypeScript Errors"
+  short_description: "Verify browser compiler diagnostics reliably"
+  default_prompt: "Use $test-typescript-errors to verify that the playground catches a TypeScript error."
