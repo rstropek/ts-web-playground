@@ -9,16 +9,13 @@ let scaledImageHeight = 0;
 const SCROLL_SPEED = 5;
 let scrollPosition = 0;
 
-function preload() {
+async function setup() {
     const theme = themes[THEME_IX];
-    for (let i = 0; i < theme.length; i++) {
-        const imageName = theme[i];
-        const image = loadImage(`${BASE_URL}/${themeNames[THEME_IX]}/${imageName}`);
-        images.push(image);
-    }
-}
+    const backgroundImages = await Promise.all(
+        theme.map(imageName => loadImage(`${BASE_URL}/${themeNames[THEME_IX]}/${imageName}`))
+    );
+    images.push(...backgroundImages);
 
-function setup() {
     createCanvas(500, 500);
 
     backgroundScale = width / images[0].width;

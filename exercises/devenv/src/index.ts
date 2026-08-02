@@ -1,26 +1,23 @@
-let img: any;
+let img: p5.Image;
 const tiles = 3;
 
 const tileIndexes: string[][] = [];
 
-function preload() {
-  img = loadImage('https://cddataexchange.blob.core.windows.net/data-exchange/bunny.png');
-}
-
-function setup() {
+async function setup() {
+  img = await loadImage('https://cddataexchange.blob.core.windows.net/data-exchange/bunny.png');
   createCanvas(500, 500);
 
   for (let y = 0; y < tiles; y++) {
-    const line: string[] = [];
+    const row: string[] = [];
     for (let x = 0; x < tiles; x++) {
       if (x !== tiles - 1 || y !== tiles - 1) {
-        line.push(`${x}-${y}`);
+        row.push(`${x}-${y}`);
       } else {
-        line.push('');
+        row.push('');
       }
     }
 
-    tileIndexes.push(line);
+    tileIndexes.push(row);
   }
 
   // Shuffle the tile indexes by making multiple random moves

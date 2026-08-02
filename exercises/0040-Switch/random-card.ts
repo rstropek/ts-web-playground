@@ -2,7 +2,7 @@ let cardImage: p5.Image;
 
 const BASE_URL = 'https://cddataexchange.blob.core.windows.net/images/cards';
 
-function preload() {
+async function setup() {
   let color: string;
   const colorIx = Math.floor(random(0, 4));
   switch (colorIx)
@@ -26,10 +26,8 @@ function preload() {
   card = `${card}.png`;
 
   const url = `${BASE_URL}/${color}/${card}`;
-  cardImage = loadImage(url);
-}
+  cardImage = await loadImage(url);
 
-function setup() {
   createCanvas(250, 250);
   background("darkgreen");
 

@@ -57,11 +57,8 @@ files:
       let fighterPositionX = 0;
       let fighterPositionY = 0;
 
-      function preload() {
-        fighter = loadImage("https://cddataexchange.blob.core.windows.net/images/Spaceship.png");
-      }
-
-      function setup() {
+      async function setup() {
+        fighter = await loadImage("https://cddataexchange.blob.core.windows.net/images/Spaceship.png");
         createCanvas(500, 500);
       }
 

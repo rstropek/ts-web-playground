@@ -68,12 +68,10 @@ files:
 
       const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/trains";
 
-      function preload() {
-          railroad = loadImage(`${BASE_URL}/railroad-straight.png`);
-          // <<< Load the image of a train wagon (train-carriage-wood.png)
-      }
+      async function setup() {
+          railroad = await loadImage(`${BASE_URL}/railroad-straight.png`);
+          // <<< Load the image of a train wagon (train-carriage-wood.png) using await loadImage(...)
 
-      function setup() {
           createCanvas(800, 550);
       }
       

@@ -15,22 +15,18 @@ let wormFrame = 0;
 let wormDirection = 1;
 let wormPosition = 0;
 
-function preload() {
+async function setup() {
     const theme = themes[THEME_IX];
-    for (let i = 0; i < theme.length; i++) {
-        const imageName = theme[i];
-        const image = loadImage(`${BASE_URL}/${themeNames[THEME_IX]}/${imageName}`);
-        images.push(image);
-    }
+    const backgroundImages = await Promise.all(
+        theme.map(imageName => loadImage(`${BASE_URL}/${themeNames[THEME_IX]}/${imageName}`))
+    );
+    images.push(...backgroundImages);
 
-    for (let i = 0; i < 40; i++) {
-        const imageName = `${BASE_URL}/worm/Moving_${i.toString().padStart(2, "0")}.png`;
-        const image = loadImage(imageName);
-        wormImages.push(image);
-    }
-}
+    const wormImagePromises = Array.from({ length: 40 }, (_, i) =>
+        loadImage(`${BASE_URL}/worm/Moving_${i.toString().padStart(2, "0")}.png`)
+    );
+    wormImages.push(...await Promise.all(wormImagePromises));
 
-function setup() {
     createCanvas(500, 500);
 
     backgroundScale = width / images[0].width;

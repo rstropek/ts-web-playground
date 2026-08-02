@@ -2,7 +2,6 @@ import ts from "typescript";
 import { Files } from "./files";
 import tsTypeDefs from "./ts-dts";
 import p5TypeDefs from "./p5-dts";
-import { p5Image } from "./p5image";
 
 export type CompileResult = {
   blobUrl: string;
@@ -12,6 +11,24 @@ export type CompileResult = {
 let lastBlobUrl: string | undefined;
 let lastErrorOutput: string | undefined;
 let lastHash: Uint8Array | undefined;
+
+function getP5TypeDef(fileName: string): string | undefined {
+  let normalizedFileName = fileName;
+  if (normalizedFileName.startsWith("./")) {
+    normalizedFileName = normalizedFileName.substring(2);
+  } else if (normalizedFileName.startsWith("/")) {
+    normalizedFileName = normalizedFileName.substring(1);
+  }
+
+  const prefixes = ["p5/", "node_modules/p5/types/"];
+  for (const prefix of prefixes) {
+    if (normalizedFileName.startsWith(prefix)) {
+      return p5TypeDefs[normalizedFileName.substring(prefix.length)];
+    }
+  }
+
+  return undefined;
+}
 
 function areEqual(a1: Uint8Array, a2: Uint8Array): boolean {
   if (a1.length !== a2.length) {
@@ -51,20 +68,9 @@ export async function compile(files: Files): Promise<CompileResult> {
 
       const sourceText = files.getFile(fileName)?.model.getValue();
       if (!sourceText) {
-        if (fileName.startsWith("p5/")) {
-          return ts.createSourceFile(
-            fileName,
-            p5TypeDefs[fileName.substring(3)],
-            languageVersion
-          );
-        } else if (fileName.startsWith("node_modules/@types/p5/")) {
-          return ts.createSourceFile(
-            fileName,
-            p5TypeDefs[fileName.substring(23)],
-            languageVersion
-          );
-        } else if (fileName === "p5image.d.ts") {
-          return ts.createSourceFile(fileName, p5Image, languageVersion);
+        const p5TypeDef = getP5TypeDef(fileName);
+        if (p5TypeDef !== undefined) {
+          return ts.createSourceFile(fileName, p5TypeDef, languageVersion);
         } else if (tsTypeDefs.hasOwnProperty(fileName)) {
           return ts.createSourceFile(
             fileName,
@@ -86,9 +92,16 @@ export async function compile(files: Files): Promise<CompileResult> {
     getCanonicalFileName: (fileName: any) => fileName,
     getCurrentDirectory: () => "",
     getNewLine: () => "\n",
-    fileExists: (fileName: any) => files.getFile(fileName) !== undefined,
+    fileExists: (fileName: any) =>
+      files.getFile(fileName) !== undefined ||
+      getP5TypeDef(fileName) !== undefined ||
+      tsTypeDefs.hasOwnProperty(fileName),
     readFile: (fileName: any) => {
-      return files.getFile(fileName)?.model.getValue();
+      return (
+        files.getFile(fileName)?.model.getValue() ??
+        getP5TypeDef(fileName) ??
+        tsTypeDefs[fileName]
+      );
     },
   };
 
@@ -96,7 +109,6 @@ export async function compile(files: Files): Promise<CompileResult> {
     [
       ...files.getFileNames().filter((fn) => fn.endsWith(".ts")),
       "./p5/global.d.ts",
-      "./p5image.d.ts",
     ],
     {
       module: ts.ModuleKind.ESNext,

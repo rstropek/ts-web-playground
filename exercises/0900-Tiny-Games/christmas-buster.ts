@@ -12,7 +12,7 @@ type Circle = {
     lifetime: number; // time until ball disappears
     image: p5.Image; // ball's visual appearance
   }
-  
+
   // Game state variables
   const circles: Circle[] = [];  // active ornaments
   let nextCircle = 0;           // timestamp for next ornament spawn
@@ -30,26 +30,20 @@ type Circle = {
   const ballDiameter = 50;
   
   /**
-   * p5.js preload function - loads all game assets before starting
-   * Loads tree and ornament images
+   * p5.js setup function - loads all game assets and initializes the canvas
    */
-  function preload() {
-    treeImage = loadImage(treeUrl);
-  
+  async function setup() {
+    treeImage = await loadImage(treeUrl);
+
     // Load 9 different ornament designs
-    for (let i = 1; i <= 9; i++) {
-        const url = `${baseUrl}/ball${i}.png`;
-        ballImages.push(loadImage(url));
-    }
-  }
-  
-  /**
-   * p5.js setup function - initializes canvas
-   */
-  function setup() {
+    const ballImagePromises = Array.from({ length: 9 }, (_, i) =>
+        loadImage(`${baseUrl}/ball${i + 1}.png`)
+    );
+    ballImages.push(...await Promise.all(ballImagePromises));
+
     createCanvas(400, 408);
   }
-  
+
   /**
    * p5.js draw function - main game loop
    * Handles rendering and game state updates
@@ -131,4 +125,3 @@ type Circle = {
         }
     }
   }
-  

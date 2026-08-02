@@ -4,14 +4,13 @@ const IMAGE_SCALE = 0.2;
 // Our animation will be a series of 10 images
 let necromancers: p5.Image[] = [];
 
-function preload() {
+async function setup() {
     // Load all the images.
-    for (let i = 0; i < 10; i++) {
-        necromancers.push(loadImage(`${BASE_URL}/Necromancer_01__WALK_00${i}.png`));
-    }
-}
+    const imagePromises = Array.from({ length: 10 }, (_, i) =>
+        loadImage(`${BASE_URL}/Necromancer_01__WALK_00${i}.png`)
+    );
+    necromancers.push(...await Promise.all(imagePromises));
 
-function setup() {
     createCanvas(necromancers[0].width * IMAGE_SCALE, necromancers[0].height * IMAGE_SCALE);
     frameRate(20);
 }

@@ -15,11 +15,8 @@ const controlStickRadius = 10;
 const movementRadius = 50;
 let dragging = false;
 
-function preload() {
-  fighter = loadImage("https://cddataexchange.blob.core.windows.net/images/Spaceship.png");
-}
-
-function setup() {
+async function setup() {
+  fighter = await loadImage("https://cddataexchange.blob.core.windows.net/images/Spaceship.png");
   createCanvas(500, 500);
   stickOriginX = width / 2;
   stickOriginY = height - movementRadius;
@@ -105,4 +102,3 @@ function mouseDragged() {
 function mouseReleased() {
   dragging = false;
 }
-

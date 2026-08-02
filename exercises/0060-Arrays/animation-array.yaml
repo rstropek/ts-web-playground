@@ -18,12 +18,10 @@ files:
       // Our animation will be a series of 10 images
       let necromancers: p5.Image[] = [];
 
-      function preload() {
+      async function setup() {
           // Load all the images. This is how you load a single image:
-          necromancers.push(loadImage(`${BASE_URL}/Necromancer_01__WALK_000.png`));
-      }
+          necromancers.push(await loadImage(`${BASE_URL}/Necromancer_01__WALK_000.png`));
 
-      function setup() {
           createCanvas(necromancers[0].width * IMAGE_SCALE, necromancers[0].height * IMAGE_SCALE);
 
           // You can control the speed of the animation by changing the frame rate

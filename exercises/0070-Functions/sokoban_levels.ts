@@ -84,14 +84,12 @@ let level: string[][] = [];
 let maxWidth = 0;
 
 /**
- * Preload function - runs before setup
- * Loads all required game assets and parses the level data
+ * Setup function - loads all required game assets, parses the level data,
+ * and initializes the canvas
  */
-function preload() {
+async function setup() {
     // Load all images from the imageNames array
-    for (const imageName of imageNames) {
-        images.push(loadImage(imageName));
-    }
+    images.push(...await Promise.all(imageNames.map(imageName => loadImage(imageName))));
 
     // Parse the level string into a 2D array
     for (const line of levelString.split('\n')) {
@@ -102,6 +100,28 @@ function preload() {
         }
 
         level.push(chars);
+    }
+    // Create a canvas sized to fit the level dimensions
+    createCanvas(maxWidth * cellSize, level.length * cellSize);
+    background('white');
+
+    // Iterate through each row of the level
+    for (const row of level) {
+        push();  // Save the current transformation state
+        for (const cell of row) {
+            // Only render cells that aren't empty space
+            if (cell !== '_') {
+                const img = getBlockImageBySymbol(cell);
+                image(img, 0, 0, cellSize, cellSize);
+            }
+
+            // Move to the next cell position horizontally
+            translate(cellSize, 0);
+        }
+
+        pop();  // Restore the previous transformation state
+        // Move to the next row
+        translate(0, cellSize);
     }
 }
 
@@ -127,32 +147,3 @@ function getBlockImageBySymbol(type: string): p5.Image {
 
 // Size of each cell in pixels
 const cellSize = 64;
-
-/**
- * Setup function - initializes the canvas and draws the initial game state
- * This runs once when the program starts
- */
-function setup() {
-    // Create a canvas sized to fit the level dimensions
-    createCanvas(maxWidth * cellSize, level.length * cellSize);
-    background('white');
-
-    // Iterate through each row of the level
-    for (const row of level) {
-        push();  // Save the current transformation state
-        for (const cell of row) {
-            // Only render cells that aren't empty space
-            if (cell !== '_') {
-                const img = getBlockImageBySymbol(cell);
-                image(img, 0, 0, cellSize, cellSize);
-            }
-
-            // Move to the next cell position horizontally
-            translate(cellSize, 0);
-        }
-
-        pop();  // Restore the previous transformation state
-        // Move to the next row
-        translate(0, cellSize);
-    }
-}

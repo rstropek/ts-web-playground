@@ -23,15 +23,13 @@ files:
       let necromancer2: p5.Image;
       // <<< Add the remaining images here. We have 10 images in total.
 
-      function preload() {
+      async function setup() {
           // Load all the images
-          necromancer0 = loadImage(`${BASE_URL}/Necromancer_01__WALK_000.png`);
-          necromancer1 = loadImage(`${BASE_URL}/Necromancer_01__WALK_001.png`);
-          necromancer2 = loadImage(`${BASE_URL}/Necromancer_01__WALK_002.png`);
+          necromancer0 = await loadImage(`${BASE_URL}/Necromancer_01__WALK_000.png`);
+          necromancer1 = await loadImage(`${BASE_URL}/Necromancer_01__WALK_001.png`);
+          necromancer2 = await loadImage(`${BASE_URL}/Necromancer_01__WALK_002.png`);
           // <<< Add the remaining images here. We have 10 images in total.
-      }
 
-      function setup() {
           createCanvas(necromancer0.width * IMAGE_SCALE, necromancer0.height * IMAGE_SCALE);
 
           // You can control the speed of the animation by changing the frame rate

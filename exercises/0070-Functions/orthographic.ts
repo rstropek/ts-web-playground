@@ -9,12 +9,12 @@ let train: p5.Image;
 
 const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/trains";
 
-function preload() {
-    railroad = loadImage(`${BASE_URL}/railroad-straight.png`);
-    train = loadImage(`${BASE_URL}/train-carriage-wood.png`);
-}
+async function setup() {
+    [railroad, train] = await Promise.all([
+        loadImage(`${BASE_URL}/railroad-straight.png`),
+        loadImage(`${BASE_URL}/train-carriage-wood.png`),
+    ]);
 
-function setup() {
     createCanvas(800, 550);
 }
 

@@ -24,11 +24,9 @@ files:
 
       // <<< Add variables here
 
-      function preload() {
-          // <<< Add code to load images here
-      }
+      async function setup() {
+          // <<< Add code to load images here using await loadImage(...)
 
-      function setup() {
           createCanvas(CANVAS_SIZE, CANVAS_SIZE);
 
           backgroundScale = width / images[0].width;
