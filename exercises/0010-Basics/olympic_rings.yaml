@@ -4,7 +4,7 @@ descriptionMd: |
 
   Write the code to draw the _Olympic symbol_ (five rings) on a canvas. Make sure to use the correct colors for each ring.
 
-  ![Olympic symbol](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/olympic_rings.png?raw=true)
+  ![Olympic symbol](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/200px-Olympic_rings_without_rims.svg.png)
 
   For now, ignore the specific overlapping pattern of the rings. Just draw the rings in the correct position. Over and overlapping don't matter.
 
