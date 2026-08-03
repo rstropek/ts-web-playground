@@ -2,13 +2,13 @@ title: "Crosshairs"
 descriptionMd: |
   # Crosshairs
 
-  Imagine that you are building a game where the player has to shoot at balloons. You want to draw crosshairs on the screen to help the player aim. Your task is to write code that draws crosshairs that automatically follows the mouse cursor.
+  Imagine that you are building a game where the player has to shoot at balloons. You want to draw crosshairs on the screen to help the player aim. Your task is to write code that draws crosshairs that automatically follow the mouse cursor.
 
   ![Crosshairs](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/crosshairs.gif?raw=true)
 
   ## Tips
 
-  Can you remember which function we use to draw something whenever the mouse moves? It is _mouseMoved_. Add the code to draw the crosshairs in this function. Use the variables _mouseX_ and _mouseY_ to get the current mouse position.
+  There is a function that is called whenever the mouse moves. It is _mouseMoved_. Add the code to draw the crosshairs in this function. Use the variables _mouseX_ and _mouseY_ to get the current mouse position.
 
 sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0020-Variables/crosshairs.ts"
 files:
@@ -16,6 +16,7 @@ files:
     content: |
       function setup() {
         createCanvas(200, 200);
+        background("lightblue");
       }
 
       function mouseMoved() {

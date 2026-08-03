@@ -12,11 +12,11 @@ descriptionMd: |
 
   ## Tips
 
-  To find the nearest corner to snap to, you must divide the current mouse position by the grid size (40 pixels) and then round the result to the nearest integer. Rounding is done with _Math.round(...)_. Here are some examples:
+  To find the nearest corner to snap to, you must divide the current mouse position by the grid size (40 pixels) and then round the result to the nearest integer. Rounding is done with the p5.js _round(...)_ function. Here are some examples:
   
-  * _Math.round(3.6)_ returns 4
-  * _Math.round(3.4)_ returns 3
-  * _Math.round(x)_ returns 2 assuming that _x_ is 2.3.
+  * _round(3.6)_ returns 4
+  * _round(3.4)_ returns 3
+  * _round(x)_ returns 2 assuming that _x_ is 2.3.
 
 sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0020-Variables/snap.ts"
 files:
@@ -28,11 +28,13 @@ files:
       }
 
       function mouseMoved() {
-        const snap = 40; // marker must snap every 40 pixels
-        const markerSize = 10; // size of marker
+        const snap: number = 40; // marker must snap every 40 pixels
+        const markerSize: number = 10; // size of marker
 
         background("lightblue");
 
+        // Tip: text("Hello", 10, 20) draws text at 10/20.
+        // Backticks and ${...} insert values into text, e.g. `${x}/${y}`.
         // Add your code here
       }
     isEditable: true

@@ -12,12 +12,12 @@ function mouseMoved() {
 
 function mouseClicked() {
     console.log("click")
-    const color_hue = mouseX;
-    const color_saturation = Math.min(100, mouseY);
+    const colorHue: number = mouseX;
+    const colorSaturation: number = Math.min(100, mouseY);
 
-    fill(color_hue, color_saturation, 100);
+    fill(colorHue, colorSaturation, 100);
     rect(0, height / 2, width, height);
 
     fill(0);
-    text(`H: ${color_hue}, S: ${color_saturation}, B: 100`, 5, height - 5);
+    text(`H: ${colorHue}, S: ${colorSaturation}, B: 100`, 5, height - 5);
 }

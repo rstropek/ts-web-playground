@@ -5,11 +5,11 @@ function setup() {
     noStroke();
 }
 
-let color_hue = 0;
+let colorHue: number = 0;
 
 function mouseMoved() {
-    fill(color_hue, 100, 100);
+    fill(colorHue, 100, 100);
     circle(mouseX, mouseY, 40);
 
-    color_hue = (color_hue + 5) % 360;
+    colorHue = (colorHue + 5) % 360;
 }
