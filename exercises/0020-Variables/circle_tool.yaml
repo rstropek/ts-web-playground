@@ -14,7 +14,7 @@ descriptionMd: |
 
   2. **Control Ellipse Size:** The width and height of the ellipse are controlled by the mouse's position. The width is the distance between the mouse's X-coordinate and the canvas center, multiplied by two. Similarly, the height is the distance between the mouse's Y-coordinate and the canvas center, also multiplied by two.
 
-  3. **Display the Area:** In the bottom left corner of the canvas, display the area of the ellipse in the format: _Area: 123_ (where _123_ is the calculated area). The area of the ellipse can be calculated using the formula: _horizontal radius × vertical radius × π_. Use _Math.PI_ in your program to represent π.
+  3. **Display the Area:** In the bottom left corner of the canvas, display the area of the ellipse in the format: _Area: 123_ (where _123_ is the calculated area). The area of the ellipse can be calculated using the formula: _horizontal radius × vertical radius × π_. Use the p5.js constant _PI_ in your program to represent π.
 
   ![Minimum Requirements](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0020-Variables/circle_tool/010-minimum-requirements.gif?raw=true)
 

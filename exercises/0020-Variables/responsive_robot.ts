@@ -13,7 +13,7 @@ function setup() {
   rect(headX, headY, headWidth, headHeight);
 
   // Draw the robot's eyes
-  const eyeSize: number = Math.min(headWidth, headHeight) * 0.2;
+  const eyeSize: number = min(headWidth, headHeight) * 0.2;
   const eyeOffsetX: number = headWidth * 0.25;
   const eyeY: number = headY + headHeight * 0.25;
 

@@ -13,7 +13,7 @@ function mouseMoved() {
 function mouseClicked() {
     console.log("click")
     const colorHue: number = mouseX;
-    const colorSaturation: number = Math.min(100, mouseY);
+    const colorSaturation: number = min(100, mouseY);
 
     fill(colorHue, colorSaturation, 100);
     rect(0, height / 2, width, height);

@@ -38,6 +38,6 @@ function mouseMoved() {
     text(`${diameterY}`, width/2, height/2 - diameterY/2 - 5);
 
     textAlign(LEFT);
-    const area: number = round(diameterX / 2 * diameterY / 2 * Math.PI);
+    const area: number = round(diameterX / 2 * diameterY / 2 * PI);
     text(`Area: ${area}`, 5, height - 10);
 }

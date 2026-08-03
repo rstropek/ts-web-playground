@@ -14,7 +14,7 @@ descriptionMd: |
 
   A UI that adapts nicely to different screen sizes is called a **responsive UI**.
 
-  The robot's eyes are 20% of the smaller side of the head. To get the minimum of two values, use the method _Math.min(...)_. For example, _Math.min(100, 200)_ returns 100. _Math.min(x, y)_ returns the smaller of the two values _x_ and _y_.
+  The robot's eyes are 20% of the smaller side of the head. To get the minimum of two values, use the p5.js function _min(...)_. For example, _min(100, 200)_ returns 100. _min(x, y)_ returns the smaller of the two values _x_ and _y_.
 
   The starter code contains several variables (e.g. _headWidth_). They are declared with _const_. Therefore, their values cannot be changed (i.e. are constant). If you have a variable that you want to change, use _let_ instead of _const_.
 
