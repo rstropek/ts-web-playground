@@ -7,7 +7,7 @@ function setup() {
 
     // Generate an integer random number 
     // between 1 (including) and 7 (excluding)
-    const dice = Math.floor(random(1, 7));
+    const dice = floor(random(1, 7));
 
     noStroke();
     fill("white");

@@ -1,9 +1,9 @@
 function setup() {
-    const num = Math.floor(random(0, Math.pow(16, 3)));
+    const num = floor(random(0, pow(16, 3)));
 
-    const digit1 = Math.floor(num / Math.pow(16, 0)) % 16;
-    const digit2 = Math.floor(num / Math.pow(16, 1)) % 16;
-    const digit3 = Math.floor(num / Math.pow(16, 2)) % 16;
+    const digit1 = floor(num / pow(16, 0)) % 16;
+    const digit2 = floor(num / pow(16, 1)) % 16;
+    const digit3 = floor(num / pow(16, 2)) % 16;
 
     createCanvas(300, 300);
     background("black");

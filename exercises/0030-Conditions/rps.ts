@@ -90,7 +90,7 @@ function mouseClicked() {
         }
 
         // Generate a random number to determine the computer's choice.
-        const computerSymbolId = Math.floor(random(0, 3));
+        const computerSymbolId = floor(random(0, 3));
         if (computerSymbolId === 0) {
             computer = "🪨"; // Computer selects "stone".
         } else if (computerSymbolId === 1) {

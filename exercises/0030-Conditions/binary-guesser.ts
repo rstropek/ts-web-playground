@@ -5,7 +5,7 @@ let guessedDigit4 = 0;
 let num = 0;
 
 function setup() {
-  num = Math.floor(random(1, 16));
+  num = floor(random(1, 16));
 
   createCanvas(400, 300);
   background("black");
@@ -69,10 +69,10 @@ function mouseClicked() {
     }
 
     // Build new guessed number
-    let guessedNumber = guessedDigit4 * Math.pow(2, 3);
-    guessedNumber += guessedDigit3 * Math.pow(2, 2);
-    guessedNumber += guessedDigit2 * Math.pow(2, 1);
-    guessedNumber += guessedDigit1 * Math.pow(2, 0);
+    let guessedNumber = guessedDigit4 * pow(2, 3);
+    guessedNumber += guessedDigit3 * pow(2, 2);
+    guessedNumber += guessedDigit2 * pow(2, 1);
+    guessedNumber += guessedDigit1 * pow(2, 0);
 
     // Default color is yellow
     let color = "yellow";

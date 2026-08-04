@@ -1,12 +1,12 @@
 function setup() {
-    const num = Math.floor(random(0, 64));
+    const num = floor(random(0, 64));
 
     const digit1 = num % 2;
-    const digit2 = Math.floor(num / 2) % 2;
-    const digit3 = Math.floor(num / 4) % 2;
-    const digit4 = Math.floor(num / 8) % 2;
-    const digit5 = Math.floor(num / 16) % 2;
-    const digit6 = Math.floor(num / 32) % 2;
+    const digit2 = floor(num / 2) % 2;
+    const digit3 = floor(num / 4) % 2;
+    const digit4 = floor(num / 8) % 2;
+    const digit5 = floor(num / 16) % 2;
+    const digit6 = floor(num / 32) % 2;
 
     createCanvas(550, 300);
     background("black");

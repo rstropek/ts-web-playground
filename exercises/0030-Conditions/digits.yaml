@@ -14,14 +14,14 @@ descriptionMd: |
 
   With the modulo operator (`%`), you can get the last digit of a number: _const lastDigit = num % 10;_.
 
-  With integer division (using the `/` operator), you can remove the last digit from a number: _const numWithoutLastDigit = Math.floor(num / 10);_.
+  With integer division (using the `/` operator), you can remove the last digit from a number: _const numWithoutLastDigit = floor(num / 10);_.
 
 sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0030-Conditions/digits.ts"
 files:
   "index.ts":
     content: |
       function setup() {
-        const num = Math.floor(random(0, 1_000_000));
+        const num = floor(random(0, 1_000_000));
 
         // Add the necessary code here
         
