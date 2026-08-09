@@ -16,7 +16,7 @@ descriptionMd: |
   * Spock vaporizes Rock
   * Each choice beats two other choices and loses to two others.
 
-  Your task is to enhance the _Rock-Paper-Scissors_ game from the previous parts to _Rock-Paper-Scissors-Lizard-Spock_. You can use the starter code included in this exercise or you can build on your solution from the first part.
+  Your task is to enhance the _Rock-Paper-Scissors_ game from the previous parts to _Rock-Paper-Scissors-Lizard-Spock_. You can use the starter code included in this exercise or you can build on your solution from the previous part.
 
 files:
   "index.ts":
@@ -112,42 +112,47 @@ files:
                   selected = "✂️"; // Player selects "scissors".
               }
 
-              // Generate a random number to determine the computer's choice.
-              const computerSymbolId = floor(random(0, 3));
-              if (computerSymbolId === 0) {
-                  computer = "🪨"; // Computer selects "stone".
-              } else if (computerSymbolId === 1) {
-                  computer = "📃"; // Computer selects "paper".
-              } else if (computerSymbolId === 2) {
-                  computer = "✂️"; // Computer selects "scissors".
+              // Only continue when the click actually hit one of the icons.
+              // Without this check, a click on the empty canvas would also
+              // trigger the computer's choice and end the game.
+              if (selected !== "") {
+                  // Generate a random number to determine the computer's choice.
+                  const computerSymbolId = floor(random(0, 3));
+                  if (computerSymbolId === 0) {
+                      computer = "🪨"; // Computer selects "stone".
+                  } else if (computerSymbolId === 1) {
+                      computer = "📃"; // Computer selects "paper".
+                  } else if (computerSymbolId === 2) {
+                      computer = "✂️"; // Computer selects "scissors".
+                  }
+
+                  // Display the computer's choice.
+                  noStroke();
+                  fill("yellow");
+                  textSize(30);
+                  text("Computer:", TEXT_LEFT, 300);
+                  textSize(75);
+                  text(computer, 175, 300);
+
+                  // Determine the winner based on the player's and computer's selections.
+                  let winner: string = "";
+                  if (selected === computer) {
+                      winner = "It's a tie!"; // Both chose the same, so it's a tie.
+                  } else if (
+                      (selected === "🪨" && computer === "✂️") || // Stone beats scissors.
+                      (selected === "📃" && computer === "🪨") || // Paper beats stone.
+                      (selected === "✂️" && computer === "📃")    // Scissors beat paper.
+                  ) {
+                      winner = "You win!"; // Player wins.
+                  } else {
+                      winner = "Computer wins!"; // Computer wins.
+                  }
+
+                  // Display the result of the game.
+                  textSize(50);
+                  fill("yellow");
+                  text(winner, TEXT_LEFT, 450);
               }
-
-              // Display the computer's choice.
-              noStroke();
-              fill("yellow");
-              textSize(30);
-              text("Computer:", TEXT_LEFT, 300);
-              textSize(75);
-              text(computer, 175, 300);
-
-              // Determine the winner based on the player's and computer's selections.
-              let winner: string = "";
-              if (selected === computer) {
-                  winner = "It's a tie!"; // Both chose the same, so it's a tie.
-              } else if (
-                  (selected === "🪨" && computer === "✂️") || // Stone beats scissors.
-                  (selected === "📃" && computer === "🪨") || // Paper beats stone.
-                  (selected === "✂️" && computer === "📃")    // Scissors beat paper.
-              ) {
-                  winner = "You win!"; // Player wins.
-              } else {
-                  winner = "Computer wins!"; // Computer wins.
-              }
-
-              // Display the result of the game.
-              textSize(50);
-              fill("yellow");
-              text(winner, TEXT_LEFT, 450);
           }
       }
 
