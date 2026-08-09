@@ -14,7 +14,7 @@ const availableColors = [
   "lime",
   "red",
   "gold",
-]
+];
 
 // setup runs once at the start
 function setup() {

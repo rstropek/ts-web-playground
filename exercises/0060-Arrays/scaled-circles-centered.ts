@@ -3,7 +3,9 @@ function setup() {
     background("white");
     noFill();
 
-    // Translate the origin to the center of the canvas
+    // Move the origin to the common center of the circles.
+    // (150, 150) leaves enough room for the largest circle:
+    // its diameter is 50 * 4 = 200 pixels.
     translate(150, 150);
 
     stroke("blue");

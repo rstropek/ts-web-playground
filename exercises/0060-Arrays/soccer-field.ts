@@ -90,14 +90,14 @@ function setup() {
     rect(10, 5, 80, 60);
     
     textSize(4);
-    fill("orange")
+    fill("orange");
     textAlign(RIGHT);
     textStyle(BOLD);
     for (let i = 0; i < playerNumbers.length; i++) {
-        text(i + 1, 30, 12 + i * 5);
+        text(playerNumbers[i], 30, 12 + i * 5);
     }
-    
-    fill("yellow")
+
+    fill("yellow");
     textAlign(LEFT);
     textStyle(NORMAL);
     for (let i = 0; i < firstNames.length; i++) {

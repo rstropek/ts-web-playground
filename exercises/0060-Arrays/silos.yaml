@@ -2,7 +2,7 @@ title: "Silos"
 descriptionMd: |
   # Silos
 
-  Your job is to visualize and fill status of silos in a factory. At the end, your visualization should look like this:
+  Your job is to visualize the fill status of silos in a factory. At the end, your visualization should look like this:
 
   ![Silos](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/silos.png)
 
@@ -14,7 +14,7 @@ descriptionMd: |
   
   ## Task: Draw the silos
 
-  Draw the silos as shown in the image above. The fill level of each silo is represented by a rectangle. If the fill level is below _CRITICAL_FILL_, the fill level should be displayed in green. If the fill level is above _CRITICAL_FILL_, the fill level should be displayed in red.
+  Draw the silos as shown in the image above. The fill level of each silo is represented by a rectangle. If the fill level is below _CRITICAL_FILL_, the fill level should be displayed in green. If the fill level is at _CRITICAL_FILL_ or above, the fill level should be displayed in red.
   
   The numeric value of the fill level (implemented in the previous task) should be displayed below the silo (centered horizontally).
 
@@ -44,7 +44,7 @@ files:
       const INITIAL_FILL = "3,7,8,3,10,2"
 
       const SILO_MAX = 10; // Maximum fill for each silo
-      const CRICITAL_FILL = 8; // Critical fill level for each silo
+      const CRITICAL_FILL = 8; // Critical fill level for each silo
 
       // Store the fill values for the silos. Will be a value between 0 and SILO_MAX.
       const silos: number[] = [];

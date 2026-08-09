@@ -6,13 +6,13 @@ descriptionMd: |
 
   ## Task: Type in the Code
 
-  Here is the code for the example. Type it in and experiment with it. Try to understand how it works. Take a look at the documention of methods that are new (e.g. _substring_).
+  Here is the code for the example. Type it in and experiment with it. Try to understand how it works. Take a look at the documentation of methods that are new (e.g. _substring_).
 
   ![Word Swirrel](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0060-Arrays/word-swirrel.png?raw=true)
 
   ## Task: Examine Sample Solution
 
-  Load the sample solution. It contains the same source code as above, but with lots if helpful comments. Read the comments. They help you understand the code.
+  Load the sample solution. It contains the same source code as above, but with lots of helpful comments. Read the comments. They help you understand the code.
 
 sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/word-swirrel.ts"
 files:

@@ -10,7 +10,7 @@ descriptionMd: |
 
   ![Parse Coordinates](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/parse-coordinates.png)
 
-  Your task is to write code that parses the string and draws the circles. Each circle must have a radius of 40. You **must not** extract the coordinates manually. You have to write code that **extracts the coordinates from the string**. In this exercise, you **must not use the _split_ function**.
+  Your task is to write code that parses the string and draws the circles. Each circle must have a diameter of 40. You **must not** extract the coordinates manually. You have to write code that **extracts the coordinates from the string**. In this exercise, you **must not use the _split_ function**.
 
   To solve this exercise, follow these steps:
 
@@ -24,7 +24,7 @@ files:
   "index.ts":
     content: |
       // The following string represents coordinates (x,y) of circles
-      // that you have to draw. Each circle must have a radius of 40.
+      // that you have to draw. Each circle must have a diameter of 40.
       const circles = "50,50 50,100 100,50 100,100";
 
       function setup() {

@@ -16,7 +16,7 @@ descriptionMd: |
 
   ## Task: Draw the Players
 
-  You have a list of player numbers and a list of first names and last names. You must draw the player numbers and names on the field **exactly as shown in the screenshot above**:
+  You have a list of player numbers and a list of first names and last names. You must draw the player numbers and names on the field **as shown in the screenshot above** (note: the screenshot shows the row numbers 1 to 11; your program must print the numbers from _playerNumbers_ instead):
 
   * The player number needs to be in orange and right-aligned.
   * The player name needs to be in yellow and left-aligned.
@@ -70,7 +70,7 @@ files:
           // Field (100x70m)
           rect(0, 0, 100, 70);
 
-          // <<< Add your code to draw the rest if the soccer field here
+          // <<< Add your code to draw the rest of the soccer field here
 
           // Draw a semi-transparent rectangle as a background for the player names and numbers
           // NEW: Note that the color value has EIGHT hex digits, not six.

@@ -13,7 +13,7 @@ const availableColors = [
   "lime",
   "red",
   "gold",
-]
+];
 
 function setup() {
   createCanvas(400, 400);
@@ -23,7 +23,8 @@ function draw() {
   background("black");
 
   if (millis() >= nextCircle) {
-    const d = random(0, maxDiameter);
+    // Random diameter between 10 and maxDiameter
+    const d = random(10, maxDiameter);
     circlesDiameter.push(d);
     circlesCenterX.push(random(d / 2, width - d / 2));
     circlesCenterY.push(random(d / 2, height - d / 2));

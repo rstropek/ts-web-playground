@@ -20,7 +20,7 @@ function setup() {
   // Repeat until all letters will have been used.
   while (wordToScramble.length > 0) {
     // Get a random position in wordToScramble
-    let letterIndex = Math.floor(random(wordToScramble.length));
+    let letterIndex = floor(random(wordToScramble.length));
 
     // Add the random letter to scrambledWord
     scrambledWord += wordToScramble[letterIndex];

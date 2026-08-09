@@ -5,6 +5,7 @@ const points = "200,100 300,150 300,250 200,300 100,250 100,150 200,100";
 function setup() {
     createCanvas(400, 400);
     background("white");
+    noFill();
     stroke("black");
     strokeWeight(3);
 

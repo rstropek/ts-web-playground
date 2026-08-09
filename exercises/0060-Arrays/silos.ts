@@ -1,8 +1,8 @@
 // Set the initial fill levels for the silos. The fill levels are separated by commas.
-const INITIAL_FILL = "3,7,8,3,10,2"
+const INITIAL_FILL = "3,7,8,3,10,2";
 
 const SILO_MAX = 10; // Maximum fill for each silo
-const CRICITAL_FILL = 8; // Critical fill level for each silo
+const CRITICAL_FILL = 8; // Critical fill level for each silo
 
 // Store the fill values for the silos. Will be a value between 0 and SILO_MAX.
 const silos: number[] = [];
@@ -21,11 +21,11 @@ const BUTTON_GAP = 15; // Gap between the bottom of the buttons and the top of t
 const BUTTON_TOP = SILOS_TOP - BUTTON_GAP - BUTTON_SIZE; // Y-coordinate of the top of the buttons
 
 // Arrays to store the x-coordinates of each silo
-const silos_x: number[] = [];
+const silosX: number[] = [];
 
 // Arrays to store the x-coordinates of the "add" and "remove" buttons
-const up_x: number[] = [];
-const down_x: number[] = [];
+const upX: number[] = [];
+const downX: number[] = [];
 
 function setup() {
   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -37,7 +37,7 @@ function setup() {
       silos.push(num);
       num = 0;
     } else {
-      num = num * 10 + parseInt(INITIAL_FILL[i].trim());
+      num = num * 10 + parseInt(INITIAL_FILL[i]);
     }
   }
 
@@ -45,10 +45,10 @@ function setup() {
 
   // Calculate the x-coordinates of the silos and the buttons
   for (let i = 0; i < silos.length; i++) {
-    silos_x.push(SILO_GAP + i * (SILO_WIDTH + SILO_GAP));
     const x = SILO_GAP + i * (SILO_WIDTH + SILO_GAP);
-    up_x.push(x);
-    down_x.push(x + SILO_WIDTH - BUTTON_SIZE);
+    silosX.push(x);
+    upX.push(x);
+    downX.push(x + SILO_WIDTH - BUTTON_SIZE);
   }
 }
 
@@ -62,13 +62,13 @@ function draw() {
     push();
     noStroke();
     fill("yellow");
-    translate(up_x[i], BUTTON_TOP); // Use translate to simplify the drawing code
+    translate(upX[i], BUTTON_TOP); // Use translate to simplify the drawing code
     rect(0, 0, BUTTON_SIZE, BUTTON_SIZE);
 
     // Hover effect: change color of the triangle when the mouse is over the button
     if (
-      mouseX >= up_x[i] &&
-      mouseX <= up_x[i] + BUTTON_SIZE &&
+      mouseX >= upX[i] &&
+      mouseX <= upX[i] + BUTTON_SIZE &&
       mouseY >= BUTTON_TOP &&
       mouseY <= BUTTON_TOP + BUTTON_SIZE
     ) {
@@ -93,12 +93,12 @@ function draw() {
     push();
     noStroke();
     fill("yellow");
-    translate(down_x[i], BUTTON_TOP);
+    translate(downX[i], BUTTON_TOP);
     rect(0, 0, BUTTON_SIZE, BUTTON_SIZE);
 
     if (
-      mouseX >= down_x[i] &&
-      mouseX <= down_x[i] + BUTTON_SIZE &&
+      mouseX >= downX[i] &&
+      mouseX <= downX[i] + BUTTON_SIZE &&
       mouseY >= BUTTON_TOP &&
       mouseY <= BUTTON_TOP + BUTTON_SIZE
     ) {
@@ -120,22 +120,22 @@ function draw() {
     // Draw the silo
     push();
     // Change the color of the silo based on the fill level
-    if (silos[i] >= CRICITAL_FILL) {
+    if (silos[i] >= CRITICAL_FILL) {
       fill("red");
     } else {
       fill("lime");
     }
 
-    // Calculate the height of the silo based on the fill level. The fill level is
-    // represented as a ratio of the current fill to the maximum fill.
-    let ratio = (silos[i] / SILO_MAX) * SILO_HEIGHT;
-    if (ratio > SILO_HEIGHT) {
+    // Calculate the height of the fill bar: silos[i] / SILO_MAX is the
+    // filled fraction, times the silo height in pixels.
+    let fillHeight = (silos[i] / SILO_MAX) * SILO_HEIGHT;
+    if (fillHeight > SILO_HEIGHT) {
       // If the fill level exceeds the maximum, set it to the maximum height
-      ratio = SILO_HEIGHT;
+      fillHeight = SILO_HEIGHT;
     }
 
-    translate(silos_x[i], SILOS_TOP); // Use translate again to simplify the drawing code
-    rect(0, SILO_HEIGHT - ratio, SILO_WIDTH, ratio); // Silo fill
+    translate(silosX[i], SILOS_TOP); // Use translate again to simplify the drawing code
+    rect(0, SILO_HEIGHT - fillHeight, SILO_WIDTH, fillHeight); // Silo fill
 
     // Draw the outline of the silo.
     stroke("yellow");
@@ -148,7 +148,7 @@ function draw() {
 
     // Draw the text label for the silo (fill level)
     push();
-    translate(silos_x[i], SILOS_TOP + SILO_HEIGHT);
+    translate(silosX[i], SILOS_TOP + SILO_HEIGHT);
     noStroke();
     fill("yellow");
     textAlign(CENTER, TOP);
@@ -159,10 +159,10 @@ function draw() {
 }
 
 function mouseClicked() {
-  for (let i = 0; i < up_x.length; i++) {
+  for (let i = 0; i < upX.length; i++) {
     if (
-      mouseX >= up_x[i] &&
-      mouseX <= up_x[i] + BUTTON_SIZE &&
+      mouseX >= upX[i] &&
+      mouseX <= upX[i] + BUTTON_SIZE &&
       mouseY >= BUTTON_TOP &&
       mouseY <= BUTTON_TOP + BUTTON_SIZE &&
       silos[i] < SILO_MAX
@@ -173,10 +173,10 @@ function mouseClicked() {
     }
   }
 
-  for (let i = 0; i < down_x.length; i++) {
+  for (let i = 0; i < downX.length; i++) {
     if (
-      mouseX >= down_x[i] &&
-      mouseX <= down_x[i] + BUTTON_SIZE &&
+      mouseX >= downX[i] &&
+      mouseX <= downX[i] + BUTTON_SIZE &&
       mouseY >= BUTTON_TOP &&
       mouseY <= BUTTON_TOP + BUTTON_SIZE &&
       silos[i] > 0

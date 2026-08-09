@@ -2,7 +2,7 @@ title: "Scaled Circles"
 descriptionMd: |
   # Scaled Circles
 
-  This exercise is not about array. Instead, you learn about how to scale objects (geometric shapes like rectangles, circles, etc., but also text, images, etc.) in p5. We are going to use scaling in later exercises related to arrays.
+  This exercise is not about arrays. Instead, you learn about how to scale objects (geometric shapes like rectangles, circles, etc., but also text, images, etc.) in p5. We are going to use scaling in later exercises related to arrays.
 
   Type in the following code and experiment with it. Try to understand how scaling works in p5.
 
@@ -12,7 +12,7 @@ descriptionMd: |
 
   ![Scaled Circles Output](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0060-Arrays/scaled-circles-output.png?raw=true)
 
-  **Note**: Scaling does not only change the _size_ of the object, but also it's distance to the origin (0, 0). This is why the three circles are not drawn at the same position, although they have the same center point coordinates.
+  **Note**: Scaling does not only change the _size_ of the object, but also its distance to the origin (0, 0). This is why the three circles are not drawn at the same position, although they have the same center point coordinates.
 
 sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0060-Arrays/scaled-circles.ts"
 files:
