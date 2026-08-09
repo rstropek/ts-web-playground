@@ -5,9 +5,9 @@ function setup() {
     createCanvas(200, 200);
     background("black");
 
-    // Generate an integer random number 
+    // Generate an integer random number
     // between 1 (including) and 7 (excluding)
-    const dice = Math.floor(random(1, 7));
+    const dice = floor(random(1, 7));
 
     noStroke();
     fill("white");
@@ -24,8 +24,34 @@ function setup() {
             break;
         case 3:
             // Draw three dots (combination of 1 and 2)
-            // <<< Add code here
+            circle(width / 4, height / 4, dicePointDiameter);
+            circle(width / 2, height / 2, dicePointDiameter);
+            circle(3 * width / 4, 3 * height / 4, dicePointDiameter);
             break;
-        // <<< ... add the other cases here
+        case 4:
+            // One point in each corner
+            circle(width / 4, height / 4, dicePointDiameter);
+            circle(3 * width / 4, height / 4, dicePointDiameter);
+            circle(width / 4, 3 * height / 4, dicePointDiameter);
+            circle(3 * width / 4, 3 * height / 4, dicePointDiameter);
+            break;
+        case 5:
+            // One point in each corner plus one in the middle
+            // (combination of 4 and 1)
+            circle(width / 4, height / 4, dicePointDiameter);
+            circle(3 * width / 4, height / 4, dicePointDiameter);
+            circle(width / 4, 3 * height / 4, dicePointDiameter);
+            circle(3 * width / 4, 3 * height / 4, dicePointDiameter);
+            circle(width / 2, height / 2, dicePointDiameter);
+            break;
+        case 6:
+            // Two columns with three points each
+            circle(width / 4, height / 4, dicePointDiameter);
+            circle(width / 4, height / 2, dicePointDiameter);
+            circle(width / 4, 3 * height / 4, dicePointDiameter);
+            circle(3 * width / 4, height / 4, dicePointDiameter);
+            circle(3 * width / 4, height / 2, dicePointDiameter);
+            circle(3 * width / 4, 3 * height / 4, dicePointDiameter);
+            break;
     }
 }
