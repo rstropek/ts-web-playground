@@ -29,7 +29,7 @@ function setup() {
     while (i <= 8) {
       text(i, SQUARE_SIZE / 2, height - SQUARE_SIZE * i - SQUARE_SIZE / 2);
 
-      let file: string;
+      let file: string = "";
       switch (i) {
         case 1: file = "a"; break;
         case 2: file = "b"; break;
@@ -39,7 +39,6 @@ function setup() {
         case 6: file = "f"; break;
         case 7: file = "g"; break;
         case 8: file = "h"; break;
-        default: break;
       }
       text(file, SQUARE_SIZE * i + SQUARE_SIZE / 2, height - SQUARE_SIZE / 2);
 
