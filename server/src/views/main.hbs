@@ -1,21 +1,121 @@
-<div>
+<main class="student-dashboard" data-exercise-board>
   <h1 class="hero">Welcome, {{firstName}}</h1>
 
   {{#if (or isAdmin isDevelopment)}}
-    <h2 class="menu-heading">Administration</h2>
-    <ul class="admin menu">
-      <li><a href="users">Users</a></li>
-      <li><a href="exercises">Exercises</a></li>
-    </ul>
+    <nav class="dashboard-admin" aria-label="Administration">
+      <span>Administration</span>
+      <a href="users">Manage users</a>
+      <a href="exercises">Manage exercises</a>
+    </nav>
   {{/if}}
 
-  <h2 class="menu-heading">Exercises</h2>
-  {{#each groupedExercises}}
-    <h3 class="category-heading">{{category}}</h3>
-    <ul class="exercises menu">
-      {{#each exercises}}
-        <li><a href="/playground?exerciseUrl={{yamlUrl}}">{{title}}</a></li>
-      {{/each}}
-    </ul>
-  {{/each}}
-</div>
+  <header class="dashboard-intro">
+    <p class="dashboard-eyebrow">Exercise dashboard</p>
+    <h2>What would you like to work on?</h2>
+    <p>Choose an exercise and keep track of how it is going. You can change your status at any time.</p>
+  </header>
+
+  <aside class="privacy-note" data-storage-note role="note">
+    <span class="privacy-note-icon" aria-hidden="true">&#128274;</span>
+    <div>
+      <strong>Your progress stays on this device</strong>
+      <p>Status choices are saved only in this browser. They are not sent to the server or connected to your account.</p>
+    </div>
+  </aside>
+
+  <section class="progress-panel" aria-labelledby="progress-heading">
+    <div class="progress-heading-row">
+      <div>
+        <p class="dashboard-eyebrow">My progress</p>
+        <h2 id="progress-heading"><span data-done-count>0</span> of <span data-exercise-count>0</span> done</h2>
+      </div>
+      <button class="clear-progress-button" type="button" data-clear-progress>Clear my progress</button>
+    </div>
+    <progress class="progress-bar" data-progress-bar value="0" max="1">0%</progress>
+
+    <div class="status-filters" role="group" aria-label="Filter exercises by status">
+      <button class="status-filter is-active" type="button" data-filter="todo" aria-pressed="true">
+        <span class="status-dot status-dot-todo" aria-hidden="true"></span>
+        To do <span class="status-count" data-filter-count="todo">0</span>
+      </button>
+      <button class="status-filter" type="button" data-filter="all" aria-pressed="false">
+        <span class="status-dot status-dot-all" aria-hidden="true"></span>
+        All <span class="status-count" data-filter-count="all">0</span>
+      </button>
+      <button class="status-filter" type="button" data-filter="unmarked" aria-pressed="false">
+        <span class="status-dot status-dot-unmarked" aria-hidden="true"></span>
+        Not marked <span class="status-count" data-filter-count="unmarked">0</span>
+      </button>
+      <button class="status-filter" type="button" data-filter="working" aria-pressed="false">
+        <span class="status-dot status-dot-working" aria-hidden="true"></span>
+        Working on it <span class="status-count" data-filter-count="working">0</span>
+      </button>
+      <button class="status-filter" type="button" data-filter="struggling" aria-pressed="false">
+        <span class="status-dot status-dot-struggling" aria-hidden="true"></span>
+        Struggling <span class="status-count" data-filter-count="struggling">0</span>
+      </button>
+      <button class="status-filter" type="button" data-filter="blocked" aria-pressed="false">
+        <span class="status-dot status-dot-blocked" aria-hidden="true"></span>
+        I don't understand <span class="status-count" data-filter-count="blocked">0</span>
+      </button>
+      <button class="status-filter" type="button" data-filter="done" aria-pressed="false">
+        <span class="status-dot status-dot-done" aria-hidden="true"></span>
+        Done <span class="status-count" data-filter-count="done">0</span>
+      </button>
+    </div>
+  </section>
+
+  <noscript>
+    <p class="board-message">JavaScript is required to save and filter your progress. You can still open every exercise.</p>
+  </noscript>
+
+  <div class="exercise-board" data-exercise-sections>
+    {{#each groupedExercises}}
+      <section class="exercise-category" data-exercise-category aria-labelledby="category-{{@index}}">
+        <div class="category-title-row">
+          <h2 id="category-{{@index}}">{{category}}</h2>
+          <span><span data-category-count>0</span> exercises</span>
+        </div>
+        <div class="exercise-grid">
+          {{#each exercises}}
+            <article class="exercise-card" data-exercise-card data-exercise-id="{{id}}" data-status="unmarked">
+              <div class="exercise-card-topline">
+                <span class="exercise-status-label" data-status-label>Not marked</span>
+                <a class="exercise-open-link" href="/playground?exerciseUrl={{yamlUrl}}" aria-label="Open {{title}}">
+                  Open <span aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+              <h3><a class="exercise-title" href="/playground?exerciseUrl={{yamlUrl}}">{{title}}</a></h3>
+              <div class="exercise-status-picker" role="group" aria-label="My status">
+                <button class="status-choice status-choice-working" type="button" data-status-option="working"
+                  data-tooltip="Working on it" aria-label="Working on it" aria-pressed="false"></button>
+                <button class="status-choice status-choice-struggling" type="button" data-status-option="struggling"
+                  data-tooltip="Struggling" aria-label="Struggling" aria-pressed="false"></button>
+                <button class="status-choice status-choice-blocked" type="button" data-status-option="blocked"
+                  data-tooltip="I don't understand" aria-label="I don't understand" aria-pressed="false"></button>
+                <button class="status-choice status-choice-done" type="button" data-status-option="done"
+                  data-tooltip="Done" aria-label="Done" aria-pressed="false"></button>
+              </div>
+            </article>
+          {{/each}}
+        </div>
+      </section>
+    {{/each}}
+  </div>
+
+  <p class="empty-filter-message" data-empty-filter hidden>No exercises match this filter.</p>
+  <p class="status-announcement" data-status-announcement aria-live="polite"></p>
+
+  <dialog class="clear-progress-dialog" data-clear-dialog>
+    <form method="dialog">
+      <h2>Clear your progress?</h2>
+      <p>This removes all exercise statuses saved by this browser. It cannot be undone.</p>
+      <div class="dialog-actions">
+        <button value="cancel">Keep my progress</button>
+        <button class="danger-button" value="confirm" data-confirm-clear>Clear progress</button>
+      </div>
+    </form>
+  </dialog>
+</main>
+
+<script type="module" src="/scripts/exercise-list.js"></script>
