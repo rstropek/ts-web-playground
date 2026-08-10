@@ -28,23 +28,62 @@ const title = document.getElementById("title")! as HTMLDivElement;
 const message = document.getElementById("message")! as HTMLDialogElement;
 const clearButton = document.getElementById("output-clear")! as HTMLButtonElement;
 const localSaves = document.getElementById("localSaves")! as HTMLButtonElement;
+const appContainer = document.getElementById("app-container")! as HTMLDivElement;
+const codeViewButton = document.getElementById(
+  "code-view-button"
+)! as HTMLButtonElement;
+const resultViewButton = document.getElementById(
+  "result-view-button"
+)! as HTMLButtonElement;
+const specViewButton = document.getElementById(
+  "spec-view-button"
+)! as HTMLButtonElement;
 
 const debugEnviroment = false;
 
 let monacoEditor: monaco.editor.IStandaloneCodeEditor;
 
-spec.style.display = "none";
+type ActiveView = "code" | "result" | "spec";
+
+const narrowScreen = window.matchMedia("(max-width: 767px)");
+let activeView: ActiveView = narrowScreen.matches ? "code" : "result";
+
+function requestEditorLayout() {
+  requestAnimationFrame(() => {
+    monacoEditor?.layout();
+  });
+}
+
+function setActiveView(view: ActiveView) {
+  activeView = view;
+  appContainer.dataset.activeView = activeView;
+
+  codeViewButton.setAttribute("aria-pressed", String(view === "code"));
+  resultViewButton.setAttribute("aria-pressed", String(view === "result"));
+  specViewButton.setAttribute("aria-pressed", String(view === "spec"));
+
+  // Code is only a separate view on narrow screens. On desktop, the right
+  // pane continues to show Result until Spec is selected.
+  resultSelector.classList.toggle("selected", view !== "spec");
+  specSelector.classList.toggle("selected", view === "spec");
+
+  if (view === "code") {
+    requestEditorLayout();
+  }
+}
+
+codeViewButton.addEventListener("click", () => setActiveView("code"));
+resultViewButton.addEventListener("click", () => setActiveView("result"));
+specViewButton.addEventListener("click", () => setActiveView("spec"));
+
+narrowScreen.addEventListener("change", requestEditorLayout);
+setActiveView(activeView);
+
 resultSelector.addEventListener("click", () => {
-  resultSelector.classList.add("selected");
-  specSelector.classList.remove("selected");
-  spec.style.display = "none";
-  iframe.style.display = "";
+  setActiveView("result");
 });
 specSelector.addEventListener("click", () => {
-  resultSelector.classList.remove("selected");
-  specSelector.classList.add("selected");
-  spec.style.display = "";
-  iframe.style.display = "none";
+  setActiveView("spec");
 });
 backButton.addEventListener("click", () => {
   window.location.href = `/main`;
@@ -330,8 +369,7 @@ loadExercise(exerciseUrl).then((ex1) => {
     const { blobUrl, errorOutput } = await compile(files);
     compilerError(errorOutput);
     iframe.src = blobUrl;
-    // Select the result tab
-    resultSelector.click();
+    setActiveView("result");
   }
 
   Split(["#editor", "#result-area"], { direction: "horizontal" });

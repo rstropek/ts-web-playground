@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <div id="app-container">
+  <div id="app-container" data-active-view="code">
     <div id="top-bar">
       <div class="left">
         <button id="burger" aria-label="Menu" aria-expanded="false">☰</button>
@@ -37,6 +37,11 @@
         <div id="userName"></div>
       </div>
     </div>
+    <nav id="view-navigation" aria-label="Playground views">
+      <button id="code-view-button" type="button" aria-pressed="true" aria-controls="editor">Code</button>
+      <button id="result-view-button" type="button" aria-pressed="false" aria-controls="result-area">Result</button>
+      <button id="spec-view-button" type="button" aria-pressed="false" aria-controls="spec">Spec</button>
+    </nav>
     <div id="content">
       <div id="editor"></div>
       <div id="result-area">
@@ -53,7 +58,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 
   <dialog id="message">
