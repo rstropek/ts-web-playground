@@ -127,12 +127,26 @@ select {
   display: none;
 }
 
+#agent {
+  display: none;
+}
+
 #app-container[data-active-view="spec"] #result-frame {
   display: none;
 }
 
 #app-container[data-active-view="spec"] #spec {
   display: block;
+}
+
+#app-container[data-active-view="agent"] #result,
+#app-container[data-active-view="agent"] #output,
+#app-container[data-active-view="agent"] #result-area > .gutter-vertical {
+  display: none !important;
+}
+
+#app-container[data-active-view="agent"] #agent {
+  display: flex;
 }
 
 #output-content {
@@ -347,13 +361,15 @@ select {
 
   #app-container[data-active-view="code"] #result-area,
   #app-container[data-active-view="result"] #editor,
-  #app-container[data-active-view="spec"] #editor {
+  #app-container[data-active-view="spec"] #editor,
+  #app-container[data-active-view="agent"] #editor {
     display: none;
   }
 
   #app-container[data-active-view="code"] #editor,
   #app-container[data-active-view="result"] #result-area,
-  #app-container[data-active-view="spec"] #result-area {
+  #app-container[data-active-view="spec"] #result-area,
+  #app-container[data-active-view="agent"] #result-area {
     display: block;
   }
 
@@ -386,6 +402,15 @@ select {
   font-size: var(--button-font-size);
 }
 
+.select-middle {
+  border: 1px solid var(--top-bar-border-color);
+  border-left: none;
+  padding: var(--button-padding);
+  margin: 0;
+  cursor: pointer;
+  font-size: var(--button-font-size);
+}
+
 .selected {
   background-color: var(--top-bar-selected-bg-color);
   color: white;
@@ -412,4 +437,273 @@ select {
   overflow-y: auto;
   height: 100%;
   box-sizing: border-box;
+}
+
+#agent {
+  box-sizing: border-box;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  background: #f7f9fa;
+  color: #1d2a31;
+}
+
+#agent [hidden] {
+  display: none !important;
+}
+
+.agent-code-form {
+  box-sizing: border-box;
+  width: min(460px, calc(100% - 32px));
+  margin: auto;
+  padding: 24px;
+  border: 1px solid #cad5da;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 8px 30px rgb(33 56 66 / 10%);
+}
+
+.agent-code-form h2 {
+  margin-top: 0;
+}
+
+.agent-code-form label,
+.agent-code-form input,
+.agent-code-form button {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.agent-code-form input {
+  margin: 6px 0 14px;
+  padding: 10px;
+  border: 1px solid #8fa5af;
+  border-radius: var(--border-radius);
+}
+
+#agent button {
+  padding: 7px 12px;
+  border: 1px solid var(--top-bar-border-color);
+  border-radius: var(--border-radius);
+  background: var(--top-bar-bg-color);
+  color: white;
+  cursor: pointer;
+}
+
+#agent button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.agent-conversation {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 16px 8px;
+}
+
+/* The top padding of the conversation lives in the sticky bar. That way the
+   bar covers the scrollport top completely once it sticks, without clipping
+   its own content. */
+.agent-session-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 14px 0 8px;
+  background: #f7f9fa;
+}
+
+.agent-session-note {
+  color: #60737c;
+  font-size: 12px;
+}
+
+#agent .agent-start-over {
+  flex: 0 0 auto;
+  padding: 4px 9px;
+  border-color: #8fa5af;
+  background: transparent;
+  color: #42545c;
+  font-size: 12px;
+}
+
+.agent-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.agent-message {
+  box-sizing: border-box;
+  max-width: min(88%, 760px);
+  padding: 10px 13px;
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+
+.agent-message-user {
+  align-self: flex-end;
+  background: #d8ebf3;
+  white-space: pre-wrap;
+}
+
+.agent-message-assistant {
+  align-self: flex-start;
+  width: min(100%, 760px);
+  border: 1px solid #d6dfe3;
+  background: white;
+}
+
+.agent-message-streaming {
+  white-space: pre-wrap;
+}
+
+.agent-message-assistant > :first-child {
+  margin-top: 0;
+}
+
+.agent-message-assistant > :last-child {
+  margin-bottom: 0;
+}
+
+.agent-code-block-wrapper {
+  position: relative;
+  margin: 1em 0;
+}
+
+.agent-code-block {
+  overflow-x: auto;
+  margin: 0;
+  padding: 34px 12px 12px;
+  border-radius: 6px;
+  background: #eef2f4;
+}
+
+.agent-code-block code {
+  white-space: pre;
+}
+
+#agent .agent-code-copy {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 3px 8px;
+  font-size: 12px;
+}
+
+.agent-tool-call {
+  max-width: min(92%, 760px);
+  padding: 7px 10px;
+  border: 1px solid #cad5da;
+  border-radius: 7px;
+  background: #eef3f5;
+  color: #42545c;
+  font-size: 13px;
+}
+
+.agent-tool-call summary {
+  cursor: pointer;
+}
+
+.agent-tool-call strong {
+  display: block;
+  margin-top: 10px;
+}
+
+.agent-tool-call pre {
+  max-height: 260px;
+  margin: 4px 0;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+.agent-status {
+  align-self: center;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #e8eef1;
+  color: #42545c;
+}
+
+.agent-status-error {
+  border: 1px solid #c94747;
+  background: #fff0f0;
+  color: #8a2020;
+}
+
+.agent-status-muted,
+.agent-stopped-label {
+  color: #687b84;
+  font-size: 12px;
+}
+
+.agent-stopped-label {
+  margin-top: 8px;
+  font-style: italic;
+}
+
+.agent-message-form {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 16px 14px;
+  border-top: 1px solid #cad5da;
+  background: white;
+}
+
+.agent-message-form textarea {
+  flex: 1;
+  min-width: 0;
+  resize: none;
+  padding: 9px;
+  border: 1px solid #8fa5af;
+  border-radius: var(--border-radius);
+  font: inherit;
+}
+
+.agent-message-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 767px) {
+  .agent-code-form {
+    padding: 18px;
+  }
+
+  .agent-conversation {
+    padding-inline: 10px;
+  }
+
+  .agent-message {
+    max-width: 94%;
+  }
+
+  .agent-message-form {
+    padding-inline: 10px;
+  }
 }

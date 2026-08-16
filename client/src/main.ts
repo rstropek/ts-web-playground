@@ -6,7 +6,8 @@ import { Files } from "./files";
 import Split from "split.js";
 import { compile } from "./compile";
 import purify from "dompurify";
-import { marked } from "marked";
+import { renderMarkdownToHtml } from "./markdown";
+import { mountAgentView } from "./agent/view";
 
 const editor = document.getElementById("editor")! as HTMLDivElement;
 const run = document.getElementById("run")! as HTMLButtonElement;
@@ -23,6 +24,9 @@ const resultSelector = document.getElementById(
 const specSelector = document.getElementById(
   "spec-selector"
 )! as HTMLDivElement;
+const agentSelector = document.getElementById(
+  "agent-selector"
+)! as HTMLDivElement;
 const spec = document.getElementById("spec")! as HTMLDivElement;
 const title = document.getElementById("title")! as HTMLDivElement;
 const message = document.getElementById("message")! as HTMLDialogElement;
@@ -38,12 +42,15 @@ const resultViewButton = document.getElementById(
 const specViewButton = document.getElementById(
   "spec-view-button"
 )! as HTMLButtonElement;
+const agentViewButton = document.getElementById(
+  "agent-view-button"
+)! as HTMLButtonElement;
 
 const debugEnviroment = false;
 
 let monacoEditor: monaco.editor.IStandaloneCodeEditor;
 
-type ActiveView = "code" | "result" | "spec";
+type ActiveView = "code" | "result" | "spec" | "agent";
 
 const narrowScreen = window.matchMedia("(max-width: 767px)");
 let activeView: ActiveView = narrowScreen.matches ? "code" : "result";
@@ -61,11 +68,13 @@ function setActiveView(view: ActiveView) {
   codeViewButton.setAttribute("aria-pressed", String(view === "code"));
   resultViewButton.setAttribute("aria-pressed", String(view === "result"));
   specViewButton.setAttribute("aria-pressed", String(view === "spec"));
+  agentViewButton.setAttribute("aria-pressed", String(view === "agent"));
 
   // Code is only a separate view on narrow screens. On desktop, the right
   // pane continues to show Result until Spec is selected.
-  resultSelector.classList.toggle("selected", view !== "spec");
+  resultSelector.classList.toggle("selected", view === "result" || view === "code");
   specSelector.classList.toggle("selected", view === "spec");
+  agentSelector.classList.toggle("selected", view === "agent");
 
   if (view === "code") {
     requestEditorLayout();
@@ -75,6 +84,7 @@ function setActiveView(view: ActiveView) {
 codeViewButton.addEventListener("click", () => setActiveView("code"));
 resultViewButton.addEventListener("click", () => setActiveView("result"));
 specViewButton.addEventListener("click", () => setActiveView("spec"));
+agentViewButton.addEventListener("click", () => setActiveView("agent"));
 
 narrowScreen.addEventListener("change", requestEditorLayout);
 setActiveView(activeView);
@@ -84,6 +94,17 @@ resultSelector.addEventListener("click", () => {
 });
 specSelector.addEventListener("click", () => {
   setActiveView("spec");
+});
+agentSelector.addEventListener("click", () => {
+  setActiveView("agent");
+});
+
+// The activity code form is part of the initial markup, but its real submit
+// handler is only attached once the exercise has been loaded (mountAgentView).
+// Without this guard, submitting earlier would do a native GET and leak the
+// activity code into the URL, the browser history, and the server logs.
+document.getElementById("agent-code-form")!.addEventListener("submit", (event) => {
+  event.preventDefault();
 });
 backButton.addEventListener("click", () => {
   window.location.href = `/main`;
@@ -276,19 +297,7 @@ loadExercise(exerciseUrl).then((ex1) => {
 
   const files = new Files(ex1);
   title.innerText = purify.sanitize(ex1.title);
-  let specContent = purify.sanitize(marked.parse(ex1.descriptionMd) as string);
-
-  specContent = specContent.replace(
-    /<img\s+[^>]*src="(https:\/\/[^"]*)"[^>]*>/g,
-    (match, originalUrl) => {
-      return match.replace(
-        originalUrl,
-        `/github/exercise/image-proxy?imageUrl=${encodeURIComponent(originalUrl)}`
-      );
-    }
-  );
-
-  spec.innerHTML = specContent;
+  spec.innerHTML = renderMarkdownToHtml(ex1.descriptionMd);
 
   monaco.typescript.typescriptDefaults.setCompilerOptions({
     target: monaco.typescript.ScriptTarget.ESNext,
@@ -357,6 +366,7 @@ loadExercise(exerciseUrl).then((ex1) => {
     automaticLayout: true,
     readOnly: !initialFile?.isEditable,
   });
+  mountAgentView(files, monaco, ex1.descriptionMd);
 
   fileNames.addEventListener("change", function () {
     const fileName = fileNames.value;

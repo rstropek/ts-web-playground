@@ -19,6 +19,7 @@ import { createCosmosClient, getDatabase } from "./helpers/cosmosHelper.js";
 import { createUserRoutes, createMeRoute } from "./routes/users.js";
 import exercises from "./routes/exercises.js";
 import github from "./routes/github.js";
+import { createNoveduAgentRouter, NOVEDU_AGENT_PATH } from "./novedu-agent/router.js";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 logger.info({ configuration: isDevelopment ? "development" : "production" }, "Start configuration");
@@ -97,6 +98,10 @@ app.engine("hbs", engine({
 }));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+
+// Keep this route before the global CORS middleware. Its custom activity-code
+// header is intentionally available only to same-origin browser requests.
+app.use(NOVEDU_AGENT_PATH, createNoveduAgentRouter());
 
 app.use(cors());
 

@@ -33,7 +33,7 @@
         <div id="title">no exercise title</div>
       </div>
       <div class="right">
-        <div id="result-selector" class="select-left selected">Result</div><div id="spec-selector" class="select-right">Spec</div>
+        <div id="result-selector" class="select-left selected">Result</div><div id="spec-selector" class="select-middle">Spec</div><div id="agent-selector" class="select-right">Agent</div>
         <div id="userName"></div>
       </div>
     </div>
@@ -41,6 +41,7 @@
       <button id="code-view-button" type="button" aria-pressed="true" aria-controls="editor">Code</button>
       <button id="result-view-button" type="button" aria-pressed="false" aria-controls="result-area">Result</button>
       <button id="spec-view-button" type="button" aria-pressed="false" aria-controls="spec">Spec</button>
+      <button id="agent-view-button" type="button" aria-pressed="false" aria-controls="agent">Agent</button>
     </nav>
     <div id="content">
       <div id="editor"></div>
@@ -56,6 +57,30 @@
           </div>
           <pre id="output-content"></pre>
         </div>
+        <section id="agent" aria-label="Coding agent">
+          <form id="agent-code-form" class="agent-code-form">
+            <h2>Coding Agent</h2>
+            <p>Enter the activity code from your teacher. It stays in this browser tab and is sent only to this playground server.</p>
+            <label for="agent-code">Activity code</label>
+            <input id="agent-code" name="code" type="password" autocomplete="off" required>
+            <button type="submit">Start agent</button>
+          </form>
+          <div id="agent-conversation" class="agent-conversation" hidden>
+            <div class="agent-session-bar">
+              <div class="agent-session-note">To use a different activity code, reload this page.</div>
+              <button id="agent-start-over" class="agent-start-over" type="button">Start over</button>
+            </div>
+            <div id="agent-chat" class="agent-chat"></div>
+          </div>
+          <form id="agent-message-form" class="agent-message-form" hidden>
+            <label class="visually-hidden" for="agent-message">Message the coding agent</label>
+            <textarea id="agent-message" rows="2" placeholder="Ask about your code…"></textarea>
+            <div class="agent-message-actions">
+              <button id="agent-stop" type="button" hidden>Stop</button>
+              <button id="agent-send" type="submit">Send</button>
+            </div>
+          </form>
+        </section>
       </div>
     </div>
   </div>
