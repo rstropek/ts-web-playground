@@ -2,12 +2,12 @@
 const dicePointDiameter: number = 30;
 
 // Size of one square half of the domino.
-const diceSize = 200;
+const diceSize: number = 200;
 
-// Gap beween domino pieces
-const gap = 20;
+// Gap between domino pieces
+const gap: number = 20;
 
-function setup() {
+function setup(): void {
     // Create the canvas for the complete domino row.
     //
     // Width:
@@ -31,7 +31,7 @@ function setup() {
 
     // Draw 5 dominoes in a row:
     // 1:2, 2:3, 3:4, 4:5, 5:6
-    for (let i: number = 1; i <= 5; i++) {
+    for (let i = 1; i <= 5; i++) {
         // Draw one domino with the values i and i + 1.
         drawDomino(i, i + 1);
 
@@ -46,7 +46,7 @@ function setup() {
     }
 }
 
-function drawDomino(dice1: number, dice2: number) {
+function drawDomino(dice1: number, dice2: number): void {
     // Save current origin
     push();
 
@@ -84,7 +84,7 @@ function drawDomino(dice1: number, dice2: number) {
     pop();
 }
 
-function drawDice(dice: number) {
+function drawDice(dice: number): void {
     // Set the fill color of the dots to white.
     fill("white");
 

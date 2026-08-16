@@ -1,19 +1,19 @@
-const CARD_WIDTH = 75;
-const CARD_HEIGHT = 150;
-const MARGIN = 4;
+const CARD_WIDTH: number = 75;
+const CARD_HEIGHT: number = 150;
+const MARGIN: number = 4;
 
 function shuffleCards(): string {
-    const hand = getHand();
-  
+    const hand: string[] = getHand();
+
     hand.sort((a, b) => {
-        const valueA = a[0];
-        const valueB = b[0];
-        return valueA.localeCompare(valueB);
+        const valueA: number = a[0] === '0' ? 10 : parseInt(a[0]);
+        const valueB: number = b[0] === '0' ? 10 : parseInt(b[0]);
+        return valueA - valueB;
     });
     return hand.join(',');
 }
 
-function drawHand(hand: string[]) {
+function drawHand(hand: string[]): void {
     push();
     for (const card of hand) {
         drawCard(card);
@@ -24,14 +24,14 @@ function drawHand(hand: string[]) {
 
 function getHand(): string[] {
     // Suites heart (♥), diamond (♦), club (♣), spade (♠)
-    const suites = ['H', 'D', 'C', 'S'];
+    const suites: string[] = ['H', 'D', 'C', 'S'];
     // To simplify, we only have card values 1..0 (0 = 10)
-    const values = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+    const values: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 
     const cards: string[] = [];
     for (const suite of suites) {
         for (const value of values) {
-            const card = `${value}${suite}`;
+            const card: string = `${value}${suite}`;
             cards.push(card);
         }
     }
@@ -47,7 +47,7 @@ function getHand(): string[] {
     return hand;
 }
 
-function drawCard(card: string) {
+function drawCard(card: string): void {
     push();
     fill("white");
     stroke("darkgray");
@@ -90,7 +90,7 @@ function drawCard(card: string) {
 
     textSize(50);
     textAlign(CENTER, CENTER);
-    let value = card[0];
+    let value: string = card[0];
     if (value === '0') {
         value = '10';
     }

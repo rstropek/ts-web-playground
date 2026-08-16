@@ -2,9 +2,9 @@
 const dicePointDiameter: number = 30;
 
 // Size of one square half of the domino.
-const diceSize = 200;
+const diceSize: number = 200;
 
-function setup() {
+function setup(): void {
     // The setup function is called once at the beginning of the program.
     // It is used to prepare the drawing area.
 
@@ -18,12 +18,16 @@ function setup() {
     // This makes the next drawing commands easier.
     translate(10, 10);
 
-    // Draw one domino with the values 5 and 6.
+    // Pick two random dice values between 1 and 6.
+    const dice1: number = floor(random(1, 7));
+    const dice2: number = floor(random(1, 7));
+
+    // Draw one domino with the two random values.
     // The first number is the left half, the second number is the right half.
-    drawDomino(5, 6);
+    drawDomino(dice1, dice2);
 }
 
-function drawDomino(dice1: number, dice2: number) {
+function drawDomino(dice1: number, dice2: number): void {
     // Save current origin
     push();
 
@@ -61,7 +65,7 @@ function drawDomino(dice1: number, dice2: number) {
     pop();
 }
 
-function drawDice(dice: number) {
+function drawDice(dice: number): void {
     // Set the fill color of the dots to white.
     fill("white");
 

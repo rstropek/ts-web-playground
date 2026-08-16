@@ -1,6 +1,6 @@
 // Collection of game levels as string representations
 // Each character represents a game element according to the symbol legend
-const levels = [
+const levels: string[] = [
   `XXXXX__
 X   X__
 X@XbXXX

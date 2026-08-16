@@ -50,15 +50,15 @@ files:
   "index.ts":
     content: |
       /**
-      * Animal Crossword Game
-      *
-      * This is a crossword puzzle game where players guess letters to reveal animal names.
-      * The game highlights a vertical solution word that is formed from a specific column.
-      * Players win when they've guessed all letters in the solution word.
-      */
+       * Animal Crossword Game
+       *
+       * This is a crossword puzzle game where players guess letters to reveal animal names.
+       * The game highlights a vertical solution word that is formed from a specific column.
+       * Players win when they've guessed all letters in the solution word.
+       */
 
       // Raw input data in format: animalName,startPosition,hint
-      const crossword = `krebs,0,Schalentier  
+      const crossword: string = `krebs,0,Schalentier  
       elefant,-1,Größtes Landtier  
       schlange,-4,Lautloser Jäger  
       papagei,-2,Bunter Sprachkünstler  
@@ -75,10 +75,10 @@ files:
       seegurke,-2,Tarnkünstler der Tiefsee`;
 
       // The word that players need to completely reveal to win
-      const solution = 'klapperschlange';
+      const solution: string = 'klapperschlange';
 
       // === Write the necessary code starting here ===
-      function setup() {
+      function setup(): void {
       }
 
     isEditable: true

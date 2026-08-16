@@ -1,36 +1,36 @@
-function setup() {
+function setup(): void {
     createCanvas(500, 500);
     background("white");
 
-    let result = "";
-    let sum = getSum("1,2,30,4,5");
+    let result: string = "";
+    let sum: number = getSum("1,2,30,4,5");
     result += `getSum 1: ${sum} ${sum === 42 ? "✅" : "❌"}\n`;
 
     sum = getSum("");
     result += `getSum 2: ${sum} ${sum === 0 ? "✅" : "❌"}\n`;
 
-    let index = getIndexOf("1,2,30,4,5", 30);
+    let index: number = getIndexOf("1,2,30,4,5", 30);
     result += `getIndexOf 1: ${index} ${index === 4 ? "✅" : "❌"}\n`;
 
     index = getIndexOf("1,2,30,4,5", 31);
     result += `getIndexOf 2: ${index} ${index === -1 ? "✅" : "❌"}\n`;
 
-    let array = [1, 2, 30, 4, 5];
+    let array: number[] = [1, 2, 30, 4, 5];
     index = findIndexInArray(array, 30);
     result += `findIndexInArray 1: ${index} ${index === 2 ? "✅" : "❌"}\n`;
 
     index = findIndexInArray(array, 31);
     result += `findIndexInArray 2: ${index} ${index === -1 ? "✅" : "❌"}\n`;
 
-    let cardShortcode = "S5";
-    let decoded = decodeCCard(cardShortcode);
-    result += `decodeCCard 1: ${decoded} ${decoded === "5 of Spades" ? "✅" : "❌"}\n`;
+    let cardShortcode: string = "S5";
+    let decoded: string = decodeCard(cardShortcode);
+    result += `decodeCard 1: ${decoded} ${decoded === "5 of Spades" ? "✅" : "❌"}\n`;
 
     cardShortcode = "HJ";
-    decoded = decodeCCard(cardShortcode);
-    result += `decodeCCard 2: ${decoded} ${decoded === "Jack of Hearts" ? "✅" : "❌"}\n`;
+    decoded = decodeCard(cardShortcode);
+    result += `decodeCard 2: ${decoded} ${decoded === "Jack of Hearts" ? "✅" : "❌"}\n`;
 
-    let evenNumbers = findAllEvenNumbers("1,2,30,4,5");
+    let evenNumbers: number[] = findAllEvenNumbers("1,2,30,4,5");
     result += `findAllEvenNumbers 1: ${evenNumbers} ${evenNumbers.indexOf(2) !== -1 && evenNumbers.indexOf(30) !== -1 && evenNumbers.indexOf(4) !== -1 ? "✅" : "❌"}\n`;
 
     evenNumbers = findAllEvenNumbers("1,3,5,7,9");
@@ -51,8 +51,8 @@ function setup() {
  * @returns The sum of the numbers, 0 if the string is empty
  */
 function getSum(numbersString: string): number {
-    let sum = 0;
-    let currentNumber = "";
+    let sum: number = 0;
+    let currentNumber: string = "";
     for (let i = 0; i < numbersString.length; i++) {
         if (numbersString[i] === ",") {
             sum += parseInt(currentNumber);
@@ -74,8 +74,8 @@ function getSum(numbersString: string): number {
  * @returns The start index of the number, -1 if the number is not found
  */
 function getIndexOf(numbersString: string, number: number): number {
-    let currentNumber = "";
-    let startIndex = 0;
+    let currentNumber: string = "";
+    let startIndex: number = 0;
     
     for (let i = 0; i < numbersString.length; i++) {
         if (numbersString[i] === ",") {
@@ -134,9 +134,9 @@ function findIndexInArray(array: number[], number: number): number {
  * * K: King
  * * A: Ace
  */
-function decodeCCard(cardShortcode: string): string {
-    const suite = cardShortcode[0];
-    const rank = cardShortcode[1];
+function decodeCard(cardShortcode: string): string {
+    const suite: string = cardShortcode[0];
+    const rank: string = cardShortcode[1];
 
     // Decode suite
     let suiteName: string;
@@ -201,11 +201,11 @@ function decodeCCard(cardShortcode: string): string {
  */
 function findAllEvenNumbers(numberString: string): number[] {
     const evenNumbers: number[] = [];
-    let currentNumber = "";
+    let currentNumber: string = "";
     
     for (let i = 0; i < numberString.length; i++) {
         if (numberString[i] === ",") {
-            const num = parseInt(currentNumber);
+            const num: number = parseInt(currentNumber);
             if (num % 2 === 0) {
                 evenNumbers.push(num);
             }
@@ -217,7 +217,7 @@ function findAllEvenNumbers(numberString: string): number[] {
     
     // Check the last number after the loop
     if (currentNumber) {
-        const num = parseInt(currentNumber);
+        const num: number = parseInt(currentNumber);
         if (num % 2 === 0) {
             evenNumbers.push(num);
         }

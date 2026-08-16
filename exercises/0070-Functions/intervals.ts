@@ -1,6 +1,6 @@
 let interval: number;
 
-function setup() {
+function setup(): void {
   createCanvas(300, 300);
   background("black");
   strokeWeight(2);
@@ -9,7 +9,7 @@ function setup() {
 
   // setInterval calls a given function at a specified interval.
   //
-  // +---------------------------------------- ID of the created inverval (required to stop it)
+  // +---------------------------------------- ID of the created interval (required to stop it)
   // |       +-------------------------------- Function name
   // |       |           +-------------------- Function to call regularly
   // |       |           |           +-------- Interval in milliseconds
@@ -17,7 +17,7 @@ function setup() {
   interval = setInterval(drawCircle, 1000);
 }
 
-function mouseClicked() {
+function mouseClicked(): void {
   // _clearInterval_ stops a previously created interval.
   // Note that the interval ID is required to stop it. We got
   // this ID when we created the interval with setInterval.
@@ -28,9 +28,9 @@ function mouseClicked() {
 /**
  * Helper function drawing a circle at a random position with a random diameter.
  */
-function drawCircle() {
-  const center_x = random(width);
-  const center_y = random(height);
-  const diameter = random(20, 80);
-  circle(center_x, center_y, diameter);
+function drawCircle(): void {
+  const centerX: number = random(width);
+  const centerY: number = random(height);
+  const diameter: number = random(20, 80);
+  circle(centerX, centerY, diameter);
 }

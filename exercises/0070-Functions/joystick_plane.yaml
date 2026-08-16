@@ -14,9 +14,9 @@ descriptionMd: |
 
   Add code to draw the joystick. The red circle has a radius of 50 pixels. The black dot has a radius of 10 pixels.
 
-  ## Step 3: Make the "Joystick" dragable
+  ## Step 3: Make the "Joystick" draggable
 
-  Implement the _mousePressed_, _mouseDragged_, and _mouseReleased_ functions to make the joystick dragable:
+  Implement the _mousePressed_, _mouseDragged_, and _mouseReleased_ functions to make the joystick draggable:
 
   * If the user clicks, check if the click is inside the black circle. You must use the Pythagorean theorem to calculate the distance between the click and the center of the black circle.
   * If the user has clicked inside the black circle (=joystick) and _mouseDragged_ is called (i.e. mouse is moved while button is pressed), move the black circle to the mouse position.
@@ -36,7 +36,7 @@ descriptionMd: |
 
   Make sure that the jet can never fly outside of the visible area.
 
-  Show the current position of the jet relative to the center of the canvas and it's current speed in the left lower corner of the canvas.
+  Show the current position of the jet relative to the center of the canvas and its current speed in the left lower corner of the canvas.
 
   ## Step 6 (Advanced): Limit the Joystick to the Red Circle
 
@@ -50,19 +50,19 @@ files:
     content: |
       let fighter: p5.Image;
 
-      const fighterImageWidth = 475;
-      const fighterImageHeight = 724;
-      const fighterDisplayHeight = 200;
-      const fighterDisplayWidth = fighterDisplayHeight * (fighterImageWidth / fighterImageHeight);
-      let fighterPositionX = 0;
-      let fighterPositionY = 0;
+      const fighterImageWidth: number = 475;
+      const fighterImageHeight: number = 724;
+      const fighterDisplayHeight: number = 200;
+      const fighterDisplayWidth: number = fighterDisplayHeight * (fighterImageWidth / fighterImageHeight);
+      let fighterPositionX: number = 0;
+      let fighterPositionY: number = 0;
 
-      async function setup() {
+      async function setup(): Promise<void> {
         fighter = await loadImage("https://cddataexchange.blob.core.windows.net/images/Spaceship.png");
         createCanvas(500, 500);
       }
 
-      function draw() {
+      function draw(): void {
         background("lightblue");
 
         push();
@@ -72,13 +72,13 @@ files:
         pop();
       }
 
-      function mousePressed() {
+      function mousePressed(): void {
       }
 
-      function mouseDragged() {
+      function mouseDragged(): void {
       }
 
-      function mouseReleased() {
+      function mouseReleased(): void {
       }
     isEditable: true
 

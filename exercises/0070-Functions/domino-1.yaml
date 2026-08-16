@@ -24,14 +24,14 @@ sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/re
 files:
   "index.ts":
     content: |
-      function setup() {
+      function setup(): void {
         createCanvas(200, 200);
         background("lightgray");
 
         const dicePointDiameter: number = 30; // Size of a dot
-        const diceSize = 200; // size of dice (width and height)
+        const diceSize: number = 200; // size of dice (width and height)
 
-        const dice = floor(random(1, 7));
+        const dice: number = floor(random(1, 7));
 
         // draw black dice surface
         fill("black");

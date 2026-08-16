@@ -27,7 +27,7 @@ sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/re
 files:
   "index.ts":
     content: |
-      function setup() {
+      function setup(): void {
         createCanvas(500, 500);
         angleMode(DEGREES);
 
@@ -43,7 +43,7 @@ files:
       //       |     +-------------------- Parameter name
       //       |     |      +------------- Parameter type
       //       v     v      v
-      function smile(happy: boolean) {
+      function smile(happy: boolean): void {
         // <<< Add your code here
       }
 

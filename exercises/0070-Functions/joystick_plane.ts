@@ -1,28 +1,28 @@
 let fighter: p5.Image;
 
-const fighterImageWidth = 475;
-const fighterImageHeight = 724;
-const fighterDisplayHeight = 200;
-const fighterDisplayWidth = fighterDisplayHeight * (fighterImageWidth / fighterImageHeight);
-let fighterPositionX = 0;
-let fighterPositionY = 0;
+const fighterImageWidth: number = 475;
+const fighterImageHeight: number = 724;
+const fighterDisplayHeight: number = 200;
+const fighterDisplayWidth: number = fighterDisplayHeight * (fighterImageWidth / fighterImageHeight);
+let fighterPositionX: number = 0;
+let fighterPositionY: number = 0;
 
-let stickX = 0;
-let stickY = 0;
-let stickOriginX = 0;
-let stickOriginY = 0;
-const controlStickRadius = 10;
-const movementRadius = 50;
-let dragging = false;
+let stickX: number = 0;
+let stickY: number = 0;
+let stickOriginX: number = 0;
+let stickOriginY: number = 0;
+const controlStickRadius: number = 10;
+const movementRadius: number = 50;
+let dragging: boolean = false;
 
-async function setup() {
+async function setup(): Promise<void> {
   fighter = await loadImage("https://cddataexchange.blob.core.windows.net/images/Spaceship.png");
   createCanvas(500, 500);
   stickOriginX = width / 2;
   stickOriginY = height - movementRadius;
 }
 
-function draw() {
+function draw(): void {
   background("lightblue");
 
   push();
@@ -49,56 +49,56 @@ function draw() {
   push();
   noStroke();
   fill("black");
-  const stickCenterX = width / 2 + stickX;
-  const stickCenterY = height - movementRadius + stickY;
+  const stickCenterX: number = width / 2 + stickX;
+  const stickCenterY: number = height - movementRadius + stickY;
   translate(stickCenterX, stickCenterY);
   circle(0, 0, controlStickRadius * 2);
   pop();
   
-  const speedX = stickX / 5;
-  const speedY = stickY / 5;
-  fighterPositionX = Math.min(Math.max(fighterPositionX + speedX, -width / 2), width / 2);
-  fighterPositionY = Math.min(Math.max(fighterPositionY + speedY, -height / 2), height / 2);
+  const speedX: number = stickX / 5;
+  const speedY: number = stickY / 5;
+  fighterPositionX = min(max(fighterPositionX + speedX, -width / 2), width / 2);
+  fighterPositionY = min(max(fighterPositionY + speedY, -height / 2), height / 2);
 
   push();
   noStroke();
   fill("black");
   textSize(10);
-  text(`Fighter position: ${Math.round(fighterPositionX)}, ${Math.round(fighterPositionY)}`, 10, height - 10);
-  text(`Speed: ${Math.round(speedX)}, ${Math.round(speedY)}`, 10, height - 22);
+  text(`Fighter position: ${round(fighterPositionX)}, ${round(fighterPositionY)}`, 10, height - 10);
+  text(`Speed: ${round(speedX)}, ${round(speedY)}`, 10, height - 22);
   pop();
 }
 
 function distance(x1: number, y1: number, x2: number, y2: number): number {
-  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+  return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
 
-function mousePressed() {
-  const stickCenterX = width / 2 + stickX;
-  const stickCenterY = height - movementRadius + stickY;
-  const distanceToStick = distance(mouseX, mouseY, stickCenterX, stickCenterY);
+function mousePressed(): void {
+  const stickCenterX: number = width / 2 + stickX;
+  const stickCenterY: number = height - movementRadius + stickY;
+  const distanceToStick: number = distance(mouseX, mouseY, stickCenterX, stickCenterY);
   if (distanceToStick < controlStickRadius) {
     dragging = true;
   }
 }
 
-function mouseDragged() {
+function mouseDragged(): void {
   if (dragging) {
     stickX = mouseX - stickOriginX;
     stickY = mouseY - stickOriginY;
 
     // Calculate the distance from the center
-    const distanceFromCenter = distance(0, 0, stickX, stickY);
+    const distanceFromCenter: number = distance(0, 0, stickX, stickY);
     
     // If the distance exceeds the movement radius, scale down the values
     if (distanceFromCenter > movementRadius - controlStickRadius) {
-      const scale = (movementRadius - controlStickRadius) / distanceFromCenter;
+      const scale: number = (movementRadius - controlStickRadius) / distanceFromCenter;
       stickX *= scale;
       stickY *= scale;
     }
   }
 }
 
-function mouseReleased() {
+function mouseReleased(): void {
   dragging = false;
 }

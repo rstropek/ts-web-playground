@@ -18,9 +18,9 @@ descriptionMd: |
   ## Task 2: Pop Bubbles
 
   * Create a function _isInside_ that calculates if a given point is inside a circle.
-    * The function should have three parameters: _x_, _y_, and _circle_index_.
+    * The function should have three parameters: _x_, _y_, and _circleIndex_.
     * _x_ and _y_ are the coordinates of the point to check.
-    * _circle_index_ is the index of the circle in the arrays.
+    * _circleIndex_ is the index of the circle in the arrays.
     * The function should return _true_ if the point is inside the circle, _false_ otherwise.
     * Use the [Pythagorean theorem](https://www.geogebra.org/m/hQW8KxXz) (_a^2 + b^2 = c^2_) to calculate the distance between the point and the circle's center.
   * Create a function _mouseClicked_ that p5js will call when the user clicks on the canvas.
@@ -54,23 +54,23 @@ sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/re
 files:
   "index.ts":
     content: |
-      const circles_x: number[] = [];
-      const circles_y: number[] = [];
-      const circles_diameter: number[] = [];
+      const circlesX: number[] = [];
+      const circlesY: number[] = [];
+      const circlesDiameter: number[] = [];
 
-      let waiting_time = 3000;
-      let circle_interval: number;
-      let level_interval: number;
+      let waitingTime: number = 3000;
+      let circleInterval: number;
+      let levelInterval: number;
 
-      let points = 0;
+      let points: number = 0;
 
-      function setup() {
+      function setup(): void {
         createCanvas(300, 300);
 
         // <<< Add code here
       }
 
-      function draw() {
+      function draw(): void {
         background("black");
 
         // <<< Add code here

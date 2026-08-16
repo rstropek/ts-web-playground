@@ -15,11 +15,11 @@
  */
 
 // Base URL for all game assets
-const baseUrl = 'https://cddataexchange.blob.core.windows.net/data-exchange/sokoban';
+const baseUrl: string = 'https://cddataexchange.blob.core.windows.net/data-exchange/sokoban';
 
 // List of image assets to be loaded
 // These correspond to different game elements (walls, floor, targets, crates)
-const imageNames = [
+const imageNames: string[] = [
     `${baseUrl}/Blocks/block_06.png`,  // Wall
     `${baseUrl}/Ground/ground_01.png`, // Floor
     `${baseUrl}/Ground/ground_04.png`, // Target
@@ -31,25 +31,28 @@ const imageNames = [
 const images: p5.Image[] = [];
 
 // Current level being displayed
-const levelString = levels[0];
+const levelString: string = levels[0];
 
 // 2D array to store the level grid after parsing
 let level: string[][] = [];
 
 // Tracks the maximum width of any row in the level for canvas sizing
-let maxWidth = 0;
+let maxWidth: number = 0;
 
 /**
  * Setup function - loads all required game assets, parses the level data,
  * and initializes the canvas
  */
-async function setup() {
-    // Load all images from the imageNames array
-    images.push(...await Promise.all(imageNames.map(imageName => loadImage(imageName))));
+async function setup(): Promise<void> {
+    // Load all images from the imageNames array, one after the other
+    for (const imageName of imageNames) {
+        const loadedImage: p5.Image = await loadImage(imageName);
+        images.push(loadedImage);
+    }
 
     // Parse the level string into a 2D array
     for (const line of levelString.split('\n')) {
-        const chars = line.split('');
+        const chars: string[] = line.split('');
         // Track the maximum width to properly size the canvas
         if (chars.length > maxWidth) {
             maxWidth = chars.length;
@@ -67,7 +70,7 @@ async function setup() {
         for (const cell of row) {
             // Only render cells that aren't empty space
             if (cell !== '_') {
-                const img = getBlockImageBySymbol(cell);
+                const img: p5.Image = getBlockImageBySymbol(cell);
                 image(img, 0, 0, cellSize, cellSize);
             }
 
@@ -102,4 +105,4 @@ function getBlockImageBySymbol(type: string): p5.Image {
 }
 
 // Size of each cell in pixels
-const cellSize = 64;
+const cellSize: number = 64;

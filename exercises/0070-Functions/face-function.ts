@@ -1,6 +1,6 @@
-let nextSmiling = true; // We start with a happy face
+let nextSmiling: boolean = true; // We start with a happy face
 
-function setup() {
+function setup(): void {
   createCanvas(500, 500);
   angleMode(DEGREES);
 
@@ -11,7 +11,7 @@ function setup() {
   smile(nextSmiling); // Draw the first face
 }
 
-function mouseClicked() {
+function mouseClicked(): void {
   nextSmiling = !nextSmiling; // Toggle the next face
   smile(nextSmiling); // Draw the next face
 }
@@ -21,7 +21,7 @@ function mouseClicked() {
 //       |     +-------------------- Parameter name
 //       |     |      +------------- Parameter type
 //       v     v      v
-function smile(happy: boolean) {
+function smile(happy: boolean): void {
   push();
   translate(random(0, width), random(0, height));
   scale(0.2);

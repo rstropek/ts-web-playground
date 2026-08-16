@@ -12,7 +12,7 @@ sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/re
 files:
   "index.ts":
     content: |
-      function setup() {
+      function setup(): void {
         createCanvas(300, 300);
         background("black");
         strokeWeight(2);

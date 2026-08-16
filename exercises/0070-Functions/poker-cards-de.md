@@ -23,7 +23,7 @@ In unserem Programm wird jede Karte als **zweistelliger String** dargestellt:
 Beispiele:
 
 * _5H_ → _5 of hearts_
-* _3D_ → _3 or diamonds_
+* _3D_ → _3 of diamonds_
 * _0S_ → _10 of spades_
 
 ## Mindestanforderungen
@@ -37,7 +37,7 @@ Um die Prüfung zu bestehen, musst du die folgenden Methoden implementieren:
 
 **💡 Tipp:** Implementiere diese Methoden in ihrer Reihenfolge im Code.
 
-Der Code enthält detaillierte Kommentare, die die Funktionalität jeder Methode erklären. Das Verständnis dieser Spezifikationen ist Teil der Prüfung, also lese sie sorgfältig durch, bevor du mit dem Programmieren beginnst.
+Der Code enthält detaillierte Kommentare, die die Funktionalität jeder Methode erklären. Das Verständnis dieser Spezifikationen ist Teil der Prüfung, also lies sie sorgfältig durch, bevor du mit dem Programmieren beginnst.
 
 ## Erweiterte Anforderungen
 

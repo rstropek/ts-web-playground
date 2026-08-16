@@ -1,0 +1,168 @@
+title: "Target Game"
+descriptionMd: |
+  # Circle Target Game
+
+  ## Introduction
+
+  This exam requires you to create a simple drag-and-drop target game using TypeScript and p5.js. The game consists of a filled circle that can be dragged by the player and a target circle. The objective is to place the filled circle completely inside the target circle to score points. The game continues for 60 seconds, challenging the player to score as many points as possible within the time limit.
+
+  ![Target Game](https://cddataexchange.blob.core.windows.net/data-exchange/htl/target_game.gif)
+
+  ## Exam Tasks
+
+  ### Task 1: Circle Drawing and Dragging (Required to Pass)
+
+  - Draw a filled circle with a radius of 50 pixels at a random location on the canvas
+  - Ensure the circle is fully visible (no parts of it outside the canvas)
+  - Implement drag-and-drop functionality for the filled circle
+  - When dragging the circle, make sure it follows the mouse position
+  - When releasing the circle, it should stay at its current position
+
+  ### Task 2: Target Circle Implementation (Required to Pass)
+
+  - Draw a circle with a radius of 70 pixels (no fill, only outline) at a random location
+  - Ensure this target circle does not overlap with the filled circle
+  - The target circle must be fully visible within the canvas
+
+  ### Task 3: Scoring System
+
+  - When the player drops the filled circle, check if it is fully inside the target circle
+  - If the filled circle is completely inside the target, award one point to the player
+  - After scoring, move the target circle to a new random position (again ensuring no overlap)
+  - Display the current score in the lower left corner of the screen
+
+  ### Task 4: Game Timer
+
+  ![Target Game](https://cddataexchange.blob.core.windows.net/data-exchange/htl/target_game.png)
+
+  - Limit the game to 60 seconds of play time
+  - Display the remaining time in the lower right corner of the screen
+  - When the time expires, end the game and display a game over message with the final score
+  - Use setInterval for updating the remaining time
+
+  ## Passing Criteria
+
+  To pass this exam, you must successfully complete **at least Tasks 1 and 2**. Completing all four tasks is required for a full score.
+
+  ## Code Quality Criteria
+
+  Your solution will also be evaluated based on the following quality criteria:
+
+  - All drawing operations must be performed within the _draw_ function to ensure proper rendering.
+
+  - If you need logic in multiple places, create **dedicated functions** for it. Try to **avoid using global variables inside functions that you create**. Pass necessary data as parameters instead.
+
+  - Don't use unexplained numeric values ("magic numbers") in your code. Define constants for values like circle radii, time limits, and other important parameters.
+
+  - **Function Extraction Tips**: Consider creating separate functions for (of course you can create additional functions):
+    - Calculating distance between two points
+    - Checking if one circle is inside another
+    - Finding a valid position for a circle
+
+  ---
+
+  ## Einleitung
+
+  In dieser Prüfung sollst du ein einfaches Drag-and-Drop-Spiel mit TypeScript und p5.js erstellen. Das Spiel besteht aus einem ausgefüllten Kreis, der vom Spieler gezogen werden kann, und einem Zielkreis. Das Ziel ist es, den ausgefüllten Kreis vollständig im Zielkreis zu platzieren, um Punkte zu erzielen. Das Spiel läuft 60 Sekunden lang und fordert den Spieler heraus, innerhalb dieser Zeitbegrenzung so viele Punkte wie möglich zu erzielen.
+
+  ![Target Game](https://cddataexchange.blob.core.windows.net/data-exchange/htl/target_game.gif)
+
+  ## Prüfungsaufgaben
+
+  ### Aufgabe 1: Kreis, Drag & Drop (Pflichtaufgabe)
+
+  - Zeichne einen ausgefüllten Kreis mit einem Radius von 50 Pixeln an einer zufälligen Position auf der Leinwand
+  - Stelle sicher, dass der Kreis vollständig sichtbar ist (keine Teile außerhalb der Leinwand)
+  - Implementiere Drag-and-Drop-Funktionalität für den ausgefüllten Kreis
+  - Beim Ziehen des Kreises sollte er der Mausposition folgen
+  - Beim Loslassen des Kreises sollte er an seiner aktuellen Position bleiben
+
+  ### Aufgabe 2: Implementierung des Zielkreises (Pflichtaufgabe)
+
+  - Zeichne einen Kreis mit einem Radius von 70 Pixeln (ohne Füllung, nur Umriss) an einer zufälligen Position
+  - Stelle sicher, dass dieser Zielkreis sich nicht mit dem ausgefüllten Kreis überschneidet
+  - Der Zielkreis muss innerhalb der Leinwand vollständig sichtbar sein
+
+  ### Aufgabe 3: Punktesystem
+
+  - Wenn der Spieler den ausgefüllten Kreis ablegt, prüfe, ob er vollständig innerhalb des Zielkreises liegt
+  - Wenn der ausgefüllte Kreis vollständig im Ziel ist, erhält der Spieler einen Punkt
+  - Nach dem Punkten bewege den Zielkreis zu einer neuen zufälligen Position (wieder ohne Überlappung)
+  - Zeige die aktuelle Punktzahl in der unteren linken Ecke des Bildschirms an
+
+  ### Aufgabe 4: Spielzeitbegrenzung
+
+  ![Target Game](https://cddataexchange.blob.core.windows.net/data-exchange/htl/target_game.png)
+
+  - Begrenze das Spiel auf 60 Sekunden Spielzeit
+  - Zeige die verbleibende Zeit in der unteren rechten Ecke des Bildschirms an
+  - Wenn die Zeit abgelaufen ist, beende das Spiel und zeige eine Game-Over-Nachricht mit der endgültigen Punktzahl an
+  - Verwende setInterval, um die verbleibende Zeit zu aktualisieren
+
+  ## Kriterien für das Bestehen
+
+  Um diese Prüfung zu bestehen, musst du **mindestens Aufgaben 1 und 2** erfolgreich abschließen. Für die volle Punktzahl müssen alle vier Aufgaben abgeschlossen werden.
+
+  ## Codequalitätskriterien
+
+  Deine Lösung wird auch anhand der folgenden Qualitätskriterien bewertet:
+
+  - Alle Zeichenoperationen müssen innerhalb der Funktion _draw_ ausgeführt werden, um eine ordnungsgemäße Darstellung zu gewährleisten.
+
+  - Wenn du Logik an mehreren Stellen benötigst, erstelle **spezielle Funktionen** dafür. Versuche, **die Verwendung globaler Variablen innerhalb von Funktionen, die du erstellst, zu vermeiden**. Übergib stattdessen erforderliche Daten als Parameter.
+
+  - Verwende keine unerklärten numerischen Werte ("magische Zahlen") in deinem Code. Definiere Konstanten für Werte wie Kreisradien, Zeitbegrenzungen und andere wichtige Parameter.
+
+  - **Tipps zur Funktionsextraktion**: Erwäge die Erstellung separater Funktionen für (natürlich kannst du zusätzliche Funktionen erstellen):
+    - Berechnung des Abstands zwischen zwei Punkten
+    - Überprüfung, ob ein Kreis in einem anderen liegt
+    - Finden einer gültigen Position für einen Kreis
+
+files:
+  "index.ts":
+    content: |
+      // <<< Add your game variables here
+
+      function setup(): void {
+        createCanvas(800, 600);
+
+        // <<< Add setup logic here
+      }
+
+      function draw(): void {
+        background("lightgray");
+
+        // <<< Add drawing logic here
+      }
+
+      function mousePressed(): void {
+        // <<< Add mouse pressed logic here
+      }
+
+      function mouseDragged(): void {
+        // <<< Add mouse dragged logic here
+      }
+
+      function mouseReleased(): void {
+        // <<< Add mouse released logic here
+      }
+
+      // <<< Add additional functions here
+
+    isEditable: true
+
+  "index.html":
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <script src="{{p5Source}}"></script>
+          {{topScripts}}
+        </head>
+        <body>
+          {{bodyScripts}}
+        </body>
+      </html>
+    isEditable: false

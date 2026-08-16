@@ -1,8 +1,8 @@
 /** Base URL for images */
-const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/trains";
+const BASE_URL: string = "https://cddataexchange.blob.core.windows.net/images/trains";
 
 /** Image names for train wagons */
-const imageUrls = [
+const imageUrls: string[] = [
     "train-carriage-box.png",
     "train-carriage-coal.png",
     "train-carriage-container-blue.png",
@@ -47,14 +47,14 @@ const imageUrls = [
 ];
 
 /**
-  * Abbreviations for train wagons
-  * 
-  * Indices in abbreviations correspond to image names in imageUrls above.
-  * e.g. index 0 "TCB" corresponds to imageUrls[0] "train-carriage-box.png"
-  * e.g. index 1 "TCC" corresponds to imageUrls[1] "train-carriage-coal.png"
-  * etc.
-  */
-const abbreviations = [
+ * Abbreviations for train wagons
+ *
+ * Indices in abbreviations correspond to image names in imageUrls above.
+ * e.g. index 0 "TCB" corresponds to imageUrls[0] "train-carriage-box.png"
+ * e.g. index 1 "TCC" corresponds to imageUrls[1] "train-carriage-coal.png"
+ * etc.
+ */
+const abbreviations: string[] = [
     "TCB",
     "TCC",
     "TCCB",
@@ -85,9 +85,9 @@ const abbreviations = [
     "TESA",
     "TESB",
     "TESC",
-    "TESA",
-    "TESB",
-    "TESC",
+    "TESUA",
+    "TESUB",
+    "TESUC",
     "TLA",
     "TLB",
     "TLC",

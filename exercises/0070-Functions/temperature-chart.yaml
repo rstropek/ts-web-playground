@@ -22,7 +22,7 @@ files:
         20, 20, 18, 15, 12, 9, 9, 12, 16, 18, 18, 19,
       ];
 
-      function setup() {
+      function setup(): void {
         createCanvas(460, 300);
 
         // <<< Call the functions in the following order:
@@ -32,19 +32,19 @@ files:
         // 4. Draw X labels
       }
 
-      function drawAxes() {
+      function drawAxes(): void {
         // <<< Add code to draw X and Y axes here
       }
 
-      function drawYLabels() {
+      function drawYLabels(): void {
         // <<< Add code to draw labels for the Y axis here
       }
 
-      function drawXLabels() {
+      function drawXLabels(): void {
         // <<< Add code to draw labels for the X axis here
       }
 
-      function drawTemperatures(temperatures: number[]) {
+      function drawTemperatures(temperatures: number[]): void {
         // <<< Add code to draw the temperatures here
       }
 

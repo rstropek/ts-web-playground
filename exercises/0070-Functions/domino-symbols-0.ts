@@ -1,19 +1,19 @@
-function setup() {
+function setup(): void {
   createCanvas(200, 200);
   background("lightgray");
 
-  const diceSize = 200; // size of the square (width and height)
+  const diceSize: number = 200; // size of the square (width and height)
 
-  const symbol = floor(random(1, 7));
+  const symbol: number = floor(random(1, 7));
 
   // draw black background
   fill("black");
   noStroke();
   rect(0, 0, diceSize, diceSize);
 
-  const centerX = diceSize / 2;
-  const centerY = diceSize / 2;
-  const size = 80;
+  const centerX: number = diceSize / 2;
+  const centerY: number = diceSize / 2;
+  const size: number = 80;
 
   // draw symbol
   switch (symbol) {

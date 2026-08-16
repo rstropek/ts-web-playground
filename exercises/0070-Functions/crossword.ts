@@ -7,7 +7,7 @@
  */
 
 // Raw input data in format: animalName,startPosition,hint
-const crossword = `krebs,0,Schalentier  
+const crossword: string = `krebs,0,Schalentier  
 elefant,-1,Größtes Landtier  
 schlange,-4,Lautloser Jäger  
 papagei,-2,Bunter Sprachkünstler  
@@ -24,7 +24,7 @@ regenwurm,-2,Bodenlockerer mit Ringeln
 seegurke,-2,Tarnkünstler der Tiefsee`;
 
 // The word that players need to completely reveal to win
-const solution = 'klapperschlange';
+const solution: string = 'klapperschlange';
 
 // Arrays to store parsed data from the crossword input
 const animals: string[] = []; // Names of animals in the crossword
@@ -36,15 +36,15 @@ const guessedCharacters: string[] = []; // Letters that have been guessed correc
 let wrongGuesses: number = 0; // Counter for incorrect guesses
 
 // Layout constants for the visual representation
-const letterWidth = 35; // Width of each letter cell in pixels
-const letterHeight = 35; // Height of each letter cell in pixels
-const fontSize = 30; // Font size for letters in the crossword
+const letterWidth: number = 35; // Width of each letter cell in pixels
+const letterHeight: number = 35; // Height of each letter cell in pixels
+const fontSize: number = 30; // Font size for letters in the crossword
 
 /**
  * Initializes the game canvas and parses the crossword data.
  * This is a p5.js function that runs once at the start.
  */
-function setup() {
+function setup(): void {
   createCanvas(1000, 1000); // Create a 1000x1000 pixel canvas
   splitInput(); // Parse the crossword data
 }
@@ -53,10 +53,10 @@ function setup() {
  * Main drawing function that renders the game state.
  * This is a p5.js function that runs continuously.
  */
-function draw() {
+function draw(): void {
   background('white'); // Clear the canvas with a white background
 
-  drawSolutionHightlight(); // Highlight the solution column
+  drawSolutionHighlight(); // Highlight the solution column
   drawCrossword(); // Draw the crossword grid and revealed letters
   drawResult(); // Display the game status (won or number of wrong guesses)
 }
@@ -65,7 +65,7 @@ function draw() {
  * Highlights the solution column with a yellow background.
  * This column contains the letters that form the solution word.
  */
-function drawSolutionHightlight() {
+function drawSolutionHighlight(): void {
   push(); // Save the current drawing state
   translate(4 * letterWidth, 0); // Move to the solution column (4th column)
   noStroke(); // No border
@@ -78,7 +78,7 @@ function drawSolutionHightlight() {
  * Draws the complete crossword grid with animal names and hints.
  * Only shows letters that have been correctly guessed.
  */
-function drawCrossword() {
+function drawCrossword(): void {
   push(); // Save the current drawing state
   textSize(fontSize); // Set text size for letters
   textAlign(CENTER, CENTER); // Center-align the text
@@ -131,7 +131,7 @@ function drawCrossword() {
  * Displays the game status at the bottom of the crossword.
  * Shows either the number of wrong guesses or a victory message.
  */
-function drawResult() {
+function drawResult(): void {
   push(); // Save the current drawing state
   textSize(35); // Set text size for the result message
   translate(4 * letterWidth, letterHeight * (animals.length + 1)); // Position text below the crossword
@@ -151,7 +151,7 @@ function drawResult() {
  * This is a p5.js function that runs whenever a key is pressed.
  * Updates game state based on whether the guess was correct.
  */
-function keyPressed() {
+function keyPressed(): void {
   if (!hasWon()) {
     // Only accept input if the game is not won yet
     if (isValidGuess(key)) {
@@ -182,10 +182,10 @@ function isValidGuess(key: string): boolean {
  * Parses the raw crossword input string into the data structures.
  * Splits each line into animal name, starting position, and hint.
  */
-function splitInput() {
-  const words = crossword.split('\n'); // Split input by newlines to get each animal entry
+function splitInput(): void {
+  const words: string[] = crossword.split('\n'); // Split input by newlines to get each animal entry
   for (let i = 0; i < words.length; i++) {
-    const parts = words[i].split(','); // Split each entry by comma to get individual parts
+    const parts: string[] = words[i].split(','); // Split each entry by comma to get individual parts
     animals.push(parts[0]); // First part is the animal name
     startPos.push(parseInt(parts[1])); // Second part is the starting position (converted to number)
     hints.push(parts[2]); // Third part is the hint

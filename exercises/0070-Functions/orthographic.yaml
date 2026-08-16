@@ -48,9 +48,9 @@ descriptionMd: |
 
   ![Train size](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/trainsize.png)
 
-  ## Task 2: Add a second track
+  ## Task 2: Add more tracks
 
-  Your second task is to extend the code to draw more than one track. You should draw two tracks side by side. Here is an image of what the result should look like:
+  Your second task is to extend the code to draw more than one track. You should draw three tracks side by side. Here is an image of what the result should look like:
 
   ![Three tracks](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/multi-tracks.png)
 
@@ -58,24 +58,24 @@ sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/re
 files:
   "index.ts":
     content: |
-      const RAILROAD_WIDTH = 225;
-      const RAILROAD_HEIGHT = 160;
+      const RAILROAD_WIDTH: number = 225;
+      const RAILROAD_HEIGHT: number = 160;
 
-      const WAGON_WIDTH = 160;
-      const WAGON_HEIGHT = 113;
+      const WAGON_WIDTH: number = 160;
+      const WAGON_HEIGHT: number = 113;
 
       let railroad: p5.Image;
 
-      const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/trains";
+      const BASE_URL: string = "https://cddataexchange.blob.core.windows.net/images/trains";
 
-      async function setup() {
+      async function setup(): Promise<void> {
           railroad = await loadImage(`${BASE_URL}/railroad-straight.png`);
           // <<< Load the image of a train wagon (train-carriage-wood.png) using await loadImage(...)
 
           createCanvas(800, 550);
       }
       
-      function draw() {
+      function draw(): void {
           background("#f0f0f0");
 
           scale(0.5, 0.5);
@@ -97,9 +97,8 @@ files:
       }
 
       /** Draw a railroad segment */
-      function drawRailroad(ix: number) {
+      function drawRailroad(ix: number): void {
           image(railroad, -RAILROAD_WIDTH * ix, RAILROAD_HEIGHT * ix, railroad.width, railroad.height);
-
       }
 
       // <<< Add a function that draws a train wagon in analogy to drawRailroad

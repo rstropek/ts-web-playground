@@ -1,32 +1,34 @@
-const RAILROAD_WIDTH = 225;
-const RAILROAD_HEIGHT = 160;
+const RAILROAD_WIDTH: number = 225;
+const RAILROAD_HEIGHT: number = 160;
 
-const WAGON_WIDTH = 160;
-const WAGON_HEIGHT = 113;
+const WAGON_WIDTH: number = 160;
+const WAGON_HEIGHT: number = 113;
 
 let railroad: p5.Image;
 const trainCars: p5.Image[] = [];
-const train: p5.Image[] = [];
 let trains: p5.Image[][] = [];
 
-/** Input text for minimum requirements */
-const TRAIN = "TLB,TCCG,TCTL,TCW,TCL,TCCR"
+/** Input text for base requirements */
+const TRAIN: string = "TLB,TCCG,TCTL,TCW,TCL,TCCR";
 
 /** Input text for ADVANCED requirements */
-const TRACKS = "TLB,TCCG,TCTL,TCW,TCL,TCCR;TEDA,TEDB,TEDB,TEDC,TEDB;TDA,TCF,TCC,TCC,TCB,TCD"
+const TRACKS: string = "TLB,TCCG,TCTL,TCW,TCL,TCCR;TEDA,TEDB,TEDB,TEDC,TEDB;TDA,TCF,TCC,TCC,TCB,TCD";
 
-async function setup() {
+async function setup(): Promise<void> {
     railroad = await loadImage(`${BASE_URL}/railroad-straight.png`);
-    trainCars.push(...await Promise.all(
-        imageUrls.map(imageUrl => loadImage(`${BASE_URL}/${imageUrl}`))
-    ));
+
+    // Load the image of every wagon, one after the other.
+    for (const imageUrl of imageUrls) {
+        const wagonImage: p5.Image = await loadImage(`${BASE_URL}/${imageUrl}`);
+        trainCars.push(wagonImage);
+    }
 
     createCanvas(800, 550);
 
     trains = parseTracks(TRACKS);
 }
 
-function draw() {
+function draw(): void {
     background("#f0f0f0");
 
     scale(0.5, 0.5);
@@ -38,7 +40,7 @@ function draw() {
             drawRailroad(i);
         }
 
-        let ix = 0;
+        let ix: number = 0;
         for (const wagon of track) {
             drawTrainWagon(wagon, ix);
             ix++;
@@ -51,7 +53,7 @@ function draw() {
 function parseTracks(tracksString: string): p5.Image[][] {
     const result: p5.Image[][] = [];
 
-    let track = "";
+    let track: string = "";
     for (let i = 0; i < tracksString.length; i++) {
         if (tracksString[i] === ";") {
             result.push(parseTrain(track));
@@ -63,13 +65,12 @@ function parseTracks(tracksString: string): p5.Image[][] {
 
     result.push(parseTrain(track));
     return result;
-
 }
 
 function parseTrain(trainString: string): p5.Image[] {
     const result: p5.Image[] = [];
 
-    let wagon = "";
+    let wagon: string = "";
     for (let i = 0; i < trainString.length; i++) {
         if (trainString[i] === ",") {
             result.push(trainCars[getWagonIndex(wagon)]);
@@ -80,6 +81,10 @@ function parseTrain(trainString: string): p5.Image[] {
     }
 
     result.push(trainCars[getWagonIndex(wagon)]);
+
+    // The wagons are drawn from right to left. Therefore the first wagon of the
+    // string (the locomotive) must end up LAST in the array so that it is drawn
+    // at the front of the train.
     return result.reverse();
 }
 
@@ -95,12 +100,11 @@ function getWagonIndex(wagonAbbreviation: string): number {
 }
 
 /** Draw a railroad segment */
-function drawRailroad(ix: number) {
+function drawRailroad(ix: number): void {
     image(railroad, -RAILROAD_WIDTH * ix, RAILROAD_HEIGHT * ix, railroad.width, railroad.height);
-
 }
 
 /** Draw a train wagon */
-function drawTrainWagon(wagon: p5.Image, ix: number) {
+function drawTrainWagon(wagon: p5.Image, ix: number): void {
     image(wagon, -WAGON_WIDTH * ix, WAGON_HEIGHT * ix, wagon.width, wagon.height);
 }

@@ -11,9 +11,9 @@
  * is a space, the corresponding character in the return value must be a space.
  */
 function getInitialCurrentWord(wordToGuess: string): string {
-    let currentWordStatus = "";
+    let currentWordStatus: string = "";
     for (let i = 0; i < wordToGuess.length; i++) {
-        if (wordToGuess[i] != " ") {
+        if (wordToGuess[i] !== " ") {
             currentWordStatus += "_";
         } else {
             currentWordStatus += " ";
@@ -37,11 +37,11 @@ function getInitialCurrentWord(wordToGuess: string): string {
  * characters in currentWordStatus must be revealed.
  */
 function guessKey(key: string, wordToGuess: string, currentWordStatus: string): string {
-    const lowerKey = key.toLowerCase();
+    const lowerKey: string = key.toLowerCase();
 
-    let newCurrentWordStatus = "";
+    let newCurrentWordStatus: string = "";
     for (let i = 0; i < wordToGuess.length; i++) {
-        const lowerChar = wordToGuess[i].toLowerCase();
+        const lowerChar: string = wordToGuess[i].toLowerCase();
         if (lowerChar === lowerKey) {
             newCurrentWordStatus += wordToGuess[i];
         } else {
@@ -64,9 +64,9 @@ function guessKey(key: string, wordToGuess: string, currentWordStatus: string): 
  * 
  * * "No wrong guesses!" if number of wrong guesses is zero.
  * * "One wrong guess!" if number of wrong guesses is one.
- * * "n wrong guesses" otherwise ("n" is number of wrong guesses).
+ * * "n wrong guesses." otherwise ("n" is number of wrong guesses).
  */
-function drawResult(win: boolean, wrongGuesses: number) {
+function drawResult(win: boolean, wrongGuesses: number): void {
     push();
     textAlign(CENTER, CENTER);
     if (win) {
@@ -77,7 +77,7 @@ function drawResult(win: boolean, wrongGuesses: number) {
     noStroke();
     textSize(65);
     textFont(font);
-    let message = "Game Over";
+    let message: string = "Game Over";
     if (win) {
         switch (wrongGuesses) {
             case 0:

@@ -17,7 +17,7 @@
  * * 9 wrong: Top body part
  * * 10 wrong: GAME OVER
  */
-function drawSnowman(numberOfWrongGuesses: number) {
+function drawSnowman(numberOfWrongGuesses: number): void {
     // Set center of X axis
     translate(130, 0);
 
@@ -25,7 +25,7 @@ function drawSnowman(numberOfWrongGuesses: number) {
     push();
     stroke("black");
     strokeWeight(2);
-    fill("aliceblue")
+    fill("aliceblue");
     if (numberOfWrongGuesses < 10) {
         circle(0, 350, 250);
     }
@@ -60,7 +60,7 @@ function drawSnowman(numberOfWrongGuesses: number) {
     fill("black");
     translate(0, 180);
     rotate(45);
-    let start = 0;
+    let start: number = 0;
     if (numberOfWrongGuesses >= 5) {
         start = 6;
     } else if (numberOfWrongGuesses >= 3) {

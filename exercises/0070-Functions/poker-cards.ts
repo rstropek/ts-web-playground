@@ -1,39 +1,39 @@
 let hand: string[] = [];
 
-function setup() {
+function setup(): void {
     createCanvas(500, 500);
 
     // Here are example hands that you can use to test your program
-    const royalFlush = "6H,7H,8H,9H,0H";
-    const straightFlush = "5H,6H,7H,8H,9H";
-    const fourOfAKind = "5H,5D,5C,5S,0H";
-    const fullHouse = "5H,5D,5C,6H,6D";
-    const flush = "2H,4H,6H,8H,0H";
-    const straight = "5H,6S,7D,8C,9H";
-    const threeOfAKind = "5H,5D,5C,6H,7D";
-    const twoPairs = "5H,5D,6H,6S,7H";
-    const pair = "5H,5D,6H,7D,8H";
-    const highCard = "2H,3D,5S,7C,0H";
-    const random = shuffleCards();
+    const royalFlush: string = "6H,7H,8H,9H,0H";
+    const straightFlush: string = "5H,6H,7H,8H,9H";
+    const fourOfAKind: string = "5H,5D,5C,5S,0H";
+    const fullHouse: string = "5H,5D,5C,6H,6D";
+    const flush: string = "2H,4H,6H,8H,0H";
+    const straight: string = "5H,6S,7D,8C,9H";
+    const threeOfAKind: string = "5H,5D,5C,6H,7D";
+    const twoPairs: string = "5H,5D,6H,6S,7H";
+    const pair: string = "5H,5D,6H,7D,8H";
+    const highCard: string = "2H,3D,5S,7C,0H";
+    const randomHand: string = shuffleCards();
     
     // Test the program with the example hands
     //                 +---------- Change this line to test different hands
     //                 |           (e.g. royalFlush, straightFlush, fourOfAKind, ...)
     //                 v
-    const handString = random;
+    const handString: string = randomHand;
 
     hand = splitCardsString(handString);
 }
 
-function mouseClicked() {
+function mouseClicked(): void {
     hand = splitCardsString(shuffleCards());
 }
 
-function draw() {
+function draw(): void {
     background(255);
     drawHand(hand);
-    let message = "";
-    const counts = getCounts(hand);
+    let message: string = "";
+    const counts: number[] = getCounts(hand);
     if (isRoyalFlush(hand)) {
         message = "Royal Flush!";
     } else if (isStraightFlush(hand)) {
@@ -78,7 +78,7 @@ function draw() {
  */
 function splitCardsString(cards: string): string[] {
     const hand: string[] = [];
-    let currentCard = '';
+    let currentCard: string = '';
     for (const card of cards) {
         if (card === ',') {
             hand.push(currentCard);
@@ -101,7 +101,7 @@ function splitCardsString(cards: string): string[] {
  * of e.g. "0H" is 10, not 0!
  */
 function getCardValue(card: string): number {
-    let value = card[0];
+    let value: string = card[0];
     if (value === '0') {
         value = '10';
     }
@@ -122,7 +122,7 @@ function getCardValue(card: string): number {
  * before to get the value of the card.
  */
 function getCardDescription(card: string): string {
-    const value = getCardValue(card);
+    const value: number = getCardValue(card);
     let suite: string;
     switch (card[1]) {
         case 'H':
@@ -147,16 +147,16 @@ function getCardDescription(card: string): string {
  * Gets the highest card in the hand
  * 
  * @param hand hand (e.g. ["5H", "6H", "7H", "8H", "9H"])
- * @returns highest card in the hand (e.g. "9H")
+ * @returns description of highest card in the hand (e.g. "9 of hearts")
  * 
  * Tip: Consider using the function getCardValue() that you wrote
  * before to get the value of a card.
  */
 function getHighestCard(hand: string[]): string {
-    let highestCard = hand[0];
-    let highestCardValue = getCardValue(hand[0]);
+    let highestCard: string = hand[0];
+    let highestCardValue: number = getCardValue(hand[0]);
     for (let i = 1; i < hand.length; i++) {
-        const cardValue = getCardValue(hand[i]);
+        const cardValue: number = getCardValue(hand[i]);
         if (cardValue > highestCardValue) {
             highestCard = hand[i];
             highestCardValue = cardValue;
@@ -176,7 +176,7 @@ function getHighestCard(hand: string[]): string {
  * [0, 0, 0, 0, 0, 2, 0, 2, 1, 0].
  */
 function getCounts(hand: string[]): number[] {
-    const count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const count: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (const card of hand) {
         count[parseInt(card[0])]++;
     }
@@ -193,7 +193,7 @@ function getCounts(hand: string[]): number[] {
  * A hand is a flush if all cards have the same suite.
  */
 function isFlush(hand: string[]): boolean {
-    const firstSuit = hand[0][1];
+    const firstSuit: string = hand[0][1];
     for (let i = 1; i < hand.length; i++) {
         if (hand[i][1] !== firstSuit) {
             return false;
@@ -217,7 +217,7 @@ function isFlush(hand: string[]): boolean {
 function isStraight(hand: string[]): boolean {
     // Check if the values form a consecutive sequence
     // Convert string values to numbers (1-9 and 0 for 10)
-    const values = [];
+    const values: number[] = [];
     for (const card of hand) {
         values.push(getCardValue(card));
     }
@@ -298,7 +298,7 @@ function hasThreeOfAKind(counts: number[]): boolean {
  * @returns number of pairs in the hand (e.g. 2)
  */
 function numberOfPairs(counts: number[]): number {
-    let pairs = 0;
+    let pairs: number = 0;
     for (const count of counts) {
         if (count === 2) {
             pairs++;

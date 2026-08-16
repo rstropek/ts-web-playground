@@ -34,10 +34,10 @@ sampleSolution:
 files:
   "index.ts":
     content: |
-      const MAX_WRONG_GUESSES = 10;
+      const MAX_WRONG_GUESSES: number = 10;
 
       /** Word to guess */
-      const wordToGuess = "Winterwald";
+      const wordToGuess: string = "Winterwald";
 
       /** 
        * Current word status
@@ -54,16 +54,16 @@ files:
       let font: any;
 
       /** Number of wrong guesses */
-      let wrongGuesses = 0;
+      let wrongGuesses: number = 0;
 
       /**
        * Value indicating whether the program still accepts keys
        *
        * Becomes false if the game is over. 
        */
-      let acceptKeys = true;
+      let acceptKeys: boolean = true;
 
-      async function setup() {
+      async function setup(): Promise<void> {
           // Load the font from the web
           font = await loadFont("https://cddataexchange.blob.core.windows.net/images/SyneMono-Regular.ttf");
 
@@ -78,7 +78,7 @@ files:
           noLoop(); // Stop calling draw() automatically
       }
 
-      function draw() {
+      function draw(): void {
           background("white");
 
           if (currentWordStatus === wordToGuess) {
@@ -94,15 +94,14 @@ files:
               drawSnowman(wrongGuesses);
               drawCurrentWordStatus(font, currentWordStatus);
           }
-
       }
 
-      function keyPressed() {
+      function keyPressed(): void {
           // If game is over, do not accept keys
           if (!acceptKeys) { return; }
 
           // Handle guess
-          const newCurrentWordStatus = guessKey(key, wordToGuess, currentWordStatus);
+          const newCurrentWordStatus: string = guessKey(key, wordToGuess, currentWordStatus);
           if (currentWordStatus === newCurrentWordStatus) {
               wrongGuesses++;
           }
@@ -120,7 +119,7 @@ files:
        * 
        * Draws the current word status on the screen.
        */
-      function drawCurrentWordStatus(font: any, currentWordStatus: string) {
+      function drawCurrentWordStatus(font: any, currentWordStatus: string): void {
           push();
           textAlign(LEFT, BOTTOM);
           translate(225, 0);
@@ -156,7 +155,7 @@ files:
        * * 9 wrong: Top body part
        * * 10 wrong: GAME OVER
        */
-      function drawSnowman(numberOfWrongGuesses: number) {
+      function drawSnowman(numberOfWrongGuesses: number): void {
           // Set center of X axis
           translate(130, 0);
 
@@ -164,7 +163,7 @@ files:
           push();
           stroke("black");
           strokeWeight(2);
-          fill("aliceblue")
+          fill("aliceblue");
           if (numberOfWrongGuesses < 10) {
               circle(0, 350, 250);
           }
@@ -199,7 +198,7 @@ files:
           fill("black");
           translate(0, 180);
           rotate(45);
-          let start = 0;
+          let start: number = 0;
           if (numberOfWrongGuesses >= 5) {
               start = 6;
           } else if (numberOfWrongGuesses >= 3) {
@@ -290,9 +289,9 @@ files:
        * 
        * * "No wrong guesses!" if number of wrong guesses is zero.
        * * "One wrong guess!" if number of wrong guesses is one.
-       * * "n wrong guesses" otherwise ("n" is number of wrong guesses).
+       * * "n wrong guesses." otherwise ("n" is number of wrong guesses).
        */
-      function drawResult(win: boolean, wrongGuesses: number) {
+      function drawResult(win: boolean, wrongGuesses: number): void {
           // <<< Add code here
       }
     isEditable: true

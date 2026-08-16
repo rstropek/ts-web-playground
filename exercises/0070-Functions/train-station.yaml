@@ -2,7 +2,7 @@ title: "Train Station"
 descriptionMd: |
   # Train Station
 
-  You job is to visualize trains in a train station. From another computer system, you get information about the wagons of the trains as strings. You have to parse these strings and visualize the trains on the tracks.
+  Your job is to visualize trains in a train station. From another computer system, you get information about the wagons of the trains as strings. You have to parse these strings and visualize the trains on the tracks.
 
   ## Base Requirements
 
@@ -18,7 +18,9 @@ descriptionMd: |
 
   ### Task 3: Method for parsing a train string
 
-  Implement a new function _parseTrain_ that receives a string with comma-separated abbreviations of wagons (e.g. _TLB,TCCG,TCTL,TCW,TCL,TCCR_) as an argument and returns a corresponding array of images (_p5.Image[]_). The images for the result array are taken from the _train_ array. Use the previously implemented _getWagonIndex_ function to find the index of the image for each abbreviation.
+  Implement a new function _parseTrain_ that receives a string with comma-separated abbreviations of wagons (e.g. _TLB,TCCG,TCTL,TCW,TCL,TCCR_) as an argument and returns a corresponding array of images (_p5.Image[]_). The images for the result array are taken from the _trainCars_ array. Use the previously implemented _getWagonIndex_ function to find the index of the image for each abbreviation.
+
+  Note that the resulting array has to be **reversed**: the wagons are drawn from right to left, so the first wagon of the string (the locomotive) must be the last element of the array in order to end up at the front of the train.
 
   You are **not** allowed to use existing helper functions like _split_. You must implement the parse algorithm yourself.
 
@@ -40,7 +42,7 @@ descriptionMd: |
 
   You are **not** allowed to use existing helper functions like _split_. You must implement the parse algorithm yourself.
 
-  To make your life easier, here is the method signature of _parseTracks_: _function parseTracks(tracks: string): p5.Image[][]_ { ... }_
+  To make your life easier, here is the method signature of _parseTracks_: `function parseTracks(tracks: string): p5.Image[][] { ... }`
 
   Call _parseTracks_ in the _setup_ function to parse the _TRACKS_ string and store the result in the _trains_ array.
 
@@ -54,11 +56,11 @@ sampleSolution:
 files:
   "index.ts":
     content: |
-      const RAILROAD_WIDTH = 225;
-      const RAILROAD_HEIGHT = 160;
+      const RAILROAD_WIDTH: number = 225;
+      const RAILROAD_HEIGHT: number = 160;
 
-      const WAGON_WIDTH = 160;
-      const WAGON_HEIGHT = 113;
+      const WAGON_WIDTH: number = 160;
+      const WAGON_HEIGHT: number = 113;
 
       let railroad: p5.Image;
       const trainCars: p5.Image[] = [];
@@ -67,25 +69,25 @@ files:
       let train: p5.Image[] = [];
 
       /** Array of trains on tracks (for ADVANCED requirements)
-        * 
-        * This is an array of arrays. The outer array contains the trains on the tracks.
-        * Each inner array contains the train wagons of a single train.
-        */
+       *
+       * This is an array of arrays. The outer array contains the trains on the tracks.
+       * Each inner array contains the train wagons of a single train.
+       */
       let trains: p5.Image[][] = [];
 
       /** Input text for base requirements */
-      const TRAIN = "TLB,TCCG,TCTL,TCW,TCL,TCCR"
+      const TRAIN: string = "TLB,TCCG,TCTL,TCW,TCL,TCCR";
 
       /** Input text for ADVANCED requirements */
-      const TRACKS = "TLB,TCCG,TCTL,TCW,TCL,TCCR;TEDA,TEDB,TEDB,TEDC,TEDB;TDA,TCF,TCC,TCC,TCB,TCD"
+      const TRACKS: string = "TLB,TCCG,TCTL,TCW,TCL,TCCR;TEDA,TEDB,TEDB,TEDC,TEDB;TDA,TCF,TCC,TCC,TCB,TCD";
 
-      async function setup() {
+      async function setup(): Promise<void> {
           railroad = await loadImage(`${BASE_URL}/railroad-straight.png`);
 
           // <<< Add code to load all images (see imageUrls in wagons.ts).
-          //     Add the images to the trainCars array. After loading all image,
+          //     Add the images to the trainCars array. After loading all images,
           //     the length of the trainCars array must be equal to the length of imageUrls.
-          //     Use await loadImage(...) when loading each image.
+          //     Use a loop over imageUrls and await loadImage(...) for each image.
 
           createCanvas(800, 550);
 
@@ -93,7 +95,7 @@ files:
           //     train array (base requirements) or the trains array (ADVANCED requirements).
       }
 
-      function draw() {
+      function draw(): void {
           background("#f0f0f0");
 
           scale(0.5, 0.5);
@@ -114,13 +116,12 @@ files:
       // <<< Add additional functions here
 
       /** Draw a railroad segment */
-      function drawRailroad(ix: number) {
+      function drawRailroad(ix: number): void {
           image(railroad, -RAILROAD_WIDTH * ix, RAILROAD_HEIGHT * ix, railroad.width, railroad.height);
-
       }
 
       /** Draw a train wagon */
-      function drawTrainWagon(wagon: p5.Image, ix: number) {
+      function drawTrainWagon(wagon: p5.Image, ix: number): void {
           image(wagon, -WAGON_WIDTH * ix, WAGON_HEIGHT * ix, wagon.width, wagon.height);
       }
     isEditable: true
@@ -128,10 +129,10 @@ files:
   "wagons.ts":
     content: |
       /** Base URL for images */
-      const BASE_URL = "https://cddataexchange.blob.core.windows.net/images/trains";
+      const BASE_URL: string = "https://cddataexchange.blob.core.windows.net/images/trains";
 
       /** Image names for train wagons */
-      const imageUrls = [
+      const imageUrls: string[] = [
           "train-carriage-box.png",
           "train-carriage-coal.png",
           "train-carriage-container-blue.png",
@@ -176,14 +177,14 @@ files:
       ];
 
       /**
-        * Abbreviations for train wagons
-        * 
-        * Indices in abbreviations correspond to image names in imageUrls above.
-        * e.g. index 0 "TCB" corresponds to imageUrls[0] "train-carriage-box.png"
-        * e.g. index 1 "TCC" corresponds to imageUrls[1] "train-carriage-coal.png"
-        * etc.
-        */
-      const abbreviations = [
+       * Abbreviations for train wagons
+       *
+       * Indices in abbreviations correspond to image names in imageUrls above.
+       * e.g. index 0 "TCB" corresponds to imageUrls[0] "train-carriage-box.png"
+       * e.g. index 1 "TCC" corresponds to imageUrls[1] "train-carriage-coal.png"
+       * etc.
+       */
+      const abbreviations: string[] = [
           "TCB",
           "TCC",
           "TCCB",
@@ -214,9 +215,9 @@ files:
           "TESA",
           "TESB",
           "TESC",
-          "TESA",
-          "TESB",
-          "TESC",
+          "TESUA",
+          "TESUB",
+          "TESUC",
           "TLA",
           "TLB",
           "TLC",

@@ -3,16 +3,16 @@
 // Circles are counted left-to-right, top-to-bottom.
 
 // Canvas / layout constants
-const COLS = 10;
-const ROWS = 10;
-const CELL_SIZE = 46;  // distance between circle centers
-const MARGIN = 10;
-const TITLE_HEIGHT = 35;
+const COLS: number = 10;
+const ROWS: number = 10;
+const CELL_SIZE: number = 46;  // distance between circle centers
+const MARGIN: number = 10;
+const TITLE_HEIGHT: number = 35;
 
 // Colors
-const COLOR_FILLED = "steelblue";
-const COLOR_EMPTY = "lightgray";
-const COLOR_STROKE = "white";
+const COLOR_FILLED: string = "steelblue";
+const COLOR_EMPTY: string = "lightgray";
+const COLOR_STROKE: string = "white";
 
 // The random number we want to visualize (0–100)
 let randomNumber: number;
@@ -38,7 +38,11 @@ function drawCircle(colored: boolean): void {
     push();
     stroke(COLOR_STROKE);
     strokeWeight(2);
-    fill(colored ? COLOR_FILLED : COLOR_EMPTY);
+    if (colored) {
+        fill(COLOR_FILLED);
+    } else {
+        fill(COLOR_EMPTY);
+    }
     circle(0, 0, CELL_SIZE - 10);
     pop();
 }
@@ -46,7 +50,7 @@ function drawCircle(colored: boolean): void {
 function setup(): void {
     createCanvas(COLS * CELL_SIZE + 2 * MARGIN, ROWS * CELL_SIZE + TITLE_HEIGHT + MARGIN);
 
-    randomNumber = Math.floor(Math.random() * 101);
+    randomNumber = floor(random(0, 101));
 
     background("white");
 

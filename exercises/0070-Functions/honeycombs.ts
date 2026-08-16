@@ -12,7 +12,7 @@
 // Everything here runs before the first draw() frame — since
 // we have no draw(), this sketch is purely static.
 // ─────────────────────────────────────────────────────────────
-function setup() {
+function setup(): void {
     createCanvas(450, 370);   // create a 450×370 px drawing surface
     background("black");      // fill the canvas with black
     stroke("yellow");         // all future lines will be yellow
@@ -38,7 +38,7 @@ function setup() {
 // translate() is used to position each cell — no arithmetic in
 // the caller; drawComb() always draws at the local origin.
 // ─────────────────────────────────────────────────────────────
-function drawHive() {
+function drawHive(): void {
 
     // ── Outer loop: one iteration per ROW ──────────────────
     for (let y = 0; y < 13; y++) {
@@ -58,7 +58,7 @@ function drawHive() {
 
         // Odd rows also have one fewer cell so they fit within the canvas
         // after the 45 px indent.
-        let end = 5;                // default: 5 cells per row
+        let end: number = 5;                // default: 5 cells per row
         if (y % 2 !== 0) {
             end--;                  // odd rows: 4 cells (end becomes 4)
         }
@@ -111,7 +111,7 @@ function drawHive() {
 // The constants 20, 25, 45 (= 20+25), 50 (= 25+25), 65 (= 20+25+20)
 // are written as arithmetic expressions to make the geometry explicit.
 // ─────────────────────────────────────────────────────────────
-function drawComb() {
+function drawComb(): void {
     //    x1           y1        x2             y2
     line( 20        ,  0      ,  20 + 25     ,  0      );  // top          (horizontal)
     line( 20 + 25   ,  0      ,  20 + 25 + 20,  25     );  // top-right    (diagonal ↘)

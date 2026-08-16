@@ -15,11 +15,11 @@ files:
   "index.ts":
     content: |
       // Base URL for all game assets
-      const baseUrl = 'https://cddataexchange.blob.core.windows.net/data-exchange/sokoban';
+      const baseUrl: string = 'https://cddataexchange.blob.core.windows.net/data-exchange/sokoban';
 
       // List of image assets to be loaded
       // These correspond to different game elements (walls, floor, targets, crates)
-      const imageNames = [
+      const imageNames: string[] = [
           `${baseUrl}/Blocks/block_06.png`,  // Wall
           `${baseUrl}/Ground/ground_01.png`, // Floor
           `${baseUrl}/Ground/ground_04.png`, // Target
@@ -35,28 +35,28 @@ files:
       // for multiple levels as strings. Switch between levels
       // by changing the index in the levels array. Test your
       // implementation with different levels.
-      const levelString = levels[0];
+      const levelString: string = levels[0];
 
       // 2D array to store the level grid after parsing
       let level: string[][] = [];
 
       // Tracks the maximum width of any row in the level for canvas sizing
-      let maxWidth = 0;
+      let maxWidth: number = 0;
 
       /**
-      * Returns the appropriate image for a given tile type
-      * @param type - The character symbol representing the tile type
-      * @returns The corresponding p5.Image object
-      */
+       * Returns the appropriate image for a given tile type
+       * @param type - The character symbol representing the tile type
+       * @returns The corresponding p5.Image object
+       */
       function getBlockImageBySymbol(type: string): p5.Image {
           // <<< Add necessary code here
           return images[0]; // <<< Replace this code with your implementation
       }
 
       // Size of each cell in pixels
-      const cellSize = 64;
+      const cellSize: number = 64;
 
-      async function setup() {
+      async function setup(): Promise<void> {
           // <<< Add code to load all images from the imageNames array using await loadImage(...)
 
           // <<< Add code to parse the level string into a 2D array
@@ -72,7 +72,7 @@ files:
     content: |
       // Collection of game levels as string representations
       // Each character represents a game element according to the symbol legend
-      const levels = [
+      const levels: string[] = [
         `XXXXX__
       X   X__
       X@XbXXX

@@ -1,7 +1,7 @@
-const MAX_WRONG_GUESSES = 10;
+const MAX_WRONG_GUESSES: number = 10;
 
 /** Word to guess */
-const wordToGuess = "Winterwald";
+const wordToGuess: string = "Winterwald";
 
 /** 
  * Current word status
@@ -18,16 +18,16 @@ let currentWordStatus: string;
 let font: any;
 
 /** Number of wrong guesses */
-let wrongGuesses = 0;
+let wrongGuesses: number = 0;
 
 /**
  * Value indicating whether the program still accepts keys
  *
  * Becomes false if the game is over. 
  */
-let acceptKeys = true;
+let acceptKeys: boolean = true;
 
-async function setup() {
+async function setup(): Promise<void> {
     // Load the font from the web
     font = await loadFont("https://cddataexchange.blob.core.windows.net/images/SyneMono-Regular.ttf");
 
@@ -42,7 +42,7 @@ async function setup() {
     noLoop(); // Stop calling draw() automatically
 }
 
-function draw() {
+function draw(): void {
     background("white");
 
     if (currentWordStatus === wordToGuess) {
@@ -58,15 +58,14 @@ function draw() {
         drawSnowman(wrongGuesses);
         drawCurrentWordStatus(font, currentWordStatus);
     }
-
 }
 
-function keyPressed() {
+function keyPressed(): void {
     // If game is over, do not accept keys
     if (!acceptKeys) { return; }
 
     // Handle guess
-    const newCurrentWordStatus = guessKey(key, wordToGuess, currentWordStatus);
+    const newCurrentWordStatus: string = guessKey(key, wordToGuess, currentWordStatus);
     if (currentWordStatus === newCurrentWordStatus) {
         wrongGuesses++;
     }
@@ -84,7 +83,7 @@ function keyPressed() {
  * 
  * Draws the current word status on the screen.
  */
-function drawCurrentWordStatus(font: any, currentWordStatus: string) {
+function drawCurrentWordStatus(font: any, currentWordStatus: string): void {
     push();
     textAlign(LEFT, BOTTOM);
     translate(225, 0);

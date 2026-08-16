@@ -4,24 +4,23 @@
 // A random number n (0–500) determines how many marks are colored.
 
 // Layout constants
-const GROUPS_PER_ROW = 10;
-const ROWS = 10;
-const MARKS_PER_GROUP = 5;
-const TOTAL = ROWS * GROUPS_PER_ROW * MARKS_PER_GROUP; // 500
+const GROUPS_PER_ROW: number = 10;
+const ROWS: number = 10;
+const MARKS_PER_GROUP: number = 5;
+const TOTAL: number = ROWS * GROUPS_PER_ROW * MARKS_PER_GROUP; // 500
 
-const GROUP_W = 42;   // width of one tally group
-const GROUP_H = 36;   // height of the vertical strokes
-const COL_GAP = 10;   // gap between groups
-const ROW_GAP = 16;   // gap between rows
-const MARGIN = 16;
-const TITLE_HEIGHT = 30;
+const GROUP_W: number = 42;   // width of one tally group
+const GROUP_H: number = 36;   // height of the vertical strokes
+const COL_GAP: number = 10;   // gap between groups
+const ROW_GAP: number = 16;   // gap between rows
+const MARGIN: number = 16;
+const TITLE_HEIGHT: number = 30;
 
-const CELL_W = GROUP_W + COL_GAP;
-const CELL_H = GROUP_H + ROW_GAP;
+const CELL_W: number = GROUP_W + COL_GAP;
+const CELL_H: number = GROUP_H + ROW_GAP;
 
 // Colors
-const COLOR_FILLED = "steelblue";
-const COLOR_EMPTY  = "lightgray";
+const COLOR_FILLED: string = "steelblue";
 
 // The random number to visualize (0–500)
 let randomNumber: number;
@@ -57,8 +56,8 @@ function groupIndex(row: number, col: number): number {
  * @param n   - total number of colored marks (0–500)
  */
 function coloredMarksInGroup(row: number, col: number, n: number): number {
-    const firstMarkOfGroup = groupIndex(row, col) * MARKS_PER_GROUP;
-    return Math.max(0, Math.min(MARKS_PER_GROUP, n - firstMarkOfGroup));
+    const firstMarkOfGroup: number = groupIndex(row, col) * MARKS_PER_GROUP;
+    return max(0, min(MARKS_PER_GROUP, n - firstMarkOfGroup));
 }
 
 /**
@@ -86,13 +85,13 @@ function drawGroup(colored: number): void {
     // All drawn strokes share the same color — set it once before the loops
     stroke(COLOR_FILLED);
 
-    const spacing = GROUP_W / 4;  // distance between vertical strokes
+    const spacing: number = GROUP_W / 4;  // distance between vertical strokes
 
     // Draw only the colored vertical strokes (marks 1–4).
-    // Math.min(colored, 4) ensures we never draw more than 4 vertical lines,
+    // min(colored, 4) ensures we never draw more than 4 vertical lines,
     // even if colored is 5 — the 5th mark is the diagonal, handled separately.
-    for (let i = 0; i < Math.min(colored, 4); i++) {
-        const x = i * spacing;
+    for (let i = 0; i < min(colored, 4); i++) {
+        const x: number = i * spacing;
         line(x, 0, x, GROUP_H);
     }
 
@@ -106,12 +105,12 @@ function drawGroup(colored: number): void {
 }
 
 function setup(): void {
-    const canvasW = GROUPS_PER_ROW * CELL_W + 2 * MARGIN;
-    const canvasH = ROWS * CELL_H + TITLE_HEIGHT + MARGIN;
+    const canvasW: number = GROUPS_PER_ROW * CELL_W + 2 * MARGIN;
+    const canvasH: number = ROWS * CELL_H + TITLE_HEIGHT + MARGIN;
     createCanvas(canvasW, canvasH);
 
     // +1 so that TOTAL (500) is included as a possible value
-    randomNumber = Math.floor(Math.random() * (TOTAL + 1));
+    randomNumber = floor(random(0, TOTAL + 1));
 
     background("white");
 
