@@ -8,6 +8,8 @@ import { compile } from "./compile";
 import purify from "dompurify";
 import { renderMarkdownToHtml } from "./markdown";
 import { mountAgentView } from "./agent/view";
+import { initThemes } from "./theme";
+import { getEditorFontSize, mountSettingsDialog, onEditorFontSizeChange } from "./settings";
 
 const editor = document.getElementById("editor")! as HTMLDivElement;
 const run = document.getElementById("run")! as HTMLButtonElement;
@@ -126,8 +128,7 @@ burger.addEventListener("click", (event) => {
   setBurgerMenuOpen(!burgerMenu.classList.contains("open"));
 });
 
-// Close after activating a menu button (the native theme <select> keeps it open
-// until a value is chosen; see the change listener where the theme is wired up).
+// Close after activating a menu button.
 burgerMenu.addEventListener("click", (event) => {
   if ((event.target as HTMLElement).closest("button")) {
     setBurgerMenuOpen(false);
@@ -146,6 +147,10 @@ document.addEventListener("keydown", (event) => {
     setBurgerMenuOpen(false);
   }
 });
+
+// Settings (theme, editor font size, ...) - independent of the exercise load.
+mountSettingsDialog();
+initThemes();
 
 localSaves.addEventListener("click", () => {
   const dialog = document.getElementById("saveDialog")! as HTMLDialogElement;
@@ -363,9 +368,11 @@ loadExercise(exerciseUrl).then((ex1) => {
   monacoEditor = monaco.editor.create(editor, {
     model: initialFile!.model,
     language: "typescript",
+    fontSize: getEditorFontSize(),
     automaticLayout: true,
     readOnly: !initialFile?.isEditable,
   });
+  onEditorFontSizeChange((fontSize) => monacoEditor.updateOptions({ fontSize }));
   mountAgentView(files, monaco, ex1.descriptionMd);
 
   fileNames.addEventListener("change", function () {
@@ -495,148 +502,6 @@ window.addEventListener('message', (event) => {
 // console.log("Regular log message from iframe");
 // console.warn("Warning message from iframe");
 // console.error("Error message from iframe");
-
-
-// Themes
-const themeNames: string[] = [
-  "Active4D",
-  "All Hallows Eve",
-  "Amy",
-  "Birds of Paradise",
-  "Blackboard",
-  "Brilliance Black",
-  "Brilliance Dull",
-  "Chrome DevTools",
-  "Clouds",
-  "Clouds Midnight",
-  "Cobalt2",
-  "Cobalt",
-  "Dawn",
-  "Dominion Day",
-  "Dracula",
-  "Dreamweaver",
-  "Eiffel",
-  "Espresso Libre",
-  "GitHub Dark",
-  "GitHub",
-  "GitHub Light",
-  "idleFingers",
-  "IDLE",
-  "iPlastic",
-  "Katzenmilch",
-  "krTheme",
-  "Kuroir Theme",
-  "LAZY",
-  "MagicWB (Amiga)",
-  "Merbivore",
-  "Merbivore Soft",
-  "monoindustrial",
-  "Monokai Bright",
-  "Monokai",
-  "Night Owl",
-  "Nord",
-  "Oceanic Next",
-  "Pastels on Dark",
-  "Slush and Poppies",
-  "Solarized-dark",
-  "Solarized-light",
-  "SpaceCadet",
-  "Sunburst",
-  "Textmate (Mac Classic)",
-  "Tomorrow",
-  "Tomorrow-Night-Blue",
-  "Tomorrow-Night-Bright",
-  "Tomorrow-Night-Eighties",
-  "Tomorrow-Night",
-  "Twilight",
-  "Upstream Sunburst",
-  "Vibrant Ink",
-  "Xcode_default",
-  "Zenburnesque"
-];
-
-type Theme = {
-  id: string;
-  friendlyName: string;
-  themeData: monaco.editor.IStandaloneThemeData | {};
-}
-
-const themes: Theme[] = themeNames.map((theme) => {
-  return {
-    id: theme.toLowerCase().replaceAll(/[^0-9a-z-]/g, "-"),
-    friendlyName: theme,
-    themeData: {}
-  };
-});
-
-// Start loading themes in the background
-(async () => {
-  for (const theme of themes) {
-    try {
-      await loadTheme(theme);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-})();
-
-async function loadTheme(theme: Theme) {
-  theme.themeData = await fetch(`/playground/themes/${theme.friendlyName}.json`).then(m => m.json());
-  monaco.editor.defineTheme(theme.id, theme.themeData as monaco.editor.IStandaloneThemeData);
-}
-const themeSelect = document.getElementById("theme") as HTMLSelectElement;
-for (const theme of themes) {
-  const option = document.createElement("option");
-  option.value = theme.id;
-  option.textContent = theme.friendlyName;
-  themeSelect.appendChild(option);
-}
-
-themeSelect.addEventListener("change", async function () {
-  // Close the burger menu once a theme has been picked (narrow viewports).
-  setBurgerMenuOpen(false);
-  const themeName = themeSelect.value;
-  let themeData = themes.find(t => t.id === themeName)!.themeData as monaco.editor.IStandaloneThemeData;
-
-  if (Object.keys(themeData).length === 0) {
-    await loadTheme(themes.find(t => t.id === themeName)!);
-    themeData = themes.find(t => t.id === themeName)!.themeData as monaco.editor.IStandaloneThemeData;
-  }
-
-  monaco.editor.setTheme(themeName);
-
-  localStorage.setItem("theme", themeName);
-  // change the theme of the output iframe
-  const iframe = document.getElementById("result-frame")! as HTMLIFrameElement;
-  const iframeDocument = iframe.contentDocument!;
-  // Set the theme (get background color of the monaco editor)
-  const backgroundColor = themeData.colors["editor.background"];
-  iframeDocument.body.style.backgroundColor = backgroundColor;
-  const outputWindow = document.getElementById("output")!;
-  outputWindow.style.backgroundColor = backgroundColor;
-  const resultContainer = document.getElementById("result")!;
-  resultContainer.style.backgroundColor = backgroundColor;
-  // Set the text color for the output
-  const textColor = themeData.colors["editor.foreground"];
-  //  add style rule "#output-content .log { color: #${textColor}; }"
-  const style = document.createElement("style");
-  style.textContent =
-    `
-    #output-content .log,
-    #spec {
-      color: ${textColor};
-    }`;
-  document.head.appendChild(style);
-});
-
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme) {
-  themeSelect.value = savedTheme;
-  themeSelect.dispatchEvent(new Event("change"));
-} else {
-  themeSelect.value = "github";
-  themeSelect.dispatchEvent(new Event("change"));
-}
 
 // Save current code to local storage
 function saveCode(key: string): boolean {
