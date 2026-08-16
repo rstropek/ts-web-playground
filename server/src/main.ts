@@ -138,9 +138,23 @@ app.use("/me", createMeRoute(cosmosDb));
 app.use("/users", ensureAuthenticated, ensureAdmin, createUserRoutes(cosmosDb, ghPat.value));
 app.use("/exercises", ensureAuthenticated, ensureAdmin, await exercises(cosmosDb, kvClient));
 app.use("/github", ensureAuthenticatedWithoutRedirect, await github(cosmosDb, kvClient));
+// A bare /playground/ is a directory request, and the client web app answers
+// those with a 301 to its own hostname. Following it would take the student off
+// this origin, where /me, /github and the agent route do not exist. Asking for
+// the index file by name keeps them here.
+function indexInsteadOfDirectory(path: string): string {
+  const [pathname, query] = path.split("?");
+  if (pathname !== "/" && pathname !== "") {
+    return path;
+  }
+
+  return query === undefined ? "/index.html" : `/index.html?${query}`;
+}
+
 const proxyMiddleware = createProxyMiddleware({
   target: `${process.env.PROXY_TARGET ?? "http://localhost:5173"}/playground`,
   changeOrigin: true,
+  pathRewrite: indexInsteadOfDirectory,
   // No ws option: forwarding upgrades would also need
   // server.on("upgrade", proxyMiddleware.upgrade), and nothing behind this
   // proxy speaks websockets (the agent streams over SSE on its own route).
