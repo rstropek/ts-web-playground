@@ -141,7 +141,9 @@ app.use("/github", ensureAuthenticatedWithoutRedirect, await github(cosmosDb, kv
 const proxyMiddleware = createProxyMiddleware({
   target: `${process.env.PROXY_TARGET ?? "http://localhost:5173"}/playground`,
   changeOrigin: true,
-  ws: true,
+  // No ws option: forwarding upgrades would also need
+  // server.on("upgrade", proxyMiddleware.upgrade), and nothing behind this
+  // proxy speaks websockets (the agent streams over SSE on its own route).
   on: {
     error: (err, req, res, target) => {
       logger.error({ err }, "Proxy Target could not be reached - Is the client server running?");
