@@ -19,6 +19,19 @@
 
   --button-font-size: 13px;
 
+  /* Filled in from the active Monaco theme by theme.ts. The defaults are the
+     GitHub theme, i.e. what a student without a stored theme ends up with. */
+  --editor-bg-color: #f8f8ff;
+  --editor-fg-color: #000000;
+  --editor-selection-bg-color: #b4d5fe;
+
+  /* Everything else is mixed from those two, so the panels stay readable on a
+     light and on a dark theme without a second set of colors. */
+  --editor-surface-color: color-mix(in srgb, var(--editor-bg-color) 94%, var(--editor-fg-color));
+  --editor-raised-color: color-mix(in srgb, var(--editor-bg-color) 88%, var(--editor-fg-color));
+  --editor-border-color: color-mix(in srgb, var(--editor-bg-color) 72%, var(--editor-fg-color));
+  --editor-muted-color: color-mix(in srgb, var(--editor-fg-color) 65%, var(--editor-bg-color));
+
   /* Dialogs use a neutral surface so they read as content, not as top-bar chrome. */
   --dialog-bg-color: #ffffff;
   --dialog-color: #1b2b33;
@@ -140,6 +153,13 @@ select {
   width: 100%;
 }
 
+/* The panels around the editor pick up the editor theme. The iframe has its own
+   document, so theme.ts colors that one directly. */
+#result,
+#output {
+  background-color: var(--editor-bg-color);
+}
+
 #spec {
   display: none;
 }
@@ -192,8 +212,8 @@ select {
   }
 
   & .log {
-    border-left-color: black;
-    color: black;
+    border-left-color: var(--editor-fg-color);
+    color: var(--editor-fg-color);
   }
 
   & .warn {
@@ -453,6 +473,7 @@ select {
   overflow-y: auto;
   height: 100%;
   box-sizing: border-box;
+  color: var(--editor-fg-color);
 }
 
 #agent {
@@ -461,12 +482,18 @@ select {
   width: 100%;
   height: 100%;
   min-height: 0;
-  background: #f7f9fa;
-  color: #1d2a31;
+  background: var(--editor-bg-color);
+  color: var(--editor-fg-color);
 }
 
 #agent [hidden] {
   display: none !important;
+}
+
+/* The browser's default link blue vanishes on the dark themes. */
+#agent a,
+#spec a {
+  color: color-mix(in srgb, #2f7fd0 60%, var(--editor-fg-color));
 }
 
 .agent-code-form {
@@ -474,10 +501,10 @@ select {
   width: min(460px, calc(100% - 32px));
   margin: auto;
   padding: 24px;
-  border: 1px solid #cad5da;
+  border: 1px solid var(--editor-border-color);
   border-radius: 10px;
-  background: white;
-  box-shadow: 0 8px 30px rgb(33 56 66 / 10%);
+  background: var(--editor-surface-color);
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--editor-fg-color) 12%, transparent);
 }
 
 .agent-code-form h2 {
@@ -495,8 +522,10 @@ select {
 .agent-code-form input {
   margin: 6px 0 14px;
   padding: 10px;
-  border: 1px solid #8fa5af;
+  border: 1px solid var(--editor-border-color);
   border-radius: var(--border-radius);
+  background: var(--editor-bg-color);
+  color: var(--editor-fg-color);
 }
 
 #agent button {
@@ -533,20 +562,20 @@ select {
   gap: 12px;
   margin-bottom: 12px;
   padding: 14px 0 8px;
-  background: #f7f9fa;
+  background: var(--editor-bg-color);
 }
 
 .agent-session-note {
-  color: #60737c;
+  color: var(--editor-muted-color);
   font-size: 12px;
 }
 
 #agent .agent-start-over {
   flex: 0 0 auto;
   padding: 4px 9px;
-  border-color: #8fa5af;
+  border-color: var(--editor-border-color);
   background: transparent;
-  color: #42545c;
+  color: var(--editor-muted-color);
   font-size: 12px;
 }
 
@@ -568,15 +597,15 @@ select {
 
 .agent-message-user {
   align-self: flex-end;
-  background: #d8ebf3;
+  background: var(--editor-selection-bg-color);
   white-space: pre-wrap;
 }
 
 .agent-message-assistant {
   align-self: flex-start;
   width: min(100%, 760px);
-  border: 1px solid #d6dfe3;
-  background: white;
+  border: 1px solid var(--editor-border-color);
+  background: var(--editor-surface-color);
 }
 
 .agent-message-streaming {
@@ -596,12 +625,15 @@ select {
   margin: 1em 0;
 }
 
+/* Monaco colorizes the snippets with the active theme's token colors, so the
+   block has to sit on the editor background those colors were picked for. */
 .agent-code-block {
   overflow-x: auto;
   margin: 0;
   padding: 34px 12px 12px;
+  border: 1px solid var(--editor-border-color);
   border-radius: 6px;
-  background: #eef2f4;
+  background: var(--editor-bg-color);
 }
 
 .agent-code-block code {
@@ -619,10 +651,10 @@ select {
 .agent-tool-call {
   max-width: min(92%, 760px);
   padding: 7px 10px;
-  border: 1px solid #cad5da;
+  border: 1px solid var(--editor-border-color);
   border-radius: 7px;
-  background: #eef3f5;
-  color: #42545c;
+  background: var(--editor-raised-color);
+  color: var(--editor-muted-color);
   font-size: 13px;
 }
 
@@ -646,19 +678,20 @@ select {
   align-self: center;
   padding: 8px 10px;
   border-radius: 6px;
-  background: #e8eef1;
-  color: #42545c;
+  background: var(--editor-raised-color);
+  color: var(--editor-muted-color);
 }
 
+/* Errors stay red on every theme; only the surface follows it. */
 .agent-status-error {
   border: 1px solid #c94747;
-  background: #fff0f0;
-  color: #8a2020;
+  background: color-mix(in srgb, #c94747 12%, var(--editor-bg-color));
+  color: color-mix(in srgb, #c94747 65%, var(--editor-fg-color));
 }
 
 .agent-status-muted,
 .agent-stopped-label {
-  color: #687b84;
+  color: var(--editor-muted-color);
   font-size: 12px;
 }
 
@@ -674,8 +707,8 @@ select {
   box-sizing: border-box;
   width: 100%;
   padding: 10px 16px 14px;
-  border-top: 1px solid #cad5da;
-  background: white;
+  border-top: 1px solid var(--editor-border-color);
+  background: var(--editor-surface-color);
 }
 
 .agent-message-form textarea {
@@ -683,8 +716,10 @@ select {
   min-width: 0;
   resize: none;
   padding: 9px;
-  border: 1px solid #8fa5af;
+  border: 1px solid var(--editor-border-color);
   border-radius: var(--border-radius);
+  background: var(--editor-bg-color);
+  color: var(--editor-fg-color);
   font: inherit;
 }
 

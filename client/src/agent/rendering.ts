@@ -28,6 +28,8 @@ export async function renderMarkdown(
     const requestedLanguage = languageClass?.slice("language-".length) || "plaintext";
     const language = LANGUAGE_ALIASES[requestedLanguage.toLowerCase()] ?? requestedLanguage.toLowerCase();
 
+    // colorize() marks the tokens up with Monaco's .mtk* classes, so the snippet
+    // follows the editor theme from here on without being rendered again.
     try {
       const highlighted = await monacoApi.editor.colorize(originalText, language, {});
       codeElement.innerHTML = purify.sanitize(highlighted);

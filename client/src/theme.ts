@@ -79,10 +79,21 @@ async function loadTheme(theme: Theme) {
   monaco.editor.defineTheme(theme.id, theme.themeData as monaco.editor.IStandaloneThemeData);
 }
 
-// A single reusable style element - recreating it per theme change would leave
-// a growing pile of dead <style> tags in the document head.
-const themeStyle = document.createElement("style");
-document.head.appendChild(themeStyle);
+// The panels around the editor (spec, console, agent) follow the editor colors
+// via these custom properties; style.css mixes the surfaces it needs from them.
+function applyThemeColors(themeData: monaco.editor.IStandaloneThemeData) {
+  const colors = themeData.colors ?? {};
+  const root = document.documentElement;
+  const set = (name: string, value: string | undefined) => {
+    if (value) {
+      root.style.setProperty(name, value);
+    }
+  };
+
+  set("--editor-bg-color", colors["editor.background"]);
+  set("--editor-fg-color", colors["editor.foreground"]);
+  set("--editor-selection-bg-color", colors["editor.selectionBackground"]);
+}
 
 export function initThemes() {
   // Start loading themes in the background
@@ -116,24 +127,12 @@ export function initThemes() {
     monaco.editor.setTheme(themeName);
 
     setThemeId(themeName);
-    // change the theme of the output iframe
+    applyThemeColors(themeData);
+
+    // The result iframe is a document of its own, so the custom properties do
+    // not reach it.
     const iframe = document.getElementById("result-frame")! as HTMLIFrameElement;
-    const iframeDocument = iframe.contentDocument!;
-    // Set the theme (get background color of the monaco editor)
-    const backgroundColor = themeData.colors["editor.background"];
-    iframeDocument.body.style.backgroundColor = backgroundColor;
-    const outputWindow = document.getElementById("output")!;
-    outputWindow.style.backgroundColor = backgroundColor;
-    const resultContainer = document.getElementById("result")!;
-    resultContainer.style.backgroundColor = backgroundColor;
-    // Set the text color for the output
-    const textColor = themeData.colors["editor.foreground"];
-    themeStyle.textContent =
-      `
-    #output-content .log,
-    #spec {
-      color: ${textColor};
-    }`;
+    iframe.contentDocument!.body.style.backgroundColor = themeData.colors["editor.background"];
   });
 
   themeSelect.value = getThemeId();
