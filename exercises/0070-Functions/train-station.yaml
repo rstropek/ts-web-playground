@@ -48,7 +48,9 @@ descriptionMd: |
 
   Change the _draw_ function to draw multiple tracks. For each track, draw the railroad and the trains on it. Use the _trains_ array to draw the trains.
 
-sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/train-station.ts"
+sampleSolution:
+  "index.ts": "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/train-station.ts"
+  "wagons.ts": "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/train-station.wagons.ts"
 files:
   "index.ts":
     content: |

@@ -51,7 +51,9 @@ descriptionMd: |
 
   If you finish early, challenge yourself to implement even more methods and showcase your coding skills! 💪
 
-sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/poker-cards.ts"
+sampleSolution:
+  "index.ts": "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/poker-cards.ts"
+  "helpers.ts": "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/poker-cards.helpers.ts"
 files:
   "index.ts":
     content: |

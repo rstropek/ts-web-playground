@@ -122,7 +122,7 @@ title: "Example"
 descriptionMd: |
   # Task
   Draw something.
-sampleSolution: "https://raw.example/example.ts" # optional
+sampleSolution: "https://raw.example/example.ts" # optional, see below for multi-module exercises
 files:
   "index.ts":
     content: |
@@ -146,7 +146,15 @@ Important contracts:
 - The platform uses p5.js 2. Asset loaders return promises, so load assets in an `async function setup()` with `await loadImage(...)`, `await loadFont(...)`, and similar calls; p5.js 1's `preload()` lifecycle is not available.
 - `descriptionMd` is rendered with Marked and sanitized with DOMPurify. HTTPS images in the rendered HTML are routed through the authenticated image proxy.
 - `isEditable` controls Monaco read-only state and whether a file is saved to GitHub.
-- `sampleSolution` enables the destructive “Load Solution” action for `index.ts`.
+- `sampleSolution` enables the destructive “Load Solution” action. A single URL is the solution for `index.ts`. Exercises whose solution spans several modules use a map instead:
+
+  ```yaml
+  sampleSolution:
+    "index.ts": "https://raw.example/train-station.ts"
+    "wagons.ts": "https://raw.example/train-station.wagons.ts"
+  ```
+
+  Every key must name a file that also exists under `files`, otherwise the action reports an error and leaves the editor untouched — the same happens if one of the URLs cannot be fetched, so a solution is never applied half-way. Only `.ts` files are worth listing: `index.html` is compiled from the originally loaded content, so replacing it would have no effect.
 
 Adding a YAML file under `exercises/` does **not** publish it automatically. Create or update a matching record through the admin UI (`/exercises`) with its title, raw YAML URL, category, sort order, and optional display window. The Cosmos record's title must match the YAML title: cloud saves look up availability by title, normalize it to a folder name, and commit each editable file separately.
 

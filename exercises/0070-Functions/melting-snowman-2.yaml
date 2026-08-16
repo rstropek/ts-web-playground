@@ -27,7 +27,10 @@ descriptionMd: |
   * More than one wrong guess.
   * Game over because of 10 wrong guesses.
 
-sampleSolution: "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/melting-snowman.ts"
+sampleSolution:
+  "index.ts": "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/melting-snowman.ts"
+  "snowman.ts": "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/melting-snowman.snowman.ts"
+  "textGuesser.ts": "https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0070-Functions/melting-snowman.textGuesser.ts"
 files:
   "index.ts":
     content: |

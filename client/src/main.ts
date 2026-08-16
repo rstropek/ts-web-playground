@@ -1,7 +1,7 @@
 import "./style.css";
 import * as monaco from "monaco-editor";
 import "./editor";
-import { getExerciseUrlFromQueryString, loadExercise } from "./exercise";
+import { fetchExerciseResource, getExerciseUrlFromQueryString, loadExercise, normalizeSampleSolution } from "./exercise";
 import { Files } from "./files";
 import Split from "split.js";
 import { compile } from "./compile";
@@ -234,21 +234,42 @@ if (!exerciseUrl) {
 }
 
 loadExercise(exerciseUrl).then((ex1) => {
-  if (!ex1.sampleSolution) {
+  const sampleSolution = normalizeSampleSolution(ex1.sampleSolution);
+  if (Object.keys(sampleSolution).length === 0) {
     loadSolution.style.display = "none";
   }
 
   loadSolution.addEventListener("click", async () => {
     // ask user with an alert if they want to load the sample solution
-    if (ex1.sampleSolution && confirm("Are you sure you want to load the sample solution? This will replace all your changes.\n\nTry your very best to solve the exercise yourself before using the sample solution!")) {
-      let response = await fetch(`/github/exercise/proxy?exerciseUrl=${encodeURIComponent(ex1.sampleSolution)}`, { redirect: "manual" });
-      if (!response.ok) {
-        // Try to load it directly
-        response = await fetch(ex1.sampleSolution);
-      }
+    if (!confirm("Are you sure you want to load the sample solution? This will replace all your changes.\n\nTry your very best to solve the exercise yourself before using the sample solution!")) {
+      return;
+    }
 
-      const content = await response.text();
-      files.getFile("index.ts")?.replaceContent(content);
+    // Fetch every file of the solution before replacing anything. Otherwise a single
+    // broken URL would leave the exercise with a half-loaded solution.
+    let solutionContent: [string, string][];
+    try {
+      solutionContent = await Promise.all(
+        Object.entries(sampleSolution).map(async ([fileName, url]) => {
+          if (!files.getFile(fileName)) {
+            throw new Error(`The sample solution refers to the unknown file ${fileName}.`);
+          }
+
+          const response = await fetchExerciseResource(url);
+          if (!response.ok) {
+            throw new Error(`Could not load the sample solution for ${fileName} (status ${response.status}).`);
+          }
+
+          return [fileName, await response.text()] as [string, string];
+        })
+      );
+    } catch (error) {
+      showMessage(`Error loading sample solution: ${error instanceof Error ? error.message : error}`);
+      return;
+    }
+
+    for (const [fileName, content] of solutionContent) {
+      files.getFile(fileName)!.replaceContent(content);
     }
   });
 
@@ -319,13 +340,7 @@ loadExercise(exerciseUrl).then((ex1) => {
         break;
       }
     }
-    if (!success) {
-      message.querySelector('p')!.innerText = `Error saving files`;
-    } else {
-      message.querySelector('p')!.innerText = `Files saved successfully`;
-    }
-    (message.querySelector('#ok')! as HTMLButtonElement).addEventListener("click", () => message.close());
-    message.showModal();
+    showMessage(success ? `Files saved successfully` : `Error saving files`);
   });
 
   for (const fileName of files.getFileNames()) {
@@ -420,6 +435,14 @@ function compilerError(...data: any[]): void {
 
 function clearOutput() {
   output.innerHTML = "";
+}
+
+const messageOk = message.querySelector('#ok')! as HTMLButtonElement;
+messageOk.addEventListener("click", () => message.close());
+
+function showMessage(text: string) {
+  message.querySelector('p')!.innerText = text;
+  message.showModal();
 }
 
 // Listen for console messages from the iframe
