@@ -1,7 +1,7 @@
 {
   "name": "ts-p5-playground",
   "private": true,
-  "version": "2.1.0",
+  "version": "2.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -20,6 +20,9 @@
     "split.js": "^1.6.5",
     "typescript": "~6.0.3",
     "yaml": "^2.9.0"
+  },
+  "overrides": {
+    "dompurify": "$dompurify"
   },
   "devDependencies": {
     "minimatch": "^10.2.6",
