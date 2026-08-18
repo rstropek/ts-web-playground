@@ -24,10 +24,10 @@ function mouseMoved() {
     const percentage = 1 + mouseX / width;
 
     let sideLength = LENGTH * percentage;
-    for (let x = 0; x < width; x += sideLength) {
+    for (let x: number = 0; x < width; x += sideLength) {
         stroke(360 * x / width % 360, 100, 100);
         push();
-        for (let y = 0; y < height; y += sideLength) {
+        for (let y: number = 0; y < height; y += sideLength) {
             line(0, 0, sideLength, sideLength / 2);
             line(sideLength, sideLength / 2, 0, sideLength);
             translate(0, sideLength);

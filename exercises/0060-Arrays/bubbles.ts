@@ -50,7 +50,7 @@ function draw() {
 
   // Draw all circles stored in the arrays
   noStroke();
-  for (let i = 0; i < circlesDiameter.length; i++) {
+  for (let i: number = 0; i < circlesDiameter.length; i++) {
     fill(circlesFill[i]);              // Set the fill color for current circle
     circle(circlesCenterX[i], circlesCenterY[i], circlesDiameter[i]); // Draw the circle
   }

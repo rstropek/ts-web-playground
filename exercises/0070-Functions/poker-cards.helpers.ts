@@ -40,7 +40,7 @@ function getHand(): string[] {
     cards.sort(() => random() - 0.5);
     
     const hand: string[] = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i: number = 0; i < 5; i++) {
         hand.push(cards[i]);
     }
 

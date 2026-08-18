@@ -15,10 +15,10 @@ function setup() {
     stroke("yellow");
     noFill();
 
-    for (let y = 0; y <= SIZE; y += HEIGHT) {
+    for (let y: number = 0; y <= SIZE; y += HEIGHT) {
         // Save the current origin (left-most position in the current row)
         push();
-        for (let x = 0; x <= SIZE; x += SIDE_LENGTH) {
+        for (let x: number = 0; x <= SIZE; x += SIDE_LENGTH) {
             triangle(0, 0, SIDE_LENGTH / 2, -HEIGHT, SIDE_LENGTH, 0);
             translate(SIDE_LENGTH, 0); // Move origin to the right
         }
@@ -49,10 +49,10 @@ function setup() {
     noFill();
 
     translate(-SIDE_LENGTH / 2, HEIGHT / 2);
-    for (let y = HEIGHT / 2; y <= SIZE + HEIGHT / 2; y += HEIGHT) {
+    for (let y: number = HEIGHT / 2; y <= SIZE + HEIGHT / 2; y += HEIGHT) {
         // Save the current origin (left-most position in the current row)
         push();
-        for (let x = -SIDE_LENGTH / 2; x <= SIZE; x += SIDE_LENGTH) {
+        for (let x: number = -SIDE_LENGTH / 2; x <= SIZE; x += SIDE_LENGTH) {
             triangle(0, 0, SIDE_LENGTH / 2, -HEIGHT, SIDE_LENGTH, 0);
             translate(SIDE_LENGTH, 0); // Move origin to the right
         }

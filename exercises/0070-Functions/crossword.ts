@@ -84,12 +84,12 @@ function drawCrossword(): void {
   textAlign(CENTER, CENTER); // Center-align the text
 
   // Loop through each animal in the crossword
-  for (let i = 0; i < animals.length; i++) {
+  for (let i: number = 0; i < animals.length; i++) {
     push(); // Save drawing state for this row
     translate(0, i * letterHeight); // Move to the current row
 
     // Loop through each letter of the current animal name
-    for (let j = 0; j < animals[i].length; j++) {
+    for (let j: number = 0; j < animals[i].length; j++) {
       push(); // Save drawing state for this letter
       // Position the letter based on its startPos offset and its position in the word
       translate((4 + startPos[i] + j) * letterWidth, 0);
@@ -170,7 +170,7 @@ function keyPressed(): void {
  * @returns true if the guess is valid, false otherwise
  */
 function isValidGuess(key: string): boolean {
-  for (let i = 0; i < animals.length; i++) {
+  for (let i: number = 0; i < animals.length; i++) {
     if (animals[i].includes(key) && !guessedCharacters.includes(key)) {
       return true; // Valid if the letter exists in any animal and hasn't been guessed
     }
@@ -184,7 +184,7 @@ function isValidGuess(key: string): boolean {
  */
 function splitInput(): void {
   const words: string[] = crossword.split('\n'); // Split input by newlines to get each animal entry
-  for (let i = 0; i < words.length; i++) {
+  for (let i: number = 0; i < words.length; i++) {
     const parts: string[] = words[i].split(','); // Split each entry by comma to get individual parts
     animals.push(parts[0]); // First part is the animal name
     startPos.push(parseInt(parts[1])); // Second part is the starting position (converted to number)

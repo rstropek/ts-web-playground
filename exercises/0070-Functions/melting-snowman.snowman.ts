@@ -66,7 +66,7 @@ function drawSnowman(numberOfWrongGuesses: number): void {
     } else if (numberOfWrongGuesses >= 3) {
         start = 3;
     }
-    for (let i = start; i < 6; i++) {
+    for (let i: number = start; i < 6; i++) {
         circle(40, 0, 12);
         rotate(18);
     }
@@ -80,7 +80,7 @@ function drawSnowman(numberOfWrongGuesses: number): void {
     } else if (numberOfWrongGuesses >= 1) {
         start = 3;
     }
-    for (let i = start; i < 6; i++) {
+    for (let i: number = start; i < 6; i++) {
         noStroke();
         fill("black");
         circle(0, 275, 15);

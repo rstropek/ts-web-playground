@@ -90,7 +90,7 @@ function drawGroup(colored: number): void {
     // Draw only the colored vertical strokes (marks 1–4).
     // min(colored, 4) ensures we never draw more than 4 vertical lines,
     // even if colored is 5 — the 5th mark is the diagonal, handled separately.
-    for (let i = 0; i < min(colored, 4); i++) {
+    for (let i: number = 0; i < min(colored, 4); i++) {
         const x: number = i * spacing;
         line(x, 0, x, GROUP_H);
     }
@@ -125,12 +125,12 @@ function setup(): void {
     // All subsequent translates are relative to this starting point.
     translate(MARGIN, TITLE_HEIGHT + ROW_GAP / 2);
 
-    for (let row = 0; row < ROWS; row++) {
+    for (let row: number = 0; row < ROWS; row++) {
         // push() saves the current origin (start of this row).
         // The inner loop will translate rightward for each column,
         // so pop() at the end resets the x position back for the next row.
         push();
-        for (let col = 0; col < GROUPS_PER_ROW; col++) {
+        for (let col: number = 0; col < GROUPS_PER_ROW; col++) {
             drawGroup(coloredMarksInGroup(row, col, randomNumber));
             // Step one cell to the right — no x coordinate calculation needed
             translate(CELL_W, 0);

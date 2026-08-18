@@ -19,7 +19,7 @@ function setup() {
 
     let numberOfLines = 0;
     let buffer = "";
-    for (let i = 0; i < CONFIGURATION.length; i++) {
+    for (let i: number = 0; i < CONFIGURATION.length; i++) {
         if (CONFIGURATION[i] === ";") {
             numberOfLines = parseInt(buffer);
             buffer = "";
@@ -43,7 +43,7 @@ function setup() {
     const firstEndY = random(30, 470);
 
     // Initialize arrays with random values
-    for (let i = 0; i < numberOfLines; i++) {
+    for (let i: number = 0; i < numberOfLines; i++) {
         lineStartXs[i] = firstStartX + random(-40, 40);
         lineStartYs[i] = firstStartY + random(-40, 40);
         lineEndXs[i] = firstEndX + random(-40, 40);
@@ -63,7 +63,7 @@ function draw() {
 
     push();
     strokeWeight(2);
-    for (let i = 0; i < lineStartXs.length; i++) {
+    for (let i: number = 0; i < lineStartXs.length; i++) {
         stroke(lineColors[i], 100, 100);
         line(lineStartXs[i], lineStartYs[i], lineEndXs[i], lineEndYs[i]);
 

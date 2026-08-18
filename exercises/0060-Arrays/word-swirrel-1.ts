@@ -11,7 +11,7 @@ function setup() {
   colorMode(HSB);
   angleMode(DEGREES);
 
-  for (let i = 0; i < wordToGuess.length; i++) {
+  for (let i: number = 0; i < wordToGuess.length; i++) {
     // Get random position, font size, text color, and angle
     const x = random(MARGIN, WIDTH - MARGIN);
     const y = random(MARGIN, HEIGHT - MARGIN);

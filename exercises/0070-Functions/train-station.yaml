@@ -104,11 +104,11 @@ files:
 
           // <<< Change this code accordingly for ADVANCED requirements
 
-          for (let i = 0; i < 5; i++) {
+          for (let i: number = 0; i < 5; i++) {
               drawRailroad(i);
           }
 
-          for (let ix = 0; ix < train.length; ix++) {
+          for (let ix: number = 0; ix < train.length; ix++) {
               drawTrainWagon(train[ix], ix);
           }
       }

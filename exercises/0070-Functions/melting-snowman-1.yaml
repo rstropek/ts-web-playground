@@ -92,7 +92,7 @@ files:
           fill("black");
           translate(0, 180);
           rotate(45);
-          for (let i = 0; i < 6; i++) {
+          for (let i: number = 0; i < 6; i++) {
               circle(40, 0, 12);
               rotate(18);
           }
@@ -100,7 +100,7 @@ files:
 
           // Knobs
           push();
-          for (let i = 0; i < 6; i++) {
+          for (let i: number = 0; i < 6; i++) {
               noStroke();
               fill("black");
               circle(0, 275, 15);

@@ -112,7 +112,7 @@ function drawGrid() {
   
   // Draw vertical and horizontal lines
   // i goes from 1 to 2 (we need 2 lines in each direction)
-  for (let i = 1; i < 3; i++) {
+  for (let i: number = 1; i < 3; i++) {
     // Vertical lines: from top to bottom at positions 100px and 200px
     line(i * CELL_SIZE, 0, i * CELL_SIZE, GRID_SIZE);
     
@@ -133,7 +133,7 @@ function drawMarks() {
   fill("black");              // Make the text black
   
   // Loop through all 9 positions in our board array
-  for (let i = 0; i < 9; i++) {
+  for (let i: number = 0; i < 9; i++) {
     const mark = board[i];  // Get what's in this cell ("X", "O", or "")
     
     // Only draw something if the cell isn't empty

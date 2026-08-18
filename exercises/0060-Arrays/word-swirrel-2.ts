@@ -41,7 +41,7 @@ function setup() {
   // Every time you run the program, a different word will be selected.
   wordToGuess = random(WORDS);
 
-  for (let i = 0; i < wordToGuess.length; i++) {
+  for (let i: number = 0; i < wordToGuess.length; i++) {
     const x = random(MARGIN, WIDTH - MARGIN);
     const y = random(MARGIN, HEIGHT - MARGIN);
     const charSize = random(50, 200);

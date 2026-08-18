@@ -37,7 +37,7 @@ function draw() {
   }
 
   // For each circle, check if it's time to remove it
-  for (let i = circlesLifetime.length - 1; i >= 0; i--) {
+  for (let i: number = circlesLifetime.length - 1; i >= 0; i--) {
     // Is the circle's lifetime over?
     if (millis() >= circlesLifetime[i]) {
       // NEW: You can remove an element from an array using splice.
@@ -52,7 +52,7 @@ function draw() {
   }
 
   noStroke();
-  for (let i = 0; i < circlesDiameter.length; i++) {
+  for (let i: number = 0; i < circlesDiameter.length; i++) {
     fill(circlesFill[i]);
     circle(circlesCenterX[i], circlesCenterY[i], circlesDiameter[i]);
   }

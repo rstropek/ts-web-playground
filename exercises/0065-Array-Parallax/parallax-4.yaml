@@ -84,7 +84,7 @@ files:
           translate(0, (height - scaledImageHeight) / 2);
           const step = scrollPosition / images.length;
 
-          for (let i = 0; i < images.length; i++) {
+          for (let i: number = 0; i < images.length; i++) {
               translate(step, 0);
 
               const img = images[i];

@@ -63,9 +63,9 @@ function setup(): void {
 
     // Step the origin by CELL_SIZE on each iteration — no coordinate math needed
     translate(MARGIN + CELL_SIZE / 2, TITLE_HEIGHT + CELL_SIZE / 2);
-    for (let row = 0; row < ROWS; row++) {
+    for (let row: number = 0; row < ROWS; row++) {
         push();
-        for (let col = 0; col < COLS; col++) {
+        for (let col: number = 0; col < COLS; col++) {
             drawCircle(isColored(row, col, randomNumber));
             translate(CELL_SIZE, 0);
         }

@@ -32,7 +32,7 @@ function setup() {
 
   // Parse the fill string and store the values in the "silos" array
   let num = 0;
-  for (let i = 0; i < INITIAL_FILL.length; i++) {
+  for (let i: number = 0; i < INITIAL_FILL.length; i++) {
     if (INITIAL_FILL[i] === ",") {
       silos.push(num);
       num = 0;
@@ -44,7 +44,7 @@ function setup() {
   silos.push(num);
 
   // Calculate the x-coordinates of the silos and the buttons
-  for (let i = 0; i < silos.length; i++) {
+  for (let i: number = 0; i < silos.length; i++) {
     const x = SILO_GAP + i * (SILO_WIDTH + SILO_GAP);
     silosX.push(x);
     upX.push(x);
@@ -55,7 +55,7 @@ function setup() {
 function draw() {
   background("black");
 
-  for (let i = 0; i < silos.length; i++) {
+  for (let i: number = 0; i < silos.length; i++) {
     const indicatorSize = (BUTTON_SIZE / 2) * 0.6;
 
     // "add" button
@@ -159,7 +159,7 @@ function draw() {
 }
 
 function mouseClicked() {
-  for (let i = 0; i < upX.length; i++) {
+  for (let i: number = 0; i < upX.length; i++) {
     if (
       mouseX >= upX[i] &&
       mouseX <= upX[i] + BUTTON_SIZE &&
@@ -173,7 +173,7 @@ function mouseClicked() {
     }
   }
 
-  for (let i = 0; i < downX.length; i++) {
+  for (let i: number = 0; i < downX.length; i++) {
     if (
       mouseX >= downX[i] &&
       mouseX <= downX[i] + BUTTON_SIZE &&

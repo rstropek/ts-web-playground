@@ -78,7 +78,7 @@ function draw() {
     // amount.
     const step = scrollPosition / images.length;
 
-    for (let i = 0; i < images.length; i++) {
+    for (let i: number = 0; i < images.length; i++) {
         // Move each layer by a fraction of the scrollPosition. NOTE that we will call
         // the _translate()_ function multiple times. As you already know, calls to _translate()_
         // are cumulative. This means that the first layer will be moved by _step_, the second

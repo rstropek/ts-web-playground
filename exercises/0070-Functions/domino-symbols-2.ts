@@ -28,7 +28,7 @@ function setup(): void {
 
     // Draw 5 dominoes in a row:
     // 1:2, 2:3, 3:4, 4:5, 5:6
-    for (let i = 1; i <= 5; i++) {
+    for (let i: number = 1; i <= 5; i++) {
         // Draw one domino with the values i and i + 1.
         drawDomino(i, i + 1);
 

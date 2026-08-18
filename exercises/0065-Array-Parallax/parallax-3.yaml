@@ -73,7 +73,7 @@ files:
 
           // From here on, the code is the same as in the previous example
           translate(0, (height - scaledImageHeight) / 2);
-          for (let i = 0; i < images.length; i++) {
+          for (let i: number = 0; i < images.length; i++) {
               const img = images[i];
 
               // Draw background image to the left...

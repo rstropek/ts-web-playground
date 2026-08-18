@@ -93,14 +93,14 @@ function setup() {
     fill("orange");
     textAlign(RIGHT);
     textStyle(BOLD);
-    for (let i = 0; i < playerNumbers.length; i++) {
+    for (let i: number = 0; i < playerNumbers.length; i++) {
         text(playerNumbers[i], 30, 12 + i * 5);
     }
 
     fill("yellow");
     textAlign(LEFT);
     textStyle(NORMAL);
-    for (let i = 0; i < firstNames.length; i++) {
+    for (let i: number = 0; i < firstNames.length; i++) {
         text(`${firstNames[i]} ${lastNames[i]}`, 33, 12 + i * 5);
     }
 

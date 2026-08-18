@@ -89,7 +89,7 @@ files:
           // <<< For task 2, add another loop here
 
           // Draw five railroad segments
-          for (let i = 0; i < 5; i++) {
+          for (let i: number = 0; i < 5; i++) {
               drawRailroad(i);
           }
 

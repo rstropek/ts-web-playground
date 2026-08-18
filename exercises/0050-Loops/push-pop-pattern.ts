@@ -9,10 +9,10 @@ function setup() {
     stroke("yellow");
     noFill();
 
-    for (let y = 0; y <= SIZE; y += CIRCLE_DIAMETER) {
+    for (let y: number = 0; y <= SIZE; y += CIRCLE_DIAMETER) {
         // Save the current origin (left-most position in the current row)
         push();
-        for (let x = 0; x <= SIZE; x += CIRCLE_DIAMETER) {
+        for (let x: number = 0; x <= SIZE; x += CIRCLE_DIAMETER) {
             circle(0, 0, CIRCLE_DIAMETER);
             translate(CIRCLE_DIAMETER, 0); // Move origin to the right
         }

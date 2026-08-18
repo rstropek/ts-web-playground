@@ -155,7 +155,7 @@ function getCardDescription(card: string): string {
 function getHighestCard(hand: string[]): string {
     let highestCard: string = hand[0];
     let highestCardValue: number = getCardValue(hand[0]);
-    for (let i = 1; i < hand.length; i++) {
+    for (let i: number = 1; i < hand.length; i++) {
         const cardValue: number = getCardValue(hand[i]);
         if (cardValue > highestCardValue) {
             highestCard = hand[i];
@@ -194,7 +194,7 @@ function getCounts(hand: string[]): number[] {
  */
 function isFlush(hand: string[]): boolean {
     const firstSuit: string = hand[0][1];
-    for (let i = 1; i < hand.length; i++) {
+    for (let i: number = 1; i < hand.length; i++) {
         if (hand[i][1] !== firstSuit) {
             return false;
         }
@@ -223,7 +223,7 @@ function isStraight(hand: string[]): boolean {
     }
 
     // Check if values are consecutive
-    for (let i = 1; i < values.length; i++) {
+    for (let i: number = 1; i < values.length; i++) {
         if (values[i] !== values[i-1] + 1) {
             return false;
         }

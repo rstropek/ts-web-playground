@@ -78,7 +78,7 @@ type Circle = {
     }
   
     // Remove expired ornaments and update lives
-    for (let i = circles.length - 1; i >= 0; i--) {
+    for (let i: number = circles.length - 1; i >= 0; i--) {
         if (millis() >= circles[i].lifetime) {
             lives--;
             console.log(lives);
@@ -115,7 +115,7 @@ type Circle = {
     }
   
     // Check collision with each ornament
-    for (let i = circles.length - 1; i >= 0; i--) {
+    for (let i: number = circles.length - 1; i >= 0; i--) {
         const dx = mouseX - circles[i].x;
         const dy = mouseY - circles[i].y;
         if (Math.sqrt(dx * dx + dy * dy) <= ballDiameter) {

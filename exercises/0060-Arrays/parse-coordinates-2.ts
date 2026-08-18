@@ -16,7 +16,7 @@ function setup() {
     let coordinates = ""; // Buffer the current coordinate
     let isFirstPoint = true; // Track if we're parsing the very first point
 
-    for (let ix = 0; ix < points.length; ix++) {
+    for (let ix: number = 0; ix < points.length; ix++) {
         let ch = points[ix];
 
         if (ch === ",") {

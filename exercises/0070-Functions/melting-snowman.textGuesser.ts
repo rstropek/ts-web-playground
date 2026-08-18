@@ -12,7 +12,7 @@
  */
 function getInitialCurrentWord(wordToGuess: string): string {
     let currentWordStatus: string = "";
-    for (let i = 0; i < wordToGuess.length; i++) {
+    for (let i: number = 0; i < wordToGuess.length; i++) {
         if (wordToGuess[i] !== " ") {
             currentWordStatus += "_";
         } else {
@@ -40,7 +40,7 @@ function guessKey(key: string, wordToGuess: string, currentWordStatus: string): 
     const lowerKey: string = key.toLowerCase();
 
     let newCurrentWordStatus: string = "";
-    for (let i = 0; i < wordToGuess.length; i++) {
+    for (let i: number = 0; i < wordToGuess.length; i++) {
         const lowerChar: string = wordToGuess[i].toLowerCase();
         if (lowerChar === lowerKey) {
             newCurrentWordStatus += wordToGuess[i];

@@ -41,7 +41,7 @@ function setup(): void {
 function drawHive(): void {
 
     // ── Outer loop: one iteration per ROW ──────────────────
-    for (let y = 0; y < 13; y++) {
+    for (let y: number = 0; y < 13; y++) {
 
         // push() saves the current transformation matrix onto a stack.
         // Think of it as "remember where I am right now".
@@ -64,7 +64,7 @@ function drawHive(): void {
         }
 
         // ── Inner loop: one iteration per CELL in this row ─
-        for (let x = 0; x < end; x++) {
+        for (let x: number = 0; x < end; x++) {
 
             drawComb();             // draw one hexagon at the current origin
 

@@ -53,7 +53,7 @@ function setup(): void {
 function getSum(numbersString: string): number {
     let sum: number = 0;
     let currentNumber: string = "";
-    for (let i = 0; i < numbersString.length; i++) {
+    for (let i: number = 0; i < numbersString.length; i++) {
         if (numbersString[i] === ",") {
             sum += parseInt(currentNumber);
             currentNumber = "";
@@ -77,7 +77,7 @@ function getIndexOf(numbersString: string, number: number): number {
     let currentNumber: string = "";
     let startIndex: number = 0;
     
-    for (let i = 0; i < numbersString.length; i++) {
+    for (let i: number = 0; i < numbersString.length; i++) {
         if (numbersString[i] === ",") {
             if (parseInt(currentNumber) === number) {
                 return startIndex;
@@ -105,7 +105,7 @@ function getIndexOf(numbersString: string, number: number): number {
  * @returns The index of the number, -1 if the number is not found
  */
 function findIndexInArray(array: number[], number: number): number {
-    for (let i = 0; i < array.length; i++) {
+    for (let i: number = 0; i < array.length; i++) {
         if (array[i] === number) {
             return i;
         }
@@ -203,7 +203,7 @@ function findAllEvenNumbers(numberString: string): number[] {
     const evenNumbers: number[] = [];
     let currentNumber: string = "";
     
-    for (let i = 0; i < numberString.length; i++) {
+    for (let i: number = 0; i < numberString.length; i++) {
         if (numberString[i] === ",") {
             const num: number = parseInt(currentNumber);
             if (num % 2 === 0) {

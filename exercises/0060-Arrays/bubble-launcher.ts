@@ -21,7 +21,7 @@ function draw() {
     stroke('gold');
     circle(RADI, max(RADI, min(height - RADI, mouseY)), DIAM);
 
-    for (let i = 0; i < circleX.length; i++) {
+    for (let i: number = 0; i < circleX.length; i++) {
         circle(circleX[i], circleY[i], DIAM);
 
         circleX[i] += SPEED * direction[i];

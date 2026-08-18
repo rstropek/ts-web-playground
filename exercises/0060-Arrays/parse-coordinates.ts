@@ -12,7 +12,7 @@ function setup() {
     let x = 0; // x coordinate of the current circle
     let y = 0; // y coordinate of the current circle
     let coordinates = ""; // Buffer the current coordinate
-    for (let ix = 0; ix < circles.length; ix++) {
+    for (let ix: number = 0; ix < circles.length; ix++) {
         switch (circles[ix]) {
             case ",":
                 // We found a comma, so the current x coordinate is complete.

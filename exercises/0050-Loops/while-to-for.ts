@@ -14,17 +14,17 @@ function setup() {
 
     // Part 1: Draw vertical lines
     // Here you see how to use a while loop.
-    for (let i = GRID; i < SIZE; i += GRID) {
+    for (let i: number = GRID; i < SIZE; i += GRID) {
         line(i, 0, i, SIZE);
     }
 
     // Part 2: Draw horizontal lines
     // Note that this time, we are using a for loop.
-    //   +--------------------------- STEP 1: Initialize the loop variable
-    //   |             +------------- STEP 2: Check the loop condition
-    //   |             |         +--- STEP 4: Update the loop variable
-    //   v             v         v
-    for (let i = GRID; i < SIZE; i += GRID) {
+    //   +----------------------------------- STEP 1: Initialize the loop variable
+    //   |                     +------------- STEP 2: Check the loop condition
+    //   |                     |         +--- STEP 4: Update the loop variable
+    //   v                     v         v
+    for (let i: number = GRID; i < SIZE; i += GRID) {
         line(0, i, SIZE, i);       // STEP 3: Do whatever you want to do repatedly
     }
 }

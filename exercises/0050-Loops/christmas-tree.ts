@@ -9,14 +9,14 @@ function setup() {
   fill("green");
   noStroke();
 
-  for (let pass = 0; pass < 2; pass++) {
+  for (let pass: number = 0; pass < 2; pass++) {
     let triangleBaseWidth = INITIAL_TRIANGLE_BASE_WIDTH;
     let triangleHeight = triangleBaseWidth / 2;
 
     resetMatrix();
     translate(width / 2, TOP_MARGIN + triangleHeight);
 
-    for (let i = 0; i < NUMBER_OF_LAYERS; i++) {
+    for (let i: number = 0; i < NUMBER_OF_LAYERS; i++) {
       if (pass === 0) {
         triangle(-triangleBaseWidth / 2, 0, 0, -triangleHeight, triangleBaseWidth / 2, 0);
       } else {

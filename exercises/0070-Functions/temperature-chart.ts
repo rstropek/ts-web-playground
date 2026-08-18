@@ -29,7 +29,7 @@ function drawYLabels(): void {
   textAlign(RIGHT, CENTER);
   textSize(10);
   strokeWeight(2);
-  for (let t = -5; t <= 35; t += 5) {
+  for (let t: number = -5; t <= 35; t += 5) {
     let y: number = 225 - t * 5;
 
     push();
@@ -52,7 +52,7 @@ function drawXLabels(): void {
   strokeWeight(2);
   textAlign(CENTER, BOTTOM);
   textSize(8);
-  for (let i = 1; i <= 12; i++) {
+  for (let i: number = 1; i <= 12; i++) {
     let x: number = 50 + i * 30;
 
     push();
@@ -115,7 +115,7 @@ function drawTemperatures(temperatures: number[]): void {
   push();
   noStroke();
   fill("gold");
-  for (let i = 0; i < temperatures.length; i++) {
+  for (let i: number = 0; i < temperatures.length; i++) {
     let x: number = 50 + i * 30;
     let y: number = 225 - temperatures[i] * 5;
     rect(x + 5, y, 20, temperatures[i] * 5);

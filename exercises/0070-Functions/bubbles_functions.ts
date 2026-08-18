@@ -37,7 +37,7 @@ function draw(): void {
   fill("black");
   
   // Draw all circles
-  for (let i = 0; i < circlesX.length; i++) {
+  for (let i: number = 0; i < circlesX.length; i++) {
     circle(circlesX[i], circlesY[i], circlesDiameter[i]);
   }
 
@@ -92,7 +92,7 @@ function mouseClicked(): void {
   // Check if the mouse is inside any circle.
   // NOTE: We loop BACKWARDS because we remove elements from the arrays
   // while looping. Looping forwards would skip elements after a removal.
-  for (let i = circlesX.length - 1; i >= 0; i--) {
+  for (let i: number = circlesX.length - 1; i >= 0; i--) {
     if (isInside(mouseX, mouseY, i)) {
       // If the mouse is inside the circle, remove it.
       circlesX.splice(i, 1);

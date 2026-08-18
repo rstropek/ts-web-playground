@@ -36,7 +36,7 @@ function draw(): void {
     translate(850, -100);
 
     for (const track of trains) {
-        for (let i = 0; i < 5; i++) {
+        for (let i: number = 0; i < 5; i++) {
             drawRailroad(i);
         }
 
@@ -54,7 +54,7 @@ function parseTracks(tracksString: string): p5.Image[][] {
     const result: p5.Image[][] = [];
 
     let track: string = "";
-    for (let i = 0; i < tracksString.length; i++) {
+    for (let i: number = 0; i < tracksString.length; i++) {
         if (tracksString[i] === ";") {
             result.push(parseTrain(track));
             track = "";
@@ -71,7 +71,7 @@ function parseTrain(trainString: string): p5.Image[] {
     const result: p5.Image[] = [];
 
     let wagon: string = "";
-    for (let i = 0; i < trainString.length; i++) {
+    for (let i: number = 0; i < trainString.length; i++) {
         if (trainString[i] === ",") {
             result.push(trainCars[getWagonIndex(wagon)]);
             wagon = "";
@@ -89,7 +89,7 @@ function parseTrain(trainString: string): p5.Image[] {
 }
 
 function getWagonIndex(wagonAbbreviation: string): number {
-    for (let i = 0; i < abbreviations.length; i++) {
+    for (let i: number = 0; i < abbreviations.length; i++) {
         if (wagonAbbreviation === abbreviations[i]) {
             return i;
         }

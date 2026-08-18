@@ -20,9 +20,9 @@ function mouseMoved() {
     noFill();
     stroke("aqua");
 
-    for (let x = 0; x < width; x += LENGTH) {
+    for (let x: number = 0; x < width; x += LENGTH) {
         push();
-        for (let y = 0; y < height; y += LENGTH) {
+        for (let y: number = 0; y < height; y += LENGTH) {
             line(0, 0, LENGTH, LENGTH / 2);
             line(LENGTH, LENGTH / 2, 0, LENGTH);
             translate(0, LENGTH);
