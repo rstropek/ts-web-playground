@@ -32,6 +32,19 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
     }
   };
 
+  // Bridges the gap between sending a turn and the first token of the answer,
+  // so a slow model does not look like a crash.
+  const waiting = document.createElement("div");
+  waiting.className = "agent-status agent-status-muted agent-waiting";
+  waiting.setAttribute("aria-live", "polite");
+  waiting.textContent = "Waiting for the coding agent…";
+
+  const showWaiting = () => {
+    chat.appendChild(waiting);
+    scrollToBottom();
+  };
+  const hideWaiting = () => waiting.remove();
+
   const addStatus = (text: string, className = "") => {
     const status = document.createElement("div");
     status.className = `agent-status ${className}`.trim();
@@ -57,6 +70,8 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
           scrollToBottom();
         },
         onRunningChanged(running) {
+          if (running) showWaiting();
+          else hideWaiting();
           messageInput.disabled = running;
           sendButton.disabled = running;
           startOverButton.disabled = running;
@@ -64,6 +79,7 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
           if (!running) focusMessageInput();
         },
         onTextStart(messageId) {
+          hideWaiting();
           const message = document.createElement("div");
           message.className = "agent-message agent-message-assistant agent-message-streaming";
           message.setAttribute("aria-live", "polite");
@@ -83,6 +99,7 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
           void renderMarkdown(message, content, monacoApi).then(scrollToBottom);
         },
         onToolStart(toolCallId, name) {
+          hideWaiting();
           const details = document.createElement("details");
           details.className = "agent-tool-call";
           const summary = document.createElement("summary");
@@ -105,9 +122,12 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
           const resultText = document.createElement("pre");
           resultText.textContent = result;
           details.append(argumentsTitle, argumentsText, resultTitle, resultText);
+          // The tool result goes back to the model, so the wait starts over.
+          if (controller?.isRunning) showWaiting();
           scrollToBottom();
         },
         onStopped(partialMessageIds) {
+          hideWaiting();
           for (const id of partialMessageIds) {
             const message = textMessages.get(id);
             if (!message) continue;
@@ -121,6 +141,7 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
           scrollToBottom();
         },
         onError(message) {
+          hideWaiting();
           addStatus(message, "agent-status-error");
         },
       },

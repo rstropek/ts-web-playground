@@ -700,6 +700,10 @@ select {
   font-style: italic;
 }
 
+.agent-waiting {
+  font-style: italic;
+}
+
 .agent-message-form {
   display: flex;
   flex: 0 0 auto;
