@@ -38,10 +38,18 @@ describe("agent file tools", () => {
     [{ path: "index.ts", start_line: 1.5, end_line: 2 }, "must be integers"],
     [{ path: "index.ts", start_line: 2, end_line: 1 }, "must not be greater"],
     [{ path: "index.ts", start_line: 0, end_line: 1 }, "1-based"],
-    [{ path: "index.ts", start_line: 1, end_line: 3 }, "exceeds"],
   ])("rejects invalid read ranges %#", (args, message) => {
     const files = fakeFiles([fakeFile("index.ts", "typescript", true, () => "one\ntwo")]);
     expect(() => readFile(files, args)).toThrow(message);
+  });
+
+  it.each([
+    [{ path: "index.ts", start_line: 1, end_line: 200 }, { start_line: 1, end_line: 2, content: "one\ntwo" }],
+    [{ path: "index.ts", start_line: 2, end_line: 3 }, { start_line: 2, end_line: 2, content: "two" }],
+    [{ path: "index.ts", start_line: 5, end_line: 9 }, { start_line: 5, end_line: 2, content: "" }],
+  ])("clamps read ranges reaching past the end of the file %#", (args, expected) => {
+    const files = fakeFiles([fakeFile("index.ts", "typescript", true, () => "one\ntwo")]);
+    expect(readFile(files, args)).toEqual({ path: "index.ts", line_count: 2, ...expected });
   });
 
   it("filters live markers to exercise TypeScript errors in deterministic order", () => {

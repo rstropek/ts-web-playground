@@ -14,7 +14,7 @@ export const AGENT_TOOL_DEFINITIONS: Tool[] = [
   },
   {
     name: "read_file",
-    description: "Read a 1-based inclusive line range from the current unsaved contents of an exercise file.",
+    description: "Read a 1-based inclusive line range from the current unsaved contents of an exercise file. A range reaching past the end of the file is clamped to the last line; the response reports the actual range and the file's line_count.",
     parameters: {
       type: "object",
       properties: {
@@ -121,18 +121,17 @@ export function readFile(files: Files, args: unknown) {
   if ((startLine as number) > (endLine as number)) {
     throw new Error("read_file.start_line must not be greater than end_line.");
   }
-  if ((endLine as number) > lineCount) {
-    throw new Error(`read_file range exceeds ${path}, which has ${lineCount} lines.`);
-  }
 
+  const lastLine = Math.min(endLine as number, lineCount);
   const content: string[] = [];
-  for (let line = startLine as number; line <= (endLine as number); line++) {
+  for (let line = startLine as number; line <= lastLine; line++) {
     content.push(file.model.getLineContent(line));
   }
   return {
     path,
     start_line: startLine,
-    end_line: endLine,
+    end_line: lastLine,
+    line_count: lineCount,
     content: content.join("\n"),
   };
 }
