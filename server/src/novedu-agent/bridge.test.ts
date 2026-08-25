@@ -92,9 +92,9 @@ describe("Novedu bridge conversion", () => {
   });
 
   it.each([
-    [401, "invalid_code"],
-    [403, "inactive_code"],
-    [410, "expired_code"],
+    [401, "invalid_api_key"],
+    [403, "activity_inactive"],
+    [410, "activity_expired"],
     [413, "request_too_large"],
     [500, "upstream_failure"],
   ])("maps status %i to a sanitized %s error", (status, code) => {

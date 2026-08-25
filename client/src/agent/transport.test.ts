@@ -169,7 +169,7 @@ function createController(
     ...toolOverrides,
   };
   return new AgentController({
-    code: "code",
+    apiKey: "nvk-key",
     tools,
     callbacks,
     createAgent: () => agent,

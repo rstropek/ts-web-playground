@@ -59,16 +59,16 @@
           <pre id="output-content"></pre>
         </div>
         <section id="agent" aria-label="Coding agent">
-          <form id="agent-code-form" class="agent-code-form">
+          <form id="agent-key-form" class="agent-key-form">
             <h2>Coding Agent</h2>
-            <p>Enter the activity code from your teacher. It stays in this browser tab and is sent only to this playground server.</p>
-            <label for="agent-code">Activity code</label>
-            <input id="agent-code" name="code" type="password" autocomplete="off" required>
+            <p>Paste your personal Novedu API key (it starts with <code>nvk-</code>). Open the activity link from your teacher and sign in to get it &mdash; the activity code on its own does not work here. The key stays in this browser tab and is sent only to this playground server.</p>
+            <label for="agent-api-key">Novedu API key</label>
+            <input id="agent-api-key" name="apiKey" type="password" autocomplete="off" required>
             <button type="submit">Start agent</button>
           </form>
           <div id="agent-conversation" class="agent-conversation" hidden>
             <div class="agent-session-bar">
-              <div class="agent-session-note">To use a different activity code, reload this page.</div>
+              <div class="agent-session-note">To use a different API key, reload this page.</div>
               <button id="agent-start-over" class="agent-start-over" type="button">Start over</button>
             </div>
             <div id="agent-chat" class="agent-chat"></div>

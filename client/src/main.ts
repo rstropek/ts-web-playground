@@ -101,11 +101,11 @@ agentSelector.addEventListener("click", () => {
   setActiveView("agent");
 });
 
-// The activity code form is part of the initial markup, but its real submit
-// handler is only attached once the exercise has been loaded (mountAgentView).
-// Without this guard, submitting earlier would do a native GET and leak the
-// activity code into the URL, the browser history, and the server logs.
-document.getElementById("agent-code-form")!.addEventListener("submit", (event) => {
+// The API key form is part of the initial markup, but its real submit handler
+// is only attached once the exercise has been loaded (mountAgentView). Without
+// this guard, submitting earlier would do a native GET and leak the API key
+// into the URL, the browser history, and the server logs.
+document.getElementById("agent-key-form")!.addEventListener("submit", (event) => {
   event.preventDefault();
 });
 backButton.addEventListener("click", () => {

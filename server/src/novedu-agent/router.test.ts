@@ -23,27 +23,27 @@ afterEach(async () => {
 });
 
 describe("Novedu AG-UI route", () => {
-  it("rejects a missing code and invalid AG-UI input before streaming", async () => {
+  it("rejects a missing API key and invalid AG-UI input before streaming", async () => {
     const { url } = await startApp(clientReturning([]));
     const missing = await post(url, validInput);
     expect(missing.status).toBe(401);
     expect(missing.headers.get("content-type")).toContain("application/json");
 
-    const invalid = await post(url, { messages: [] }, "activity-code");
+    const invalid = await post(url, { messages: [] }, "nvk-key");
     expect(invalid.status).toBe(400);
     expect(invalid.headers.get("content-type")).toContain("application/json");
   });
 
-  it("passes only the trimmed header code to the request-scoped client", async () => {
+  it("passes only the trimmed header API key to the request-scoped client", async () => {
     const createClient = vi.fn(() => clientReturning([chunk({ content: "Safe response" })]));
     const { url } = await startApp(createClient);
 
-    const response = await post(url, validInput, "  private-activity-code  ");
+    const response = await post(url, validInput, "  nvk-private-api-key  ");
     const body = await response.text();
 
-    expect(createClient).toHaveBeenCalledWith("private-activity-code");
+    expect(createClient).toHaveBeenCalledWith("nvk-private-api-key");
     expect(body).toContain("Safe response");
-    expect(body).not.toContain("private-activity-code");
+    expect(body).not.toContain("nvk-private-api-key");
     expect(parseEvents(body).map((event) => event.type)).toEqual([
       "RUN_STARTED",
       "TEXT_MESSAGE_START",
@@ -54,13 +54,13 @@ describe("Novedu AG-UI route", () => {
   });
 
   it.each([
-    [401, "invalid_code"],
-    [403, "inactive_code"],
+    [401, "invalid_api_key"],
+    [403, "activity_inactive"],
     [413, "request_too_large"],
     [502, "upstream_failure"],
   ])("streams sanitized upstream %i errors", async (status, expectedCode) => {
     const { url } = await startApp(() => throwingClient(status));
-    const response = await post(url, validInput, "code");
+    const response = await post(url, validInput, "nvk-key");
     const body = await response.text();
     const events = parseEvents(body);
 
@@ -90,7 +90,7 @@ describe("Novedu AG-UI route", () => {
     };
     const { url } = await startApp(disconnectClient);
     const controller = new AbortController();
-    const response = await post(url, validInput, "code", {}, controller.signal);
+    const response = await post(url, validInput, "nvk-key", {}, controller.signal);
     await response.body!.getReader().read();
     controller.abort();
 
@@ -103,13 +103,13 @@ describe("Novedu AG-UI route", () => {
     expect(options.status).toBe(204);
     expect(options.headers.get("access-control-allow-origin")).toBeNull();
 
-    const response = await post(url, validInput, "code", { Origin: "https://other.example" });
+    const response = await post(url, validInput, "nvk-key", { Origin: "https://other.example" });
     await response.text();
     expect(response.headers.get("access-control-allow-origin")).toBeNull();
   });
 });
 
-async function startApp(createClient: ((code: string) => NoveduChatClient) | NoveduChatClient) {
+async function startApp(createClient: ((apiKey: string) => NoveduChatClient) | NoveduChatClient) {
   const app = express();
   app.use(NOVEDU_AGENT_PATH, createNoveduAgentRouter({
     createClient: typeof createClient === "function" ? createClient : () => createClient,
@@ -126,7 +126,7 @@ async function startApp(createClient: ((code: string) => NoveduChatClient) | Nov
 function post(
   url: string,
   body: unknown,
-  code?: string,
+  apiKey?: string,
   extraHeaders: Record<string, string> = {},
   signal?: AbortSignal,
 ) {
@@ -134,7 +134,7 @@ function post(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...(code ? { "X-Novedu-Code": code } : {}),
+      ...(apiKey ? { "X-Novedu-Api-Key": apiKey } : {}),
       ...extraHeaders,
     },
     body: JSON.stringify(body),

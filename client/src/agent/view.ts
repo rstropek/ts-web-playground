@@ -6,8 +6,8 @@ import { AgentController } from "./transport";
 
 export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseSpecMarkdown: string) {
   const section = document.getElementById("agent")! as HTMLElement;
-  const codeForm = document.getElementById("agent-code-form")! as HTMLFormElement;
-  const codeInput = document.getElementById("agent-code")! as HTMLInputElement;
+  const keyForm = document.getElementById("agent-key-form")! as HTMLFormElement;
+  const keyInput = document.getElementById("agent-api-key")! as HTMLInputElement;
   const conversation = document.getElementById("agent-conversation")! as HTMLDivElement;
   const chat = document.getElementById("agent-chat")! as HTMLDivElement;
   const messageForm = document.getElementById("agent-message-form")! as HTMLFormElement;
@@ -53,13 +53,13 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
     scrollToBottom();
   };
 
-  codeForm.addEventListener("submit", (event) => {
+  keyForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    const code = codeInput.value.trim();
-    if (!code || controller) return;
+    const apiKey = keyInput.value.trim();
+    if (!apiKey || controller) return;
 
     controller = new AgentController({
-      code,
+      apiKey,
       tools: createAgentTools(files, monacoApi, exerciseSpecMarkdown),
       callbacks: {
         onUserMessage(content) {
@@ -147,8 +147,8 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
       },
     });
 
-    codeInput.value = "";
-    codeForm.hidden = true;
+    keyInput.value = "";
+    keyForm.hidden = true;
     conversation.hidden = false;
     messageForm.hidden = false;
     messageInput.focus();

@@ -240,19 +240,19 @@ export function sanitizeUpstreamError(error: unknown): RunErrorEvent {
     case 401:
       return {
         type: EventType.RUN_ERROR,
-        code: "invalid_code",
-        message: "The activity code is invalid.",
+        code: "invalid_api_key",
+        message: "The Novedu API key is invalid, or its activity is no longer available.",
       };
     case 403:
       return {
         type: EventType.RUN_ERROR,
-        code: "inactive_code",
-        message: "This activity is inactive.",
+        code: "activity_inactive",
+        message: "This activity is outside its availability window.",
       };
     case 410:
       return {
         type: EventType.RUN_ERROR,
-        code: "expired_code",
+        code: "activity_expired",
         message: "This activity has expired.",
       };
     case 413:

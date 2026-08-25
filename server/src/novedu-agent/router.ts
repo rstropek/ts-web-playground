@@ -14,7 +14,7 @@ export const NOVEDU_AGENT_PATH = "/api/novedu-agent";
 export const NOVEDU_BASE_URL = "https://novedu.at/api/coding/v1";
 
 export interface NoveduAgentRouterOptions {
-  createClient?: (code: string) => NoveduChatClient;
+  createClient?: (apiKey: string) => NoveduChatClient;
 }
 
 export function createNoveduAgentRouter(
@@ -28,9 +28,11 @@ export function createNoveduAgentRouter(
   });
 
   router.post("/", express.json({ limit: "2mb" }), async (req, res) => {
-    const code = req.get("X-Novedu-Code")?.trim();
-    if (!code) {
-      res.status(401).json({ error: "An activity code is required." });
+    // The student's personal Novedu API key (`nvk-…`). Novedu retired
+    // code-as-key: the activity code alone no longer authenticates anything.
+    const apiKey = req.get("X-Novedu-Api-Key")?.trim();
+    if (!apiKey) {
+      res.status(401).json({ error: "A Novedu API key is required." });
       return;
     }
 
@@ -69,7 +71,7 @@ export function createNoveduAgentRouter(
     });
 
     try {
-      const client = createClient(code);
+      const client = createClient(apiKey);
       const stream = await client.chat.completions.create(
         createChatCompletionRequest(parsed.data),
         { signal: abortController.signal },
@@ -110,9 +112,9 @@ export function createNoveduAgentRouter(
   return router;
 }
 
-function createDefaultClient(code: string): NoveduChatClient {
+function createDefaultClient(apiKey: string): NoveduChatClient {
   return new OpenAI({
-    apiKey: code,
+    apiKey,
     baseURL: NOVEDU_BASE_URL,
     maxRetries: 0,
   }) as NoveduChatClient;

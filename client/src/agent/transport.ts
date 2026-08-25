@@ -28,10 +28,11 @@ export interface AgentViewCallbacks {
 }
 
 export interface AgentControllerOptions {
-  code: string;
+  /** The student's personal Novedu API key (`nvk-…`), not the activity code. */
+  apiKey: string;
   tools: AgentToolSet;
   callbacks?: AgentViewCallbacks;
-  createAgent?: (code: string) => AgentTransport;
+  createAgent?: (apiKey: string) => AgentTransport;
   idFactory?: () => string;
 }
 
@@ -54,7 +55,7 @@ export class AgentController {
     this.tools = options.tools;
     this.callbacks = options.callbacks ?? {};
     this.idFactory = options.idFactory ?? createId;
-    this.agent = (options.createAgent ?? createHttpAgent)(options.code);
+    this.agent = (options.createAgent ?? createHttpAgent)(options.apiKey);
   }
 
   get isRunning() {
@@ -194,10 +195,10 @@ export class AgentController {
   }
 }
 
-function createHttpAgent(code: string): AgentTransport {
+function createHttpAgent(apiKey: string): AgentTransport {
   return new HttpAgent({
     url: "/api/novedu-agent",
-    headers: { "X-Novedu-Code": code },
+    headers: { "X-Novedu-Api-Key": apiKey },
   });
 }
 

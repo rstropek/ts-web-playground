@@ -496,7 +496,7 @@ select {
   color: color-mix(in srgb, #2f7fd0 60%, var(--editor-fg-color));
 }
 
-.agent-code-form {
+.agent-key-form {
   box-sizing: border-box;
   width: min(460px, calc(100% - 32px));
   margin: auto;
@@ -507,19 +507,19 @@ select {
   box-shadow: 0 8px 30px color-mix(in srgb, var(--editor-fg-color) 12%, transparent);
 }
 
-.agent-code-form h2 {
+.agent-key-form h2 {
   margin-top: 0;
 }
 
-.agent-code-form label,
-.agent-code-form input,
-.agent-code-form button {
+.agent-key-form label,
+.agent-key-form input,
+.agent-key-form button {
   display: block;
   box-sizing: border-box;
   width: 100%;
 }
 
-.agent-code-form input {
+.agent-key-form input {
   margin: 6px 0 14px;
   padding: 10px;
   border: 1px solid var(--editor-border-color);
@@ -746,7 +746,7 @@ select {
 }
 
 @media (max-width: 767px) {
-  .agent-code-form {
+  .agent-key-form {
     padding: 18px;
   }
 

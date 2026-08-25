@@ -99,8 +99,8 @@ app.engine("hbs", engine({
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Keep this route before the global CORS middleware. Its custom activity-code
-// header is intentionally available only to same-origin browser requests.
+// Keep this route before the global CORS middleware. Its custom API-key header
+// is intentionally available only to same-origin browser requests.
 app.use(NOVEDU_AGENT_PATH, createNoveduAgentRouter());
 
 app.use(cors());
