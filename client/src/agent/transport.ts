@@ -24,8 +24,17 @@ export interface AgentViewCallbacks {
   onToolStart?(toolCallId: string, name: string): void;
   onToolComplete?(toolCallId: string, name: string, args: unknown, result: string): void;
   onStopped?(partialMessageIds: string[]): void;
-  onError?(message: string): void;
+  onError?(message: string, code?: string): void;
 }
+
+export type KeyCheckResult =
+  | { status: "valid" }
+  /** Novedu rejected the key outright - it is worth nothing, forget it. */
+  | { status: "invalid"; message: string }
+  /** The key is fine, its activity is just closed right now - keep it. */
+  | { status: "closed"; message: string }
+  /** The check itself failed and says nothing about the key - keep it. */
+  | { status: "unknown"; message: string };
 
 export interface AgentControllerOptions {
   /** The student's personal Novedu API key (`nvk-…`), not the activity code. */
@@ -88,7 +97,7 @@ export class AgentController {
         const stableMessages = cloneMessages(this.agent.messages);
         const capturedTools = new Map<string, CapturedToolCall>();
         const partialMessageIds = new Set<string>();
-        let runError: string | undefined;
+        let runError: { message: string; code?: string } | undefined;
 
         const subscriber: AgentSubscriber = {
           onTextMessageStartEvent: ({ event }) => {
@@ -123,7 +132,7 @@ export class AgentController {
             }
           },
           onRunErrorEvent: ({ event }) => {
-            runError = event.message;
+            runError = { message: event.message, code: event.code };
           },
         };
 
@@ -146,7 +155,7 @@ export class AgentController {
         }
         if (runError) {
           this.agent.messages = stableMessages;
-          this.callbacks.onError?.(runError);
+          this.callbacks.onError?.(runError.message, runError.code);
           return;
         }
 
@@ -192,6 +201,44 @@ export class AgentController {
     if (this.activeTurn) return false;
     this.agent.messages = [];
     return true;
+  }
+}
+
+const UNKNOWN_KEY_CHECK = {
+  status: "unknown",
+  message: "Could not check your API key right now.",
+} as const satisfies KeyCheckResult;
+
+/**
+ * Asks the playground server whether a key still works. The server does the
+ * talking to Novedu because that endpoint sends no CORS headers.
+ *
+ * Anything unexpected - a dead server, a truncated body, a status this build
+ * does not know - resolves to "unknown" rather than "invalid": only "invalid"
+ * makes the caller throw a stored key away, so guessing there would punish
+ * students for an outage.
+ */
+export async function verifyApiKey(apiKey: string): Promise<KeyCheckResult> {
+  try {
+    const response = await fetch("/api/novedu-agent/key-check", {
+      headers: { "X-Novedu-Api-Key": apiKey },
+    });
+    if (!response.ok) return UNKNOWN_KEY_CHECK;
+
+    const body = await response.json() as { status?: unknown; message?: unknown };
+    const message = typeof body.message === "string" ? body.message : UNKNOWN_KEY_CHECK.message;
+    switch (body.status) {
+      case "valid":
+        return { status: "valid" };
+      case "invalid":
+      case "closed":
+      case "unknown":
+        return { status: body.status, message };
+      default:
+        return UNKNOWN_KEY_CHECK;
+    }
+  } catch {
+    return UNKNOWN_KEY_CHECK;
   }
 }
 

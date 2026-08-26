@@ -519,6 +519,16 @@ select {
   width: 100%;
 }
 
+.agent-key-message {
+  margin: 12px 0 0;
+  color: var(--editor-muted-color);
+  font-size: 13px;
+}
+
+.agent-key-message.agent-key-message-error {
+  color: color-mix(in srgb, #c94747 65%, var(--editor-fg-color));
+}
+
 .agent-key-form input {
   margin: 6px 0 14px;
   padding: 10px;
@@ -570,8 +580,13 @@ select {
   font-size: 12px;
 }
 
-#agent .agent-start-over {
+.agent-session-actions {
+  display: flex;
   flex: 0 0 auto;
+  gap: 8px;
+}
+
+#agent .agent-session-button {
   padding: 4px 9px;
   border-color: var(--editor-border-color);
   background: transparent;

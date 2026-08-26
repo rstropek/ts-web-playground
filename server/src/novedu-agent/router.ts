@@ -13,8 +13,21 @@ import {
 export const NOVEDU_AGENT_PATH = "/api/novedu-agent";
 export const NOVEDU_BASE_URL = "https://novedu.at/api/coding/v1";
 
+/** What the key check was able to conclude about a key. */
+export type KeyCheckStatus = "valid" | "invalid" | "closed" | "unknown";
+
+// Only "invalid" ever costs the student their stored key, so every status that
+// is not a flat rejection has to fall into one of the harmless buckets.
+const KEY_CHECK_MESSAGES: Record<Exclude<KeyCheckStatus, "valid">, string> = {
+  invalid: "Your Novedu API key was not accepted. Please enter it again.",
+  closed: "This activity is not open right now. Try again when your teacher opens it.",
+  unknown: "Could not check your API key right now.",
+};
+
 export interface NoveduAgentRouterOptions {
   createClient?: (apiKey: string) => NoveduChatClient;
+  /** Resolves when the key is usable, throws otherwise. */
+  verifyApiKey?: (apiKey: string, signal: AbortSignal) => Promise<void>;
 }
 
 export function createNoveduAgentRouter(
@@ -22,9 +35,35 @@ export function createNoveduAgentRouter(
 ): express.Router {
   const router = express.Router();
   const createClient = options.createClient ?? createDefaultClient;
+  const verifyApiKey = options.verifyApiKey ?? verifyApiKeyUpstream;
 
   router.options("/", (_req, res) => {
     res.status(204).end();
+  });
+
+  // Lets the playground find out whether a remembered API key still works
+  // without spending a conversation turn. Novedu's /models endpoint sends no
+  // CORS headers, so the browser cannot ask it directly - this proxies it.
+  router.get("/key-check", async (req, res) => {
+    const apiKey = req.get("X-Novedu-Api-Key")?.trim();
+    if (!apiKey) {
+      res.status(401).json({ error: "A Novedu API key is required." });
+      return;
+    }
+
+    const abortController = new AbortController();
+    res.once("close", () => abortController.abort());
+
+    let status: KeyCheckStatus;
+    try {
+      await verifyApiKey(apiKey, abortController.signal);
+      status = "valid";
+    } catch (error) {
+      status = classifyKeyCheckError(getErrorStatus(error));
+    }
+
+    if (res.writableEnded) return;
+    res.json(status === "valid" ? { status } : { status, message: KEY_CHECK_MESSAGES[status] });
   });
 
   router.post("/", express.json({ limit: "2mb" }), async (req, res) => {
@@ -113,9 +152,32 @@ export function createNoveduAgentRouter(
 }
 
 function createDefaultClient(apiKey: string): NoveduChatClient {
+  return createOpenAIClient(apiKey) as NoveduChatClient;
+}
+
+// The cheapest authenticated call on the Novedu proxy: it never reaches the
+// model and meters nothing, so it is safe to run on every page load.
+async function verifyApiKeyUpstream(apiKey: string, signal: AbortSignal): Promise<void> {
+  await createOpenAIClient(apiKey).models.list({ signal });
+}
+
+function createOpenAIClient(apiKey: string): OpenAI {
   return new OpenAI({
     apiKey,
     baseURL: NOVEDU_BASE_URL,
     maxRetries: 0,
-  }) as NoveduChatClient;
+  });
+}
+
+// A closed availability window (403) means the key itself is fine and will work
+// again later, so it must not be treated like a rejection.
+function classifyKeyCheckError(status: number | undefined): Exclude<KeyCheckStatus, "valid"> {
+  switch (status) {
+    case 401:
+      return "invalid";
+    case 403:
+      return "closed";
+    default:
+      return "unknown";
+  }
 }

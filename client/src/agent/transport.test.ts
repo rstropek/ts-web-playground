@@ -1,9 +1,10 @@
 import type { AgentSubscriber, Message, RunAgentParameters, RunAgentResult } from "@ag-ui/client";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import type { AgentToolSet } from "./tools";
 import {
   AgentController,
   MAX_AGENT_RUNS_PER_TURN,
+  verifyApiKey,
   type AgentTransport,
 } from "./transport";
 
@@ -134,6 +135,57 @@ describe("AgentController", () => {
     expect(agent.messages).toEqual([]);
   });
 });
+
+describe("verifyApiKey", () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("sends the key to the playground server and passes the verdict through", async () => {
+    const fetchMock = vi.fn(async () => jsonResponse({ status: "valid" }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(verifyApiKey("nvk-key")).resolves.toEqual({ status: "valid" });
+    expect(fetchMock).toHaveBeenCalledWith("/api/novedu-agent/key-check", {
+      headers: { "X-Novedu-Api-Key": "nvk-key" },
+    });
+
+    vi.stubGlobal("fetch", async () => jsonResponse({ status: "closed", message: "Not open." }));
+    await expect(verifyApiKey("nvk-key")).resolves.toEqual({ status: "closed", message: "Not open." });
+
+    vi.stubGlobal("fetch", async () => jsonResponse({ status: "invalid", message: "Rejected." }));
+    await expect(verifyApiKey("nvk-key")).resolves.toEqual({ status: "invalid", message: "Rejected." });
+  });
+
+  // Only "invalid" makes the caller delete a stored key, so anything the client
+  // cannot positively read as a rejection has to land on "unknown" instead.
+  it.each([
+    ["a failed request", async () => { throw new Error("offline"); }],
+    ["a non-200 response", async () => new Response("nope", { status: 500 })],
+    ["an unparseable body", async () => new Response("not json", { status: 200 })],
+    ["an unrecognised status", async () => jsonResponse({ status: "banana" })],
+    ["a missing status", async () => jsonResponse({ message: "Rejected." })],
+  ])("falls back to unknown for %s", async (_label, fetchImpl) => {
+    vi.stubGlobal("fetch", fetchImpl);
+    await expect(verifyApiKey("nvk-key")).resolves.toEqual({
+      status: "unknown",
+      message: expect.any(String),
+    });
+  });
+
+  it("always carries a message the view can show", async () => {
+    vi.stubGlobal("fetch", async () => jsonResponse({ status: "unknown" }));
+    await expect(verifyApiKey("nvk-key")).resolves.toMatchObject({
+      status: "unknown",
+      message: expect.any(String),
+    });
+  });
+});
+
+function jsonResponse(body: unknown): Response {
+  return new Response(JSON.stringify(body), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
+}
 
 class FakeAgent implements AgentTransport {
   messages: Message[] = [];

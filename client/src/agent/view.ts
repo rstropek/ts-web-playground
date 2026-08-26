@@ -1,13 +1,17 @@
 import type * as monaco from "monaco-editor";
 import type { Files } from "../files";
 import { renderMarkdown, summarizeToolCall } from "./rendering";
+import { clearStoredApiKey, getStoredApiKey, setStoredApiKey } from "./key-storage";
 import { createAgentTools } from "./tools";
-import { AgentController } from "./transport";
+import { AgentController, verifyApiKey, type KeyCheckResult } from "./transport";
 
 export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseSpecMarkdown: string) {
   const section = document.getElementById("agent")! as HTMLElement;
   const keyForm = document.getElementById("agent-key-form")! as HTMLFormElement;
   const keyInput = document.getElementById("agent-api-key")! as HTMLInputElement;
+  const keySubmit = document.getElementById("agent-key-submit")! as HTMLButtonElement;
+  const keyMessage = document.getElementById("agent-key-message")! as HTMLParagraphElement;
+  const keyChecking = document.getElementById("agent-key-checking")! as HTMLDivElement;
   const conversation = document.getElementById("agent-conversation")! as HTMLDivElement;
   const chat = document.getElementById("agent-chat")! as HTMLDivElement;
   const messageForm = document.getElementById("agent-message-form")! as HTMLFormElement;
@@ -15,9 +19,11 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
   const sendButton = document.getElementById("agent-send")! as HTMLButtonElement;
   const stopButton = document.getElementById("agent-stop")! as HTMLButtonElement;
   const startOverButton = document.getElementById("agent-start-over")! as HTMLButtonElement;
+  const newKeyButton = document.getElementById("agent-new-key")! as HTMLButtonElement;
   const textMessages = new Map<string, HTMLDivElement>();
   const toolEntries = new Map<string, HTMLDetailsElement>();
   let controller: AgentController | undefined;
+  let checkingKey = false;
 
   const scrollToBottom = () => {
     conversation.scrollTop = conversation.scrollHeight;
@@ -30,6 +36,13 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
     if (!active || active === document.body || section.contains(active)) {
       messageInput.focus();
     }
+  };
+
+  // The agent pane is hidden unless it is the active view, and the key check
+  // resolves whenever it resolves - often while the student is typing code.
+  // Focusing unconditionally would yank the caret out of the editor.
+  const focusIfVisible = (element: HTMLElement) => {
+    if (section.offsetParent !== null) element.focus();
   };
 
   // Bridges the gap between sending a turn and the first token of the answer,
@@ -45,6 +58,12 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
   };
   const hideWaiting = () => waiting.remove();
 
+  const setKeyMessage = (text?: string, isError = false) => {
+    keyMessage.textContent = text ?? "";
+    keyMessage.hidden = !text;
+    keyMessage.classList.toggle("agent-key-message-error", isError);
+  };
+
   const addStatus = (text: string, className = "") => {
     const status = document.createElement("div");
     status.className = `agent-status ${className}`.trim();
@@ -53,11 +72,7 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
     scrollToBottom();
   };
 
-  keyForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const apiKey = keyInput.value.trim();
-    if (!apiKey || controller) return;
-
+  const startSession = (apiKey: string) => {
     controller = new AgentController({
       apiKey,
       tools: createAgentTools(files, monacoApi, exerciseSpecMarkdown),
@@ -75,6 +90,7 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
           messageInput.disabled = running;
           sendButton.disabled = running;
           startOverButton.disabled = running;
+          newKeyButton.disabled = running;
           stopButton.hidden = !running;
           if (!running) focusMessageInput();
         },
@@ -140,18 +156,68 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
           if (!partialMessageIds.length) addStatus("Stopped", "agent-status-muted");
           scrollToBottom();
         },
-        onError(message) {
+        onError(message, code) {
           hideWaiting();
           addStatus(message, "agent-status-error");
+          // A key that died mid-session would otherwise be restored on the next
+          // page load and fail again. Only a flat rejection counts: a closed or
+          // expired activity leaves the key itself perfectly good.
+          if (code === "invalid_api_key") clearStoredApiKey();
         },
       },
     });
 
     keyInput.value = "";
     keyForm.hidden = true;
+    keyChecking.hidden = true;
     conversation.hidden = false;
     messageForm.hidden = false;
-    messageInput.focus();
+    focusIfVisible(messageInput);
+  };
+
+  // The way back out of the chat: used by "New key" and by a saved key that no
+  // longer passes the check.
+  const showKeyForm = (message?: string, isError = false) => {
+    controller = undefined;
+    chat.replaceChildren();
+    textMessages.clear();
+    toolEntries.clear();
+    messageInput.value = "";
+    conversation.hidden = true;
+    messageForm.hidden = true;
+    keyChecking.hidden = true;
+    keyForm.hidden = false;
+    setKeyMessage(message, isError);
+    focusIfVisible(keyInput);
+  };
+
+  keyForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const apiKey = keyInput.value.trim();
+    if (!apiKey || controller || checkingKey) return;
+
+    checkingKey = true;
+    keyInput.disabled = true;
+    keySubmit.disabled = true;
+    setKeyMessage("Checking your key…");
+    let result: KeyCheckResult;
+    try {
+      result = await verifyApiKey(apiKey);
+    } finally {
+      checkingKey = false;
+      keyInput.disabled = false;
+      keySubmit.disabled = false;
+    }
+
+    // Only a key that has just been proven to work is worth remembering.
+    if (result.status !== "valid") {
+      setKeyMessage(result.message, result.status === "invalid");
+      focusIfVisible(keyInput);
+      return;
+    }
+    setStoredApiKey(apiKey);
+    setKeyMessage();
+    startSession(apiKey);
   });
 
   messageForm.addEventListener("submit", (event) => {
@@ -171,6 +237,12 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
       messageForm.requestSubmit();
     }
   });
+  newKeyButton.addEventListener("click", () => {
+    if (controller?.isRunning) return;
+    clearStoredApiKey();
+    showKeyForm();
+  });
+
   stopButton.addEventListener("click", () => controller?.stop());
   startOverButton.addEventListener("click", () => {
     if (!controller?.resetConversation()) return;
@@ -180,4 +252,31 @@ export function mountAgentView(files: Files, monacoApi: typeof monaco, exerciseS
     messageInput.value = "";
     messageInput.focus();
   });
+
+  void restoreStoredKey();
+
+  // Moving to the next exercise is a full page load, so without this the
+  // student would paste the same key over and over. A remembered key is only
+  // trusted as far as the check confirms it.
+  async function restoreStoredKey() {
+    const apiKey = getStoredApiKey();
+    if (!apiKey) return;
+
+    keyForm.hidden = true;
+    keyChecking.hidden = false;
+    const result = await verifyApiKey(apiKey);
+    if (result.status === "valid") {
+      startSession(apiKey);
+      return;
+    }
+    // "closed" and "unknown" say nothing bad about the key itself, so it stays
+    // put and will be picked up again on the next load.
+    if (result.status === "invalid") clearStoredApiKey();
+    showKeyForm(
+      result.status === "unknown"
+        ? `${result.message} Paste it again, or reload the page later.`
+        : result.message,
+      result.status === "invalid",
+    );
+  }
 }

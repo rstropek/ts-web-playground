@@ -97,6 +97,46 @@ describe("Novedu AG-UI route", () => {
     await vi.waitFor(() => expect(upstreamAborted).toBe(true));
   });
 
+  it("reports a usable API key without touching the chat completions endpoint", async () => {
+    const verifyApiKey = vi.fn(async () => {});
+    const { url } = await startApp(clientReturning([]), verifyApiKey);
+
+    const missing = await fetch(`${url}/key-check`);
+    expect(missing.status).toBe(401);
+    expect(verifyApiKey).not.toHaveBeenCalled();
+
+    const response = await keyCheck(url, "  nvk-private-api-key  ");
+    const body = await response.text();
+
+    expect(response.status).toBe(200);
+    expect(verifyApiKey).toHaveBeenCalledWith("nvk-private-api-key", expect.any(AbortSignal));
+    expect(JSON.parse(body)).toEqual({ status: "valid" });
+    expect(body).not.toContain("nvk-private-api-key");
+  });
+
+  it.each([
+    // Only a flat rejection may cost the student the key they have stored: a
+    // closed activity window and a server hiccup both say nothing about it.
+    [401, "invalid"],
+    [403, "closed"],
+    [500, "unknown"],
+    [503, "unknown"],
+    [undefined, "unknown"],
+  ])("classifies an upstream %s from the key check as %s", async (status, expectedStatus) => {
+    const { url } = await startApp(clientReturning([]), async () => {
+      throw status === undefined
+        ? new Error("raw secret details")
+        : Object.assign(new Error("raw secret details"), { status });
+    });
+
+    const response = await keyCheck(url, "nvk-key");
+    const body = await response.text();
+
+    expect(response.status).toBe(200);
+    expect(JSON.parse(body)).toMatchObject({ status: expectedStatus, message: expect.any(String) });
+    expect(body).not.toContain("raw secret details");
+  });
+
   it("returns POST and OPTIONS without CORS headers despite later global CORS", async () => {
     const { url } = await startApp(clientReturning([]));
     const options = await fetch(url, { method: "OPTIONS", headers: { Origin: "https://other.example" } });
@@ -109,10 +149,14 @@ describe("Novedu AG-UI route", () => {
   });
 });
 
-async function startApp(createClient: ((apiKey: string) => NoveduChatClient) | NoveduChatClient) {
+async function startApp(
+  createClient: ((apiKey: string) => NoveduChatClient) | NoveduChatClient,
+  verifyApiKey?: (apiKey: string, signal: AbortSignal) => Promise<void>,
+) {
   const app = express();
   app.use(NOVEDU_AGENT_PATH, createNoveduAgentRouter({
     createClient: typeof createClient === "function" ? createClient : () => createClient,
+    verifyApiKey,
   }));
   app.use(cors());
   const server = createServer(app);
@@ -140,6 +184,10 @@ function post(
     body: JSON.stringify(body),
     signal,
   });
+}
+
+function keyCheck(url: string, apiKey: string) {
+  return fetch(`${url}/key-check`, { headers: { "X-Novedu-Api-Key": apiKey } });
 }
 
 function clientReturning(chunks: ChatCompletionChunk[]): NoveduChatClient {

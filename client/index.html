@@ -61,15 +61,23 @@
         <section id="agent" aria-label="Coding agent">
           <form id="agent-key-form" class="agent-key-form">
             <h2>Coding Agent</h2>
-            <p>Paste your personal Novedu API key (it starts with <code>nvk-</code>). Open the activity link from your teacher and sign in to get it &mdash; the activity code on its own does not work here. The key stays in this browser tab and is sent only to this playground server.</p>
+            <p>Paste your personal Novedu API key (it starts with <code>nvk-</code>). Open the activity link from your teacher and sign in to get it &mdash; the activity code on its own does not work here. The key is sent only to this playground server, and remembered in this browser so that you do not have to paste it again for the next exercise. On a shared computer, use &ldquo;New key&rdquo; when you are done.</p>
             <label for="agent-api-key">Novedu API key</label>
             <input id="agent-api-key" name="apiKey" type="password" autocomplete="off" required>
-            <button type="submit">Start agent</button>
+            <button id="agent-key-submit" type="submit">Start agent</button>
+            <p id="agent-key-message" class="agent-key-message" hidden></p>
           </form>
+          <div id="agent-key-checking" class="agent-key-form" hidden>
+            <h2>Coding Agent</h2>
+            <p aria-live="polite">Checking your saved Novedu API key&hellip;</p>
+          </div>
           <div id="agent-conversation" class="agent-conversation" hidden>
             <div class="agent-session-bar">
-              <div class="agent-session-note">To use a different API key, reload this page.</div>
-              <button id="agent-start-over" class="agent-start-over" type="button">Start over</button>
+              <div class="agent-session-note">Your API key is remembered in this browser.</div>
+              <div class="agent-session-actions">
+                <button id="agent-new-key" class="agent-session-button" type="button">New key</button>
+                <button id="agent-start-over" class="agent-session-button" type="button">Start over</button>
+              </div>
             </div>
             <div id="agent-chat" class="agent-chat"></div>
           </div>
