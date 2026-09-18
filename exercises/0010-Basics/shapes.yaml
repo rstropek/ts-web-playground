@@ -10,7 +10,7 @@ descriptionMd: |
 
   Note: Lines that start with `//` are comments. These lines are not part of the actual code but are there to help you understand it. You should type them in too. If you make a mistake in a comment, don't worry; it's not a big problem.
 
-  ![Shapes Code](https://github.com/rstropek/ts-web-playground/blob/main/exercises/0010-Basics/shapes.png?raw=true)
+  ![Shapes Code](https://raw.githubusercontent.com/rstropek/ts-web-playground/refs/heads/main/exercises/0010-Basics/shapes.png)
 
   ## Task 2 - Understanding the code
 
