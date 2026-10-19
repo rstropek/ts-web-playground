@@ -11,7 +11,8 @@ import {
 } from "./bridge.js";
 
 export const NOVEDU_AGENT_PATH = "/api/novedu-agent";
-export const NOVEDU_BASE_URL = "https://novedu.at/api/coding/v1";
+// Novedu PROD. The novedu.at prototype is shut down; DEV runs at dev.novedu.at.
+export const NOVEDU_BASE_URL = "https://app.novedu.at/api/coding/v1";
 
 /** What the key check was able to conclude about a key. */
 export type KeyCheckStatus = "valid" | "invalid" | "closed" | "unknown";
