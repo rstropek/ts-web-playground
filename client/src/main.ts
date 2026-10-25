@@ -8,6 +8,7 @@ import { compile } from "./compile";
 import purify from "dompurify";
 import { renderMarkdownToHtml } from "./markdown";
 import { mountAgentView } from "./agent/view";
+import { adoptApiKeyFromUrl } from "./agent/key-storage";
 import { initThemes } from "./theme";
 import { getEditorFontSize, mountSettingsDialog, onEditorFontSizeChange } from "./settings";
 
@@ -244,6 +245,10 @@ localSaves.addEventListener("click", () => {
 //   // ok button closes the dialog
 //   (message.querySelector('#ok')! as HTMLButtonElement).addEventListener("click", () => message.close());
 // });
+
+// Before anything else, so the key leaves the address bar even if loading the
+// exercise fails.
+adoptApiKeyFromUrl();
 
 const exerciseUrl = getExerciseUrlFromQueryString();
 

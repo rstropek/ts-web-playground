@@ -63,6 +63,8 @@ http://localhost:5173/playground/?exerciseUrl=https%3A%2F%2Fraw.githubuserconten
 
 In this mode `/me` and `/github/*` have no backing server, so cloud save is unavailable and exercise loading falls back to a direct cross-origin request. All repository exercises use `{{p5Source}}` and therefore expect `/libs/p5.min.js`, which the Express server normally serves. To run their sketches from the client-only Vite server, expose the installed `p5/lib/p5.min.js` at that path on the client origin.
 
+For workshops, a link can also hand the student their Novedu API key in the URL fragment, which always comes last: `…/playground/?exerciseUrl=…#noveduApiKey=nvk-…`. The fragment never reaches a server. The playground remembers the key like a pasted one and removes it from the address bar on load. Only use this with short-lived keys, because anyone holding the link holds the key.
+
 ### Run the full platform
 
 The full server cannot boot with local defaults alone. It authenticates to Azure using `DefaultAzureCredential`, reads all service credentials from Key Vault, and connects to Redis and Cosmos DB during startup.

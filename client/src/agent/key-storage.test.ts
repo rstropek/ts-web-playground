@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { clearStoredApiKey, getStoredApiKey, setStoredApiKey } from "./key-storage";
+import { adoptApiKeyFromUrl, clearStoredApiKey, getStoredApiKey, setStoredApiKey } from "./key-storage";
 
 describe("key storage", () => {
   afterEach(() => vi.unstubAllGlobals());
@@ -34,6 +34,55 @@ describe("key storage", () => {
     expect(getStoredApiKey()).toBeUndefined();
   });
 });
+
+describe("key from the URL", () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("stores the key and removes it from the address bar", () => {
+    stubStorage({ noveduApiKey: "nvk-old" });
+    const replaceState = stubLocation("?exerciseUrl=x", "#noveduApiKey=nvk-workshop");
+
+    adoptApiKeyFromUrl();
+
+    expect(getStoredApiKey()).toBe("nvk-workshop");
+    expect(replaceState).toHaveBeenCalledWith(null, "", "/playground/?exerciseUrl=x");
+  });
+
+  it("keeps other fragment parameters", () => {
+    stubStorage();
+    const replaceState = stubLocation("", "#a=1&noveduApiKey=nvk-workshop");
+
+    adoptApiKeyFromUrl();
+
+    expect(replaceState).toHaveBeenCalledWith(null, "", "/playground/#a=1");
+  });
+
+  it("leaves the stored key and the URL alone without a key in the URL", () => {
+    stubStorage({ noveduApiKey: "nvk-old" });
+    const replaceState = stubLocation("?exerciseUrl=x", "");
+
+    adoptApiKeyFromUrl();
+
+    expect(getStoredApiKey()).toBe("nvk-old");
+    expect(replaceState).not.toHaveBeenCalled();
+  });
+
+  it("does not overwrite the stored key with a blank one", () => {
+    stubStorage({ noveduApiKey: "nvk-old" });
+    stubLocation("", "#noveduApiKey=");
+
+    adoptApiKeyFromUrl();
+
+    expect(getStoredApiKey()).toBe("nvk-old");
+  });
+});
+
+function stubLocation(search: string, hash: string) {
+  const replaceState = vi.fn();
+  vi.stubGlobal("window", { location: { pathname: "/playground/", search, hash } });
+  vi.stubGlobal("history", { state: null, replaceState });
+  return replaceState;
+}
 
 function stubStorage(initial: Record<string, string> = {}) {
   const entries = new Map(Object.entries(initial));
