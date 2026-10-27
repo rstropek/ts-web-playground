@@ -60,10 +60,15 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
       return;
     }
 
-    const response = await fetch(exerciseUrl.toString(), { redirect: 'follow' });
-    const text = await response.text();
-    res.status(response.status)
-      .header("Content-Type", response.headers.get("Content-Type") || "text/plain")
+    const result = await fetchProxiedUrl(exerciseUrl.toString());
+    if (!result.ok) {
+      res.status(400).send(proxyErrorMessage(result.reason, "exerciseUrl"));
+      return;
+    }
+
+    const text = await result.response.text();
+    res.status(result.response.status)
+      .header("Content-Type", result.response.headers.get("Content-Type") || "text/plain")
       .send(text);
   });
 
@@ -75,11 +80,16 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
       return;
     }
 
-    const response = await fetch(imageUrl.toString(), { redirect: 'follow' });
-    const arrayBuffer = await response.arrayBuffer();
+    const result = await fetchProxiedUrl(imageUrl.toString());
+    if (!result.ok) {
+      res.status(400).send(proxyErrorMessage(result.reason, "imageUrl"));
+      return;
+    }
+
+    const arrayBuffer = await result.response.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    res.status(response.status)
-      .header("Content-Type", response.headers.get("Content-Type") || "application/octet-stream")
+    res.status(result.response.status)
+      .header("Content-Type", result.response.headers.get("Content-Type") || "application/octet-stream")
       .send(buffer);
   });
 
@@ -88,6 +98,83 @@ async function create(cosmosDb: Database, kv: kv.SecretClient): Promise<express.
 
 export function titleToFolder(title: string): string {
   return title.replace(/ /g, "_").replace(/\W/g, "").toLowerCase();
+}
+
+const MAX_PROXY_REDIRECTS = 5;
+
+/**
+ * The proxies above fetch a URL that the caller supplies, so the scheme is
+ * checked first: https anywhere, plain http only for loopback so an exercise
+ * can be served from a local web server while authoring it. Which host an
+ * exercise comes from is deliberately not restricted - teachers host their
+ * exercise files wherever they like.
+ */
+export function validateProxyUrl(candidate: string, base?: URL): URL | undefined {
+  let url: URL;
+  try {
+    url = new URL(candidate, base);
+  } catch {
+    return;
+  }
+
+  if (url.protocol === "https:") {
+    return url;
+  }
+  if (url.protocol === "http:" && isLoopbackHost(url.hostname)) {
+    return url;
+  }
+
+  return;
+}
+
+function isLoopbackHost(hostname: string): boolean {
+  // URL keeps the brackets around an IPv6 host, as in http://[::1]:8000.
+  return hostname === "localhost"
+    || hostname === "[::1]"
+    || /^127\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(hostname);
+}
+
+export type ProxyFetchResult =
+  | { ok: true, response: Response }
+  | { ok: false, reason: "rejected-url" | "too-many-redirects" };
+
+/**
+ * Fetches a proxied URL, following redirects by hand so that every hop goes
+ * through validateProxyUrl again. With fetch's own `redirect: "follow"` a
+ * single redirect could move the request to a scheme we just rejected.
+ */
+export async function fetchProxiedUrl(candidate: string): Promise<ProxyFetchResult> {
+  let url = validateProxyUrl(candidate);
+  if (!url) {
+    return { ok: false, reason: "rejected-url" };
+  }
+
+  for (let hop = 0; hop <= MAX_PROXY_REDIRECTS; hop++) {
+    const response = await fetch(url, { redirect: "manual" });
+
+    const location = isRedirect(response.status) ? response.headers.get("Location") : null;
+    if (!location) {
+      return { ok: true, response };
+    }
+
+    const next = validateProxyUrl(location, url);
+    if (!next) {
+      return { ok: false, reason: "rejected-url" };
+    }
+    url = next;
+  }
+
+  return { ok: false, reason: "too-many-redirects" };
+}
+
+function isRedirect(status: number): boolean {
+  return status === 301 || status === 302 || status === 303 || status === 307 || status === 308;
+}
+
+function proxyErrorMessage(reason: "rejected-url" | "too-many-redirects", parameter: string): string {
+  return reason === "too-many-redirects"
+    ? `${parameter} redirects more than ${MAX_PROXY_REDIRECTS} times`
+    : `${parameter} must be an https URL (http is only allowed for localhost)`;
 }
 
 export default create;
