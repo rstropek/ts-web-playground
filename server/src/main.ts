@@ -67,30 +67,6 @@ app.engine("hbs", engine({
   layoutsDir: path.join(__dirname, "views", "layouts"),
   partialsDir: path.join(__dirname, "views", "partials"),
   helpers: {
-    dateFormat(dateStr: string) {
-      const options: Intl.DateTimeFormatOptions = {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      };
-      return new Date(dateStr).toLocaleString('de-AT', options).replace(',', '');
-    },
-    utcDateTimeToLocal(dateStr: string) {
-      if (!dateStr) { return ""; }
-
-      const date = new Date(dateStr);
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-      const day = String(date.getDate()).padStart(2, '0');
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-
-      const localDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
-      return localDateTime;
-    },
     or: function (a: any, b: any) {
       return a || b;
     }

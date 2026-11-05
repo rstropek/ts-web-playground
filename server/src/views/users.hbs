@@ -37,8 +37,8 @@
                     <td>{{firstName}}</td>
                     <td>{{accountName}}</td>
                     <td>{{class}}</td>
-                    <td>{{dateFormat firstLogin}}</td>
-                    <td>{{dateFormat lastLogin}}</td>
+                    <td><time data-local-date datetime="{{firstLogin}}"></time></td>
+                    <td><time data-local-date datetime="{{lastLogin}}"></time></td>
                     <td class="admin-table-actions">
                         <ul>
                             <li><a href="/users/{{userId}}">✏️</a></li>

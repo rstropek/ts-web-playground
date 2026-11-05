@@ -34,8 +34,8 @@
                 <td>{{category}}</td>
                 <td>{{sortOrder}}</td>
                 <td>{{title}}</td>
-                <td>{{dateFormat created}}</td>
-                <td>{{dateFormat lastChanged}}</td>
+                <td><time data-local-date datetime="{{created}}"></time></td>
+                <td><time data-local-date datetime="{{lastChanged}}"></time></td>
                 <td class="admin-table-actions">
                     <ul>
                         <li><a href="/exercises/{{id}}">✏️</a></li>

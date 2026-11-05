@@ -11,9 +11,9 @@
     <label for="editYamlUrl">YAML&nbsp;URL:</label>
     <input type="text" name="yamlUrl" id="editYamlUrl" value="{{exercise.yamlUrl}}">
     <label for="displayFromInput" class="nowrap">Display from:</label>
-    <input type="datetime-local" name="displayFromInput" id="displayFromInput" value="{{utcDateTimeToLocal exercise.displayFrom}}">
+    <input type="datetime-local" name="displayFromInput" id="displayFromInput" data-utc="{{exercise.displayFrom}}">
     <label for="displayUntilInput" class="nowrap">Display until:</label>
-    <input type="datetime-local" name="displayUntilInput" id="displayUntilInput" value="{{utcDateTimeToLocal exercise.displayUntil}}">
+    <input type="datetime-local" name="displayUntilInput" id="displayUntilInput" data-utc="{{exercise.displayUntil}}">
     <div>
         <input type="string" name="displayFrom" id="displayFrom" hidden >
         <input type="string" name="displayUntil" id="displayUntil" hidden >
