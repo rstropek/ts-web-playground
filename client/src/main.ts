@@ -370,13 +370,19 @@ loadExercise(exerciseUrl).then((ex1) => {
   if (editableFileNames.length === 0) {
     downloadButton.style.display = "none";
   }
-  downloadButton.addEventListener("click", () => {
+  downloadButton.addEventListener("click", async () => {
     const download = buildDownload(
       editableFileNames.map((fileName) => ({ fileName, content: files.getFile(fileName)!.model.getValue() })),
       ex1.title
     );
-    if (download) {
-      saveDownload(download);
+    if (!download) {
+      return;
+    }
+
+    try {
+      await saveDownload(download);
+    } catch (error) {
+      showMessage(`Error saving ${download.fileName}: ${error instanceof Error ? error.message : error}`);
     }
   });
 

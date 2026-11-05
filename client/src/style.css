@@ -300,7 +300,8 @@ select {
 #run { order: 3; }
 #save { order: 4; }
 #localSaves { order: 5; }
-#loadSolution { order: 6; }
+#download { order: 6; }
+#loadSolution { order: 7; }
 
 @media (max-width: 1279px) {
   #burger {

@@ -49,8 +49,68 @@ export function toSafeFileName(title: string): string {
   return safe || "exercise";
 }
 
-/** Let the browser save the download. */
-export function saveDownload(download: Download): void {
+type SaveFilePickerOptions = {
+  id?: string;
+  suggestedName?: string;
+  types?: { description?: string; accept: Record<string, string[]> }[];
+};
+
+/** _showSaveFilePicker_ is only available in Chromium-based browsers and not yet part of lib.dom. */
+type WindowWithSaveFilePicker = Window & {
+  showSaveFilePicker?: (options?: SaveFilePickerOptions) => Promise<FileSystemFileHandle>;
+};
+
+/**
+ * Let the student choose where to save the download.
+ *
+ * Uses the browser's "Save as" dialog where available (Chrome, Edge) and
+ * falls back to a regular download (Firefox, Safari). Must be called directly
+ * from a user interaction (e.g. a click), otherwise the browser refuses to
+ * open the dialog.
+ */
+export async function saveDownload(download: Download): Promise<void> {
+  const pickerWindow = window as WindowWithSaveFilePicker;
+  if (pickerWindow.showSaveFilePicker) {
+    let handle: FileSystemFileHandle | undefined;
+    try {
+      handle = await pickerWindow.showSaveFilePicker({
+        // Lets the browser reopen the dialog in the folder used last time.
+        id: "ts-playground-download",
+        suggestedName: download.fileName,
+        types: fileTypesFor(download),
+      });
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        return; // The student closed the dialog.
+      }
+      // Any other problem with the dialog: use a regular download instead.
+    }
+
+    if (handle) {
+      const writable = await handle.createWritable();
+      await writable.write(download.blob);
+      await writable.close();
+      return;
+    }
+  }
+
+  saveWithLink(download);
+}
+
+function fileTypesFor(download: Download): SaveFilePickerOptions["types"] {
+  const extension = download.fileName.match(/\.[a-z0-9]+$/i)?.[0];
+  if (!extension) {
+    return undefined;
+  }
+
+  const isZip = extension.toLowerCase() === ".zip";
+  return [{
+    description: isZip ? "Zip archive" : `${extension.substring(1).toUpperCase()} file`,
+    accept: { [isZip ? "application/zip" : "text/plain"]: [extension] },
+  }];
+}
+
+function saveWithLink(download: Download): void {
   const url = URL.createObjectURL(download.blob);
   const link = document.createElement("a");
   link.href = url;
