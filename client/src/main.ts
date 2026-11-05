@@ -11,6 +11,7 @@ import { mountAgentView } from "./agent/view";
 import { adoptApiKeyFromUrl } from "./agent/key-storage";
 import { initThemes } from "./theme";
 import { getEditorFontSize, mountSettingsDialog, onEditorFontSizeChange } from "./settings";
+import { buildDownload, saveDownload } from "./download";
 
 const editor = document.getElementById("editor")! as HTMLDivElement;
 const run = document.getElementById("run")! as HTMLButtonElement;
@@ -35,6 +36,7 @@ const title = document.getElementById("title")! as HTMLDivElement;
 const message = document.getElementById("message")! as HTMLDialogElement;
 const clearButton = document.getElementById("output-clear")! as HTMLButtonElement;
 const localSaves = document.getElementById("localSaves")! as HTMLButtonElement;
+const downloadButton = document.getElementById("download")! as HTMLButtonElement;
 const appContainer = document.getElementById("app-container")! as HTMLDivElement;
 const codeViewButton = document.getElementById(
   "code-view-button"
@@ -360,6 +362,22 @@ loadExercise(exerciseUrl).then((ex1) => {
       }
     }
     showMessage(success ? `Files saved successfully` : `Error saving files`);
+  });
+
+  // Download the student's code: a single editable file as it is, several
+  // editable files as a zip archive.
+  const editableFileNames = files.getFileNames().filter((fileName) => files.getFile(fileName)!.isEditable);
+  if (editableFileNames.length === 0) {
+    downloadButton.style.display = "none";
+  }
+  downloadButton.addEventListener("click", () => {
+    const download = buildDownload(
+      editableFileNames.map((fileName) => ({ fileName, content: files.getFile(fileName)!.model.getValue() })),
+      ex1.title
+    );
+    if (download) {
+      saveDownload(download);
+    }
   });
 
   for (const fileName of files.getFileNames()) {

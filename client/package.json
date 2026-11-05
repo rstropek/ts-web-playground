@@ -1,7 +1,7 @@
 {
   "name": "ts-p5-playground",
   "private": true,
-  "version": "2.4.0",
+  "version": "2.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@ag-ui/client": "0.0.58",
     "dompurify": "^3.4.12",
+    "fflate": "^0.8.3",
     "marked": "^18.0.7",
     "monaco-editor": "^0.56.0",
     "split.js": "^1.6.5",
